@@ -1,0 +1,22 @@
+# Claude
+claude/
+.claude/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Node
+node_modules/
+
+# Env files
+.env
+.env.*
