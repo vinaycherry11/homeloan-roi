@@ -125,7 +125,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/static/css/style.css?v=features41">
+<link rel="stylesheet" href="/static/css/style.css?v=features42">
 </head>
 <body>
 
@@ -1863,20 +1863,6 @@
 
 <script src="/static/js/chart.umd.js"></script>
 <script src="/static/js/locality-insights.js?v=static1"></script>
-<script src="/static/js/app.js?v=features41"></script>
-
-<!-- TEMP DEBUG: tap the red button — if it alerts, JS/clicks work fine -->
-<div id="__dbgBtn" style="position:fixed;bottom:16px;right:16px;background:#dc2626;color:#fff;padding:12px 16px;border-radius:8px;z-index:999999;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.4);touch-action:manipulation" onclick="alert('JS + click works!')">TAP TEST</div>
-<script>
-// Capture-phase listener — fires before any element handler
-document.addEventListener('click', function(e) {
-  console.log('[DBG CLICK]', e.target.tagName, e.target.id || e.target.className, 'at', e.clientX, e.clientY);
-}, true);
-document.addEventListener('touchend', function(e) {
-  var t = e.changedTouches[0];
-  var el = document.elementFromPoint(t.clientX, t.clientY);
-  console.log('[DBG TOUCH]', 'target:', e.target.tagName, e.target.id, '| top-element:', el && el.tagName, el && el.id, '| pos:', t.clientX, t.clientY);
-}, true);
-</script>
+<script src="/static/js/app.js?v=features42"></script>
 </body>
 </html>

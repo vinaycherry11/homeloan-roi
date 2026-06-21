@@ -616,7 +616,6 @@ function validate(inputs) {
 
 /* ── Main calculate ── */
 async function calculate() {
-  console.log('[DBG] calculate() called');
   const inputs = getInputs();
   const errs = validate(inputs);
 
