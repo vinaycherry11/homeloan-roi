@@ -1274,22 +1274,22 @@
             <span class="sp-popular-text">Home loan interest rates in 2025 — SBI, HDFC, ICICI, Axis comparison</span>
             <svg class="sp-popular-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a class="sp-popular-item" onclick="toggleChat(); return false;" href="#">
+          <a class="sp-popular-item" onclick="openFaq('spFaq3'); return false;" href="#">
             <span class="sp-popular-icon">💰</span>
             <span class="sp-popular-text">How much EMI can I afford on my salary? — Eligibility calculator</span>
             <svg class="sp-popular-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a class="sp-popular-item" onclick="toggleChat(); return false;" href="#">
+          <a class="sp-popular-item" onclick="openFaq('spFaq10'); return false;" href="#">
             <span class="sp-popular-icon">🏛️</span>
             <span class="sp-popular-text">PMAY 2.0 subsidy — eligibility, income limit, how to apply in 2025</span>
             <svg class="sp-popular-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a class="sp-popular-item" onclick="toggleChat(); return false;" href="#">
+          <a class="sp-popular-item" onclick="openFaq('spFaq5'); return false;" href="#">
             <span class="sp-popular-icon">📋</span>
             <span class="sp-popular-text">Section 24(b) vs 80C vs 80EEA — maximising home loan tax deductions</span>
             <svg class="sp-popular-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-          <a class="sp-popular-item" onclick="toggleChat(); return false;" href="#">
+          <a class="sp-popular-item" onclick="openFaq('spFaq11'); return false;" href="#">
             <span class="sp-popular-icon">🔄</span>
             <span class="sp-popular-text">Home loan balance transfer — when it makes sense and how to do it</span>
             <svg class="sp-popular-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -1489,7 +1489,7 @@
         <h2 class="sp-section-title">Popular Guides</h2>
         <div class="sp-guides">
 
-          <div class="sp-guide">
+          <div class="sp-guide" data-guide="first-time-buyer" style="cursor:pointer">
             <div class="sp-guide-img-wrap sp-guide-banner" style="background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 60%,#3b82f6 100%)">
               <span class="sp-guide-banner-icon">🏠</span>
             </div>
@@ -1501,7 +1501,7 @@
             </div>
           </div>
 
-          <div class="sp-guide">
+          <div class="sp-guide" data-guide="home-vs-sip" style="cursor:pointer">
             <div class="sp-guide-img-wrap sp-guide-banner" style="background:linear-gradient(135deg,#064e3b 0%,#059669 60%,#34d399 100%)">
               <span class="sp-guide-banner-icon">📊</span>
             </div>
@@ -1513,7 +1513,7 @@
             </div>
           </div>
 
-          <div class="sp-guide">
+          <div class="sp-guide" data-guide="city-appreciation" style="cursor:pointer">
             <div class="sp-guide-img-wrap sp-guide-banner" style="background:linear-gradient(135deg,#1e1b4b 0%,#4f46e5 60%,#818cf8 100%)">
               <span class="sp-guide-banner-icon">🏙️</span>
             </div>
@@ -1525,7 +1525,7 @@
             </div>
           </div>
 
-          <div class="sp-guide">
+          <div class="sp-guide" data-guide="pmay" style="cursor:pointer">
             <div class="sp-guide-img-wrap sp-guide-banner" style="background:linear-gradient(135deg,#7c2d12 0%,#ea580c 60%,#fb923c 100%)">
               <span class="sp-guide-banner-icon">🎯</span>
             </div>
@@ -1537,7 +1537,7 @@
             </div>
           </div>
 
-          <div class="sp-guide">
+          <div class="sp-guide" data-guide="tax-savings" style="cursor:pointer">
             <div class="sp-guide-img-wrap sp-guide-banner" style="background:linear-gradient(135deg,#713f12 0%,#ca8a04 60%,#facc15 100%)">
               <span class="sp-guide-banner-icon">📋</span>
             </div>
@@ -1549,7 +1549,7 @@
             </div>
           </div>
 
-          <div class="sp-guide">
+          <div class="sp-guide" data-guide="due-diligence" style="cursor:pointer">
             <div class="sp-guide-img-wrap sp-guide-banner" style="background:linear-gradient(135deg,#134e4a 0%,#0d9488 60%,#2dd4bf 100%)">
               <span class="sp-guide-banner-icon">🔑</span>
             </div>
@@ -1623,6 +1623,21 @@
 </footer>
 
 <div id="heatmapTooltip" class="hm-tooltip"></div>
+
+<!-- ── GUIDE MODAL ───────────────────────────────────────────────────────── -->
+<div id="guideModal" class="guide-modal-overlay" aria-hidden="true" onclick="closeGuideModal(event)">
+  <div class="guide-modal-box">
+    <div class="guide-modal-header" id="guideModalHeader">
+      <div class="guide-modal-header-inner">
+        <span class="guide-modal-tag" id="guideModalTag"></span>
+        <h2 class="guide-modal-title" id="guideModalTitle"></h2>
+        <div class="guide-modal-meta" id="guideModalMeta"></div>
+      </div>
+      <button class="guide-modal-close" onclick="closeGuideModal()" aria-label="Close">&times;</button>
+    </div>
+    <div class="guide-modal-body" id="guideModalBody"></div>
+  </div>
+</div>
 
 <!-- ── CHAT WIDGET ────────────────────────────────────────────────────────── -->
 <div id="chatWidget">

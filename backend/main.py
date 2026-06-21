@@ -6,6 +6,8 @@ from pydantic import BaseModel, Field, validator
 from typing import List, Optional
 import math
 import os
+import json
+import urllib.request
 
 app = FastAPI(
     title="Home Loan ROI Analyzer",
@@ -245,6 +247,28 @@ def run_simulation(
     }
 
 
+SYSTEM_PROMPT = """You are a knowledgeable and friendly assistant for GoWinDhan (Go Win Dhan) — a home loan ROI and buy-vs-rent calculator for India.
+
+Help users with:
+- Home loan concepts: EMI, amortisation, principal vs interest, tenure, prepayment
+- Buy vs rent decisions in Indian real estate
+- Property appreciation, rental yield, gross vs net yield, price-to-rent ratio
+- DCF (Discounted Cash Flow) analysis and what CAGR means for property investment
+- Home wealth (equity + accumulated rent + surplus SIP gains) vs S&P 500 SIP comparison
+- Tax benefits: Section 80C (principal up to Rs 1.5 lakh/year) and Section 24(b) (interest up to Rs 2 lakh/year for self-occupied)
+- City and locality property market insights for Hyderabad, Bangalore, Mumbai, Pune, Delhi NCR, Chennai, Kolkata, Ahmedabad
+- How to interpret GoWinDhan calculator outputs: break-even year, DCF-adjusted CAGR, surplus invested
+- Down payment vs tenure trade-offs and their impact on total interest paid
+
+Style rules:
+- Be concise and practical — 2 to 5 sentences is usually enough
+- Use Indian units: Rs, lakhs (L), crores (Cr)
+- When the user's calculation data is available in context, reference those specific numbers directly
+- For major financial decisions, mention: "For personalised advice, consult a SEBI-registered financial advisor"
+- Do not guarantee future returns or make specific buy/sell recommendations
+- Format responses in plain text without markdown symbols like asterisks or hashes"""
+
+
 # ── API Routes ────────────────────────────────────────────────────────────────
 
 @app.get("/api/health")
@@ -269,6 +293,46 @@ def calculate(data: LoanInput):
         return {"success": True, "data": result}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.post("/api/chat")
+def chat(data: ChatInput):
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=503, detail="Chat is not configured. Set ANTHROPIC_API_KEY environment variable.")
+
+    if not data.messages:
+        raise HTTPException(status_code=400, detail="messages array is required")
+
+    system_prompt = SYSTEM_PROMPT
+    if data.context:
+        system_prompt += "\n\nUser's current calculator inputs and results:\n" + "\n".join(data.context)
+
+    payload = json.dumps({
+        "model": "claude-haiku-4-5-20251001",
+        "max_tokens": 800,
+        "system": system_prompt,
+        "messages": data.messages[-12:],
+    }).encode()
+
+    req = urllib.request.Request(
+        "https://api.anthropic.com/v1/messages",
+        data=payload,
+        headers={
+            "x-api-key": api_key,
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req) as resp:
+            result = json.loads(resp.read())
+        reply = next((b["text"] for b in result.get("content", []) if b.get("type") == "text"), "")
+        return {"reply": reply}
+    except urllib.error.HTTPError as e:
+        err = json.loads(e.read()).get("error", {})
+        raise HTTPException(status_code=502, detail=err.get("message", f"Anthropic API error {e.code}"))
 
 
 @app.post("/api/sensitivity")

@@ -2077,28 +2077,343 @@ document.addEventListener('click', function(e) {
 });
 
 // Support search — filters FAQ items and highlights categories
+function runSupportSearch(q) {
+  q = (q || '').trim().toLowerCase();
+  const faqs = document.querySelectorAll('#spFaqs .sp-faq');
+  const empty = document.getElementById('spFaqEmpty');
+  let visible = 0;
+  faqs.forEach(faq => {
+    const text = (faq.querySelector('.sp-faq-q').textContent + ' ' + (faq.dataset.keywords || '')).toLowerCase();
+    const show = !q || text.includes(q);
+    faq.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  if (empty) empty.classList.toggle('hidden', visible > 0 || !q);
+  document.querySelectorAll('.sp-cat').forEach(cat => {
+    const keywords = (cat.dataset.filter || '') + ' ' + cat.querySelector('.sp-cat-name').textContent.toLowerCase();
+    cat.classList.toggle('active', !!q && keywords.includes(q));
+    cat.style.opacity = (!q || keywords.includes(q)) ? '1' : '0.35';
+  });
+}
+
 (function() {
   const input = document.getElementById('supportSearch');
   if (!input) return;
-  input.addEventListener('input', function() {
-    const q = this.value.trim().toLowerCase();
-    const faqs = document.querySelectorAll('#spFaqs .sp-faq');
-    const empty = document.getElementById('spFaqEmpty');
-    let visible = 0;
-    faqs.forEach(faq => {
-      const text = (faq.querySelector('.sp-faq-q').textContent + ' ' + (faq.dataset.keywords || '')).toLowerCase();
-      const show = !q || text.includes(q);
-      faq.style.display = show ? '' : 'none';
-      if (show) visible++;
-    });
-    if (empty) empty.classList.toggle('hidden', visible > 0 || !q);
-    // Highlight matching category cards
-    document.querySelectorAll('.sp-cat').forEach(cat => {
-      const keywords = (cat.dataset.filter || '') + ' ' + cat.querySelector('.sp-cat-name').textContent.toLowerCase();
-      cat.style.opacity = (!q || keywords.includes(q)) ? '1' : '0.35';
-    });
-  });
+  input.addEventListener('input', function() { runSupportSearch(this.value); });
 }());
+
+// ── Guide Modal ───────────────────────────────────────────────────────────────
+
+const GUIDE_CONTENT = {
+  'first-time-buyer': {
+    tag: 'Beginner', title: "First-Time Homebuyer's Complete Guide",
+    meta: ['📖 8 min read', '🏠 Home Loans'],
+    body: `
+      <h3>Step 1 — Set your budget before you look</h3>
+      <p>Start with your take-home income, not your gross salary. Banks allow total EMIs up to 40–50% of gross income (FOIR). A safe rule: keep your home loan EMI under 30% of monthly take-home. Add stamp duty (5–8%), registration (1%), brokerage (1–2%), and interiors (₹3–10L) to your cash requirement.</p>
+      <div class="guide-tip">💡 <strong>Tip:</strong> Budget for 10–12% over the property price to cover all transaction costs before you start shortlisting properties.</div>
+
+      <h3>Step 2 — Get pre-approved before negotiating</h3>
+      <p>A pre-approval letter from a bank tells you exactly how much loan you qualify for and gives you negotiating credibility with sellers. It requires income proof, PAN, Aadhaar, and last 6-month bank statements. Pre-approval is typically valid for 3–6 months.</p>
+
+      <h3>Step 3 — Builder and property due diligence</h3>
+      <ul>
+        <li>Verify RERA registration at your state's RERA portal — never buy from an unregistered project.</li>
+        <li>Check the title chain for the last 30 years via an encumbrance certificate from the sub-registrar's office.</li>
+        <li>Confirm the approved building plan matches what's being built — check Floor Space Index (FSI) compliance.</li>
+        <li>For under-construction: check builder's past project delivery track record and bank tie-ups.</li>
+      </ul>
+
+      <h3>Step 4 — Understand the sale agreement</h3>
+      <p>The sale agreement locks in the price, payment schedule, possession date, and penalty clauses. Key things to negotiate: interest on delay (minimum SBI PLR + 2%), carpet area vs built-up vs super built-up clarity, and maintenance corpus terms.</p>
+      <div class="guide-warn">⚠️ <strong>Important:</strong> Never pay more than 10% as booking amount before signing a registered sale agreement. Verbal commitments are unenforceable.</div>
+
+      <h3>Step 5 — Loan disbursement and registration</h3>
+      <p>For ready-to-move properties: loan is disbursed in one shot on registration. For under-construction: disbursed in stages linked to construction milestones — you pay Pre-EMI (interest only) until full disbursement. Register the property within 4 months of the sale agreement to avoid penalty.</p>
+
+      <h3>Step 6 — Possession and snagging</h3>
+      <p>Before accepting possession, do a thorough snagging walk-through: check all electrical fittings, plumbing, flooring, and common areas. Document defects in writing. Under RERA, builders have a 5-year defect liability — any structural defect must be repaired free of cost within that period.</p>
+      <div class="guide-modal-cta">
+        <button class="cta-primary" onclick="switchToTab('calc'); closeGuideModal()">Open Calculator</button>
+        <button class="cta-secondary" onclick="closeGuideModal()">Close</button>
+      </div>`
+  },
+  'home-vs-sip': {
+    tag: 'Strategy', title: 'Home Loan vs SIP: Which Builds More Wealth?',
+    meta: ['📖 12 min read', '📊 Investment'],
+    body: `
+      <h3>The core question</h3>
+      <p>If you have ₹20L for a down payment and ₹50,000/month available for investment, does putting it into a home loan or a Nifty 50 SIP build more wealth over 20 years? The answer depends on five key variables: property appreciation, rental yield, loan interest rate, equity return, and how long you hold.</p>
+
+      <h3>How to think about it correctly</h3>
+      <p>Most comparisons are wrong because they compare apples to oranges. The right framework:</p>
+      <ul>
+        <li><strong>Buying path:</strong> ₹20L down payment + ₹50K/month EMI → you own a property worth X after 20 years, with zero loan outstanding.</li>
+        <li><strong>Renting + SIP path:</strong> ₹20L invested in Nifty 50 lump sum + (EMI − rent paid each month) invested as SIP → you have a portfolio worth Y after 20 years.</li>
+        <li>The fair comparison is X vs Y — not just the property value vs the SIP value.</li>
+      </ul>
+
+      <h3>What the data shows (India, 2004–2024)</h3>
+      <ul>
+        <li>Nifty 50 delivered ~12.5% CAGR over 20 years — but with significant volatility.</li>
+        <li>Residential property in metro IT corridors (Hyderabad, Pune, Bangalore) delivered 8–11% CAGR including rental yield.</li>
+        <li>Mumbai premium markets delivered 5–7% price appreciation but only 2–2.5% rental yield — equity typically wins here.</li>
+        <li>Hyderabad's Gachibowli, Financial District: ~10–11% price CAGR + 3% yield = 13–14% total return. Home often wins here.</li>
+      </ul>
+      <div class="guide-tip">💡 The home wins when: price-to-rent ratio &lt; 20, appreciation &gt; 7%/yr, and you hold for 15+ years. The SIP wins when: P/R ratio &gt; 25, you need liquidity, or you're disciplined about investing the rent savings.</div>
+
+      <h3>The leverage advantage of property</h3>
+      <p>Property is bought with leverage — you put in ₹20L and control a ₹1 Cr asset. If the property rises 8%/yr, your ₹1 Cr becomes ₹4.66 Cr in 20 years. Your actual cash return on the ₹20L down payment is far higher than 8%/yr — that's the power of leverage. SIPs don't give you this leverage.</p>
+
+      <h3>The liquidity disadvantage of property</h3>
+      <p>A Nifty SIP can be redeemed in 2 days. Selling a property takes 2–6 months, costs 1–3% in transaction fees, and may require capital gains tax (LTCG at 20% with indexation after 2 years). Factor this illiquidity premium into your comparison.</p>
+
+      <h3>Use GoWinDhan to model your scenario</h3>
+      <p>The calculator gives you the exact DCF-adjusted CAGR for your inputs — this is the apples-to-apples number to compare against your SIP return expectation.</p>
+      <div class="guide-modal-cta">
+        <button class="cta-primary" onclick="switchToTab('calc'); closeGuideModal()">Run the comparison</button>
+        <button class="cta-secondary" onclick="closeGuideModal()">Close</button>
+      </div>`
+  },
+  'city-appreciation': {
+    tag: 'Advanced', title: 'Property Appreciation Across Indian Cities',
+    meta: ['📖 10 min read', '🏙️ Markets'],
+    body: `
+      <h3>Methodology</h3>
+      <p>Data below is a blended estimate based on NHB Residex, Anarock Research, Knight Frank India, and 99acres transaction data for 2014–2024. CAGR figures represent median residential property price appreciation — individual micro-markets vary significantly.</p>
+
+      <h3>Hyderabad — 9–11% CAGR</h3>
+      <p>Hyderabad has been India's top-performing major residential market over the last decade. The IT boom in the Financial District, Gachibowli, Kondapur, and Narsingi has driven 10–11% price CAGR. Rental yields of 3–3.5% make it one of the few Indian markets where buying often beats renting on pure numbers.</p>
+      <ul>
+        <li><strong>Top micro-markets:</strong> Narsingi, Puppalaguda, Financial District (~11%), Gachibowli, Manikonda (~10%)</li>
+        <li><strong>Mid-performers:</strong> Kondapur, Miyapur, Kukatpally (~8–9%)</li>
+        <li><strong>Emerging:</strong> Shamshabad, Adibatla, Keesara (~7–9%)</li>
+      </ul>
+
+      <h3>Bangalore — 7–10% CAGR</h3>
+      <p>North Bangalore (Hebbal, Devanahalli) and East Bangalore (Whitefield, Sarjapur) have delivered strong returns driven by IT parks and airport proximity. South Bangalore remains premium but has seen slower appreciation.</p>
+      <ul>
+        <li><strong>Top:</strong> Devanahalli, Hebbal, Whitefield (~9–10%)</li>
+        <li><strong>Mid:</strong> Sarjapur Road, Electronic City (~7–8%)</li>
+        <li><strong>Slower:</strong> Indiranagar, Koramangala (~5–6% — already priced in)</li>
+      </ul>
+
+      <h3>Mumbai — 4–7% CAGR</h3>
+      <p>Mumbai's high base prices mean lower price CAGR but stable demand. The Western Suburbs (Goregaon, Malad, Borivali) and Navi Mumbai have outperformed. South Mumbai and Bandra have appreciated slowly but command premium rents.</p>
+      <ul>
+        <li><strong>Top:</strong> Panvel, Navi Mumbai, Thane (~7%)</li>
+        <li><strong>Mid:</strong> Goregaon, Malad, Kandivali (~5–6%)</li>
+        <li><strong>Slower:</strong> South Mumbai, Bandra (~3–4%)</li>
+      </ul>
+
+      <h3>Pune — 7–9% CAGR</h3>
+      <p>Pune has benefited from IT, manufacturing, and education. Hinjewadi, Wakad, and Kharadi are the top IT corridors.</p>
+
+      <h3>Delhi NCR — 5–8% CAGR</h3>
+      <p>Gurugram (Golf Course Road, Dwarka Expressway) and Noida (Sector 150, Expressway) have led returns. Central Delhi has been flat.</p>
+
+      <h3>Chennai — 6–8% CAGR</h3>
+      <p>OMR (Old Mahabalipuram Road) corridor and Perambur have seen strong IT-driven demand. Sholinganallur and Siruseri lead.</p>
+
+      <div class="guide-tip">💡 Use GoWinDhan's Locality Insights tab to explore 160+ micro-markets with blended 10-year trend data pre-filled into the calculator.</div>
+      <div class="guide-modal-cta">
+        <button class="cta-primary" onclick="switchToTab('insights'); closeGuideModal()">Explore Locality Insights</button>
+        <button class="cta-secondary" onclick="closeGuideModal()">Close</button>
+      </div>`
+  },
+  'pmay': {
+    tag: 'Beginner', title: 'PMAY 2.0 Subsidy — Complete Application Guide',
+    meta: ['📖 6 min read', '🎯 Schemes'],
+    body: `
+      <h3>What is PMAY 2.0?</h3>
+      <p>Pradhan Mantri Awas Yojana (Urban) 2.0 is the government's affordable housing mission. It provides an interest subsidy (Credit Linked Subsidy Scheme — CLSS) that is credited directly to your loan account, reducing your outstanding principal and lowering your EMI from Day 1.</p>
+
+      <h3>Who is eligible?</h3>
+      <ul>
+        <li>You (or any family member) must not own a pucca house anywhere in India.</li>
+        <li>Must be a first-time homebuyer for this property.</li>
+        <li>Property must be in an urban area (municipal corporation / town area).</li>
+        <li>Applicable only for new homes — resale flats may not qualify (check with your bank).</li>
+      </ul>
+
+      <h3>Income categories and subsidy amounts</h3>
+      <ul>
+        <li><strong>EWS</strong> (annual income ≤ ₹3L): 6.5% subsidy on loan up to ₹6L → saves ~₹2.67L</li>
+        <li><strong>LIG</strong> (income ₹3L–₹6L): 6.5% subsidy on loan up to ₹6L → saves ~₹2.67L</li>
+        <li><strong>MIG-I</strong> (income ₹6L–₹12L): 4% subsidy on loan up to ₹9L → saves ~₹2.35L</li>
+        <li><strong>MIG-II</strong> (income ₹12L–₹18L): 3% subsidy on loan up to ₹12L → saves ~₹2.30L</li>
+      </ul>
+      <div class="guide-tip">💡 The subsidy is credited as a lump sum to your loan account within 3–4 months of the first disbursement. This directly reduces your outstanding principal, lowering all future EMIs.</div>
+
+      <h3>How to apply — step by step</h3>
+      <ul>
+        <li><strong>Step 1:</strong> Choose a bank or HFC (Housing Finance Company) that is an approved Primary Lending Institution (PLI) under PMAY — all major banks qualify.</li>
+        <li><strong>Step 2:</strong> Inform the bank that you want PMAY subsidy at the time of loan application. Fill in the PMAY self-declaration form (no separate portal application needed via banks).</li>
+        <li><strong>Step 3:</strong> Bank verifies your eligibility and submits the claim to NHB (National Housing Bank) or HUDCO.</li>
+        <li><strong>Step 4:</strong> Subsidy is credited to your loan account within 3–6 months. Your EMI reduces or tenure shortens based on your bank's policy.</li>
+      </ul>
+
+      <h3>Documents required for PMAY</h3>
+      <ul>
+        <li>Aadhaar card (mandatory — linked to loan)</li>
+        <li>Income proof (ITR / salary slips / Form 16)</li>
+        <li>Self-declaration of not owning a pucca house</li>
+        <li>Property documents (sale agreement / allotment letter)</li>
+      </ul>
+      <div class="guide-warn">⚠️ PMAY 2.0 eligibility and subsidy rates are subject to government updates. Verify current figures with your bank or the official PMAY portal before applying.</div>
+      <div class="guide-modal-cta">
+        <button class="cta-primary" onclick="openFaq('spFaq10'); closeGuideModal()">View PMAY FAQ</button>
+        <button class="cta-secondary" onclick="closeGuideModal()">Close</button>
+      </div>`
+  },
+  'tax-savings': {
+    tag: 'Intermediate', title: 'Maximising Tax Savings on Your Home Loan',
+    meta: ['📖 9 min read', '📋 Tax'],
+    body: `
+      <h3>The two main deductions (Old Regime only)</h3>
+      <ul>
+        <li><strong>Section 24(b) — Interest deduction:</strong> Up to ₹2 lakh/year on interest paid for a self-occupied property. No upper limit for let-out property, but loss set-off against other income is capped at ₹2L/year.</li>
+        <li><strong>Section 80C — Principal deduction:</strong> Up to ₹1.5 lakh/year on principal repayment, within the overall 80C limit (which also includes LIC, PPF, ELSS, etc.).</li>
+      </ul>
+      <div class="guide-tip">💡 Combined max deduction = ₹3.5L/year. At 30% tax slab: saves up to ₹1.05L/year = ₹8,750/month — meaningful EMI relief.</div>
+
+      <h3>Section 80EEA — First-time buyer bonus (check current validity)</h3>
+      <p>An additional ₹1.5L deduction on interest for first-time buyers where stamp duty value ≤ ₹45L. This was introduced for loans sanctioned between April 2019 and March 2022. Verify with your CA whether this still applies to your situation.</p>
+
+      <h3>Old regime vs new regime — which to choose?</h3>
+      <p>The new tax regime (default from FY 2023-24) offers lower tax rates but removes all deductions including 80C and 24(b). A simple test: if your total deductions (including 80C, 80D, HRA, 24b) exceed the standard deduction advantage of the new regime, stick to the old regime.</p>
+      <ul>
+        <li>Income ₹10L, home loan interest ₹2L, 80C ₹1.5L → old regime likely better</li>
+        <li>Income ₹15L, minimal deductions → new regime may be better</li>
+        <li>Always calculate both — your CA or the income tax portal can compute this</li>
+      </ul>
+
+      <h3>Joint loan co-ownership strategy (the best tax hack)</h3>
+      <p>If both spouses are salaried taxpayers in the old regime, taking a joint loan where both are co-owners doubles the deduction:</p>
+      <ul>
+        <li>Each can claim 24(b) up to ₹2L/year = ₹4L total interest deduction</li>
+        <li>Each can claim 80C up to ₹1.5L/year = ₹3L total principal deduction</li>
+        <li>At 30% slab each: combined annual tax saving up to ₹2.1L = ₹17,500/month</li>
+      </ul>
+      <div class="guide-warn">⚠️ Both co-applicants must be co-owners in the property's registered title deed. Loan co-applicant alone is not sufficient — the ownership document is what the IT department looks for.</div>
+
+      <h3>Let-out property — different rules</h3>
+      <p>If you rent out the property you bought on loan: the actual interest paid (no ₹2L cap) is deductible from rental income. If this creates a loss, up to ₹2L can be set off against salary income in the same year. The remaining loss can be carried forward for 8 years.</p>
+      <div class="guide-modal-cta">
+        <button class="cta-primary" onclick="openFaq('spFaq5'); closeGuideModal()">View Tax FAQ</button>
+        <button class="cta-secondary" onclick="closeGuideModal()">Close</button>
+      </div>`
+  },
+  'due-diligence': {
+    tag: 'Checklist', title: 'Property Due Diligence Checklist (2025)',
+    meta: ['📖 7 min read', '🔑 Legal'],
+    body: `
+      <h3>Legal title checks</h3>
+      <ul>
+        <li>☐ Title deed chain verified for the last 30 years (engage a property lawyer)</li>
+        <li>☐ Encumbrance Certificate (EC) obtained from sub-registrar's office — confirms no existing mortgage or lien</li>
+        <li>☐ Seller is the rightful owner — cross-check with revenue records (Pahani/Khata)</li>
+        <li>☐ No disputes or litigation in court (check at District Court records)</li>
+        <li>☐ Agricultural land converted to residential use (NA/non-agricultural order) if applicable</li>
+      </ul>
+
+      <h3>RERA and approvals</h3>
+      <ul>
+        <li>☐ Project registered on your state RERA portal — note registration number</li>
+        <li>☐ Approved building plan from municipal authority (GHMC, BBMP, PCMC etc.)</li>
+        <li>☐ Building plan matches actual construction — check floor count and FSI compliance</li>
+        <li>☐ Commencement Certificate (CC) issued by municipal body</li>
+        <li>☐ For completed buildings: Occupancy Certificate (OC) obtained</li>
+        <li>☐ No deviation from sanctioned plan (builder self-certification is insufficient — verify independently)</li>
+      </ul>
+
+      <h3>Builder track record</h3>
+      <ul>
+        <li>☐ Minimum 3 completed projects delivered on schedule</li>
+        <li>☐ No cases pending at consumer court or RERA adjudicating authority</li>
+        <li>☐ Bank tie-up (approved by SBI/HDFC/ICICI) — banks conduct their own due diligence</li>
+        <li>☐ Check Glassdoor / MagicBricks / Proptiger reviews from existing residents</li>
+      </ul>
+
+      <h3>Society / apartment checks</h3>
+      <ul>
+        <li>☐ NOC from Resident Welfare Association (for resale flats)</li>
+        <li>☐ Share certificate (for cooperative housing societies)</li>
+        <li>☐ No pending dues on the property (maintenance arrears, electricity)</li>
+        <li>☐ Maintenance corpus amount and monthly charges confirmed in writing</li>
+        <li>☐ Lift, water, power backup, parking allocation confirmed</li>
+      </ul>
+
+      <h3>Financial / registration</h3>
+      <ul>
+        <li>☐ Carpet area (not super built-up) confirmed in writing with formula</li>
+        <li>☐ Sale agreement reviewed by your lawyer before signing</li>
+        <li>☐ Stamp duty calculated on circle rate or agreement value (whichever is higher)</li>
+        <li>☐ Property registered within 4 months of agreement to avoid penalty</li>
+        <li>☐ TDS on property deducted if purchase value &gt; ₹50L (1% of value, Form 26QB)</li>
+      </ul>
+      <div class="guide-warn">⚠️ Never skip the lawyer review for title documents — a clear title is the single most important factor in property purchase. Spending ₹10–25K on a property lawyer can save you from a ₹50L+ dispute later.</div>
+      <div class="guide-modal-cta">
+        <button class="cta-primary" onclick="openFaq('spFaq15'); closeGuideModal()">View RERA FAQ</button>
+        <button class="cta-secondary" onclick="closeGuideModal()">Close</button>
+      </div>`
+  }
+};
+
+function openGuideModal(guideKey) {
+  const guide = GUIDE_CONTENT[guideKey];
+  if (!guide) return;
+  document.getElementById('guideModalTag').textContent = guide.tag;
+  document.getElementById('guideModalTitle').textContent = guide.title;
+  document.getElementById('guideModalMeta').innerHTML = guide.meta.map(m => `<span>${m}</span>`).join('');
+  document.getElementById('guideModalBody').innerHTML = guide.body;
+  const modal = document.getElementById('guideModal');
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGuideModal(event) {
+  if (event && event.target !== document.getElementById('guideModal')) return;
+  const modal = document.getElementById('guideModal');
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeGuideModal();
+});
+
+// Popular Guides — click to open modal
+document.addEventListener('click', function(e) {
+  const guide = e.target.closest('.sp-guide[data-guide]');
+  if (!guide) return;
+  openGuideModal(guide.dataset.guide);
+});
+
+// openFaq helper — opens a specific FAQ item and scrolls to it
+function openFaq(id) {
+  document.querySelectorAll('.sp-faq.open').forEach(el => el.classList.remove('open'));
+  const faq = document.getElementById(id);
+  if (!faq) return;
+  faq.classList.add('open');
+  setTimeout(() => faq.scrollIntoView({ behavior: 'smooth', block: 'center' }), 50);
+}
+
+// Browse by Topic — click a category card to filter FAQs
+document.addEventListener('click', function(e) {
+  const cat = e.target.closest('.sp-cat');
+  if (!cat) return;
+  const catName = cat.querySelector('.sp-cat-name').textContent.trim();
+  const input = document.getElementById('supportSearch');
+  if (input) {
+    input.value = catName;
+    runSupportSearch(catName);
+  }
+  const faqSection = document.getElementById('spFaqs');
+  if (faqSection) faqSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 
 function collapseHelpTop() {
   const el = document.getElementById('chatHelpTop');
