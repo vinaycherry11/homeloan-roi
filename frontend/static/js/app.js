@@ -120,6 +120,11 @@ updateHomePriceFmt();
   drawer && drawer.querySelectorAll('.nav-tab').forEach(btn => {
     btn.addEventListener('click', closeNav);
   });
+
+  // Auto-close drawer when viewport expands past mobile breakpoint
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 640 && drawer && drawer.classList.contains('open')) closeNav();
+  });
 }());
 
 /* ── Results stepper pane switching + prev/next ── */
@@ -225,6 +230,24 @@ document.getElementById('interestRate').addEventListener('change', updateLiveEmi
 attachHpFormatter('a_homePrice');
 attachHpFormatter('b_homePrice');
 updateLiveEmi();
+
+/* ── Touchend fallback for mobile (prevents missed taps in DevTools emulation) ── */
+(function() {
+  function addTouchEnd(id, fn) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    let _guard = false;
+    el.addEventListener('touchend', function(e) {
+      e.preventDefault(); // stop synthesised click so onclick doesn't double-fire
+      if (_guard) return;
+      _guard = true;
+      setTimeout(() => { _guard = false; }, 400);
+      fn();
+    });
+  }
+  addTouchEnd('calcBtn',    function() { calculate(); });
+  addTouchEnd('compareBtn', function() { compareProperties(); });
+}());
 
 /* ── Metrics highlight strip ── */
 function updateMetricsHighlight() {

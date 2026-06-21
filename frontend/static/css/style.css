@@ -495,8 +495,7 @@ nav {
 .input-wrap { position: relative; display: flex; align-items: center; }
 .input-prefix, .input-suffix {
   position: absolute;
-  font-size: 14px; color: var(black
-  );
+  font-size: 14px; color: var(--ink-muted);
   font-family: var(--mono); pointer-events: none; z-index: 1;
 }
 .input-prefix { left: 11px; }
