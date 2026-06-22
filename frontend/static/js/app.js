@@ -2803,10 +2803,23 @@ function initEmiFilters(sensData) {
   const fetchBtn = document.getElementById('insFetchBtn');
   if (!cityEl) return;
 
+  const hasInsights = c => {
+    const ci = typeof LOCALITY_INSIGHTS !== 'undefined' && LOCALITY_INSIGHTS[c];
+    return ci && Object.values(ci).some(v => v && Object.keys(v).length > 0);
+  };
+
   const cities = Object.keys(LOCALITY_DATA).sort();
   cities.forEach(c => {
     const opt = document.createElement('option');
-    opt.value = c; opt.textContent = c;
+    if (hasInsights(c)) {
+      opt.value = c;
+      opt.textContent = c;
+    } else {
+      opt.value = '';
+      opt.textContent = c + ' — coming soon';
+      opt.disabled = true;
+      opt.style.color = '#9ca3af';
+    }
     cityEl.appendChild(opt);
   });
 
