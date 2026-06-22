@@ -158,7 +158,7 @@ const LOCALITY_INSIGHTS = {
         malls: ['Sarath City Capital Mall (4 km)', 'Nexus Shantiniketan (6 km)'],
         parks: ['Kondapur community park', 'Kothaguda Park (1 km)'],
       },
-      investment_note: 'Kondapur offers a balanced investment with 9% appreciation and 5.5–6% rental yield — entry prices are lower than Gachibowli making the yield more attractive for rental investors. Metro connectivity has been a sustained value driver since 2018.',
+      investment_note: 'Kondapur offers a balanced investment with a 10-year average appreciation of ~9.3% p.a. (CAGR) and 5.5–6% rental yield — entry prices are lower than Gachibowli, making the yield more attractive for rental investors. The recent pace (2022–2025) has been running slightly ahead at ~10–11% driven by Hyderabad\'s overall IT corridor momentum. Metro Blue Line connectivity has been a sustained value driver since 2018.',
     },
 
     'Miyapur': {
@@ -1056,7 +1056,7 @@ const LOCALITY_INSIGHTS = {
       investment_note: 'Powai is Mumbai\'s most reliable long-term capital appreciation locality at 10–14% p.a., driven by IIT proximity, Hiranandani Business Park demand, and severe supply constraints. Rental yields at 3.5–4.5% are moderate but tenant quality is exceptional. Metro Line 6 stations at IIT and Powai Lake are major near-term catalysts.',
     },
 
-    'BKC (Bandra Kurla Complex)': {
+    'BKC': {
       overview: 'Bandra Kurla Complex is Mumbai\'s only purpose-built planned CBD and the country\'s most prestigious commercial address, housing the RBI, SEBI, NSE, and headquarters of India\'s largest banks, insurance companies, and MNC offices. The Aqua Line metro (Line 3) now directly serves BKC station (operational since Oct 2024), making it the best-connected business district in Mumbai. Residential supply immediately adjacent is extremely scarce and ultra-premium.',
       specialties: ['Mumbai\'s premium planned CBD', 'RBI, SEBI, NSE headquarters', 'Aqua Line (Line 3) metro served', 'Ultra-premium residential adjacency', 'MNC & BFSI headquarters cluster'],
       major_employers: ['RBI (Reserve Bank of India)', 'SEBI', 'NSE & BSE', 'HDFC Bank HQ', 'Citibank India HQ', 'Facebook/Meta India HQ', 'ICICI Bank HQ'],
@@ -1124,7 +1124,7 @@ const LOCALITY_INSIGHTS = {
       investment_note: 'Goregaon East delivers 9–12% appreciation with dual metro connectivity (Lines 2A and 7) as structural demand anchors. Rental yields at 3.5–4% with strong demand from Mindspace IT employees. Oberoi Garden City commands a township premium. Good balanced investment for mid-premium IT corridor buyers.',
     },
 
-    'Thane West': {
+    'Thane': {
       overview: 'Thane West is Mumbai Metropolitan Region\'s fastest-growing suburban city, offering significantly more space at lower prices than Mumbai city while connecting via fast suburban rail to CST and Andheri in under 30 minutes. It is a self-contained city with excellent social infrastructure, multiple lakes, large residential townships, and a growing commercial belt. Upcoming Metro Line 4 and the Thane Ring Metro will further transform connectivity.',
       specialties: ['MMR\'s fastest-growing suburban city', 'Suburban rail to Mumbai in 30 min', 'Multiple lakes & green cover', 'Large township residential stock', 'Metro Line 4 & Ring Metro pipeline'],
       major_employers: ['Majiwada IT Park', 'Wagle Estate industrial & IT belt', 'Lodha commercial developments', 'Viviana Mall commercial ecosystem', 'Thane Municipal Corporation offices'],
@@ -1147,7 +1147,7 @@ const LOCALITY_INSIGHTS = {
       investment_note: 'Thane West offers strong 10–14% appreciation at prices 30–40% below comparable Mumbai localities. Rental yields at 4–5% are among MMR\'s best outside Navi Mumbai. Metro Line 4 and Ring Metro approvals are major value catalysts. Best affordability–appreciation balance in the Mumbai region for mid-budget investors.',
     },
 
-    'Kharghar (Navi Mumbai)': {
+    'Kharghar': {
       overview: 'Kharghar is a well-planned sector in Navi Mumbai developed by CIDCO, offering the best quality-of-life in the MMR at a fraction of Mumbai prices. It has wide roads, golf courses, and excellent schools. The opening of Navi Mumbai International Airport (NMIA) in December 2025 and the approaching Metro Line 8 have triggered 24–27% YoY price appreciation, making it one of India\'s fastest-appreciating residential markets.',
       specialties: ['CIDCO planned township', 'Navi Mumbai International Airport proximity', 'Golf course & sector parks', 'Metro Line 8 pipeline', '24–27% YoY appreciation'],
       major_employers: ['Reliance Corporate Park (nearby Ghansoli)', 'TCS Navi Mumbai campus', 'DY Patil University ecosystem', 'Belapur CBD offices (7 km)'],
@@ -1170,7 +1170,7 @@ const LOCALITY_INSIGHTS = {
       investment_note: 'Kharghar is seeing 24–27% YoY appreciation — among India\'s highest — driven by the NMIA airport opening (Dec 2025) and MTHL sea bridge access. Entry prices are still 40–60% below comparable Mumbai localities. Rental yields at 4–5%. Ideal for medium-term investors; the airport catalyst is still in early innings.',
     },
 
-    'Vashi (Navi Mumbai)': {
+    'Vashi': {
       overview: 'Vashi is Navi Mumbai\'s commercial capital and most mature suburb, home to Inorbit Mall, APMC market, and a large established residential population. It has the best connectivity in Navi Mumbai via Harbour Line suburban rail, easy access to Mumbai via MTHL sea bridge, and a growing IT commercial belt along the NH-4B corridor. Social infrastructure is excellent with top schools and hospitals.',
       specialties: ['Navi Mumbai commercial capital', 'Best suburban rail connectivity in NM', 'MTHL sea bridge to Mumbai', 'Inorbit Mall anchor', 'Mature established residential suburb'],
       major_employers: ['Vishwaroop IT Park (ICICI Lombard, Nomura, Alight Solutions)', 'APMC market ecosystem', 'Navi Mumbai Municipal Corporation offices', 'Seawoods Grand Central corporate offices (adjacent)'],
@@ -1239,8 +1239,594 @@ const LOCALITY_INSIGHTS = {
     },
 
   },
-  'Delhi NCR': {},
-  'Chennai': {},
-  'Kolkata': {},
-  'Ahmedabad': {},
+  // Day 3 (2026-06-22): Delhi NCR
+  'Delhi NCR': {
+
+    'DLF City Phases': {
+      overview: 'DLF Cyber City is Gurgaon\'s premier IT and corporate district — a 125-acre Grade A office campus hosting Fortune 500 companies including Google, Microsoft, EY, Deloitte, PwC, Oracle, and American Express. It is the densest concentration of high-value white-collar employment in North India. Residential demand from Cyber City employees drives the entire Golf Course Road–NH-48 corridor. The Yellow Line metro serves the area via Cyber City Station.',
+      specialties: ['North India\'s largest IT corporate campus', 'Fortune 500 company cluster', 'Yellow Line metro served', 'Golf Course Road premium residential proximity', '125-acre Grade A office park'],
+      major_employers: ['Google India', 'Microsoft India', 'Deloitte', 'PwC India', 'EY India', 'Oracle India', 'American Express India'],
+      schools: [
+        { name: 'Shiv Nadar School Gurgaon', type: 'CBSE/IB/IGCSE', note: 'Shiv Nadar Foundation school; consistently top-ranked in Gurgaon' },
+        { name: 'Lancers International School', type: 'IGCSE/IB', note: '#1 ranked school in Delhi NCR by EducationWorld 2024–25' },
+        { name: 'DPS Sector 45 Gurgaon', type: 'CBSE', note: 'Delhi Public School; top CBSE school in Gurgaon' },
+      ],
+      traffic: {
+        peak_hours: 'Severely congested on NH-48 (NH-8) and Cyber City flyover 8:30–10:30 am and 6–9:30 pm; among NCR\'s worst commute corridors',
+        metro_access: 'Cyber City Station (Yellow Line / Delhi Metro Rapid Metro) — on-site; MG Road and Iffco Chowk stations nearby',
+        highway_access: 'NH-48 (Delhi–Jaipur highway) — adjacent; Delhi–Gurgaon Expressway — 0.5 km; IGI Airport — 12 km',
+        congestion_level: 'Very High',
+      },
+      nearby_amenities: {
+        hospitals: ['Medanta The Medicity (3 km)', 'Artemis Hospital (5 km)', 'Max Hospital Gurgaon (4 km)'],
+        malls: ['Ambience Mall Gurgaon (2 km)', 'DLF Mega Mall (1 km)', 'MGF Metropolitan Mall (2 km)'],
+        parks: ['Leisure Valley Park (2 km)', 'Aravalli Biodiversity Park (3 km)'],
+      },
+      investment_note: 'Cyber City–Golf Course Road residential corridor delivers 10–14% appreciation with premium entry pricing. Rental yields at 3.5–4.5% are moderate, but demand is near-zero vacancy from IT professionals. Gurgaon\'s total housing sales jumped 66% in 2024 — fundamentals remain the strongest in NCR. Best for premium capital appreciation.',
+    },
+
+    'Golf Course Ext Road': {
+      overview: 'Golf Course Road is Gurgaon\'s most prestigious residential address — a 5 km stretch of luxury apartments, five-star hotels, and top-tier commercial buildings between DLF Phase 5 and Sikanderpur. It houses India\'s highest concentration of luxury residential launches per corridor and attracts senior executives and HNIs. The Yellow Line metro runs parallel, making it uniquely walkable for an NCR premium address.',
+      specialties: ['Gurgaon\'s luxury residential spine', 'Yellow Line metro walkable', 'DLF Phase 5 premium township', 'Five-star hotel belt', 'HNI & C-suite residential market'],
+      major_employers: ['DLF Cyber City tenants (2 km)', 'One Horizon Centre offices', 'DLF Corporate Park', 'Unitech Cyber Park tenants', 'Embassy Golf Links-equivalent offices'],
+      schools: [
+        { name: 'The Heritage School Gurgaon', type: 'CBSE/IB', note: 'Top-ranked co-ed school; IB and CBSE tracks' },
+        { name: 'Pathways World School Aravalli', type: 'IB', note: 'Premier IB school serving Golf Course Road & Sohna Road belt' },
+        { name: 'GD Goenka World School Gurgaon', type: 'CBSE/IB', note: 'Large GD Goenka campus; strong academics and sports' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate to heavy on Golf Course Road during peak hours; Sikanderpur junction and DLF Galleria crossings can bottleneck',
+        metro_access: 'Sikanderpur Metro Station (Yellow Line) — 1 km; Sector 53–54 Station — 1 km',
+        highway_access: 'NH-48 via Sikanderpur — 2 km; Southern Peripheral Road (SPR) — 2 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Medanta The Medicity (5 km)', 'Max Hospital Sector 56 (3 km)', 'Fortis Hospital (4 km)'],
+        malls: ['DLF Promenade (2 km)', 'DLF Mega Mall (3 km)', 'South Point Mall (1 km)'],
+        parks: ['Aravalli Biodiversity Park (2 km)', 'Central Park (local)'],
+      },
+      investment_note: 'Golf Course Road is NCR\'s premium capital appreciation corridor at 10–13% p.a. Entry prices are among Delhi NCR\'s highest outside Lutyens Delhi. Rental yields of 3–4% are modest but vacancy is near zero for premium stock. Metro walkability is a structural demand driver unique among NCR luxury corridors.',
+    },
+
+    'Sohna Road': {
+      overview: 'Sohna Road is Gurgaon\'s fastest-growing mid-to-premium residential and commercial corridor, stretching south from NH-48 towards Sohna. It offers more affordable prices than Golf Course Road while sharing proximity to Cyber City and the Bhiwadi–Neemrana industrial belt. Large integrated townships and plotted developments dominate. The Southern Peripheral Road (SPR) extension has sharply improved connectivity.',
+      specialties: ['Affordable Cyber City fringe', 'Large integrated township belt', 'SPR & NH-248A connectivity', 'Mid-premium IT professional corridor', 'Rapid price appreciation 2022–2025'],
+      major_employers: ['DLF Cyber City (7 km)', 'Unitech Cyber Park (5 km)', 'Vatika Business Park', 'Bestech Business Tower', 'Maruti Suzuki (Manesar — 15 km)'],
+      schools: [
+        { name: 'Pathways World School Aravalli', type: 'IB', note: 'Top IB school on Sohna Road belt' },
+        { name: 'DPS Sohna Road', type: 'CBSE', note: 'DPS campus serving the Sohna Road corridor' },
+        { name: 'Lotus Valley International School', type: 'CBSE', note: 'Well-regarded CBSE school on Sohna Road' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy on Sohna Road and Rajiv Chowk underpass connection 8:30–10:30 am and 6–9 pm',
+        metro_access: 'Nearest: Huda City Centre (Yellow Line) — 6 km; Rapid Metro Gurgaon proposals for extension to Sohna',
+        highway_access: 'NH-248A (Sohna–Palwal highway) — adjacent; SPR (Southern Peripheral Road) — 1 km; NH-48 — 5 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Medanta The Medicity (8 km)', 'Park Hospital Gurgaon (4 km)', 'Artemis Hospital (6 km)'],
+        malls: ['Omaxe Celebration Mall (4 km)', 'Sapphire 90 Mall (3 km)', 'Airia Mall (3 km)'],
+        parks: ['Aravalli Range hillside (adjacent)', 'Leisure Valley extension'],
+      },
+      investment_note: 'Sohna Road offers 10–13% appreciation at 25–30% lower entry prices than Golf Course Road, making it Gurgaon\'s best value IT corridor investment. Rental yields at 4–5% are among NCR\'s better yielding micro-markets. SPR-driven connectivity improvement is sustaining strong demand momentum.',
+    },
+
+    'Noida Sector 62–137': {
+      overview: 'The Noida Expressway corridor — spanning Sectors 125 to 150 — is Noida\'s premium residential and IT address, anchored by campuses of TCS, Infosys, HCL, Wipro, and Barclays along the expressway. Sector 150 is a sporting and green township command-ing highest prices in Noida, while sectors 132 and 137 are established mid-premium IT worker catchments. Prices have risen 152% since 2019 and continue to climb on Jewar airport expectations.',
+      specialties: ['Noida\'s premium IT expressway corridor', 'TCS, HCL, Infosys, Wipro campuses', 'Sector 150 green sports township', 'Jewar airport appreciation catalyst', '152% price rise since 2019'],
+      major_employers: ['TCS (Sector 125)', 'HCL Technologies (Sectors 126–128)', 'Infosys (Sector 132)', 'Wipro (Sector 126)', 'Barclays Technology (Sector 137)', 'Samsung R&D (Sector 129)'],
+      schools: [
+        { name: 'Genesis Global School', type: 'IB/CBSE', note: '#1 International Day/Boarding School Noida, #2 Delhi NCR — CFore Rankings 2024' },
+        { name: 'Apeejay School Noida', type: 'CBSE', note: '#1 Noida school by Times School Survey; top STEM and sports results' },
+        { name: 'DPS Noida (Delhi Public School)', type: 'CBSE', note: 'Leading DPS campus; consistently high board results' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate on Noida–Greater Noida Expressway itself; sector approach roads can congest 8:30–10 am and 6–9 pm',
+        metro_access: 'Aqua Line (Noida–Greater Noida Metro) — multiple stations along expressway including Sector 137, 142, 143, 144, 145, 147, 148, 149; operational since 2019',
+        highway_access: 'Noida–Greater Noida Expressway — adjacent; Yamuna Expressway — 15 km; FNG Expressway — 5 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Kailash Hospital Sector 27 (10 km)', 'Yatharth Hospital Sector 110 (3 km)', 'Jaypee Hospital Sector 128 (2 km)'],
+        malls: ['Logix City Centre Sector 32 (8 km)', 'DLF Mall of India Sector 18 (10 km)', 'Spectrum Metro Mall (8 km)'],
+        parks: ['Sector 150 Cricket Stadium greens', 'Botanical Garden Noida (10 km)', 'Okhla Bird Sanctuary (15 km)'],
+      },
+      investment_note: 'Noida Expressway is NCR\'s best-performing residential corridor — 152% appreciation since 2019. Aqua Line metro gives it connectivity advantage over Gurgaon suburbs. Rental yields at 4–5% are strong. Jewar Airport (expected 2025–26) is driving further demand. Sector 150 commands premium for sports-centric green design.',
+    },
+
+    'Noida Sec 44–52': {
+      overview: 'Sector 18 (Atta Market) is Noida\'s commercial and retail heart — often called Noida\'s Connaught Place — with showrooms, restaurants, and offices. Sector 62 is Noida\'s established IT hub housing campuses of HCL, Wipro, and dozens of tech firms. Together they form the employment and commercial anchor of central Noida, with Blue Line metro connectivity and strong residential demand in adjacent sectors.',
+      specialties: ['Noida\'s Connaught Place — Sector 18 retail', 'Sector 62 IT park belt', 'Blue Line metro connected', 'Central Noida employment hub', 'Strong rental demand'],
+      major_employers: ['HCL Technologies Sector 60–62', 'Wipro Noida Sector 63', 'Cognizant Sector 62', 'NIIT Technologies', 'Adobe India Noida'],
+      schools: [
+        { name: 'DPS Noida (Delhi Public School)', type: 'CBSE', note: 'One of Noida\'s most reputed CBSE schools; strong board results' },
+        { name: 'Ryan International School Noida', type: 'CBSE', note: 'Ryan chain campus; large school with good infrastructure' },
+        { name: 'Amity International School Noida', type: 'CBSE', note: 'Amity group school; modern campus, competitive academics' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy near Sector 18 roundabout and Sector 62 IT park approach roads 8:30–10 am and 6–9 pm',
+        metro_access: 'Sector 18 Station and Botanical Garden Station (Blue Line) — operational; direct Blue Line to Delhi',
+        highway_access: 'Noida–Delhi Link Road — 2 km; NH-9 — 3 km; DND Flyway — 5 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Kailash Hospital Sector 27 (3 km)', 'Max Hospital Sector 19 (2 km)', 'Fortis Hospital Sector 62 (1 km)'],
+        malls: ['DLF Mall of India Sector 18 (1 km)', 'Great India Place (1 km)', 'Logix City Centre (1 km)'],
+        parks: ['Botanical Garden (3 km)', 'Sector 18 Garden (local)'],
+      },
+      investment_note: 'Sector 18/62 belt delivers 8–10% appreciation with strong Blue Line metro connectivity. Rental yields at 4–5% from IT sector tenants in adjacent residential sectors (15, 19, 20, 31, 34). Good mid-market investment for investors targeting Noida IT workforce rentals. Entry prices are 30–40% below comparable Gurgaon localities.',
+    },
+
+    'Greater Noida West': {
+      overview: 'Greater Noida West, popularly called Noida Extension, is NCR\'s largest affordable housing belt — a vast township of high-rise residential projects offering the lowest per-sqft prices in the region with good expressway connectivity. Over the past five years, delivery of delayed projects has resumed and buyer confidence has been restored. A proposed metro extension and proximity to Noida Expressway IT hubs drive continued demand.',
+      specialties: ['NCR\'s largest affordable housing belt', 'Lowest per-sqft prices near Noida', 'Gaur City & Supertech township scale', 'Proposed metro extension', 'Young IT professional first-home market'],
+      major_employers: ['Noida Expressway IT campuses (10 km)', 'HCL Noida (12 km)', 'TCS Noida (15 km)', 'Greater Noida Industrial Area (8 km)'],
+      schools: [
+        { name: 'Ryan International School Greater Noida West', type: 'CBSE', note: 'Ryan campus serving the Noida Extension belt' },
+        { name: 'Orchids The International School Greater Noida', type: 'CBSE', note: 'Technology-forward CBSE school in the township' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy on Bisrakh Road and NH-9 approach 8:30–10:30 am and 6–9 pm; DND Flyway alternative available',
+        metro_access: 'Aqua Line extension to Sector 2 Greater Noida West proposed; nearest operational: Noida Sector 101 (Aqua Line) — 4 km',
+        highway_access: 'NH-9 (Delhi–Meerut Expressway) — 3 km; Noida–Greater Noida Expressway — 5 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Yatharth Super Speciality Hospital (3 km)', 'Sharda Hospital Greater Noida (5 km)', 'Kailash Hospital (8 km)'],
+        malls: ['Gaur City Mall (local)', 'DLF Mall of India (12 km)', 'Logix Xpressions Mall (10 km)'],
+        parks: ['Gaur City Central Park (local)', 'Botanical Garden Noida (14 km)'],
+      },
+      investment_note: 'Greater Noida West offers 8–11% appreciation at NCR\'s most affordable entry prices. Rental yields at 4.5–5% are among the region\'s best for the price point. Delivery of stalled projects has improved buyer confidence. Metro extension remains the key catalyst for the next leg of appreciation. Best for budget investors and NRIs seeking yield.',
+    },
+
+    'Dwarka Sectors': {
+      overview: 'Dwarka is Delhi\'s largest planned residential township, developed by DDA across 29 sectors on the south-west fringe of the capital. It has excellent Blue Line metro connectivity to Connaught Place and Noida, direct access to IGI Airport via NH-48, and a large, stable middle-class and government employee population. The upcoming Dwarka Expressway (fully operational from 2024) has sharply boosted connectivity to Gurgaon.',
+      specialties: ['Delhi\'s largest DDA planned township', 'Blue Line metro connectivity', 'Airport corridor (15 min to IGI)', 'Dwarka Expressway to Gurgaon', 'Stable government employee community'],
+      major_employers: ['IGI Airport ecosystem (15 min)', 'Aerocity business district (10 km)', 'Gurgaon IT belt via Dwarka Expressway (20 min)', 'Indira Gandhi National Open University (IGNOU) campus'],
+      schools: [
+        { name: 'DPS Dwarka (Delhi Public School)', type: 'CBSE', note: 'Large DPS campus; one of Dwarka\'s most reputed schools' },
+        { name: 'Kendriya Vidyalaya Dwarka', type: 'CBSE', note: 'Central government school; excellent quality at modest fees' },
+        { name: 'Ryan International School Dwarka', type: 'CBSE', note: 'Well-attended Ryan campus in Dwarka' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate to heavy on Dwarka Sector 10 Road and Palam Road during peak hours; airport traffic on NH-48 can cause delays',
+        metro_access: 'Multiple Blue Line stations across Dwarka (Sector 10, 11, 12, 13, 14, 21 — Blue Line terminus); direct to Connaught Place, Noida',
+        highway_access: 'NH-48 (Delhi–Jaipur) — 1 km; Dwarka Expressway (to Gurgaon) — 2 km; IGI Airport — 12 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Venkateshwar Hospital Dwarka (2 km)', 'Manipal Hospital Dwarka (3 km)', 'AIIMS Trauma Centre (10 km)'],
+        malls: ['Pacific Mall Dwarka (3 km)', 'Vegas Mall Dwarka (2 km)', 'Ambience Mall Gurgaon (12 km)'],
+        parks: ['Sector 10 & 23 DDA Parks (local)', 'Asola Bhatti Wildlife Sanctuary (15 km)'],
+      },
+      investment_note: 'Dwarka offers solid 8–10% appreciation driven by airport proximity, Dwarka Expressway opening, and Blue Line metro. Rental yields at 3.5–4.5% are steady from government and airline sector tenants. Aerocity business district growth is the key demand catalyst. One of Delhi\'s best value-for-money residential investments.',
+    },
+
+    'South Delhi': {
+      overview: 'South Delhi\'s elite triangle — Defence Colony, Greater Kailash (GK 1 & 2), and Saket — represents Delhi\'s most established premium residential address. Wide tree-lined roads, diplomatic community presence, top hospitals (AIIMS), and proximity to South Delhi\'s best schools define the character. Supply is very constrained — most transactions are resale of old bungalows or premium apartments. Prices are among Delhi\'s highest.',
+      specialties: ['Delhi\'s most prestigious residential triangle', 'Diplomatic community & embassy proximity', 'AIIMS & Safdarjung Hospital adjacency', 'Very low new supply', 'Metro Yellow & Magenta Lines served'],
+      major_employers: ['AIIMS (All India Institute of Medical Sciences)', 'South Delhi government offices', 'Connaught Place CBD (12 km)', 'BKC-equivalent work from home premium market'],
+      schools: [
+        { name: 'Delhi Public School R.K. Puram', type: 'CBSE', note: 'One of India\'s most famous DPS schools; exceptional board results' },
+        { name: 'Modern School Vasant Vihar', type: 'CBSE', note: 'Prestigious CBSE school in South Delhi; strong academic and alumni network' },
+        { name: 'The Shri Ram School Vasant Vihar', type: 'CBSE', note: 'One of Delhi\'s most selective and reputed private schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; Ring Road and Outer Ring Road can congest during peak hours; GK markets have internal parking constraints',
+        metro_access: 'Lajpat Nagar, Moolchand (Violet Line); Hauz Khas (Yellow+Magenta interchange); Saket (Yellow Line); AIIMS (Yellow Line)',
+        highway_access: 'Ring Road — adjacent; Outer Ring Road — 1 km; NH-48 via Dhaula Kuan — 4 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['AIIMS New Delhi (3 km)', 'Safdarjung Hospital (3 km)', 'Max Hospital Saket (1 km)'],
+        malls: ['Select Citywalk Saket (2 km)', 'DLF Place Saket (2 km)', 'South Extension market (2 km)'],
+        parks: ['Lodhi Garden (3 km)', 'Sanjay Van (2 km)', 'Hauz Khas Village & lake (3 km)'],
+      },
+      investment_note: 'South Delhi is premium capital preservation — 7–9% appreciation with near-zero new supply. Rental yields at 3–3.5% are modest but tenant quality is exceptional (diplomats, doctors, senior government officials). Best for HNI long-term holders. Properties here almost never depreciate; scarcity is structural.',
+    },
+
+  },
+  // Day 3 (2026-06-22): Chennai
+  'Chennai': {
+
+    'Sholinganallur': {
+      overview: 'Old Mahabalipuram Road (OMR) is Chennai\'s primary IT corridor, stretching ~45 km from Madhya Kailash to Siruseri SIPCOT. The northern stretch (Perungudi–Sholinganallur) is the densest IT zone, housing Tidel Park, SIPCOT IT Park, and campuses of Cognizant, Infosys, TCS, and Wipro. Chennai Metro Phase 2 Corridor 3 will bring metro stations to Perungudi, Sholinganallur, and beyond from 2026, which is expected to be transformative for this car-dependent corridor.',
+      specialties: ['Chennai\'s primary 45 km IT corridor', 'Tidel Park & SIPCOT IT Park', 'Metro Phase 2 Corridor 3 pipeline', 'Coastal proximity (ECR 3 km)', 'Premium residential stock 2020–2025'],
+      major_employers: ['Cognizant Technology Solutions (Sholinganallur)', 'Infosys Chennai', 'TCS (SIPCOT)', 'Wipro (Sholinganallur)', 'CGI Group', 'Hexaware Technologies'],
+      schools: [
+        { name: 'Gateway International School OMR', type: 'CBSE', note: 'Reputed CBSE school on OMR with international pedagogy approach' },
+        { name: 'Shiv Nadar School Chennai', type: 'IB', note: 'Top IB school in Chennai; on OMR near Adyar River; serves Adyar, Besant Nagar, OMR' },
+        { name: 'Orchids The International School OMR', type: 'CBSE', note: 'Technology-forward CBSE school serving OMR IT corridor families' },
+      ],
+      traffic: {
+        peak_hours: 'Severely congested on OMR from Perungudi to Sholinganallur 8:30–10:30 am and 6–9 pm; corridor is heavily car-dependent with few alternatives',
+        metro_access: 'Phase 2 Corridor 3 (Madhavaram–SIPCOT) under construction — Perungudi, Thoraipakkam, Sholinganallur stations planned; first section expected 2026',
+        highway_access: 'East Coast Road (ECR) — 3 km via Sholinganallur; Chennai Port–Maduravoyal Expressway — 15 km; NH-32 — 12 km',
+        congestion_level: 'Very High',
+      },
+      nearby_amenities: {
+        hospitals: ['Gleneagles Global Health City (5 km)', 'MIOT International Hospital (10 km)', 'Apollo Hospitals Greams Road (12 km)'],
+        malls: ['Phoenix Marketcity Chennai Velachery (8 km)', 'Grand Square Mall Perungudi (2 km)', 'Vivira Mall Navalur (5 km)'],
+        parks: ['Perungudi Lake (local)', 'Sholinganallur Marsh Bird Sanctuary (2 km)', 'Adyar River Eco-Park (8 km)'],
+      },
+      investment_note: 'OMR delivers 8–11% appreciation with the strongest fundamentals in Chennai — largest IT workforce catchment and Phase 2 metro as a near-term catalyst. Rental yields at 4–5% with 2BHK rents of ₹22,000–40,000/mo. Metro Phase 2 opening (from 2026) will be the biggest price inflection point for the corridor in a decade.',
+    },
+
+    'Velachery': {
+      overview: 'Velachery is Chennai\'s most well-connected mid-city suburb, sitting at the intersection of the Blue Line metro (Airport to Wimco Nagar) and Pallavaram–Taramani Road. It offers affordable-to-mid-range apartments with excellent access to the OMR IT corridor, the airport, and the city centre. A large, established residential population and strong rental demand from IT and BPO workers make it one of Chennai\'s most stable investment micro-markets.',
+      specialties: ['Blue Line metro served', 'OMR IT corridor access (5 km)', 'Airport link (10 min to Blue Line terminus)', 'Affordable-to-mid residential market', 'Strong IT worker rental demand'],
+      major_employers: ['OMR IT Park companies (5 km)', 'DLF IT Park Guindy (8 km)', 'Tidel Park (8 km)', 'Chennai Financial City (6 km)'],
+      schools: [
+        { name: 'Sishya School Velachery', type: 'CBSE', note: 'Reputed CBSE school in Velachery' },
+        { name: 'SBOA School & Junior College', type: 'CBSE', note: 'Well-attended CBSE school popular in south-central Chennai' },
+        { name: 'Kendriya Vidyalaya Velachery', type: 'CBSE', note: 'Central government school; excellent quality at accessible fees' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy on 100 Feet Road Velachery and Pallavaram–Taramani Road 8:30–10 am and 6–9 pm',
+        metro_access: 'Velachery Metro Station (Blue Line — Phase 2 to connect directly; Phase 1 St Thomas Mount nearby — 3 km)',
+        highway_access: 'GST Road (NH-32) — 4 km; OMR — 5 km; Chennai Airport — 10 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Apollo Hospital Greams (10 km)', 'Vijaya Hospital Vadapalani (6 km)', 'MIOT Hospital (8 km)'],
+        malls: ['Phoenix Marketcity Velachery (1 km)', 'Grand Mall (2 km)', 'Saravana Stores nearby'],
+        parks: ['Velachery Lake Park (2 km)', 'Adyar Eco Park (6 km)'],
+      },
+      investment_note: 'Velachery is one of Chennai\'s best-balanced investments — 8–10% appreciation with 4–5% rental yields at very accessible prices. Blue Line metro connectivity to the airport and city centre is a structural demand driver. One of the few Chennai localities where both IT workers and city commuters compete for the same rental stock, keeping vacancy very low.',
+    },
+
+    'Anna Nagar': {
+      overview: 'Anna Nagar is Chennai\'s premier mid-to-premium residential address — a large BDA-planned township in the north-west developed in the 1970s, known for its wide roads, parks, tree cover, and excellent social infrastructure. It is the city\'s most aspirational owner-occupation address for middle and upper-middle class Chennaites. The Green Line metro (CMBT station) provides direct city-centre connectivity. Very limited new supply keeps prices firm.',
+      specialties: ['Bangalore\'s BDA equivalent in Chennai', 'Green Line metro served (CMBT)', 'Excellent school & hospital belt', 'Wide roads & parks', 'Low new supply — strong resale market'],
+      major_employers: ['Aminjikarai–Kilpauk commercial offices', 'Anna Nagar retail economy', 'Ambattur Industrial Estate (8 km)', 'KK Nagar BPO offices (5 km)'],
+      schools: [
+        { name: 'Chinmaya Vidyalaya Anna Nagar', type: 'CBSE', note: 'Renowned CBSE school; holistic education philosophy since 1989' },
+        { name: 'Chennai Public School Anna Nagar', type: 'CBSE', note: 'Premium CBSE day school; balanced academic and co-curricular' },
+        { name: 'The British School Chennai', type: 'IGCSE/IB', note: 'International school offering IGCSE and IB in Anna Nagar' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; Anna Nagar 2nd Avenue and Junction can slow 8:30–10 am; internal roads are wide and generally manageable',
+        metro_access: 'CMBT Station (Green Line) — 2 km; Koyambedu interchange area is the Green Line northern terminus cluster',
+        highway_access: 'NH-48 (Chennai–Bengaluru) — 5 km; Outer Ring Road — 3 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Vijaya Hospital Vadapalani (5 km)', 'MIOT Hospital (6 km)', 'Apollo Hospitals Greams Road (8 km)'],
+        malls: ['VR Chennai (5 km)', 'Ampa Skywalk (2 km)', 'Spencer Plaza (7 km)'],
+        parks: ['Anna Nagar Tower Park (local)', 'Vadapalani Park (3 km)'],
+      },
+      investment_note: 'Anna Nagar delivers steady 8–9% appreciation in a mature township with near-zero new supply. Rental yields at 3.5–4.5% are moderate but vacancy is very low. Best for owner-occupation or long-term capital appreciation investors. Green Line metro connectivity adds a structural demand floor.',
+    },
+
+    'Adyar': {
+      overview: 'Adyar is Chennai\'s most prestigious old-money residential address — a leafy, waterfront suburb alongside the Adyar River, home to the Theosophical Society\'s 260-acre campus. It attracts Chennai\'s elite, professionals, and diplomatic community. Current prices are among the city\'s highest at ~₹17,000/sqft. Very limited new supply and strong aspirational demand make it Chennai\'s equivalent of Bangalore\'s Indiranagar or Mumbai\'s Bandra West.',
+      specialties: ['Chennai\'s most prestigious old-money address', 'Adyar River & Theosophical Society campus', 'Elite school belt (Besant Nagar nearby)', 'Very low new supply', 'Close to OMR IT corridor & Besant Nagar Beach'],
+      major_employers: ['OMR IT corridor (7 km)', 'Central Government offices (Besant Nagar)', 'Theosophical Society campus', 'Chennai Financial City (8 km)'],
+      schools: [
+        { name: 'Shiv Nadar School Adyar', type: 'IB', note: 'Top IB school in Chennai; lush green campus on Adyar River bank' },
+        { name: 'P.S. Senior Secondary School', type: 'CBSE', note: 'One of Chennai\'s oldest and most reputed CBSE schools' },
+        { name: 'Padma Seshadri Bala Bhavan (PSBB)', type: 'CBSE', note: 'Highly regarded CBSE school; very competitive admissions' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; Adyar Junction and Lattice Bridge Road slow during peak hours; generally less congested than north Chennai',
+        metro_access: 'No metro directly — Phase 2 Corridor 5 (Madhavaram–Sholinganallur) will serve Adyar area; closest Phase 1: Little Mount (Blue Line) — 4 km',
+        highway_access: 'GST Road via Guindy — 5 km; East Coast Road (ECR) — 3 km; OMR — 7 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Gleneagles Global Health City (3 km)', 'Chettinad Health City (8 km)', 'Apollo Hospitals (9 km)'],
+        malls: ['Phoenix Marketcity Velachery (5 km)', 'Ampa Skywalk (8 km)'],
+        parks: ['Theosophical Society 260-acre campus (local)', 'Besant Nagar Beach (2 km)', 'Adyar Eco-Park (1 km)'],
+      },
+      investment_note: 'Adyar is Chennai\'s premium capital preservation play at 8–10% appreciation with the city\'s highest per-sqft prices (~₹17,000). Rental yields at 3–4% are modest but tenant quality is exceptional. Scarcity is structural — almost no new launches. Best for HNI investors seeking Chennai\'s best address with long-term hold.',
+    },
+
+    'Porur': {
+      overview: 'Porur is a rapidly growing western Chennai suburb anchored by the Ramapuram–Porur IT corridor and large integrated township projects. It offers affordable prices compared to OMR while serving the same IT workforce via the Mount–Poonamallee Road. The Green Line metro (St Thomas Mount to CMBT) passes nearby and Metro Phase 2 Corridor 4 (Lighthouse to Poonamallee) will directly serve the western belt.',
+      specialties: ['West Chennai IT corridor', 'Affordable OMR-equivalent pricing', 'Metro Phase 2 Corridor 4 pipeline', 'Large township developments', 'NH-48 airport highway access'],
+      major_employers: ['DLF IT Park (Ramapuram — 5 km)', 'Cognizant Ramapuram (5 km)', 'Zoho Corporation (Estancia IT Park — 8 km)', 'Mphasis (nearby IT parks)', 'Chennai Airport ecosystem (10 km)'],
+      schools: [
+        { name: 'Sri Vani School Porur', type: 'CBSE', note: 'Popular CBSE school in Porur serving west Chennai families' },
+        { name: 'Kendriya Vidyalaya Porur', type: 'CBSE', note: 'Central government school in the Porur belt' },
+        { name: 'Vidya Mandir School Porur', type: 'CBSE', note: 'Well-regarded CBSE school serving west Chennai' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy on Poonamallee High Road and Porur junction 8:30–10 am and 6–9 pm',
+        metro_access: 'Metro Phase 2 Corridor 4 (Lighthouse–Poonamallee) under construction; will serve Porur area; nearest Phase 1: St Thomas Mount (Blue Line) — 5 km',
+        highway_access: 'NH-48 (Chennai–Bengaluru highway) — 3 km; Chennai Airport — 10 km; Mount Poonamallee Road — adjacent',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['MIOT International Hospital (2 km)', 'Sri Ramachandra Medical Centre (3 km)', 'Vijaya Hospital (5 km)'],
+        malls: ['Mega Mall Ambattur (6 km)', 'Express Avenue (10 km)'],
+        parks: ['Porur Lake (2 km)', 'Poonamallee Lake (5 km)'],
+      },
+      investment_note: 'Porur offers 9–11% appreciation at prices 30–40% below OMR for comparable IT corridor access. Rental yields at 4.5–5% are among Chennai\'s strongest. Metro Phase 2 Corridor 4 is the key near-term catalyst. MIOT and Sri Ramachandra hospital proximity adds a healthcare worker demand stream. Best mid-market investment in west Chennai.',
+    },
+
+    'Ambattur': {
+      overview: 'Ambattur is Chennai\'s largest industrial suburb and an emerging residential growth zone in north-west Chennai. Ambattur Industrial Estate houses manufacturing and IT-enabled services companies. The area offers the most affordable property in metropolitan Chennai with improving connectivity via the Mount–Poonamallee Road. Younger buyers and first-time homeowners are the primary demand base.',
+      specialties: ['Chennai\'s largest industrial estate', 'Most affordable metro-area housing', 'IT-enabled services & manufacturing hub', 'Improving Green Line metro access', 'First-home buyer market'],
+      major_employers: ['Ambattur Industrial Estate (IT-ITeS, electronics, manufacturing)', 'Nokia Solutions Ambattur', 'Flextronics', 'Standard Chartered GBS (nearby)', 'TVS Motor Company (nearby)'],
+      schools: [
+        { name: 'Chettinad Vidyashram Ambattur', type: 'CBSE', note: 'Part of Chettinad Education group; strong CBSE school' },
+        { name: 'DAV Boys Senior Secondary School Ambattur', type: 'CBSE', note: 'Long-established DAV school in the Ambattur area' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy near Ambattur Estate Gate and Ambattur Junction 8–10 am and 6–9 pm; industrial vehicle traffic adds to congestion',
+        metro_access: 'Green Line metro (Koyambedu–CMBT) accessible via feeder; Phase 2 Corridor 5 planned extension through north Chennai',
+        highway_access: 'NH-16 (Chennai–Kolkata highway) — 4 km; Inner Ring Road — 3 km; Chennai Airport — 15 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Stanley Medical College Hospital (8 km)', 'Vijaya Hospital (8 km)', 'Balaji Medical & Diagnostic Centre (3 km)'],
+        malls: ['Mega Mall Ambattur (2 km)', 'City Centre Mall Ambattur (3 km)'],
+        parks: ['Ambattur Lake (1 km)', 'Kilpauk Garden (6 km)'],
+      },
+      investment_note: 'Ambattur offers 7–9% appreciation at Chennai\'s most affordable entry prices. Rental yields at 4.5–5% are strong driven by industrial and IT-ITeS workforce demand. Best for budget investors and first-time buyers — low entry price compensates for the modest growth trajectory. Ongoing connectivity improvements are the key upside driver.',
+    },
+
+  },
+  // Day 3 (2026-06-22): Kolkata
+  'Kolkata': {
+
+    'Salt Lake Sector V': {
+      overview: 'Salt Lake Sector V is Kolkata\'s Silicon Valley — a 430-acre dedicated IT park in Bidhannagar that is East India\'s largest and most mature technology cluster. With 12.3 million sq ft of Grade A office space, it houses Cognizant, TCS, Wipro, Infosys, SAP, Genpact, Capgemini, and hundreds of IT-ITeS firms. The Green Line metro (East-West corridor) connects Sector V directly to Howrah Maidan, making it India\'s first underwater metro through the Hooghly River.',
+      specialties: ['East India\'s largest IT campus — 430 acres', 'Green Line metro — first underwater metro in India', '12.3 mn sqft Grade A office space', 'Cognizant, TCS, Wipro, SAP, Genpact cluster', 'Adjacent to Salt Lake residential township'],
+      major_employers: ['Cognizant Technology Solutions', 'TCS (Tata Consultancy Services)', 'Wipro', 'Infosys', 'SAP India (Imagine Tech Park)', 'Genpact (Bengal Intelligent Park)', 'Capgemini'],
+      schools: [
+        { name: 'Apeejay School Salt Lake', type: 'CBSE', note: 'Well-regarded CBSE school in Salt Lake; strong academics' },
+        { name: 'Kalyani Public School Salt Lake', type: 'CBSE', note: 'One of the best-known CBSE schools in Salt Lake' },
+        { name: 'IEM Public School Salt Lake', type: 'CBSE/ICSE', note: 'Reputed multi-board school in Salt Lake Bidhannagar' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate to heavy on Sector V main roads and VIP Road approach 8:30–10:30 am and 6–9 pm',
+        metro_access: 'Salt Lake Sector V Station (Green Line — East-West Metro) — terminus; direct to Esplanade, Sealdah, Howrah and underwater Hooghly crossing',
+        highway_access: 'VIP Road (Kolkata Airport) — 5 km; EM Bypass — 3 km; Rajarhat Expressway — 2 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Apollo Gleneagles Hospital (5 km)', 'Tata Medical Centre (7 km)', 'AMRI Hospitals Salt Lake (2 km)'],
+        malls: ['City Centre New Town (4 km)', 'Acropolis Mall (6 km)', 'Forum Courtyard (8 km)'],
+        parks: ['Salt Lake Central Park (2 km)', 'Eco-Tourism Park New Town (4 km)'],
+      },
+      investment_note: 'Salt Lake Sector V residential belt (Sectors I–IV) delivers 8–10% appreciation driven by the Green Line metro and India\'s strongest East India IT employment base. Rental yields at 4–5% from Sector V IT workers. Entry prices are significantly lower than comparable IT hubs in Bangalore or Hyderabad — excellent value for investors targeting East India\'s growing IT workforce.',
+    },
+
+    'Rajarhat (IT Zone)': {
+      overview: 'New Town Rajarhat is Kolkata\'s purpose-built smart city suburb — a vast planned township developed by HIDCO north of Salt Lake, housing Eco Tourism Park, the IT offices of Wipro and LTI Mindtree, and a growing ecosystem of residential towers, schools, and hospitals. Office absorption grew 3.5-fold from 2022 to 2024, with Wipro\'s 1.5 mn sqft and LTI Mindtree\'s 3.85 mn sqft campuses in development. Investors who bought in 2020–22 during metro construction are sitting on 40–50% gains.',
+      specialties: ['HIDCO planned smart city township', '3.5× office leasing growth 2022–2024', 'Wipro & LTI Mindtree mega-campuses', 'Eco Tourism Park landmark', 'Orange Line metro & airport proximity'],
+      major_employers: ['Wipro (1.5 mn sqft campus)', 'LTI Mindtree (3.85 mn sqft campus)', 'ITC Infotech (1.45 mn sqft)', 'Infosys Business Park (0.3 mn sqft)', 'Tech Mahindra New Town'],
+      schools: [
+        { name: 'The Newtown School', type: 'CBSE', note: 'Well-regarded CBSE school in New Town township' },
+        { name: 'Orchids The International School New Town', type: 'CBSE', note: 'Technology-forward CBSE school in New Town' },
+        { name: 'The Heritage School Anandapur', type: 'IB/IGCSE/CISCE', note: 'One of Kolkata\'s top international schools; multi-board curriculum' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate on New Town main roads; airport traffic on VIP Road can affect connectivity during peaks',
+        metro_access: 'Orange Line (New Garia–Airport): Nazrul Tirtha to Chinar Park stations through New Town planned; partial section operational; Airport Line under construction',
+        highway_access: 'VIP Road to Netaji Subhas Chandra Bose Airport — 8 km; Rajarhat–Newtown Expressway — adjacent; EM Bypass — 5 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Tata Medical Centre (3 km)', 'AMRI Hospital Salt Lake (5 km)', 'Apollo Gleneagles (7 km)'],
+        malls: ['City Centre New Town (1 km)', 'Acropolis Mall (5 km)'],
+        parks: ['Eco-Tourism Park New Town (1 km)', 'Eco Park 480-acre urban park (local)', 'Hidco Lake Gardens'],
+      },
+      investment_note: 'New Town is Kolkata\'s best appreciation story — investors from 2020–22 have seen 40–50% gains. Current appreciation at 10–12% p.a. is driven by mega-IT campus completions and Orange Line metro. Entry prices at ₹5,000–8,500/sqft are far below comparable smart city suburbs in Bangalore or Pune. Rental yields at 4–5%. Best long-term investment in East India real estate.',
+    },
+
+    'Ballygunge': {
+      overview: 'Ballygunge is Kolkata\'s most prestigious old-money residential address — a leafy, elite neighbourhood south of Park Street known for large heritage houses, exclusive clubs, premier educational institutions, and a refined Bengali cultural milieu. Property prices at ₹15,000–18,000/sqft rival South Mumbai or South Delhi values. New supply is near-zero and the area has maintained its prestige for over a century.',
+      specialties: ['Kolkata\'s most prestigious address', 'Heritage houses & elite clubs', 'Top school belt (La Martinière, South Point)', 'Very limited new supply', 'Cultural & diplomatic community hub'],
+      major_employers: ['Park Street–Camac Street commercial offices (2 km)', 'Government of West Bengal Secretariat (3 km)', 'Corporate offices in nearby Alipore', 'Medical institutions (SSKM Hospital nearby)'],
+      schools: [
+        { name: 'South Point High School', type: 'CBSE', note: 'One of Kolkata\'s most renowned schools; established 1970; very high demand' },
+        { name: 'La Martinière for Boys', type: 'ISC/ICSE', note: 'Historic 1836-era elite school; one of India\'s most prestigious institutions' },
+        { name: 'Calcutta International School', type: 'IB/Cambridge', note: 'Top IB school in Kolkata; adheres to international standards' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; Ballygunge Circular Road and Gariahat crossing can slow during market hours; generally less chaotic than north Kolkata',
+        metro_access: 'Rabindra Sarobar Station (Blue Line) — 1 km; Jatin Das Park Station — 1.5 km; Blue Line direct to Esplanade and Park Street',
+        highway_access: 'EM Bypass — 4 km; Alipore Road — 2 km; Hazra Road — 0.5 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['SSKM Hospital (2 km)', 'Woodlands Medical Centre (2 km)', 'Peerless Hospital (3 km)'],
+        malls: ['Gariahat Market (1 km)', 'Acropolis Mall (4 km)', 'Forum Mall Elgin Road (3 km)'],
+        parks: ['Rabindra Sarobar Lake & Park (1 km)', 'Victoria Memorial Gardens (3 km)', 'Minto Park (2 km)'],
+      },
+      investment_note: 'Ballygunge is Kolkata\'s premium capital preservation play — 7–9% appreciation with structural scarcity. Prices at ₹15,000–18,000/sqft are Kolkata\'s highest. Rental yields at 3–4% are modest but tenant quality is exceptional. Near-zero new supply means prices here rarely decline. Best for HNI long-term holders and NRIs seeking a prestigious Kolkata address.',
+    },
+
+    'Alipore': {
+      overview: 'Alipore is South Kolkata\'s most exclusive address — a quiet, ultra-low-density neighbourhood of colonial bungalows, diplomatic missions, and heritage properties adjacent to Zoological Gardens and the National Library. Extremely limited supply and the highest land values in Kolkata define this address. It is home to senior judiciary, government, and business elite and has a character entirely distinct from any other Indian city neighbourhood.',
+      specialties: ['Kolkata\'s most exclusive address', 'Diplomatic missions & consulates', 'Ultra-low density & colonial bungalows', 'National Library & Zoo adjacency', 'Highest land values in Kolkata'],
+      major_employers: ['Government of West Bengal establishments', 'Kolkata High Court (3 km)', 'Consulates and diplomatic missions', 'Maidan commercial precinct (4 km)'],
+      schools: [
+        { name: 'La Martinière for Girls', type: 'ISC/ICSE', note: 'Twin institution to La Martinière for Boys; elite historic school in Alipore' },
+        { name: 'Modern High School for Girls', type: 'ICSE', note: 'One of Kolkata\'s most reputed girls\' schools' },
+      ],
+      traffic: {
+        peak_hours: 'Low to moderate; Alipore is one of Kolkata\'s least congested premium areas thanks to low density and wide roads',
+        metro_access: 'Jatin Das Park (Blue Line) — 2 km; Rabindra Sarobar (Blue Line) — 2 km',
+        highway_access: 'Garden Reach Road — 2 km; Diamond Harbour Road — 3 km; Hastings — 2 km',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['SSKM Hospital (2 km)', 'Woodlands Multi Speciality Hospital (1 km)', 'Fortis Hospital Rash Behari (3 km)'],
+        malls: ['Forum Mall Elgin Road (3 km)', 'South City Mall (5 km)'],
+        parks: ['Alipore Zoological Garden (0.5 km)', 'National Library grounds (0.5 km)', 'Victoria Memorial (3 km)'],
+      },
+      investment_note: 'Alipore is Kolkata\'s most exclusive capital store — 7–8% appreciation but transactions are extremely rare. Entry is institutional or HNI only. Rental yields at 3–3.5% are modest given Kolkata\'s luxury supply. The area\'s character and historical importance give it permanent scarcity value unlike any other Kolkata neighbourhood.',
+    },
+
+    'Tollygunj': {
+      overview: 'Tollygunge is a well-established south Kolkata suburb known for the historic Tollygunge Club (golf & sports), Rabindra Sarobar lake, and proximity to the Bengali film industry (Tollywood). It offers a mature residential environment with excellent Blue Line metro connectivity and good schools and hospitals. Mid-to-premium apartments and older South Kolkata housing stock attract families seeking a quieter, green environment.',
+      specialties: ['Tollygunge Club (golf) landmark', 'Rabindra Sarobar lakeside lifestyle', 'Blue Line metro — multiple stations', 'Tollywood (Bengali film industry) adjacency', 'Established south Kolkata family suburb'],
+      major_employers: ['Tollygunge Club & hospitality sector', 'South Kolkata commercial offices', 'Alipore govt establishments (3 km)', 'Ballygunge corporate belt (3 km)'],
+      schools: [
+        { name: 'South Point High School (Tollygunge campus)', type: 'CBSE', note: 'Branch of Kolkata\'s most renowned CBSE school' },
+        { name: 'Kendriya Vidyalaya Tollygunge', type: 'CBSE', note: 'Central government school; consistent quality at accessible fees' },
+        { name: 'Sishir Bhaduri Memorial High School', type: 'State/CBSE', note: 'Well-regarded local school in south Kolkata' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; Tollygunge Circular Road and Rashbehari Connector can slow during peak hours; generally better than north Kolkata',
+        metro_access: 'Tollygunge Station and Mahanayak Uttam Kumar Station (Blue Line) — on line; direct to Park Street, Esplanade, Dum Dum',
+        highway_access: 'EM Bypass — 5 km; Diamond Harbour Road — 3 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Fortis Hospital Rash Behari (2 km)', 'Peerless Hospital (3 km)', 'CMRI Hospital (4 km)'],
+        malls: ['South City Mall (2 km)', 'Forum Mall Elgin Road (4 km)', 'Acropolis Mall (7 km)'],
+        parks: ['Rabindra Sarobar (1 km)', 'Tollygunge Club golf course & grounds (1 km)'],
+      },
+      investment_note: 'Tollygunge delivers steady 7–9% appreciation backed by Blue Line metro, Rabindra Sarobar lifestyle, and school proximity. Rental yields at 4–5% are among south Kolkata\'s better numbers. Lower entry price than Ballygunge for comparable connectivity and green environment. Good balanced investment for conservative Kolkata buyers.',
+    },
+
+  },
+  // Day 3 (2026-06-22): Ahmedabad
+  'Ahmedabad': {
+
+    'SG Highway (North)': {
+      overview: 'Sarkhej-Gandhinagar Highway (SG Highway) is Ahmedabad\'s commercial and residential spine — a 30-km arterial that has transformed into the city\'s most coveted mixed-use corridor. Lined with Grade A IT parks, retail malls, and premium residences, it is home to the largest concentration of MNC offices in Gujarat. The Blue Line metro (Thaltej Gam–Vastral Gam, operational Dec 2024) and a dense BRTS network form the transit backbone. SG Highway is the first address Ahmedabad buyers look at for work-live proximity.',
+      specialties: ['Ahmedabad\'s prime commercial-residential corridor', 'Largest MNC office concentration in Gujarat', 'Blue Line metro — Thaltej end (Dec 2024)', '15–22% annual appreciation zone', 'Parshwanath & Pinnacle business hubs'],
+      major_employers: ['TCS (Tata Consultancy Services)', 'Wipro Technologies', 'HCL Technologies', 'Capgemini', 'Parshwanath Business Park', 'Pinnacle Business Park', 'KPMG India'],
+      schools: [
+        { name: 'Udgam School for Children', type: 'CBSE/IB DP', note: 'One of Ahmedabad\'s best schools; IB Diploma Programme; founded 1965; SG Highway corridor' },
+        { name: 'Anand Niketan School', type: 'CBSE', note: 'Highly regarded CBSE school on SG Highway; strong academics and sports' },
+        { name: 'Vibgyor High School', type: 'CBSE/ICSE', note: 'Well-known multi-board school; multiple campuses along SG Highway belt' },
+        { name: 'Delhi Public School (DPS) Bopal', type: 'CBSE', note: '11-acre co-ed CBSE school; established 1996; near SG Highway south end' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy on SG Highway main road during 8:30–10:30 am and 6–9 pm; Bopal Junction and Prahlad Nagar junction are worst spots; BRTS lanes improve bus flow',
+        metro_access: 'Blue Line (East-West): Thaltej Gam (terminus) and Thaltej stations — opened Dec 2024; 12.5 km Bopal-Sanathal extension planned. BRTS: frequent services along entire SG Highway corridor',
+        highway_access: '132 Feet Ring Road — intersects at multiple points; Sarkhej-Gandhinagar NH-147 — forms the corridor; Airport via NH-48 — 12 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['HCG Cancer Centre SG Highway (2 km)', 'SAL Hospital SG Highway (3 km)', 'Zydus Hospitals (5 km)'],
+        malls: ['Iscon Mega Mall (3 km)', 'Westgate Mall SG Highway (2 km)', 'Alpha One Mall (4 km)'],
+        parks: ['Vastrapur Lake (4 km)', 'Science City (8 km)', 'Kankaria Lake (12 km)'],
+      },
+      investment_note: 'SG Highway is Ahmedabad\'s strongest appreciation story — 15–22% per year in premium pockets, 25–35% cumulative over 5 years. Prices at ₹8,000–10,500/sqft are still far below comparable Bangalore or Hyderabad IT corridors. Rental yields at 4–5% from IT professionals make it a strong income play. Blue Line metro at Thaltej unlocks further capital gain. Best all-round Ahmedabad investment for 2024–2027.',
+    },
+
+    'Prahlad Nagar': {
+      overview: 'Prahlad Nagar is Ahmedabad\'s most sought-after west side premium residential address — a dense, walkable neighbourhood just off SG Highway packed with corporate offices, schools, hospitals, and retail. Flat prices average ₹8,250/sqft with 3 BHK units at ₹1.35–1.85 cr. The area attracts IT professionals working on SG Highway for its walk-to-office culture, strong infrastructure, and curated lifestyle options.',
+      specialties: ['Most sought-after west Ahmedabad premium address', 'Walk-to-office from SG Highway IT parks', 'Adjacent to SG Highway IT corridor', '29.9% appreciation in 5 years', 'Blue Line metro at Thaltej (2 km)'],
+      major_employers: ['Parshwanath Business Park (SG Highway) — 1 km', 'Pinnacle Business Park — 2 km', 'Vodafone Corporate House, Prahlad Nagar Corporate Road', 'KPMG & IT companies on Corporate Road'],
+      schools: [
+        { name: 'DAV International School', type: 'CBSE/IB', note: 'Located on Prahlad Nagar Corporate Road; international curriculum; well-regarded in west Ahmedabad' },
+        { name: 'Udgam School for Children', type: 'CBSE/IB DP', note: 'One of Gujarat\'s best schools; accessible from Prahlad Nagar' },
+        { name: 'Anand Niketan School', type: 'CBSE', note: 'Top CBSE school; Prahlad Nagar belt; strong academics and sports' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate to heavy on 100 Ft Road and SG Highway approach; internal colony roads are calmer',
+        metro_access: 'Blue Line: Thaltej Station — 2 km via SG Highway. BRTS available on SG Highway (0.5 km)',
+        highway_access: 'SG Highway — 0.5 km; 132 Ft Ring Road — 1 km; Airport via SG Highway — 10 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Sterling Hospitals (1.5 km)', 'HCG Cancer Centre (2 km)', 'Zydus Hospital (3 km)'],
+        malls: ['Westgate Mall (1 km)', 'Iscon Mega Mall (2 km)', 'Alpha One Mall (4 km)'],
+        parks: ['Vastrapur Lake (2 km)', 'Prahlad Nagar Garden (local)', 'Law Garden (3 km)'],
+      },
+      investment_note: 'Prahlad Nagar delivers reliable 10–14% annual appreciation driven by SG Highway employment proximity and scarce supply. Prices at ₹8,250/sqft have grown 29.9% in 5 years with 14.6% in the last 3 years. Rental yield at 3% is modest but tenants are high-income IT professionals ensuring low vacancy. Good buy-and-hold for investors wanting stability and prestige within west Ahmedabad.',
+    },
+
+    'GIFT City': {
+      overview: 'GIFT City (Gujarat International Finance Tec-City) is India\'s first operational smart city and International Financial Services Centre (IFSC), located on the Ahmedabad-Gandhinagar Expressway, 15 km north of Ahmedabad. It hosts 250+ financial firms and global MNCs including Oracle, Bank of America, and TCS, governed by IFSCA under a special regulatory framework. The Violet Line metro spur (GNLU–GIFT City, opened Sept 2024) provides direct metro access. Property prices surged 61.5% in 3 years — India\'s highest appreciation rate for any new township.',
+      specialties: ['India\'s first IFSC and operational smart city', 'Violet Line metro spur — direct to GIFT City (Sept 2024)', 'Oracle, Bank of America, TCS, HDFC, SBI', '61.5% price appreciation in 3 years', 'IIT Gandhinagar, GNLU, international universities nearby'],
+      major_employers: ['Oracle Financial Services', 'Bank of America (BofA Continuum)', 'TCS GDC GIFT City', 'HDFC Bank IFSC unit', 'SBI IFSC unit', 'NSE IFSC', 'BSE International Exchange'],
+      schools: [
+        { name: 'Jamnabai Narsee International School', type: 'IB/IGCSE', note: 'Top IB school near GIFT City; strong for families of IFSC financial sector professionals' },
+        { name: 'Podar International School', type: 'CBSE/IB', note: 'Reputed multi-board school serving the Gandhinagar-GIFT City belt' },
+      ],
+      traffic: {
+        peak_hours: 'Low to moderate; GIFT City is a purpose-built township with wide roads; Expressway is smooth and uncongested',
+        metro_access: 'Violet Line spur: GNLU Station to GIFT City Station — opened September 2024. Yellow Line: Motera to Mahatma Mandir Gandhinagar — fully open January 2026 (direct Ahmedabad–Gandhinagar metro)',
+        highway_access: 'Ahmedabad-Gandhinagar Expressway — adjacent (5 min to Ahmedabad); SG Highway — 10 km; BRTS interchange at Koba',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['SMVS Swaminarayan Hospital (3 km)', 'SGS Super Speciality Hospital (4 km)', 'SCAI Superspeciality Hospital (3 km)'],
+        malls: ['GIFT City retail zone (internal)', 'Gandhinagar commercial precinct (5 km)'],
+        parks: ['GIFT City landscaped gardens (internal)', 'Sabarmati Riverfront (12 km)'],
+      },
+      investment_note: 'GIFT City is Ahmedabad\'s highest-conviction long-term bet — 61.5% rise in 3 years, 10.5% last year, pricing at ₹8,500–12,800/sqft. The IFSCA regulatory advantage and USD-denominated financial sector jobs create uniquely durable demand. Violet Line metro is already priced in; Yellow Line Gandhinagar connectivity adds further appeal. Best for investors targeting the 5–10 year India financial infrastructure cycle.',
+    },
+
+    'Bopal': {
+      overview: 'Bopal and South Bopal are the most popular affordable-to-mid-premium residential suburbs of west Ahmedabad, attracting IT families working on SG Highway and young professionals priced out of Prahlad Nagar. The area has grown from a peripheral village to a dense township over 15 years, with wide roads, a strong school belt (DPS, Apollo International), and BRTS connectivity. A planned 12.5 km metro extension to Sanathal via Bopal and Shela is the next major value unlock.',
+      specialties: ['Best affordable west Ahmedabad for IT families', 'DPS Bopal (11-acre campus) & Apollo International School', 'BRTS connectivity; planned 12.5 km metro extension to Bopal', 'SG Highway IT parks within 7 km', '28.6% appreciation in 5 years at entry pricing'],
+      major_employers: ['SG Highway IT parks — 7 km', 'Parshwanath Business Hub (Bodakdev) — 5 km', 'Sun Pharma Ahmedabad — 10 km', 'Ahmedabad retail and logistics sector'],
+      schools: [
+        { name: 'Delhi Public School (DPS) Bopal', type: 'CBSE', note: '11-acre co-ed CBSE school; established 1996; Ahmedabad\'s most popular DPS campus' },
+        { name: 'Apollo International School (AIS)', type: 'CBSE', note: 'Located in South Bopal; co-ed CBSE; growing reputation in west Ahmedabad' },
+        { name: 'New Tulip International School', type: 'CBSE', note: 'English medium CBSE school; well established in Bopal residential belt' },
+        { name: 'Shivashish School', type: 'CBSE', note: 'Popular CBSE school in Bopal; affordable fees; solid academics' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate on Bopal-Ghuma Road and South Bopal main road; Shela junction can slow; BRTS from SG Highway is main commute route',
+        metro_access: 'Nearest metro: Thaltej Gam Station (Blue Line) — 8 km via SG Highway. Planned: 12.5 km metro spur to Sanathal via Bopal and Shela (under planning, no confirmed date)',
+        highway_access: 'SG Highway — 5 km; 132 Ft Ring Road — 4 km; Satellite–Bopal Road — main arterial',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Zydus Hospital (6 km)', 'HCG Hospital SG Highway (7 km)', 'Parth Children Hospital Bopal (local)'],
+        malls: ['Westgate Mall (6 km)', 'Applewoods Township retail (local)', 'Iscon Mega Mall (8 km)'],
+        parks: ['Vastrapur Lake (7 km)', 'Bopal-Ghuma open spaces', 'Science City (10 km)'],
+      },
+      investment_note: 'Bopal/South Bopal offers Ahmedabad\'s best value: entry at ₹4,650–6,500/sqft, 4% rental yield (among the city\'s best), and 28.6% over 5 years. The planned metro extension to Bopal is the next catalyst that could drive 20–30% appreciation on announcement. DPS Bopal and Apollo International are strong family demand magnets. Best entry-level west Ahmedabad investment with high upside optionality.',
+    },
+
+    'Navrangpura': {
+      overview: 'Satellite and Navrangpura form Ahmedabad\'s premium central-west belt — mature, densely developed neighbourhoods home to IIM Ahmedabad, Gujarat University, Law Garden, and the city\'s corporate and professional class. Satellite averages ₹8,200–8,500/sqft with 10.4% appreciation last year. The Blue Line metro passes through Navrangpura (Shreyas and Commerce Six Roads stations), making it one of the best-connected central zones. CG Road is Ahmedabad\'s finest dining and retail street.',
+      specialties: ['IIM Ahmedabad adjacency (4 km)', 'Gujarat University & top colleges in Navrangpura', 'Blue Line metro — Shreyas & Commerce Six Roads stations', 'Law Garden & CG Road retail/dining', 'Premium central address with no new land supply'],
+      major_employers: ['IIM Ahmedabad campus (faculty, admin)', 'Gujarat High Court (Navrangpura) — 3 km', 'CG Road commercial offices', 'Gujarat University staff', 'Insurance & banking offices along Navrangpura Road'],
+      schools: [
+        { name: 'Udgam School for Children', type: 'CBSE/IB DP', note: 'Ahmedabad\'s best known IB school; flagship campus near Navrangpura; top choice in the area' },
+        { name: 'H.B. Kapadia New High School', type: 'CBSE/ICSE/IB', note: 'Established multi-board institution in Navrangpura; strong track record' },
+        { name: 'Sheth Motilal Hirabhai Bhavan', type: 'IB/IGCSE', note: 'Top IB/IGCSE school at Ellis Bridge near Navrangpura' },
+        { name: 'Anand Niketan School', type: 'CBSE', note: 'Well-regarded CBSE school with Satellite branch; strong co-curriculars' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate to heavy on CG Road and Nehru Bridge approaches; internal SG Highway and satellite road manageable with BRTS',
+        metro_access: 'Blue Line (East-West): Commerce Six Roads Station and Shreyas Station — operational; direct to Thaltej (west) and Vastral Gam (east). BRTS well developed on Satellite Road',
+        highway_access: '132 Ft Ring Road — 1 km; SG Highway — 3 km; Ashram Road (riverfront) — 2 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Shalby Hospital (SG Highway — 4 km)', 'Apollo Hospitals (Bhat — 5 km)', 'Rajasthan Hospital Shahibaug (7 km)'],
+        malls: ['Iscon Mega Mall (2 km)', 'Alpha One Mall (3 km)', 'The Grand Highstreet Satellite (local)'],
+        parks: ['Vastrapur Lake (3 km)', 'Law Garden (1 km)', 'Sabarmati Riverfront (3 km)'],
+      },
+      investment_note: 'Satellite/Navrangpura delivers 10–12% annual appreciation backed by IIM Ahmedabad premium, Blue Line metro, and near-zero new land supply. Prices at ₹7,500–8,500/sqft are strong but still 50–60% below Mumbai equivalents. Rental yields at 3.5–4.5% from students, young professionals, and academics. Best for buyers wanting a premium central Ahmedabad address with institutional prestige.',
+    },
+
+    'Bodakdev': {
+      overview: 'Bodakdev is west Ahmedabad\'s most upscale residential enclave — a leafy, low-density suburb between SG Highway and Satellite with luxury villa row houses, premium high-rises, and the headquarters of Zydus Lifesciences. Home to Ahmedabad International School (IB/IGCSE) and Zydus School for Excellence, it attracts senior executives and Gujarat\'s business families. The Blue Line metro at Thaltej Gam (2 km, opened Dec 2024) has driven 10–12% price appreciation since opening.',
+      specialties: ['Ahmedabad\'s most upscale residential enclave', 'Low density — luxury villas & premium high-rises', 'Ahmedabad International School (IB/IGCSE)', 'Zydus Lifesciences headquarters adjacency', 'Blue Line metro at Thaltej — 2 km (Dec 2024)'],
+      major_employers: ['Zydus Lifesciences (headquarters)', 'SG Highway IT parks — 3 km', 'Sun Pharma Ahmedabad — 8 km', 'Large Gujarat corporate offices nearby'],
+      schools: [
+        { name: 'Ahmedabad International School', type: 'IB/IGCSE', note: 'Top international school in Ahmedabad; IB MYP and Diploma; premium campus in Bodakdev' },
+        { name: 'Zydus School for Excellence', type: 'CBSE', note: 'Founded by Zydus Group; modern campus with strong CBSE programme in Bodakdev' },
+        { name: 'Udgam School for Children', type: 'CBSE/IB DP', note: 'One of Gujarat\'s best schools; accessible from Bodakdev' },
+      ],
+      traffic: {
+        peak_hours: 'Low to moderate; Bodakdev\'s internal roads are wide and low-density; SG Highway approach can be heavy during peaks',
+        metro_access: 'Blue Line: Thaltej Gam Station (eastern terminus of west extension, opened Dec 2024) — 2 km drive; BRTS available on adjacent SG Highway',
+        highway_access: 'SG Highway — 1 km; 132 Ft Ring Road — 2 km; Sindhubhavan Road — 0.5 km (main arterial)',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['HCG Cancer Centre (2 km)', 'Sterling Hospital Ahmedabad (3 km)', 'Zydus Hospitals (2 km)'],
+        malls: ['Westgate Mall (3 km)', 'Iscon Mega Mall (4 km)', 'Sindhubhavan Road retail strip (local)'],
+        parks: ['Vastrapur Lake (3 km)', 'Bodakdev Garden (local)', 'Science City (8 km)'],
+      },
+      investment_note: 'Bodakdev is Ahmedabad\'s prestige capital preservation play — 10–12% steady appreciation, very limited new supply, and a tenant base of senior executives and business families. Prices at ₹12,000–18,000/sqft for premium units are Ahmedabad\'s highest outside GIFT City. Rental yields at 3–3.5% are modest but tenant quality is exceptional. Best for HNI buyers seeking a prestigious low-density Ahmedabad address.',
+    },
+
+  },
 };

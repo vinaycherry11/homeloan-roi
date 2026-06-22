@@ -486,6 +486,9 @@ const LOCALITY_DATA = {
       'Banashankari':      { app:  6.7, rent:  4.5, note: 'South established suburb · family preferred' },
       'Bellary Road':      { app:  8.2, rent:  5.2, note: 'NH-44 north corridor · airport & warehousing' },
       'Cunningham Road':   { app:  6.0, rent:  3.8, note: 'Central Bangalore premium · commercial fringe' },
+      'Bellandur':         { app:  9.5, rent:  5.8, note: 'Outer Ring Road hub · Sarjapur Road growth zone' },
+      'Brookefield':       { app:  9.5, rent:  6.3, note: 'Whitefield IT extension · premium gated communities' },
+      'BTM Layout':        { app:  8.2, rent:  4.9, note: 'South Bangalore mid-premium · startup & F&B belt' },
     },
   },
   'Pune': {
@@ -511,6 +514,7 @@ const LOCALITY_DATA = {
       'Kothrud':         { app:  5.5, rent:  4.1, note: 'West Pune heritage suburb · steady demand' },
       'Ambegaon':        { app:  5.5, rent:  3.8, note: 'Katraj belt · budget residential catchment' },
       'Talegaon':        { app:  5.0, rent:  3.5, note: 'Mumbai-Pune Expressway node · second-home play' },
+      'Koregaon Park':   { app:  7.8, rent:  5.0, note: 'Old Pune premium · luxury apartments & expat address' },
     },
   },
   'Mumbai': {
@@ -536,6 +540,9 @@ const LOCALITY_DATA = {
       'Andheri East': { app:  4.6, rent:  3.8, note: 'MIDC & SEEPZ zone · commercial conversion' },
       'Bandra':       { app:  4.6, rent:  3.2, note: 'Premium island address · capital gains story' },
       'Worli':        { app:  6.0, rent:  3.8, note: 'Sea Link connectivity · luxury redevelopment' },
+      'Goregaon East':{ app:  5.1, rent:  4.4, note: 'Western suburbs mid-segment · Mindspace IT park & film city' },
+      'Malad West':   { app:  5.1, rent:  4.4, note: 'Western suburbs mid-premium · Metro Line 2A served' },
+      'Vashi':        { app:  6.9, rent:  5.2, note: 'Navi Mumbai CBD · APMC & planned township node' },
     },
   },
   'Delhi NCR': {
@@ -636,7 +643,196 @@ const LOCALITY_DATA = {
       'Nikol':              { app:  5.0, rent:  3.5, note: 'East suburb · affordable lower-income belt' },
       'Vatva':              { app:  5.0, rent:  3.5, note: 'GIDC industrial zone fringe · value segment' },
       'Isanpur':            { app:  5.0, rent:  3.5, note: 'East corridor affordable · starter home belt' },
+      'GIFT City':          { app: 10.5, rent:  4.5, note: 'India\'s first IFSC smart city · Oracle, BofA, TCS · Violet Line metro' },
     },
+  },
+};
+
+/* ── Locality property metrics — covers every locality in LOCALITY_DATA (canonical names) ── */
+const LOCALITY_METRICS = {
+  'Hyderabad': {
+    'Gachibowli':         { price: '₹7,500–11,000/sqft',  yield: '6.4%', appr: '10.1% p.a.' },
+    'Hitech City':        { price: '₹9,000–13,500/sqft',  yield: '6.2%', appr: '9.9% p.a.'  },
+    'Financial District': { price: '₹10,000–15,000/sqft', yield: '6.6%', appr: '10.4% p.a.' },
+    'Narsingi':           { price: '₹6,500–9,000/sqft',   yield: '7.0%', appr: '11.0% p.a.' },
+    'Puppalaguda':        { price: '₹6,500–9,500/sqft',   yield: '7.0%', appr: '10.8% p.a.' },
+    'Manikonda':          { price: '₹7,000–10,000/sqft',  yield: '6.6%', appr: '10.4% p.a.' },
+    'Madhapur':           { price: '₹9,000–13,000/sqft',  yield: '6.4%', appr: '9.7% p.a.'  },
+    'Kondapur':           { price: '₹7,000–10,000/sqft',  yield: '5.8%', appr: '9.3% p.a.', recentApp: 10.5 },
+    'Miyapur':            { price: '₹5,000–7,000/sqft',   yield: '5.0%', appr: '7.8% p.a.'  },
+    'KPHB Colony':        { price: '₹4,500–6,500/sqft',   yield: '4.6%', appr: '7.4% p.a.'  },
+    'Chanda Nagar':       { price: '₹4,500–6,500/sqft',   yield: '4.6%', appr: '7.6% p.a.'  },
+    'Banjara Hills':      { price: '₹11,000–18,000/sqft', yield: '4.6%', appr: '8.2% p.a.'  },
+    'Jubilee Hills':      { price: '₹13,000–22,000/sqft', yield: '5.0%', appr: '8.5% p.a.'  },
+    'Kukatpally':         { price: '₹5,000–7,000/sqft',   yield: '5.2%', appr: '8.2% p.a.'  },
+    'Bachupally':         { price: '₹4,000–6,000/sqft',   yield: '4.6%', appr: '7.6% p.a.'  },
+    'Kompally':           { price: '₹3,500–5,500/sqft',   yield: '4.2%', appr: '7.1% p.a.'  },
+    'LB Nagar':           { price: '₹3,500–5,500/sqft',   yield: '4.0%', appr: '6.5% p.a.'  },
+    'Secunderabad':       { price: '₹5,000–8,000/sqft',   yield: '4.2%', appr: '6.7% p.a.'  },
+    'Ameerpet':           { price: '₹6,000–9,000/sqft',   yield: '4.6%', appr: '7.1% p.a.'  },
+    'Attapur':            { price: '₹3,500–5,500/sqft',   yield: '4.0%', appr: '6.7% p.a.'  },
+  },
+  'Bangalore': {
+    'Marathahalli':       { price: '₹7,000–10,500/sqft',  yield: '6.8%', appr: '11.0% p.a.' },
+    'Sarjapur Road':      { price: '₹7,500–11,000/sqft',  yield: '6.5%', appr: '10.3% p.a.' },
+    'Devanahalli':        { price: '₹5,500–8,500/sqft',   yield: '5.8%', appr: '10.3% p.a.' },
+    'Whitefield':         { price: '₹7,000–10,500/sqft',  yield: '6.3%', appr: '9.7% p.a.'  },
+    'Thanisandra':        { price: '₹5,000–7,500/sqft',   yield: '5.8%', appr: '9.3% p.a.'  },
+    'HSR Layout':         { price: '₹9,000–13,000/sqft',  yield: '5.8%', appr: '9.3% p.a.'  },
+    'Bellandur':          { price: '₹8,000–12,000/sqft',  yield: '5.8%', appr: '9.5% p.a.'  },
+    'Brookefield':        { price: '₹7,500–11,500/sqft',  yield: '6.3%', appr: '9.5% p.a.'  },
+    'Hebbal':             { price: '₹8,000–12,500/sqft',  yield: '5.8%', appr: '8.8% p.a.'  },
+    'Kanakapura Road':    { price: '₹4,500–7,000/sqft',   yield: '5.2%', appr: '8.2% p.a.'  },
+    'Koramangala':        { price: '₹11,000–17,000/sqft', yield: '4.9%', appr: '8.2% p.a.'  },
+    'JP Nagar':           { price: '₹7,500–11,000/sqft',  yield: '5.2%', appr: '8.2% p.a.'  },
+    'Indiranagar':        { price: '₹12,000–18,000/sqft', yield: '4.9%', appr: '8.2% p.a.'  },
+    'BTM Layout':         { price: '₹8,000–12,000/sqft',  yield: '4.9%', appr: '8.2% p.a.'  },
+    'Bellary Road':       { price: '₹5,500–8,000/sqft',   yield: '5.2%', appr: '8.2% p.a.'  },
+    'Bannerghatta Road':  { price: '₹6,000–9,000/sqft',   yield: '4.9%', appr: '7.1% p.a.'  },
+    'Yelahanka':          { price: '₹5,500–8,000/sqft',   yield: '4.9%', appr: '7.5% p.a.'  },
+    'Jayanagar':          { price: '₹10,000–16,000/sqft', yield: '4.9%', appr: '7.5% p.a.'  },
+    'Banashankari':       { price: '₹6,500–9,500/sqft',   yield: '4.5%', appr: '6.7% p.a.'  },
+    'Malleshwaram':       { price: '₹13,000–20,000/sqft', yield: '4.5%', appr: '6.7% p.a.'  },
+    'Electronic City':    { price: '₹4,500–6,500/sqft',   yield: '5.4%', appr: '7.1% p.a.'  },
+    'Rajajinagar':        { price: '₹8,000–12,000/sqft',  yield: '4.1%', appr: '6.0% p.a.'  },
+    'Cunningham Road':    { price: '₹18,000–28,000/sqft', yield: '3.8%', appr: '6.0% p.a.'  },
+  },
+  'Pune': {
+    'Hinjewadi':          { price: '₹6,500–9,500/sqft',   yield: '6.0%', appr: '9.0% p.a.'  },
+    'Kharadi':            { price: '₹7,000–10,500/sqft',  yield: '6.0%', appr: '9.0% p.a.'  },
+    'Wakad':              { price: '₹6,500–9,000/sqft',   yield: '5.4%', appr: '8.1% p.a.'  },
+    'Sus Road':           { price: '₹9,000–14,000/sqft',  yield: '5.4%', appr: '8.1% p.a.'  },
+    'Viman Nagar':        { price: '₹8,500–12,500/sqft',  yield: '5.4%', appr: '8.1% p.a.'  },
+    'Kalyani Nagar':      { price: '₹10,000–15,000/sqft', yield: '5.0%', appr: '7.8% p.a.'  },
+    'Koregaon Park':      { price: '₹12,000–18,000/sqft', yield: '5.0%', appr: '7.8% p.a.'  },
+    'Baner':              { price: '₹8,000–12,000/sqft',  yield: '5.0%', appr: '7.8% p.a.'  },
+    'Pimple Saudagar':    { price: '₹6,500–9,000/sqft',   yield: '5.0%', appr: '7.8% p.a.'  },
+    'Hadapsar':           { price: '₹5,500–8,000/sqft',   yield: '4.8%', appr: '7.3% p.a.'  },
+    'Ravet':              { price: '₹5,000–7,500/sqft',   yield: '4.8%', appr: '7.3% p.a.'  },
+    'Bavdhan':            { price: '₹6,000–9,000/sqft',   yield: '4.8%', appr: '7.3% p.a.'  },
+    'Aundh':              { price: '₹8,000–12,000/sqft',  yield: '4.8%', appr: '7.3% p.a.'  },
+    'Wagholi':            { price: '₹4,500–6,500/sqft',   yield: '4.5%', appr: '6.7% p.a.'  },
+    'Nibm Road':          { price: '₹6,500–9,500/sqft',   yield: '4.5%', appr: '6.4% p.a.'  },
+    'Undri':              { price: '₹4,500–7,000/sqft',   yield: '4.1%', appr: '6.4% p.a.'  },
+    'Kondhwa':            { price: '₹5,000–7,500/sqft',   yield: '4.1%', appr: '6.0% p.a.'  },
+    'Shivane':            { price: '₹4,500–6,500/sqft',   yield: '4.1%', appr: '6.0% p.a.'  },
+    'Kothrud':            { price: '₹9,000–13,000/sqft',  yield: '4.1%', appr: '5.5% p.a.'  },
+    'Ambegaon':           { price: '₹3,500–5,500/sqft',   yield: '3.8%', appr: '5.5% p.a.'  },
+    'Talegaon':           { price: '₹3,000–5,000/sqft',   yield: '3.5%', appr: '5.0% p.a.'  },
+  },
+  'Mumbai': {
+    'Ulwe':               { price: '₹7,000–10,000/sqft',  yield: '5.8%', appr: '8.0% p.a.'  },
+    'Lower Parel':        { price: '₹30,000–50,000/sqft', yield: '4.8%', appr: '7.4% p.a.'  },
+    'Mira Road':          { price: '₹9,000–13,000/sqft',  yield: '5.8%', appr: '7.4% p.a.'  },
+    'Kharghar':           { price: '₹8,000–12,000/sqft',  yield: '5.2%', appr: '6.9% p.a.'  },
+    'Vashi':              { price: '₹12,000–18,000/sqft', yield: '5.2%', appr: '6.9% p.a.'  },
+    'Ghatkopar':          { price: '₹16,000–22,000/sqft', yield: '5.2%', appr: '6.9% p.a.'  },
+    'BKC':                { price: '₹35,000–55,000/sqft', yield: '4.8%', appr: '6.9% p.a.'  },
+    'Panvel':             { price: '₹5,500–8,500/sqft',   yield: '4.8%', appr: '6.0% p.a.'  },
+    'Chembur':            { price: '₹16,000–23,000/sqft', yield: '4.8%', appr: '6.0% p.a.'  },
+    'Mulund':             { price: '₹14,000–20,000/sqft', yield: '4.8%', appr: '6.0% p.a.'  },
+    'Andheri West':       { price: '₹22,000–32,000/sqft', yield: '4.4%', appr: '6.0% p.a.'  },
+    'Worli':              { price: '₹40,000–70,000/sqft', yield: '3.8%', appr: '6.0% p.a.'  },
+    'Powai':              { price: '₹18,000–25,000/sqft', yield: '4.8%', appr: '6.0% p.a.'  },
+    'Goregaon East':      { price: '₹18,000–26,000/sqft', yield: '4.4%', appr: '5.1% p.a.'  },
+    'Thane':              { price: '₹13,000–20,000/sqft', yield: '3.8%', appr: '5.1% p.a.'  },
+    'Borivali':           { price: '₹15,000–22,000/sqft', yield: '4.4%', appr: '5.1% p.a.'  },
+    'Kandivali':          { price: '₹16,000–22,000/sqft', yield: '4.4%', appr: '5.1% p.a.'  },
+    'Malad West':         { price: '₹18,000–26,000/sqft', yield: '4.4%', appr: '5.1% p.a.'  },
+    'Andheri East':       { price: '₹20,000–28,000/sqft', yield: '3.8%', appr: '4.6% p.a.'  },
+    'Navi Mumbai':        { price: '₹7,000–12,000/sqft',  yield: '3.8%', appr: '4.6% p.a.'  },
+    'Dombivli':           { price: '₹7,000–10,000/sqft',  yield: '3.8%', appr: '4.6% p.a.'  },
+    'Bandra':             { price: '₹35,000–60,000/sqft', yield: '3.2%', appr: '4.6% p.a.'  },
+    'Kalyan':             { price: '₹5,500–8,000/sqft',   yield: '3.2%', appr: '4.0% p.a.'  },
+  },
+  'Delhi NCR': {
+    'Dwarka Expressway':      { price: '₹8,000–12,000/sqft',  yield: '5.5%', appr: '9.0% p.a.'  },
+    'New Gurgaon (Sec 82+)':  { price: '₹7,000–11,000/sqft',  yield: '6.2%', appr: '8.1% p.a.'  },
+    'Golf Course Ext Road':   { price: '₹14,000–22,000/sqft', yield: '5.5%', appr: '9.0% p.a.'  },
+    'Greater Noida West':     { price: '₹4,500–7,000/sqft',   yield: '6.2%', appr: '8.1% p.a.'  },
+    'Sohna Road':             { price: '₹7,500–11,000/sqft',  yield: '5.5%', appr: '7.5% p.a.'  },
+    'Manesar':                { price: '₹4,500–7,000/sqft',   yield: '5.5%', appr: '7.5% p.a.'  },
+    'Sohna':                  { price: '₹5,000–7,500/sqft',   yield: '5.5%', appr: '7.5% p.a.'  },
+    'DLF City Phases':        { price: '₹12,000–18,000/sqft', yield: '4.8%', appr: '8.1% p.a.'  },
+    'Greater Noida (Main)':   { price: '₹4,000–6,500/sqft',   yield: '5.5%', appr: '6.9% p.a.'  },
+    'Noida Extension (Sec 1)':{ price: '₹4,000–6,500/sqft',   yield: '5.5%', appr: '6.9% p.a.'  },
+    'Noida Sector 62–137':    { price: '₹7,000–10,000/sqft',  yield: '5.5%', appr: '6.0% p.a.'  },
+    'Indirapuram':            { price: '₹5,500–8,000/sqft',   yield: '4.8%', appr: '6.0% p.a.'  },
+    'Noida Sec 44–52':        { price: '₹5,500–8,500/sqft',   yield: '4.8%', appr: '6.0% p.a.'  },
+    'Yamuna Expressway':      { price: '₹4,000–6,500/sqft',   yield: '4.8%', appr: '6.0% p.a.'  },
+    'South Delhi':            { price: '₹20,000–45,000/sqft', yield: '3.2%', appr: '6.0% p.a.'  },
+    'Vasant Kunj':            { price: '₹15,000–25,000/sqft', yield: '3.9%', appr: '6.0% p.a.'  },
+    'Dwarka Sectors':         { price: '₹8,000–12,000/sqft',  yield: '3.9%', appr: '5.1% p.a.'  },
+    'Raj Nagar Extension':    { price: '₹3,500–5,500/sqft',   yield: '4.4%', appr: '5.1% p.a.'  },
+    'Rohini':                 { price: '₹6,000–9,000/sqft',   yield: '3.2%', appr: '4.5% p.a.'  },
+    'Faridabad (Sec 85+)':    { price: '₹4,000–6,000/sqft',   yield: '3.9%', appr: '4.5% p.a.'  },
+  },
+  'Chennai': {
+    'Thoraipakkam':       { price: '₹6,000–9,500/sqft',   yield: '6.0%', appr: '8.8% p.a.'  },
+    'Sholinganallur':     { price: '₹5,500–9,000/sqft',   yield: '5.7%', appr: '8.3% p.a.'  },
+    'Perungudi':          { price: '₹5,500–9,000/sqft',   yield: '5.3%', appr: '8.0% p.a.'  },
+    'Porur':              { price: '₹6,000–8,500/sqft',   yield: '4.9%', appr: '7.6% p.a.'  },
+    'Velachery':          { price: '₹7,000–10,000/sqft',  yield: '4.6%', appr: '7.1% p.a.'  },
+    'Pallikaranai':       { price: '₹5,000–7,500/sqft',   yield: '4.9%', appr: '7.1% p.a.'  },
+    'Kovilambakkam':      { price: '₹5,000–7,500/sqft',   yield: '4.6%', appr: '6.7% p.a.'  },
+    'Neelankarai':        { price: '₹8,000–12,000/sqft',  yield: '4.6%', appr: '6.7% p.a.'  },
+    'Guindy':             { price: '₹7,000–10,000/sqft',  yield: '4.9%', appr: '7.1% p.a.'  },
+    'Iyyappanthangal':    { price: '₹4,500–7,000/sqft',   yield: '4.3%', appr: '6.3% p.a.'  },
+    'Anna Nagar':         { price: '₹11,000–16,000/sqft', yield: '4.3%', appr: '6.3% p.a.'  },
+    'T Nagar':            { price: '₹9,000–15,000/sqft',  yield: '4.6%', appr: '7.1% p.a.'  },
+    'Adyar':              { price: '₹13,000–20,000/sqft', yield: '4.3%', appr: '6.7% p.a.'  },
+    'Mylapore':           { price: '₹9,000–15,000/sqft',  yield: '4.3%', appr: '6.7% p.a.'  },
+    'Chromepet':          { price: '₹4,500–7,000/sqft',   yield: '3.9%', appr: '6.0% p.a.'  },
+    'Ambattur':           { price: '₹4,500–6,500/sqft',   yield: '4.3%', appr: '6.0% p.a.'  },
+    'Poonamallee':        { price: '₹3,500–5,500/sqft',   yield: '3.9%', appr: '6.0% p.a.'  },
+    'Tambaram':           { price: '₹3,500–5,500/sqft',   yield: '3.5%', appr: '5.5% p.a.'  },
+    'Padi':               { price: '₹3,500–5,500/sqft',   yield: '3.9%', appr: '5.5% p.a.'  },
+    'Perambur':           { price: '₹3,000–5,000/sqft',   yield: '3.5%', appr: '5.0% p.a.'  },
+  },
+  'Kolkata': {
+    'Rajarhat (IT Zone)':       { price: '₹5,000–8,500/sqft',  yield: '5.5%', appr: '8.0% p.a.'  },
+    'New Town AA-Block':        { price: '₹5,500–9,000/sqft',  yield: '5.1%', appr: '7.3% p.a.'  },
+    'New Town Action Area II':  { price: '₹5,000–8,000/sqft',  yield: '4.3%', appr: '6.4% p.a.'  },
+    'Salt Lake Sector V':       { price: '₹6,000–9,000/sqft',  yield: '4.3%', appr: '5.6% p.a.'  },
+    'Salt Lake Sec I–IV':       { price: '₹6,000–9,000/sqft',  yield: '3.4%', appr: '4.5% p.a.'  },
+    'Kaikhali':                 { price: '₹4,000–6,000/sqft',  yield: '4.3%', appr: '6.4% p.a.'  },
+    'Haiderpool / New Kolkata': { price: '₹4,500–7,000/sqft',  yield: '4.8%', appr: '6.8% p.a.'  },
+    'Tollygunj':                { price: '₹7,000–10,000/sqft', yield: '4.3%', appr: '5.6% p.a.'  },
+    'Ballygunge':               { price: '₹15,000–18,000/sqft', yield: '4.3%', appr: '6.4% p.a.' },
+    'Alipore':                  { price: '₹18,000–25,000/sqft', yield: '3.7%', appr: '5.6% p.a.' },
+    'Kasba':                    { price: '₹5,000–7,500/sqft',  yield: '3.7%', appr: '4.5% p.a.'  },
+    'Dum Dum':                  { price: '₹3,500–5,500/sqft',  yield: '3.7%', appr: '5.6% p.a.'  },
+    'Garia':                    { price: '₹4,000–6,000/sqft',  yield: '3.7%', appr: '4.9% p.a.'  },
+    'Joka':                     { price: '₹3,500–5,500/sqft',  yield: '3.7%', appr: '5.6% p.a.'  },
+    'Barasat':                  { price: '₹2,500–4,000/sqft',  yield: '3.4%', appr: '4.9% p.a.'  },
+    'Madhyamgram':              { price: '₹3,000–4,500/sqft',  yield: '3.7%', appr: '5.6% p.a.'  },
+    'Narendrapur':              { price: '₹3,000–4,500/sqft',  yield: '3.4%', appr: '4.5% p.a.'  },
+    'Andul Road':               { price: '₹2,500–4,000/sqft',  yield: '3.0%', appr: '4.5% p.a.'  },
+    'Sonarpur':                 { price: '₹2,500–4,000/sqft',  yield: '3.0%', appr: '4.5% p.a.'  },
+    'Behala':                   { price: '₹3,000–5,000/sqft',  yield: '3.0%', appr: '4.0% p.a.'  },
+  },
+  'Ahmedabad': {
+    'Thaltej':            { price: '₹9,000–13,000/sqft',  yield: '6.2%', appr: '9.0% p.a.'  },
+    'SG Highway (North)': { price: '₹8,000–10,500/sqft',  yield: '5.5%', appr: '8.0% p.a.'  },
+    'Gota':               { price: '₹4,500–6,500/sqft',   yield: '5.0%', appr: '7.6% p.a.'  },
+    'Bopal':              { price: '₹4,650–6,500/sqft',   yield: '5.5%', appr: '8.0% p.a.'  },
+    'Vastrapur':          { price: '₹8,000–11,000/sqft',  yield: '5.0%', appr: '7.6% p.a.'  },
+    'Prahlad Nagar':      { price: '₹7,500–9,500/sqft',   yield: '4.7%', appr: '7.0% p.a.'  },
+    'Ambawadi':           { price: '₹7,500–10,000/sqft',  yield: '4.7%', appr: '7.0% p.a.'  },
+    'Navrangpura':        { price: '₹7,500–8,500/sqft',   yield: '4.7%', appr: '7.0% p.a.'  },
+    'Bodakdev':           { price: '₹12,000–18,000/sqft', yield: '4.7%', appr: '7.0% p.a.'  },
+    'GIFT City':          { price: '₹8,500–12,800/sqft',  yield: '4.5%', appr: '10.5% p.a.' },
+    'Motera':             { price: '₹5,000–7,500/sqft',   yield: '4.7%', appr: '7.0% p.a.'  },
+    'Satellite':          { price: '₹7,500–8,500/sqft',   yield: '4.4%', appr: '6.4% p.a.'  },
+    'Paldi':              { price: '₹5,000–7,500/sqft',   yield: '4.4%', appr: '6.4% p.a.'  },
+    'Naranpura':          { price: '₹5,500–8,000/sqft',   yield: '4.4%', appr: '6.0% p.a.'  },
+    'Chandkheda':         { price: '₹3,500–5,500/sqft',   yield: '4.4%', appr: '6.4% p.a.'  },
+    'Maninagar':          { price: '₹4,000–6,000/sqft',   yield: '3.9%', appr: '5.6% p.a.'  },
+    'Vastral':            { price: '₹3,500–5,500/sqft',   yield: '3.9%', appr: '5.6% p.a.'  },
+    'Naroda':             { price: '₹3,000–5,000/sqft',   yield: '3.9%', appr: '5.6% p.a.'  },
+    'Nikol':              { price: '₹3,000–4,500/sqft',   yield: '3.5%', appr: '5.0% p.a.'  },
+    'Vatva':              { price: '₹2,500–4,000/sqft',   yield: '3.5%', appr: '5.0% p.a.'  },
+    'Isanpur':            { price: '₹2,500–4,000/sqft',   yield: '3.5%', appr: '5.0% p.a.'  },
   },
 };
 
@@ -2803,23 +2999,9 @@ function initEmiFilters(sensData) {
   const fetchBtn = document.getElementById('insFetchBtn');
   if (!cityEl) return;
 
-  const hasInsights = c => {
-    const ci = typeof LOCALITY_INSIGHTS !== 'undefined' && LOCALITY_INSIGHTS[c];
-    return ci && Object.values(ci).some(v => v && Object.keys(v).length > 0);
-  };
-
-  const cities = Object.keys(LOCALITY_DATA).sort();
-  cities.forEach(c => {
+  Object.keys(LOCALITY_DATA).sort().forEach(c => {
     const opt = document.createElement('option');
-    if (hasInsights(c)) {
-      opt.value = c;
-      opt.textContent = c;
-    } else {
-      opt.value = '';
-      opt.textContent = c + ' — coming soon';
-      opt.disabled = true;
-      opt.style.color = '#9ca3af';
-    }
+    opt.value = c; opt.textContent = c;
     cityEl.appendChild(opt);
   });
 
@@ -2853,14 +3035,134 @@ function fetchInsights() {
   errEl.classList.add('hidden');
   resEl.classList.add('hidden');
 
-  const cityData = typeof LOCALITY_INSIGHTS !== 'undefined' && LOCALITY_INSIGHTS[city];
-  const d = cityData && cityData[locality];
-  if (!d || Object.keys(d).length === 0) {
-    errEl.textContent = 'Insights for ' + locality + ', ' + city + ' are being researched and will be added soon.';
-    errEl.classList.remove('hidden');
+  const cityInsights = typeof LOCALITY_INSIGHTS !== 'undefined' && LOCALITY_INSIGHTS[city];
+  const d = cityInsights && cityInsights[locality];
+
+  if (d && Object.keys(d).length > 0) {
+    renderInsights(city, locality, d);
     return;
   }
-  renderInsights(city, locality, d);
+
+  // Minimal card for localities with LOCALITY_DATA but no full research yet
+  const ldLoc = LOCALITY_DATA[city] && LOCALITY_DATA[city].localities[locality];
+  if (ldLoc) {
+    renderInsights(city, locality, {
+      _minimal: true,
+      overview: locality + ' is a ' + ldLoc.note.toLowerCase().replace(' · ', ' area of ') + ' in ' + city + '.',
+      investment_note: 'Appreciation trend: ~' + ldLoc.app + '% p.a. · Gross rental yield: ~' + ldLoc.rent + '%. Detailed locality research is being prepared and will be published soon.',
+    });
+    return;
+  }
+
+  errEl.textContent = 'No data found for ' + locality + ', ' + city + '.';
+  errEl.classList.remove('hidden');
+}
+
+function buildPriceChart(city, locality, metrics) {
+  const canvas = document.getElementById('priceChartCanvas');
+  if (!canvas || !metrics || !metrics.recentApp) return;
+  const ldLoc = LOCALITY_DATA[city] && LOCALITY_DATA[city].localities[locality];
+  if (!ldLoc) return;
+
+  const baseApp = ldLoc.app;
+  const recentApp = metrics.recentApp;
+
+  const nums = (metrics.price || '').replace(/[₹,]/g, '').match(/\d+/g);
+  if (!nums || nums.length < 2) return;
+  const current = Math.round((+nums[0] + +nums[1]) / 2);
+
+  const existing = typeof Chart !== 'undefined' && Chart.getChart && Chart.getChart(canvas);
+  if (existing) existing.destroy();
+
+  // 2015–2030; pivot at index 10 = 2025
+  const labels = [];
+  for (let y = 2015; y <= 2030; y++) labels.push(y);
+  const pivotIdx = 10;
+
+  const base2015 = current / Math.pow(1 + baseApp / 100, pivotIdx);
+  const cagrLine = labels.map((_, i) => Math.round(base2015 * Math.pow(1 + baseApp / 100, i)));
+  const recentLine = labels.map((_, i) =>
+    i < pivotIdx ? null : Math.round(current * Math.pow(1 + recentApp / 100, i - pivotIdx))
+  );
+
+  new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: `10-yr avg (${baseApp}% p.a.)`,
+          data: cagrLine,
+          borderColor: '#1e88e5',
+          backgroundColor: 'rgba(30,136,229,0.07)',
+          fill: true,
+          tension: 0.3,
+          borderWidth: 2,
+          pointRadius: (ctx) => ctx.dataIndex === pivotIdx ? 5 : 2,
+          pointBackgroundColor: '#1e88e5',
+        },
+        {
+          label: `Recent pace (~${recentApp}%)`,
+          data: recentLine,
+          borderColor: '#16a34a',
+          borderDash: [6, 4],
+          fill: false,
+          tension: 0.3,
+          borderWidth: 2,
+          pointRadius: 2,
+          pointBackgroundColor: '#16a34a',
+        }
+      ]
+    },
+    plugins: [{
+      id: 'nowLine',
+      afterDraw(chart) {
+        const { ctx, chartArea, scales } = chart;
+        const x = scales.x.getPixelForValue(pivotIdx);
+        ctx.save();
+        ctx.strokeStyle = 'rgba(0,0,0,0.18)';
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(x, chartArea.top);
+        ctx.lineTo(x, chartArea.bottom);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = 'rgba(0,0,0,0.35)';
+        ctx.font = '10px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('▶ Projected', x, chartArea.top - 6);
+        ctx.restore();
+      }
+    }],
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          labels: { font: { size: 11 }, boxWidth: 18, padding: 12 }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => ctx.parsed.y == null ? null :
+              `${ctx.dataset.label}: ₹${ctx.parsed.y.toLocaleString('en-IN')}/sqft`
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { font: { size: 10 }, maxTicksLimit: 8 } },
+        y: {
+          ticks: {
+            font: { size: 10 },
+            callback: v => '₹' + (v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v)
+          }
+        }
+      }
+    }
+  });
 }
 
 function renderInsights(city, locality, d) {
@@ -2900,7 +3202,33 @@ function renderInsights(city, locality, d) {
       </div>`;
   }
 
-  grid.innerHTML = `
+  const m = (LOCALITY_METRICS[city] || {})[locality];
+  const metricsHtml = m ? `
+    <div class="ins-panel ins-panel-metrics">
+      <div class="ins-panel-title">📊 Property Metrics</div>
+      <div class="ins-metrics-row">
+        <div class="ins-metric">
+          <div class="ins-metric-label">Price Range</div>
+          <div class="ins-metric-value">${m.price}</div>
+        </div>
+        <div class="ins-metric">
+          <div class="ins-metric-label">Rental Yield</div>
+          <div class="ins-metric-value ins-metric-yield">${m.yield}</div>
+        </div>
+        <div class="ins-metric">
+          <div class="ins-metric-label">Appreciation (10-yr avg)</div>
+          <div class="ins-metric-value ins-metric-appr">${m.appr}</div>
+        </div>
+      </div>
+    </div>` : '';
+
+  const chartHtml = (m && m.recentApp) ? `
+    <div class="ins-panel ins-panel-chart">
+      <div class="ins-panel-title">📉 Price Trend (2015–2030)</div>
+      <canvas id="priceChartCanvas"></canvas>
+    </div>` : '';
+
+  const detailPanels = d._minimal ? '' : `
     <div class="ins-panel">
       <div class="ins-panel-title">⭐ Specialties</div>
       <div class="ins-specs">${(d.specialties || []).map(s => `<span class="ins-spec-chip">${s}</span>`).join('')}</div>
@@ -2914,12 +3242,20 @@ function renderInsights(city, locality, d) {
       ${(d.schools || []).map(s => `<div class="ins-list-item">• <strong>${s.name}</strong> <span class="ins-school-type">${s.type}</span>${s.note ? ' — ' + s.note : ''}</div>`).join('')}
     </div>
     ${trafficHtml}
-    ${amenitiesHtml}
+    ${amenitiesHtml}`;
+
+  grid.innerHTML = `
+    ${metricsHtml}
+    ${chartHtml}
+    ${detailPanels}
     <div class="ins-panel ins-panel-invest">
       <div class="ins-panel-title">📈 Investment Outlook</div>
       <div class="ins-invest-note">${d.investment_note || '—'}</div>
+      ${d._minimal ? '<p class="ins-research-note">Detailed locality research — schools, employers, traffic, amenities — is being added and will be published soon.</p>' : ''}
     </div>
   `;
+
+  if (m && m.recentApp) buildPriceChart(city, locality, m);
 
   document.getElementById('insResults').classList.remove('hidden');
 }
