@@ -452,8 +452,353 @@ const LOCALITY_INSIGHTS = {
     },
   },
 
-  // Cities to be added in subsequent days:
-  'Bangalore': {},
+  // Day 2 (2026-06-22): Bangalore
+  'Bangalore': {
+
+    'Whitefield': {
+      overview: 'Whitefield is Bangalore\'s oldest and largest IT corridor, anchored by International Tech Park Bangalore (ITPB) and the EPIP Zone, and now fully connected to the city centre via the Purple Line metro (opened October 2023). Spanning over 1,000 global company campuses across multiple tech parks, it employs several hundred thousand IT professionals and commands strong residential demand year-round. The area has matured into a full township with malls, hospitals, and international schools.',
+      specialties: ['Largest IT corridor in Bangalore', 'Purple Line metro connected', 'ITPB & EPIP Zone hub', 'International school belt', 'Premium gated communities'],
+      major_employers: ['Infosys (285-acre campus)', 'IBM', 'TCS', 'Wipro', 'SAP Labs India', 'Oracle'],
+      schools: [
+        { name: 'TCIS Whitefield (The Cambridge International School)', type: 'CBSE/IB', note: 'Rank #2 Emerging School Bangalore, TOI 2024; British Council award' },
+        { name: 'NPS Whitefield (National Public School)', type: 'CBSE', note: 'Part of the renowned NPS chain; strong academics' },
+        { name: 'Indus International School', type: 'IB', note: '40-acre campus, full IB continuum, 33+ nationalities' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy congestion on Whitefield Main Road and Hope Farm junction 8–10 am and 6–9 pm; Old Airport Road approach also bottlenecks',
+        metro_access: 'Whitefield (Kadugodi) Metro Station — Purple Line terminus — on-site; 12-station eastern extension operational since Oct 2023',
+        highway_access: 'Outer Ring Road (ORR) — 3 km via Marathahalli junction; NH-648 (Old Madras Road) — 4 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Manipal Hospital Whitefield (1.5 km)', 'Columbia Asia Hospital Whitefield (2 km)', 'Narayana Multispeciality Hospital (3 km)'],
+        malls: ['Phoenix Marketcity (3 km)', 'VR Bengaluru (4 km)', 'Nexus Whitefield (1 km)'],
+        parks: ['ITPB lake & grounds', 'Channasandra Lake Park (2 km)'],
+      },
+      investment_note: 'Whitefield is among Bangalore\'s strongest investment micro-markets with 9–12% p.a. appreciation driven by metro connectivity, large tech campus demand, and limited new supply near ITPB. Rental yields are 4–5% with 2BHK rents at ₹30,000–55,000/mo. Metro access since Oct 2023 has structurally lifted prices.',
+    },
+
+    'Electronic City': {
+      overview: 'Electronic City is India\'s first dedicated electronics and IT industrial park, established in 1978 and spread across 800+ acres in south Bangalore. Home to Infosys and Wipro\'s flagship campuses along with 200+ global tech firms, it houses close to 100,000 IT employees. The Yellow Line metro (R.V. Road to Bommasandra), opened August 2025, has dramatically improved city connectivity. Residential supply is large, with a mix of affordable to mid-premium apartments across Phase 1 and 2.',
+      specialties: ['India\'s first IT industrial park', 'Yellow Line metro (2025)', 'Infosys & Wipro flagship campuses', '200+ tech companies', 'Affordable-to-mid residential stock'],
+      major_employers: ['Infosys (Phase 1 flagship campus)', 'Wipro (Phase 1)', 'TCS', 'HCL Technologies', 'Tech Mahindra', 'Robert Bosch'],
+      schools: [
+        { name: 'NPS Electronic City (National Public School)', type: 'CBSE', note: 'Reputed NPS chain school serving Electronic City residents' },
+        { name: 'Greenwood High International School', type: 'CBSE/IB/IGCSE', note: 'Multinational campus near Electronic City Phase 2' },
+        { name: 'Sri Kumaran Children\'s Home', type: 'CBSE', note: 'Long-established CBSE school in south Bangalore' },
+      ],
+      traffic: {
+        peak_hours: 'Very heavy on Hosur Road (NH-44) and Electronic City Flyover 8–10 am and 6–9 pm; Silk Board junction is one of Bangalore\'s worst bottlenecks',
+        metro_access: 'Electronic City Metro Station — Yellow Line (opened Aug 2025); Konappana Agrahara Station also on line',
+        highway_access: 'NH-44 (Bengaluru–Chennai highway) — adjacent; Elevated Expressway from Silk Board — 9.9 km',
+        congestion_level: 'Very High',
+      },
+      nearby_amenities: {
+        hospitals: ['Narayana Health City (3 km)', 'Fortis Hospital Bannerghatta Road (7 km)', 'Apollo Hospital Bannerghatta (8 km)'],
+        malls: ['Grand Mall Electronic City (2 km)', 'Mantri Square (18 km via elevated expressway)', 'Market Square Mall (4 km)'],
+        parks: ['Electronic City Phase 2 lake area', 'Begur Lake (5 km)'],
+      },
+      investment_note: 'Electronic City offers Bangalore\'s best rental yields at 5–6% due to large captive IT employee demand. Appreciation has been 8–10% p.a. and the 2025 Yellow Line metro opening is expected to provide a further structural uplift. Ideal for rental income investors; entry prices are lower than east Bangalore.',
+    },
+
+    'Sarjapur Road': {
+      overview: 'Sarjapur Road has emerged as one of Bangalore\'s hottest residential corridors, connecting the Outer Ring Road IT belt to Electronic City and Whitefield. It benefits from a massive employment catchment — thousands of IT workers from Wipro Sarjapur Campus, Infosys, and Accenture campuses commute from here. Prices appreciated ~63% between 2021 and 2024, and residential launches have been dominated by premium large-format gated communities.',
+      specialties: ['ORR-to-Electronic City connector', 'Premium gated community belt', 'Rapid 2021–2024 appreciation', 'Large township projects', 'Startup & IT professional catchment'],
+      major_employers: ['Wipro Sarjapur Campus', 'Infosys Sarjapur Campus', 'Accenture Sarjapur', 'RGA Tech Park tenants', 'Cessna Business Park tenants'],
+      schools: [
+        { name: 'Inventure Academy', type: 'IB/IGCSE/CBSE', note: 'One of Bangalore\'s top international schools; IB and Cambridge' },
+        { name: 'Oakridge International School (Sarjapur)', type: 'IB/CBSE', note: 'Premium IB school on Sarjapur Road' },
+        { name: 'Candor International School', type: 'IB', note: 'Full IB continuum school serving the Sarjapur corridor' },
+      ],
+      traffic: {
+        peak_hours: 'Very congested on Sarjapur Main Road and Carmelaram junction 8–10 am and 6:30–9 pm; bottleneck at ORR-Sarjapur Road intersection',
+        metro_access: 'No metro currently; Phase 3A Silk Board–Sarjapur corridor proposed but not yet sanctioned',
+        highway_access: 'Outer Ring Road — 1.5 km at Carmelaram; NH-44 via Electronic City — 8 km',
+        congestion_level: 'Very High',
+      },
+      nearby_amenities: {
+        hospitals: ['Columbia Asia Hospital Sarjapur (3 km)', 'Motherhood Hospital Sarjapur (2 km)', 'Narayana Health City (10 km)'],
+        malls: ['Market Square Mall Sarjapur (2 km)', 'Nexus Whitefield (10 km)', 'Forum Mall Koramangala (12 km)'],
+        parks: ['Sarjapur Lake (local)', 'Carmelaram Park (2 km)'],
+      },
+      investment_note: 'Sarjapur Road delivered ~63% price appreciation from 2021–2024 and continues at 10–12% p.a. as new township completions absorb strong demand. No metro yet is the main risk — traffic is severe. Rental yields at 4.5–5%. Best suited for 5–7 year hold investors banking on metro announcement upside.',
+    },
+
+    'Koramangala': {
+      overview: 'Koramangala is Bangalore\'s foremost startup and tech hub, home to the headquarters of Flipkart (founded here), Swiggy, and dozens of high-growth companies. It blends upscale residential blocks (1st to 8th Block) with dense commercial and F&B activity, making it one of the city\'s most vibrant and walkable neighbourhoods. Supply of new residential inventory is very limited, keeping prices firm.',
+      specialties: ['Startup capital of Bangalore', 'Flipkart & Swiggy HQ zone', 'Premium F&B & nightlife', 'Low new housing supply', 'BTM & HSR Layout proximity'],
+      major_employers: ['Swiggy HQ', 'Flipkart HQ (historic)', 'Myntra', 'Amazon India offices', 'Accenture (Inner Ring Road)'],
+      schools: [
+        { name: 'National Public School Koramangala (NPS)', type: 'CBSE', note: 'British Council International Dimension award; top NPS chain' },
+        { name: 'St. Joseph\'s Boys\' High School', type: 'ICSE', note: 'Prestigious old-established Jesuit school' },
+        { name: 'Ryan International School Koramangala', type: 'CBSE', note: 'Well-regarded CBSE school in the locality' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy congestion at 80 Feet Road junction and Sony World Signal 9–10:30 am and 6:30–9 pm',
+        metro_access: 'Nearest: Jayanagar Metro (Green Line) — 2 km; Purple Line\'s Koramangala station under Phase 3 planning',
+        highway_access: 'Outer Ring Road via Silk Board — 3 km; Inner Ring Road — 0.5 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Manipal Hospital (3 km)', 'Fortis Hospital Bannerghatta (4 km)', 'Apollo Spectra (1.5 km)'],
+        malls: ['Forum Mall Koramangala (0.5 km)', '1 MG Lido Mall (3 km)', 'Garuda Mall (5 km)'],
+        parks: ['Agara Lake (1 km)', 'BDA Complex grounds (1 km)', 'Koramangala Indoor Stadium grounds'],
+      },
+      investment_note: 'Koramangala is a premium capital-preservation and rental play. Appreciation is steady at 8–9% p.a. with very limited new supply. Rental yields of 4–4.5% are moderate but tenant quality is high (startup founders, senior tech employees). Entry prices are among Bangalore\'s highest outside CBD.',
+    },
+
+    'Indiranagar': {
+      overview: 'Indiranagar is Bangalore\'s most coveted urban neighbourhood — a tree-lined, well-planned area popular with expats, senior professionals, and the creative class. It combines premium residential apartments and old independent houses with Bangalore\'s best restaurant and retail strip (100 Feet Road). Blue Line metro connectivity, low new supply, and high aspirational demand keep it as one of the city\'s top price-appreciation localities.',
+      specialties: ['Premium urban lifestyle address', '100 Feet Road dining & retail', 'Purple Line metro connected', 'Expat favourite', 'Very low new residential supply'],
+      major_employers: ['Numerous MNC offices on nearby ORR', 'Embassy Golf Links Business Park (4 km)', 'Bagmane Tech Park (3 km)', 'HAL Aerospace (2 km)'],
+      schools: [
+        { name: 'NPS Indiranagar (National Public School)', type: 'CBSE', note: 'Ranked #1 CBSE school Bangalore by Times School Survey 2023–24' },
+        { name: 'Baldwin Boys\' High School', type: 'ICSE', note: 'One of Bangalore\'s oldest and most prestigious schools' },
+        { name: 'Frank Anthony Public School', type: 'CBSE/ICSE', note: 'Reputed Anglo-Indian school with long history' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate–high on 100 Feet Road 9–10:30 am and 7–9 pm; CMH Road can bottleneck near metro',
+        metro_access: 'Indiranagar Metro Station (Purple Line) — on-site, direct',
+        highway_access: 'Old Airport Road — 0.5 km; Outer Ring Road via Domlur — 3 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Columbia Asia Hospital Yeshwanthpur (8 km)', 'Manipal Hospital HAL (2 km)', 'Apollo Spectra Koramangala (4 km)'],
+        malls: ['1 MG Lido Mall (1.5 km)', 'Garuda Mall (4 km)', 'Orion Mall (8 km)'],
+        parks: ['Indiranagar Water Tank Park', 'Ulsoor Lake (2 km)', 'Cubbon Park (5 km)'],
+      },
+      investment_note: 'Indiranagar is Bangalore\'s scarcest residential micro-market — almost no new launches — making it a pure capital appreciation and prestige hold at 9–11% p.a. Rental yields at 3.5–4.5% are modest but tenant quality is exceptional. Best for long-term HNI or expat-targeting investors.',
+    },
+
+    'HSR Layout': {
+      overview: 'HSR Layout (Hosur-Sarjapur Road Layout) has transformed from a quiet BDA township into Bangalore\'s secondary startup and tech hub. It sits at the intersection of the Outer Ring Road IT belt and Koramangala, making it a top address for mid-to-senior tech professionals who want proximity to work without the density of Koramangala or Indiranagar. Residential stock ranges from old BDA plots to new premium apartments.',
+      specialties: ['ORR-Koramangala crossroads', 'Secondary startup hub', 'Mid-senior IT professional zone', 'Well-planned BDA layout', 'Growing café & co-working culture'],
+      major_employers: ['Flipkart office', 'Samsung R&D (ORR)', 'Oracle India (ORR)', 'Texas Instruments (Bannerghatta Road)', 'Tesco Technology Centre'],
+      schools: [
+        { name: 'National Public School HSR Layout', type: 'CBSE', note: 'Well-regarded NPS chain school in the locality' },
+        { name: 'Delhi Public School South Bangalore', type: 'CBSE', note: 'Large DPS campus serving south Bangalore' },
+        { name: 'Harvest International School', type: 'IGCSE', note: 'IGCSE school in HSR serving expat families' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate to high on BDA Complex Road and Agara Junction 8:30–10 am and 6:30–9 pm; ORR onramp is the key bottleneck',
+        metro_access: 'Agara (HSR) station on Purple Line Phase 2 under construction; Silk Board station (Purple Line) — 2 km currently',
+        highway_access: 'Outer Ring Road — 1 km; Hosur Road (NH-44) via Silk Board — 3 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Fortis Hospital Bannerghatta Road (4 km)', 'Apollo Spectra Koramangala (3 km)', 'Narayana Health City (8 km)'],
+        malls: ['Forum Mall Koramangala (3 km)', 'Market Square Mall (5 km)', 'Soul Space Arena (4 km)'],
+        parks: ['Agara Lake (1 km)', 'Kudlu Gate Park (2 km)'],
+      },
+      investment_note: 'HSR Layout delivers 9–11% appreciation with strong rental demand from ORR IT corridor workers. Rental yields at 4.5–5% make it one of Bangalore\'s better balanced investment localities. Metro Phase 2 construction at Agara is a near-term value catalyst expected to lift prices upon completion.',
+    },
+
+    'Bellandur': {
+      overview: 'Bellandur is a mid-market residential locality on Bangalore\'s eastern Outer Ring Road corridor, wedged between Sarjapur Road and Marathahalli. It has seen approximately 78% price appreciation in three years driven by proximity to the ORR IT belt and upcoming metro connectivity. Large gated apartment complexes dominate the landscape, catering primarily to mid-level IT professionals.',
+      specialties: ['ORR mid-corridor residential', '78% 3-year appreciation', 'Large apartment complexes', 'Proximity to Sarjapur & Marathahalli IT hubs', 'Metro Phase 2 pipeline'],
+      major_employers: ['Cessna Business Park tenants (1 km)', 'RGA Tech Park (2 km)', 'Wipro Sarjapur (4 km)', 'IBM Manyata & RMZ offices (ORR)', 'Prestige Tech Park (3 km)'],
+      schools: [
+        { name: 'NPS Bellandur (National Public School)', type: 'CBSE', note: 'NPS chain; popular with IT families in the area' },
+        { name: 'DPS Whitefield (via Sarjapur)', type: 'CBSE', note: 'Large DPS campus accessible from Bellandur' },
+      ],
+      traffic: {
+        peak_hours: 'Very heavy on Bellandur-Sarjapur Road and ORR service road 8–10 am and 6–9 pm; Bellandur lake junction is a chronic bottleneck',
+        metro_access: 'Bellandur station on Phase 2 ORR corridor (Purple Line extension) — under construction; Silk Board (Purple Line) — 4 km currently',
+        highway_access: 'Outer Ring Road — adjacent; NH-44 via Silk Board — 5 km',
+        congestion_level: 'Very High',
+      },
+      nearby_amenities: {
+        hospitals: ['Columbia Asia Hospital Sarjapur (3 km)', 'Apollo Spectra Koramangala (6 km)', 'Sakra World Hospital (5 km)'],
+        malls: ['Market Square Mall (2 km)', 'Forum Mall Koramangala (7 km)', 'Phoenix Marketcity Whitefield (8 km)'],
+        parks: ['Bellandur Lake walkway (local)', 'Eco Space Business Park greens'],
+      },
+      investment_note: 'Bellandur has delivered exceptional 3-year returns (~78% price increase) and continues at 10–12% p.a. The upcoming metro on the ORR corridor is expected to be a strong price catalyst. Rental yields at 4.5–5%. High traffic is the main livability risk but most residents are car-dependent IT commuters.',
+    },
+
+    'Marathahalli': {
+      overview: 'Marathahalli is a densely populated mid-market residential and commercial suburb on Bangalore\'s eastern Outer Ring Road, serving as one of the primary bedroom communities for the vast ORR and Whitefield IT belt. It has a large retail and service economy, affordable to mid-range apartment stock, and high rental demand from IT professionals at various salary levels. Connectivity to both Whitefield and Koramangala via ORR is a structural advantage.',
+      specialties: ['ORR eastern residential hub', 'High IT worker density', 'Affordable-to-mid apartments', 'Retail & service hub', 'KR Puram rail & Purple Line access'],
+      major_employers: ['Bagmane Tech Park (3 km)', 'RMZ Ecoworld (4 km)', 'International Tech Park Whitefield (6 km)', 'Wipro Sarjapur Campus (8 km)', 'Embassy Tech Village (5 km)'],
+      schools: [
+        { name: 'NPS Marathahalli (National Public School)', type: 'CBSE', note: 'Well-regarded NPS school; strong academic programme' },
+        { name: 'Delhi Public School Bangalore East', type: 'CBSE', note: 'DPS serving east Bangalore IT families' },
+        { name: 'Ryan International School Marathahalli', type: 'CBSE', note: 'Known for balanced academics and co-curriculars' },
+      ],
+      traffic: {
+        peak_hours: 'Very heavy congestion on ORR and Marathahalli Bridge 8–10 am and 6:30–9 pm; one of Bangalore\'s most congested junctions',
+        metro_access: 'KR Puram Metro Station (Purple Line) — 3 km; Marathahalli station proposed in Phase 2 ORR corridor',
+        highway_access: 'Outer Ring Road — adjacent; Old Airport Road — 1 km',
+        congestion_level: 'Very High',
+      },
+      nearby_amenities: {
+        hospitals: ['Manipal Hospital Whitefield (4 km)', 'Columbia Asia Hospital Marathahalli (1 km)', 'Sakra World Hospital (3 km)'],
+        malls: ['Phoenix Marketcity (4 km)', 'Innovative Multiplex (2 km)', 'VR Bengaluru (5 km)'],
+        parks: ['Krishnarajapura Lake (3 km)', 'Bagmane Tech Park lake area'],
+      },
+      investment_note: 'Marathahalli offers solid 8–10% appreciation and strong 5–5.5% rental yields at mid-range entry prices — making it one of Bangalore\'s better rental income localities. Metro Phase 2 extension on the ORR will be a significant upside trigger. Best for investors targeting mid-income IT tenants.',
+    },
+
+    'Hebbal': {
+      overview: 'Hebbal is north Bangalore\'s premier residential and commercial gateway, anchored by Manyata Tech Park — one of Bangalore\'s largest IT office parks. It sits at the confluence of NH-44 (Bengaluru–Delhi highway) and Bellary Road, offering superb airport access (15 minutes). Residential demand is driven by Manyata Tech Park employees and families seeking north Bangalore\'s relatively lower density and cleaner air.',
+      specialties: ['Manyata Tech Park gateway', 'Airport highway corridor', 'North Bangalore\'s prime address', 'ORR access', 'Emerging luxury residential'],
+      major_employers: ['Manyata Tech Park tenants (IBM, Cognizant, Philips, Accenture, Target)', 'Embassy Manyata Business Park', 'Kirloskar Business Park (2 km)'],
+      schools: [
+        { name: 'Ryan International School Hebbal', type: 'CBSE', note: 'Well-attended CBSE school serving north Bangalore' },
+        { name: 'NPS Yeshwanthpur (National Public School)', type: 'CBSE', note: 'Reputed NPS school accessible from Hebbal' },
+        { name: 'The International School Bangalore (TISB)', type: 'IB/IGCSE', note: 'Top IB school in north Bangalore, 40-acre campus' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate–heavy near Hebbal Flyover and Manyata junction 8:30–10 am and 6–8 pm; airport road generally free-flowing after 10 am',
+        metro_access: 'Proposed Airport Line (Blue Line Phase 3) to pass through Hebbal; no metro currently operational in the area',
+        highway_access: 'NH-44 (Bangalore–Delhi) — adjacent; Bellary Road (Airport Road) — adjacent; Bangalore International Airport — 25 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Columbia Asia Hospital Yeshwanthpur (5 km)', 'Fortis Hospital Bannerghatta (12 km)', 'Baptist Hospital Bellary Road (4 km)'],
+        malls: ['Orion Mall (5 km)', 'Elements Mall (2 km)', 'Esteem Mall (4 km)'],
+        parks: ['Hebbal Lake (1 km)', 'Lumbini Gardens (2 km)'],
+      },
+      investment_note: 'Hebbal delivers strong 10–12% appreciation backed by Manyata Tech Park\'s massive employment base. Rental yields at 4.5–5% are solid. Airport corridor positioning makes it attractive for executives and expats. Proposed Airport Metro Line will be a major price catalyst when confirmed and built.',
+    },
+
+    'Yelahanka': {
+      overview: 'Yelahanka is a rapidly growing north Bangalore suburb along the Bengaluru–Hyderabad highway, historically a quiet military town that is now seeing significant IT and residential expansion. It offers clean air, larger plot sizes, and more affordable prices than inner north Bangalore localities. The proposed High-Speed Rail station and HAL Aerospace presence add long-term infrastructure upside.',
+      specialties: ['Affordable north Bangalore', 'HAL & defence establishment proximity', 'ORR north corridor', 'Airport access zone', 'Proposed HSR station'],
+      major_employers: ['HAL (Hindustan Aeronautics Limited)', 'Bharath Electronics Ltd (BEL) Jalahalli (10 km)', 'GKVK campus', 'Philips Innovation Campus (Yelahanka)', 'Air Force Station Yelahanka'],
+      schools: [
+        { name: 'Air Force School Yelahanka', type: 'CBSE', note: 'Defence-run CBSE school, high quality' },
+        { name: 'DPS Yelahanka (Delhi Public School)', type: 'CBSE', note: 'Well-regarded DPS campus in north Bangalore' },
+        { name: 'Kendriya Vidyalaya Yelahanka', type: 'CBSE', note: 'Central government school serving HAL/Air Force families' },
+      ],
+      traffic: {
+        peak_hours: 'Light to moderate on NH-44 (Bellary Road) except near Yelahanka new town junction; low internal congestion',
+        metro_access: 'No metro currently; Green Line extends to Madavara; proposed Phase 3 extension northward to Yelahanka',
+        highway_access: 'NH-44 (Bengaluru–Hyderabad) — adjacent; Bangalore International Airport — 18 km; ORR — 6 km',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['Columbia Asia Hospital Yeshwanthpur (12 km)', 'Baptist Hospital (12 km)', 'Air Force Hospital (local)'],
+        malls: ['Elements Mall Thanisandra (8 km)', 'Orion Mall (10 km)'],
+        parks: ['Yelahanka Lake Park', 'Hebbala Valley Park (4 km)'],
+      },
+      investment_note: 'Yelahanka offers affordable entry with 7–9% appreciation, driven by northward city expansion and airport corridor demand. Rental yields are modest at 4–4.5% but entry prices are low. Metro extension and HSR station proposals are speculative but high-upside catalysts. Best for 7–10 year horizon investors.',
+    },
+
+    'JP Nagar': {
+      overview: 'JP Nagar (Jayanagara Professional Quarter) is a large, well-established south Bangalore residential township developed by BDA in the 1980s, spread across 9 phases. It is predominantly owner-occupied by middle-class and upper-middle-class Bangalorean families. The Green Line metro now runs through JP Nagar, significantly improving connectivity. The locality has a mature social fabric with good schools, hospitals, and parks.',
+      specialties: ['Large BDA planned township', 'Green Line metro served', 'Established south Bangalore family zone', 'Mid-market to premium residential', 'Low commercial clutter'],
+      major_employers: ['NIMHANS (National Institute of Mental Health)', 'Bannerghatta Road IT belt (5 km)', 'Electronics City (12 km)', 'Central Government offices (nearby)'],
+      schools: [
+        { name: 'National Public School JP Nagar', type: 'CBSE', note: 'NPS chain, very high demand; competitive admissions' },
+        { name: 'Sri Sri Ravishankar Vidya Mandir', type: 'CBSE', note: 'Popular CBSE school with strong academics and values programme' },
+        { name: 'Vijaya High School', type: 'State/CBSE', note: 'Old-established Bangalore school, strong academic record' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate on 15th Cross Road and Bannerghatta Road intersection; JP Nagar 4th Phase junction can congest during peak hours',
+        metro_access: 'JP Nagar Metro Station (Green Line) — operational; multiple stations across JP Nagar phases',
+        highway_access: 'Bannerghatta Road — 1 km; Outer Ring Road via Silk Board — 5 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Fortis Hospital Bannerghatta Road (3 km)', 'Apollo BGS Hospital (4 km)', 'NIMHANS (1 km)'],
+        malls: ['Gopalan Innovation Mall (2 km)', 'Vega City Mall (3 km)', 'Mantri Mall Malleswaram (8 km)'],
+        parks: ['Puttenahalli Lake (2 km)', 'Geddalahalli Lake Park (3 km)'],
+      },
+      investment_note: 'JP Nagar delivers steady 8–9% appreciation with Green Line metro providing a sustained demand floor. Rental yields at 4–4.5% are moderate — it is more an owner-occupation and resale play than a rental income investment. Scarcity of new launches in the mature township keeps prices firm.',
+    },
+
+    'Bannerghatta Road': {
+      overview: 'Bannerghatta Road is a 20 km residential and commercial corridor stretching south from BTM Layout to the Bannerghatta National Park. It has established IT campuses from Texas Instruments, Accenture, and HP, and a strong mid-to-premium residential market with good schools and hospitals. The southern proximity to the National Park gives parts of the corridor a greener character than most Bangalore localities.',
+      specialties: ['South Bangalore IT corridor', 'Texas Instruments & HP campus belt', 'Proximity to Bannerghatta National Park', 'Mid-premium residential', 'Green Line metro extension planned'],
+      major_employers: ['Texas Instruments India HQ', 'Hewlett Packard (HP)', 'Accenture', 'IBM', 'Biocon & pharma cluster (nearby)'],
+      schools: [
+        { name: 'The International School Bangalore (TISB)', type: 'IB/IGCSE', note: '40-acre international school campus; top IB institution in south Bangalore' },
+        { name: 'Greenwood High International School', type: 'CBSE/IB/IGCSE', note: 'Multiple campuses; strong academic reputation' },
+        { name: 'Bethany High School', type: 'ICSE', note: 'Well-established ICSE school, respected in south Bangalore' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate–high on Bannerghatta Road near JP Nagar junction and Arekere; Bommanahalli junction is a key bottleneck',
+        metro_access: 'Yellow Line (R.V. Road–Bommasandra) passes through Bannerghatta Road corridor; Bommasandra terminus operational Aug 2025',
+        highway_access: 'Outer Ring Road via Silk Board — 5 km; NICE Road — 3 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Fortis Hospital Bannerghatta (on road)', 'Apollo BGS Hospital (3 km)', 'Narayana Health City (5 km)'],
+        malls: ['Vega City Mall (2 km)', 'Gopalan Innovation Mall (3 km)'],
+        parks: ['Bannerghatta National Park (8 km)', 'Arekere Lake Park (2 km)'],
+      },
+      investment_note: 'Bannerghatta Road offers balanced 8–10% appreciation with Yellow Line metro connectivity from 2025 providing a structural boost. Rental yields at 4.5–5% are supported by Texas Instruments and HP employee demand. The greener environment and IT campus proximity make it a good family investment.',
+    },
+
+    'Brookefield': {
+      overview: 'Brookefield (also written Brookfield) is a mid-premium residential locality in east Bangalore adjacent to Whitefield\'s ITPB, offering more affordable prices than Whitefield while sharing its IT catchment. It has good access to the Purple Line metro via KR Puram and a mix of independent houses, gated communities, and apartment blocks. Popular with mid-level IT professionals who want proximity to the Whitefield belt without peak Whitefield prices.',
+      specialties: ['Whitefield fringe at lower prices', 'ITPB & Bagmane Tech Park proximity', 'Purple Line metro access via KR Puram', 'Mix of old houses & new apartments', 'Mid-premium IT professional zone'],
+      major_employers: ['ITPB tenants (Oracle, IBM, TCS) — 1 km', 'Bagmane Tech Park (2 km)', 'Kalyani Tech Park (2 km)', 'Manyata Tech Park (15 km via ORR)'],
+      schools: [
+        { name: 'NPS ITPL (National Public School)', type: 'CBSE', note: 'NPS chain school near ITPB, popular with IT families' },
+        { name: 'Delhi Public School Bangalore East', type: 'CBSE', note: 'Large DPS campus serving east Bangalore' },
+        { name: 'Ryan International School ITPL', type: 'CBSE', note: 'Well-attended CBSE school near Brookefield' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy at Tin Factory junction and KR Puram Bridge 8–10 am and 6–9 pm; Hope Farm flyover approach also congested',
+        metro_access: 'KR Puram Metro Station (Purple Line) — 2 km; Hoodi Station (Purple Line) — 1.5 km',
+        highway_access: 'Old Airport Road — 1 km; Outer Ring Road — 3 km via KR Puram',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Columbia Asia Hospital Whitefield (3 km)', 'Manipal Hospital Whitefield (3 km)', 'Narayana Multispeciality (4 km)'],
+        malls: ['Phoenix Marketcity (4 km)', 'VR Bengaluru (5 km)', 'Forum Value Mall (2 km)'],
+        parks: ['Hoodi Lake (1 km)', 'Channasandra Lake (2 km)'],
+      },
+      investment_note: 'Brookefield is an affordable entry into the Whitefield IT catchment at 8–10% appreciation. Rental yields at 4.5–5% with 2BHK rents of ₹22,000–38,000/mo. Purple Line metro at KR Puram and Hoodi has been a consistent price driver since 2023. Good value-for-money play in east Bangalore.',
+    },
+
+    'BTM Layout': {
+      overview: 'BTM Layout (Bangalore–Tumkur–Mysore Layout) is an affordable, dense residential suburb in south Bangalore popular with young IT professionals and students. It offers budget apartments at prices well below Koramangala or HSR Layout while sharing similar proximity to the Outer Ring Road IT belt. Koramangala and HSR Layout are within 3 km, making it a popular first-home or rental investment zone.',
+      specialties: ['Affordable south Bangalore', 'Young IT professional hub', 'ORR & Koramangala proximity', 'High rental demand', 'Budget-friendly apartments'],
+      major_employers: ['ORR IT belt (Wipro, Flipkart, Samsung — 3 km)', 'Koramangala startup offices (3 km)', 'Electronic City (12 km)', 'NICE Road tech parks (5 km)'],
+      schools: [
+        { name: 'Little Kingdom School', type: 'CBSE', note: 'Popular CBSE school in BTM serving families' },
+        { name: 'Ryan International School Bannerghatta', type: 'CBSE', note: 'Accessible from BTM Layout' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy at BTM Layout 2nd Stage junction and Silk Board underpass approach 8:30–10 am and 6:30–9 pm',
+        metro_access: 'BTM Layout Station proposed on Phase 3 Kalena Agrahara corridor; Silk Board (Purple Line) — 1.5 km currently',
+        highway_access: 'Outer Ring Road via Silk Board — 2 km; Hosur Road (NH-44) — 3 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Fortis Hospital Bannerghatta Road (4 km)', 'Apollo Spectra Koramangala (3 km)', 'Sparsh Hospital (3 km)'],
+        malls: ['Forum Mall Koramangala (3 km)', 'Market Square Mall (5 km)', 'Vega City Mall (5 km)'],
+        parks: ['Madiwala Lake (2 km)', 'Agara Lake (2 km)'],
+      },
+      investment_note: 'BTM Layout is primarily a rental income play with 5–5.5% gross yields driven by high demand from IT and startup workers. Capital appreciation at 7–8% p.a. is steady but moderate. Very affordable entry prices make it accessible to first-time investors. Silk Board metro proximity is the key value anchor.',
+    },
+
+    'Jayanagar': {
+      overview: 'Jayanagar is one of Bangalore\'s most prestigious and mature planned townships, developed in the 1960s and known for wide roads, lush tree cover, and a large middle-to-upper-class owner-occupied base. It has minimal new residential supply, a strong sense of community, excellent schools, and some of Bangalore\'s best hospitals. The Green Line metro now runs through Jayanagar, adding a new connectivity dimension to this classic address.',
+      specialties: ['Old Bangalore prestige address', 'Green Line metro served', 'Very low new supply', 'Wide roads & tree cover', 'Elite schools & hospitals'],
+      major_employers: ['Central Government offices (nearby)', 'NIMHANS (3 km)', 'Judicial establishments', 'Bannerghatta Road IT belt (6 km)', 'Koramangala startup belt (4 km)'],
+      schools: [
+        { name: 'National Public School Jayanagar (NPS)', type: 'CBSE', note: 'Among Bangalore\'s most sought-after schools; very competitive admissions' },
+        { name: 'St. Joseph\'s College of Commerce (nearby)', type: 'Degree/PU', note: 'Prestigious Jesuit institution, not school but major landmark' },
+        { name: 'Vijaya High School', type: 'State/CBSE', note: 'Historic school with strong alumni base across Jayanagar' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; 11th Main Road and South End Circle can slow 9–10 am; Jayanagar is notably less congested than most Bangalore areas',
+        metro_access: 'Jayanagar Metro Station (Green Line) — operational; multiple nearby Green Line stations',
+        highway_access: 'Bannerghatta Road — 1 km; NICE Road — 4 km via Banashankari',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Jayadeva Institute of Cardiovascular Sciences (1 km)', 'Apollo BGS Hospital (4 km)', 'Sparsh Hospital (3 km)'],
+        malls: ['Garuda Mall (3 km)', 'Vega City Mall (4 km)', 'Gopalan Innovation Mall (5 km)'],
+        parks: ['Lalbagh Botanical Garden (2 km)', 'Jayanagar 4th Block Park (local)'],
+      },
+      investment_note: 'Jayanagar is a premium capital-preservation play at 7.5–9% p.a. appreciation with very limited new supply. Rental yields are modest at 3.5–4% given high base prices, but tenant quality is premium. Green Line metro has added a new demand layer from younger professionals. Best for long-term hold investors.',
+    },
+
+  },
   'Pune': {},
   'Mumbai': {},
   'Delhi NCR': {},
