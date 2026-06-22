@@ -31,7 +31,8 @@ class LoanInput(BaseModel):
     annual_appreciation: float = Field(..., ge=0, le=50, description="Annual property price appreciation %")
     rent_appreciation: float = Field(..., ge=0, le=30, description="Annual rent increase %")
     maintenance_pct: float = Field(..., ge=0, le=10, description="Maintenance + tax as % of property value/yr")
-    stock_return: float = Field(..., gt=0, le=50, description="Expected equity/MF annual return % (for renter)")
+    stock_return: float = Field(..., gt=0, le=50, description="DCF discount / opportunity cost rate %")
+    benchmark_return: Optional[float] = Field(None, gt=0, le=50, description="Benchmark fund annual return % (Home vs Stocks comparison)")
     tenure_years: int = Field(..., ge=1, le=30, description="Loan tenure in years")
     down_payment_pct: float = Field(..., ge=5, le=90, description="Down payment as % of home price")
 
@@ -50,6 +51,7 @@ class SensitivityInput(BaseModel):
     rent_appreciation: float
     maintenance_pct: float
     stock_return: float
+    benchmark_return: Optional[float] = None
     tenures: List[int] = [5, 10, 15, 20, 25, 30]
     down_payments: List[float] = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
     current_tenure: int
@@ -73,7 +75,7 @@ def calc_emi(principal: float, annual_rate: float, years: int) -> float:
 
 def run_simulation(
     home_price, monthly_rent, interest_rate, appreciation,
-    rent_appreciation, maintenance_pct, stock_return, tenure, down_pct
+    rent_appreciation, maintenance_pct, stock_return, benchmark_return, tenure, down_pct
 ):
     down = home_price * down_pct / 100
     loan = home_price - down
@@ -97,7 +99,7 @@ def run_simulation(
     break_even_year = None
     r = interest_rate / 12 / 100
     disc_r = stock_return / 12 / 100
-    snp_r  = 10.5 / 12 / 100          # S&P 500 historical 30-yr avg
+    bm_r   = benchmark_return / 12 / 100
     month_num = 0
     monthly_maint_y1 = home_price * maintenance_pct / 100 / 12
     monthly_cf_y1 = monthly_rent - monthly_emi - monthly_maint_y1
@@ -130,13 +132,13 @@ def run_simulation(
             else:
                 net_wealth_inflow += (-net_outflow)
             diff = max(0, net_outflow)
-            renter_portfolio = renter_portfolio * (1 + stock_return / 12 / 100) + diff
-            snp_portfolio    = snp_portfolio    * (1 + snp_r)                   + diff
+            renter_portfolio = renter_portfolio * (1 + bm_r) + diff
+            snp_portfolio    = snp_portfolio    * (1 + bm_r) + diff
             year_outflow_invested += diff
-            snp_emi_sip      = snp_emi_sip      * (1 + snp_r) + monthly_emi
+            snp_emi_sip      = snp_emi_sip      * (1 + bm_r) + monthly_emi
             surplus = max(0.0, cur_rent - monthly_emi - maint)
             surplus_invested += surplus
-            surplus_snp = surplus_snp * (1 + snp_r) + surplus
+            surplus_snp = surplus_snp * (1 + bm_r) + surplus
 
         home_val *= (1 + appreciation / 100)
         cur_rent *= (1 + rent_appreciation / 100)
@@ -287,6 +289,7 @@ def calculate(data: LoanInput):
             rent_appreciation=data.rent_appreciation,
             maintenance_pct=data.maintenance_pct,
             stock_return=data.stock_return,
+            benchmark_return=data.benchmark_return or data.stock_return,
             tenure=data.tenure_years,
             down_pct=data.down_payment_pct,
         )
@@ -350,6 +353,7 @@ def sensitivity(data: SensitivityInput):
                     rent_appreciation=data.rent_appreciation,
                     maintenance_pct=data.maintenance_pct,
                     stock_return=data.stock_return,
+                    benchmark_return=data.benchmark_return or data.stock_return,
                     tenure=t,
                     down_pct=d,
                 )

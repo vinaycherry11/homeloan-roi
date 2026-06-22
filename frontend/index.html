@@ -125,18 +125,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/static/css/style.css?v=features43">
+<link rel="stylesheet" href="/static/css/style.css?v=features53">
 </head>
 <body>
 
 <!-- ── NAV ── -->
 <nav>
-  <div class="nav-logo">GoWin<span>Dhan</span></div>
+  <div class="nav-logo">Go<span class="logo-win">Win</span><span class="logo-dhan">Dhan</span><span class="logo-coin">₹</span></div>
   <div class="nav-right">
     <span class="nav-tagline">Home Investment Analyser</span>
     <div class="nav-tabs">
       <button class="nav-tab active" data-tab="calc">Calculator</button>
-      <button class="nav-tab" data-tab="amort">Loan Schedule</button>
       <button class="nav-tab" data-tab="compare">Compare</button>
       <button class="nav-tab" data-tab="insights">Locality Insights</button>
       <button class="nav-tab" data-tab="support">Help &amp; Support</button>
@@ -151,12 +150,11 @@
 <!-- Mobile nav drawer -->
 <div class="nav-drawer" id="navDrawer" aria-hidden="true">
   <div class="nav-drawer-header">
-    <div class="nav-logo" style="font-size:1.15rem">GoWin<span>Dhan</span></div>
+    <div class="nav-logo" style="font-size:1.15rem">Go<span class="logo-win">Win</span><span class="logo-dhan">Dhan</span><span class="logo-coin">₹</span></div>
     <button class="nav-drawer-close" id="navDrawerClose" aria-label="Close menu">&#10005;</button>
   </div>
   <div class="nav-drawer-tabs">
     <button class="nav-tab active" data-tab="calc">&#128200; Calculator</button>
-    <button class="nav-tab" data-tab="amort">&#128203; Loan Schedule</button>
     <button class="nav-tab" data-tab="compare">&#9878; Compare</button>
     <button class="nav-tab" data-tab="insights">&#128205; Locality Insights</button>
     <button class="nav-tab" data-tab="support">&#10067; Help &amp; Support</button>
@@ -519,8 +517,8 @@
           <input type="text" inputmode="numeric" id="homePrice" class="hp-input" value="1,00,00,000" placeholder="e.g. 50,00,000">
         </div>
         <div class="field-slider-row">
-          <input type="range" id="homePriceSlider" min="1000000" max="100000000" step="100000" value="10000000">
-          <div class="slider-range"><span>₹10 L</span><span>₹10 Cr</span></div>
+          <input type="range" id="homePriceSlider" min="0" max="248" step="1" value="18">
+          <div class="slider-range"><span>₹10 L</span><span id="homePriceSliderMax">₹10 Cr</span></div>
         </div>
         <span class="field-hint" id="homePriceFmt">₹1 Cr</span>
       </div>
@@ -531,8 +529,8 @@
           <input type="text" inputmode="numeric" id="rent" class="hp-input" value="30,000" placeholder="e.g. 30,000">
         </div>
         <div class="field-slider-row">
-          <input type="range" id="rentSlider" min="10000" max="500000" step="1000" value="30000">
-          <div class="slider-range"><span>₹10 K</span><span>₹5 L</span></div>
+          <input type="range" id="rentSlider" min="0" max="128" step="1" value="4">
+          <div class="slider-range"><span>₹10 K</span><span id="rentSliderMax">₹5 L</span></div>
         </div>
         <span class="field-hint">Equivalent rent for this property</span>
       </div>
@@ -561,12 +559,12 @@
         <span class="field-hint">Of property value annually</span>
       </div>
       <div class="field">
-        <label for="stockReturn">If renting, invest at <span class="info-icon" data-tooltip="If you rented instead of buying, you'd invest the down payment + monthly savings in equities or MF. What return do you expect? E.g. 12% = long-run Nifty 50 average. Also used as the benchmark comparison rate." aria-label="info"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><circle cx="12" cy="8" r="0.5" fill="currentColor" stroke="none"/></svg></span></label>
+        <label for="stockReturn">Opportunity cost rate <span class="info-icon" data-tooltip="Used as the DCF discount rate: outflows are discounted to present value at this rate. Represents the minimum return your capital should earn. Separate from the benchmark fund used in Home vs Stocks comparison." aria-label="info"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><circle cx="12" cy="8" r="0.5" fill="currentColor" stroke="none"/></svg></span></label>
         <div class="input-wrap suffix-only">
           <input type="number" id="stockReturn" value="12" min="1" max="25" step="0.5" placeholder="12">
           <span class="input-suffix">%/yr</span>
         </div>
-        <span class="field-hint">Expected MF / equity return (benchmark)</span>
+        <span class="field-hint">DCF discount rate for PV of outflows</span>
       </div>
     </div>
   </div>
@@ -652,6 +650,7 @@
           <button class="stepper-tab" data-pane="pane-hvs">Home vs Stock</button>
           <button class="stepper-tab" data-pane="pane-cashflow">Cash Flow</button>
           <button class="stepper-tab" data-pane="pane-breakdown">Breakdown</button>
+          <button class="stepper-tab" data-pane="pane-schedule">Loan Schedule</button>
           <button class="stepper-tab" data-pane="pane-benchmarks">Benchmarks</button>
           <button class="stepper-tab" data-pane="pane-scenarios">Scenarios</button>
         </div>
@@ -748,7 +747,7 @@
             <div class="panel" id="investWealthPanel">
               <div class="panel-title">Money in · Wealth built</div>
               <p class="sens-note">
-                <strong style="color:#F43F5E">Left</strong> — cash committed each year: large down payment on day 1, then net outflows while rent &lt; EMI + maintenance. Bars drop to zero once rent covers the cost.&ensp;
+                <strong style="color:#F43F5E">Left</strong> — cumulative investment: bars grow as money is committed over time. The bright portion shows each year's new outflow; the muted base shows all prior spending. Bars plateau once rent covers EMI + maintenance.&ensp;
                 <strong style="color:#4F6FD8">Right</strong> — wealth accumulating: home equity (blue) with cumulative rent surplus stacked on top (green).
               </p>
               <div class="iw-split">
@@ -767,7 +766,20 @@
           <!-- HOME VS STOCK -->
           <div class="result-pane" id="pane-hvs">
             <div class="panel" id="homeVsStockPanel">
-              <div class="panel-title">Home vs Stock — wealth over time</div>
+              <div class="panel-title" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                Home vs
+                <select id="benchmarkFund" style="font-size:0.85rem;font-weight:600;padding:3px 8px;border-radius:6px;border:1px solid var(--border);background:var(--surface-2);color:var(--ink);cursor:pointer;">
+                  <option value="nifty50"    data-cagr="12.0">Nifty 50 (12%)</option>
+                  <option value="snp500"     data-cagr="10.5">S&amp;P 500 (10.5%)</option>
+                  <option value="niftynext50" data-cagr="13.5">Nifty Next 50 (13.5%)</option>
+                  <option value="midcap150"  data-cagr="15.0">Nifty Midcap 150 (15%)</option>
+                  <option value="largecapmf" data-cagr="13.0">Large Cap MF (13%)</option>
+                  <option value="gold"       data-cagr="9.0">Gold INR (9%)</option>
+                  <option value="fd"         data-cagr="7.0">Bank FD (7%)</option>
+                  <option value="ppf"        data-cagr="7.1">PPF (7.1%)</option>
+                </select>
+                — wealth over time
+              </div>
               <p class="sens-note" id="homeVsStockNote"></p>
               <div class="kpi-grid">
                 <div class="kpi a-emerald">
@@ -776,9 +788,9 @@
                   <div class="kpi-sub" id="kpiHomeNetGainSub">Final equity + rent surplus after crossover</div>
                 </div>
                 <div class="kpi a-violet">
-                  <div class="kpi-label">Stock total wealth <span class="kpi-abbr">S&amp;P 500</span></div>
+                  <div class="kpi-label">Stock total wealth <span class="kpi-abbr" id="benchmarkFundKpiLabel">Nifty 50</span></div>
                   <div class="kpi-value" id="kpiStockNetGain">—</div>
-                  <div class="kpi-sub">Down payment (day 1) + monthly outflow invested at 10.5%/yr</div>
+                  <div class="kpi-sub" id="kpiStockNetGainSub">Down payment (day 1) + monthly outflow invested at 12%/yr</div>
                 </div>
               </div>
               <div class="amort-wrapper" style="margin-top:20px">
@@ -789,8 +801,8 @@
                       <th>EMI + maint</th>
                       <th>Rent saved</th>
                       <th>Net outflow <span class="th-note">(EMI+maint − rent)</span></th>
-                      <th>Invested this yr <span class="th-note">(S&amp;P 500)</span></th>
-                      <th>Stock portfolio <span class="th-note">(S&amp;P 500)</span></th>
+                      <th>Invested this yr <span class="th-note" id="hvsColFundNote1">Nifty 50</span></th>
+                      <th>Stock portfolio <span class="th-note" id="hvsColFundNote2">Nifty 50</span></th>
                       <th>Home equity <span class="th-note">(value − loan)</span></th>
                     </tr>
                   </thead>
@@ -845,10 +857,37 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- LOAN SCHEDULE -->
+          <div class="result-pane" id="pane-schedule">
             <div class="panel">
               <div class="panel-title">Annual cost breakdown — principal · interest · maintenance</div>
               <div class="chart-container short">
                 <canvas id="costChart" role="img" aria-label="Annual cost breakdown"></canvas>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-title-row">
+                <div class="panel-title">Year-by-year loan repayment schedule</div>
+                <button class="btn-download-amort" id="downloadAmortBtn" onclick="downloadAmortPDF()">⬇ Download monthly PDF</button>
+              </div>
+              <div class="amort-wrapper">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="text-align:left">Year</th>
+                      <th>EMI paid <span class="th-note">(annual total)</span></th>
+                      <th>Principal <span class="th-note">(reduces loan)</span></th>
+                      <th>Interest <span class="th-note">(bank's fee)</span></th>
+                      <th>Loan balance <span class="th-note">(outstanding)</span></th>
+                      <th>Home value <span class="th-note">(estimated)</span></th>
+                      <th>Net equity <span class="th-note">(value − loan)</span></th>
+                      <th>Maintenance <span class="th-note">(incl. tax)</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="amortBody"></tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -913,49 +952,6 @@
 
     </div><!-- /tab-calc -->
 
-    <!-- AMORTISATION TAB -->
-    <div class="section" id="tab-amort">
-      <div class="panel">
-        <div class="panel-title">Annual rental income</div>
-        <p class="sens-note">Rent collected from tenants each year — a direct cash inflow benefit of owning the property.</p>
-        <div class="amort-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th style="text-align:left">Year</th>
-                <th>Rental income <span class="th-note">(annual)</span></th>
-                <th>YoY growth <span class="th-note">(year-on-year %)</span></th>
-                <th>Cumulative <span class="th-note">(running total)</span></th>
-                <th>% of outflow <span class="th-note">(rent ÷ total paid)</span></th>
-              </tr>
-            </thead>
-            <tbody id="rentBody"></tbody>
-          </table>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="panel-title">Year-by-year loan repayment schedule</div>
-        <div class="amort-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th style="text-align:left">Year</th>
-                <th>EMI paid <span class="th-note">(annual total)</span></th>
-                <th>Principal <span class="th-note">(reduces loan)</span></th>
-                <th>Interest <span class="th-note">(bank's fee)</span></th>
-                <th>Maintenance <span class="th-note">(incl. tax)</span></th>
-                <th>Loan balance <span class="th-note">(outstanding)</span></th>
-                <th>Home value <span class="th-note">(estimated)</span></th>
-                <th>Net equity <span class="th-note">(value − loan)</span></th>
-                <th>Rental income <span class="th-note">(this year)</span></th>
-                <th>Cumul. rental <span class="th-note">(running total)</span></th>
-              </tr>
-            </thead>
-            <tbody id="amortBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
 
   </div><!-- /results -->
 
@@ -973,6 +969,14 @@
       <div class="prop-panel prop-a">
         <div class="panel-title prop-a-title">Property A</div>
         <div class="form-grid cmp-form">
+          <div class="field">
+            <label>City</label>
+            <input type="text" id="a_city" placeholder="e.g. Hyderabad" autocomplete="off">
+          </div>
+          <div class="field">
+            <label>Locality</label>
+            <input type="text" id="a_locality" placeholder="e.g. Gachibowli" autocomplete="off">
+          </div>
           <div class="field">
             <label>Home price</label>
             <div class="input-wrap">
@@ -1046,6 +1050,14 @@
       <div class="prop-panel prop-b">
         <div class="panel-title prop-b-title">Property B</div>
         <div class="form-grid cmp-form">
+          <div class="field">
+            <label>City</label>
+            <input type="text" id="b_city" placeholder="e.g. Bangalore" autocomplete="off">
+          </div>
+          <div class="field">
+            <label>Locality</label>
+            <input type="text" id="b_locality" placeholder="e.g. Whitefield" autocomplete="off">
+          </div>
           <div class="field">
             <label>Home price</label>
             <div class="input-wrap">
@@ -1645,23 +1657,49 @@
     <div class="chat-header">
       <div class="chat-header-left">
         <div class="chat-avatar-wrap" aria-hidden="true">
-          <svg class="chat-avatar-svg" viewBox="0 0 36 36" fill="none">
+          <img class="chat-avatar-img" src="/static/img/chatbot-avatar.png" alt="" draggable="false"/>
+          <svg style="display:none" viewBox="0 0 36 36" fill="none">
             <circle cx="18" cy="18" r="18" fill="#1c2d3e"/>
-            <circle cx="18" cy="17" r="10" fill="#F4A060"/>
-            <path d="M9 15 Q10 7 18 7 Q26 7 27 15 Q22 11 18 11.5 Q14 11 9 15Z" fill="#2C1A10"/>
-            <path d="M9 15 Q9 18 10 20 Q10.5 17 12 15.5Z" fill="#2C1A10"/>
-            <path d="M27 15 Q27 18 26 20 Q25.5 17 24 15.5Z" fill="#2C1A10"/>
-            <ellipse cx="15" cy="16.5" rx="2.2" ry="2.4" fill="white"/>
-            <ellipse cx="21" cy="16.5" rx="2.2" ry="2.4" fill="white"/>
-            <circle cx="15.4" cy="17" r="1.3" fill="#1A3BA8"/>
-            <circle cx="21.4" cy="17" r="1.3" fill="#1A3BA8"/>
-            <circle cx="15.6" cy="17.2" r="0.7" fill="#05050F"/>
-            <circle cx="21.6" cy="17.2" r="0.7" fill="#05050F"/>
-            <circle cx="16.1" cy="16.4" r="0.45" fill="white"/>
-            <circle cx="22.1" cy="16.4" r="0.45" fill="white"/>
-            <path d="M14.5 20.5 Q18 23 21.5 20.5" stroke="#A04820" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-            <ellipse cx="13" cy="19" rx="2" ry="1.2" fill="rgba(255,80,50,0.22)"/>
-            <ellipse cx="23" cy="19" rx="2" ry="1.2" fill="rgba(255,80,50,0.22)"/>
+            <!-- Face -->
+            <circle cx="18" cy="21" r="10" fill="#F4C090"/>
+            <!-- Hair on sides (dark brown) -->
+            <path d="M8.5 20 Q8 24 9.5 27 Q11 23 12 20Z" fill="#2C1A10"/>
+            <path d="M27.5 20 Q28 24 26.5 27 Q25 23 24 20Z" fill="#2C1A10"/>
+            <!-- Ears -->
+            <ellipse cx="8.5" cy="22" rx="2" ry="2.4" fill="#F4C090"/>
+            <ellipse cx="27.5" cy="22" rx="2" ry="2.4" fill="#F4C090"/>
+            <ellipse cx="8.5" cy="22" rx="1" ry="1.4" fill="#D8A060"/>
+            <ellipse cx="27.5" cy="22" rx="1" ry="1.4" fill="#D8A060"/>
+            <!-- Chibi eyes: large dark circle + white highlight -->
+            <ellipse cx="14.5" cy="22" rx="2.8" ry="3" fill="white"/>
+            <ellipse cx="21.5" cy="22" rx="2.8" ry="3" fill="white"/>
+            <circle cx="15" cy="22.4" r="2.2" fill="#151515"/>
+            <circle cx="22" cy="22.4" r="2.2" fill="#151515"/>
+            <circle cx="16.1" cy="21" r="0.85" fill="white"/>
+            <circle cx="23.1" cy="21" r="0.85" fill="white"/>
+            <!-- Eyebrows -->
+            <path d="M12 18.5 Q14.5 17.2 17 18.5" stroke="#2C1A10" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+            <path d="M19 18.5 Q21.5 17.2 24 18.5" stroke="#2C1A10" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+            <!-- Nose -->
+            <path d="M16.5 25.5 Q18 26.5 19.5 25.5" stroke="#C07840" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+            <!-- Smile + teeth -->
+            <path d="M14 28 Q18 32 22 28" stroke="#9A3810" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+            <path d="M15 28.2 Q18 31.2 21 28.2" fill="white"/>
+            <!-- Cheeks -->
+            <ellipse cx="12" cy="25" rx="2.4" ry="1.6" fill="rgba(255,100,80,0.28)"/>
+            <ellipse cx="24" cy="25" rx="2.4" ry="1.6" fill="rgba(255,100,80,0.28)"/>
+            <!-- ORANGE HARD HAT -->
+            <path d="M8.5 19 Q8 8.5 18 7.5 Q28 8.5 27.5 19 Z" fill="#F09520"/>
+            <!-- Dome highlight -->
+            <path d="M11 11.5 Q17 10 23.5 12" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <!-- White badge sticker on front -->
+            <rect x="14.5" y="11.5" width="7" height="4.5" rx="1" fill="white" stroke="rgba(0,0,0,0.07)" stroke-width="0.4"/>
+            <!-- Ridge + sweatband -->
+            <path d="M8.5 19 Q18 18 27.5 19" stroke="#904800" stroke-width="0.7" fill="none"/>
+            <path d="M8.5 19 Q18 18 27.5 19 L27.5 20.5 Q18 19.5 8.5 20.5 Z" fill="rgba(0,0,0,0.1)"/>
+            <!-- Brim (darker orange) -->
+            <path d="M6 20.5 Q18 19 30 20.5 Q30 22.3 27.5 21.8 Q18 20.5 8.5 21.8 Q6 22.3 6 20.5 Z" fill="#C06000"/>
+            <path d="M8.5 21.8 Q18 20.5 27.5 21.8" stroke="rgba(0,0,0,0.18)" stroke-width="0.8" fill="none"/>
           </svg>
           <span class="chat-online-dot"></span>
         </div>
@@ -1738,135 +1776,147 @@
     </div>
   </div>
   <button class="chat-fab" id="chatFab" onclick="toggleChat()" aria-label="Open chat assistant" title="Ask GoWinDhan Assistant">
-    <!-- 3D cartoon boy mascot (Subway Surfers style) -->
-    <svg class="fab-icon-chat fab-char" width="46" height="68" viewBox="0 0 44 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <img class="fab-icon-chat fab-char" src="/static/img/chatbot-avatar.png" alt="" draggable="false"/>
+    <!-- (unused SVG placeholder kept for close-icon sibling logic) -->
+    <svg style="display:none" viewBox="0 0 44 65" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="fc-face" cx="38%" cy="30%" r="60%">
-          <stop offset="0%" stop-color="#FFE8CC"/>
-          <stop offset="100%" stop-color="#F4A060"/>
+        <radialGradient id="bb-face" cx="35%" cy="28%" r="65%">
+          <stop offset="0%" stop-color="#FFE4C0"/>
+          <stop offset="100%" stop-color="#F4BF82"/>
         </radialGradient>
-        <linearGradient id="fc-shirt" x1="10%" y1="0%" x2="90%" y2="100%">
-          <stop offset="0%" stop-color="#FF8C42"/>
-          <stop offset="55%" stop-color="#E85A10"/>
-          <stop offset="100%" stop-color="#BC3D00"/>
+        <linearGradient id="bb-hat" x1="25%" y1="0%" x2="75%" y2="100%">
+          <stop offset="0%" stop-color="#F5A820"/>
+          <stop offset="55%" stop-color="#E07500"/>
+          <stop offset="100%" stop-color="#B85A00"/>
         </linearGradient>
-        <linearGradient id="fc-pants" x1="15%" y1="0%" x2="85%" y2="100%">
-          <stop offset="0%" stop-color="#4D70E8"/>
-          <stop offset="100%" stop-color="#1A2FC0"/>
+        <linearGradient id="bb-overall" x1="20%" y1="0%" x2="80%" y2="100%">
+          <stop offset="0%" stop-color="#F5A820"/>
+          <stop offset="100%" stop-color="#C06800"/>
         </linearGradient>
-        <radialGradient id="fc-hair" cx="50%" cy="25%" r="55%">
-          <stop offset="0%" stop-color="#4A2810"/>
-          <stop offset="100%" stop-color="#180A02"/>
-        </radialGradient>
-        <filter id="fc-shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="1" dy="2" stdDeviation="1.5" flood-color="rgba(0,0,0,0.3)"/>
+        <filter id="bb-shadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0.5" dy="1.5" stdDeviation="1.2" flood-color="rgba(0,0,0,0.25)"/>
         </filter>
       </defs>
 
       <!-- Ground shadow -->
-      <ellipse cx="21" cy="52.5" rx="10" ry="2.2" fill="rgba(0,0,0,0.28)"/>
+      <ellipse cx="22" cy="54" rx="10" ry="2" fill="rgba(0,0,0,0.2)"/>
 
-      <!-- LEGS (behind body) -->
-      <path d="M14.5 38 Q13.5 47 14 51 Q16.5 53.5 19 51 Q19.5 47 19 38Z" fill="url(#fc-pants)" stroke="#111A8A" stroke-width="0.5"/>
-      <path d="M25 38 Q24.5 47 25 51 Q27.5 53.5 30 51 Q30.5 47 29.5 38Z" fill="url(#fc-pants)" stroke="#111A8A" stroke-width="0.5"/>
-      <!-- Shoes -->
-      <ellipse cx="16.5" cy="51.5" rx="5" ry="2.2" fill="#1A1A1A"/>
-      <ellipse cx="27.5" cy="51.5" rx="5" ry="2.2" fill="#1A1A1A"/>
-      <ellipse cx="15" cy="50.2" rx="2.5" ry="0.9" fill="rgba(255,255,255,0.18)"/>
-      <ellipse cx="26" cy="50.2" rx="2.5" ry="0.9" fill="rgba(255,255,255,0.18)"/>
+      <!-- LEGS (orange overall pants) -->
+      <path d="M14.5 39 Q13.5 48 14 52.5 Q16.5 55 19 52.5 Q19.5 47 19 39Z" fill="url(#bb-overall)" stroke="#A05000" stroke-width="0.5"/>
+      <path d="M25 39 Q24.5 48 25 52.5 Q27.5 55 30 52.5 Q30.5 47 29.5 39Z" fill="url(#bb-overall)" stroke="#A05000" stroke-width="0.5"/>
+      <!-- Dark rounded boots -->
+      <ellipse cx="16.5" cy="53" rx="5.2" ry="2.3" fill="#252525"/>
+      <ellipse cx="27.5" cy="53" rx="5.2" ry="2.3" fill="#252525"/>
+      <ellipse cx="15.2" cy="51.8" rx="2.4" ry="0.9" fill="rgba(255,255,255,0.1)"/>
+      <ellipse cx="26.2" cy="51.8" rx="2.4" ry="0.9" fill="rgba(255,255,255,0.1)"/>
 
-      <!-- RIGHT ARM casual down (viewer's left) -->
-      <path d="M12.5 25 C8 29 7 34 8 37" stroke="url(#fc-shirt)" stroke-width="6" stroke-linecap="round" fill="none"/>
+      <!-- RIGHT ARM (casual down, skin tone) -->
+      <path d="M12 27 C7.5 31 7 36 7.5 39" stroke="#F4BF82" stroke-width="6.5" stroke-linecap="round" fill="none"/>
       <!-- Right hand -->
-      <circle cx="8.5" cy="37.5" r="4" fill="url(#fc-face)" stroke="#C07840" stroke-width="0.5"/>
+      <circle cx="8" cy="39.5" r="4" fill="url(#bb-face)" stroke="#C8904A" stroke-width="0.5"/>
 
-      <!-- BODY / HOODIE -->
-      <path d="M10.5 23 Q9.5 41 14.5 41 L29.5 41 Q34.5 41 33.5 23 Q27 21 22 21.5 Q17 21 10.5 23Z" fill="url(#fc-shirt)" filter="url(#fc-shadow)"/>
-      <!-- Depth shading right side -->
-      <path d="M27 23 Q32 30 31 41 L34 23Z" fill="rgba(0,0,0,0.2)"/>
-      <!-- Highlight left side -->
-      <path d="M10.5 23 Q10.5 35 12.5 40 L16.5 40 Q14 34 14 23Z" fill="rgba(255,255,255,0.14)"/>
-      <!-- Center seam line -->
-      <line x1="22" y1="24.5" x2="22" y2="40" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>
-      <!-- Kangaroo pocket -->
-      <path d="M16 34 Q22 37 28 34 L28 41 L16 41Z" fill="rgba(0,0,0,0.16)"/>
-      <path d="M16 34 Q22 37 28 34" stroke="rgba(0,0,0,0.2)" stroke-width="0.8" fill="none"/>
+      <!-- BODY — white t-shirt base -->
+      <path d="M11 25 Q10 42 14.5 42 L29.5 42 Q34 42 33 25 Q27 23 22 23.5 Q17 23 11 25Z" fill="white" filter="url(#bb-shadow)"/>
+      <path d="M27 25 Q32 31 31 42 L34 25Z" fill="rgba(0,0,0,0.06)"/>
+      <path d="M11 25 Q11 37 13 42 L16.5 42 Q14 35 14.5 25Z" fill="rgba(255,255,255,0.5)"/>
+      <!-- T-shirt collar -->
+      <path d="M18 24.5 Q22 23 26 24.5 Q22 26.5 18 24.5Z" fill="#EDEDED"/>
+      <!-- ORANGE OVERALL BIB (over white shirt) -->
+      <rect x="15.5" y="25.5" width="13" height="13.5" rx="2" fill="url(#bb-overall)"/>
+      <path d="M15.5 36.5 Q22 38.5 28.5 36.5 L28.5 39 Q22 40 15.5 39Z" fill="rgba(0,0,0,0.12)"/>
+      <!-- Bib chest pocket -->
+      <rect x="18" y="27.5" width="8" height="5.5" rx="1" fill="#D07000"/>
+      <rect x="18.5" y="28" width="7" height="4.5" rx="0.8" fill="rgba(0,0,0,0.18)"/>
+      <!-- Orange waist / lower body connector -->
+      <path d="M11.5 38 Q15 43 29 43 Q33 43 32.5 38 Q27 40.5 22 41 Q17 40.5 11.5 38Z" fill="url(#bb-overall)"/>
+      <!-- Overall shoulder straps (dark brown) -->
+      <path d="M15.5 25.5 Q13.5 24 12 27" stroke="#3A2008" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+      <path d="M28.5 25.5 Q30.5 24 32 27" stroke="#3A2008" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+      <!-- Strap buckles -->
+      <rect x="11.5" y="28.5" width="2.2" height="1.8" rx="0.5" fill="#B88010"/>
+      <rect x="30.3" y="28.5" width="2.2" height="1.8" rx="0.5" fill="#B88010"/>
 
-      <!-- LEFT ARM raised/WAVING (viewer's right) — group pivots at shoulder (31.5,25) -->
+      <!-- LEFT ARM WAVING — pivots at shoulder (31.5, 25) -->
       <g class="fc-wave-arm">
-        <path d="M31.5 25 C36 20 38.5 15 36 10" stroke="url(#fc-shirt)" stroke-width="6" stroke-linecap="round" fill="none"/>
-        <!-- Hand -->
-        <circle cx="35.5" cy="9.5" r="4" fill="url(#fc-face)" stroke="#C07840" stroke-width="0.5"/>
-        <!-- Waving fingers -->
-        <line x1="32.5" y1="6.2" x2="31.5" y2="4" stroke="#F4A060" stroke-width="1.6" stroke-linecap="round"/>
-        <line x1="35.5" y1="5.5" x2="35.2" y2="3.2" stroke="#F4A060" stroke-width="1.6" stroke-linecap="round"/>
-        <line x1="38.2" y1="7" x2="39.2" y2="5" stroke="#F4A060" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M31.5 25 C36 20 38.5 15 36.5 10" stroke="#F4BF82" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+        <!-- Hand (skin tone) -->
+        <circle cx="36" cy="9.5" r="4" fill="url(#bb-face)" stroke="#C8904A" stroke-width="0.5"/>
+        <!-- Screwdriver/chisel tool -->
+        <line x1="35.5" y1="6.5" x2="34.8" y2="2.8" stroke="#B8B8B8" stroke-width="2.8" stroke-linecap="round"/>
+        <path d="M34.8 2.8 L33.8 0.8 L36.3 1.6 Z" fill="#888888"/>
+        <rect x="34.5" y="7" width="2.8" height="3.5" rx="0.8" fill="#7A4A18" transform="rotate(-8 35.9 8.75)"/>
       </g>
 
       <!-- NECK -->
-      <path d="M17.5 19.5 Q22 18.5 26.5 19.5 L27 24 Q22 23 17 24Z" fill="#F4A060"/>
+      <path d="M17.5 21.5 Q22 20.5 26.5 21.5 L27 25.5 Q22 24.5 17 25.5Z" fill="#F4BF82"/>
 
-      <!-- HEAD (drawn over neck/arms) -->
-      <!-- Subtle outer glow for depth -->
-      <circle cx="22" cy="11" r="12.5" fill="rgba(100,50,10,0.18)"/>
-      <!-- Main head -->
-      <circle cx="22" cy="11" r="11.5" fill="url(#fc-face)" filter="url(#fc-shadow)"/>
+      <!-- HEAD — large round chibi proportions -->
+      <circle cx="22" cy="13" r="13.5" fill="rgba(0,0,0,0.08)"/>
+      <circle cx="22" cy="13" r="12.5" fill="url(#bb-face)" filter="url(#bb-shadow)"/>
 
-      <!-- HAIR -->
-      <path d="M11.5 9.5 Q12.5 0.5 22 0.5 Q31.5 0.5 32.5 9.5 Q27 5 22 5.5 Q17 5 11.5 9.5Z" fill="url(#fc-hair)"/>
-      <!-- Side hair -->
-      <path d="M11.5 9.5 Q10.5 14 11.5 18 Q12.5 14 14 12.5Z" fill="url(#fc-hair)"/>
-      <path d="M32.5 9.5 Q33.5 14 32.5 18 Q31.5 14 30 12.5Z" fill="url(#fc-hair)"/>
-      <!-- Hair shine -->
-      <path d="M16 2.5 Q20 1 25 2.5 Q22 1.5 20 2.5Z" fill="rgba(255,255,255,0.22)"/>
+      <!-- HAIR (dark brown, sides visible under hat brim) -->
+      <path d="M9.5 13.5 Q9 18 10 22 Q12 17 13.5 14Z" fill="#2C1A10"/>
+      <path d="M34.5 13.5 Q35 18 34 22 Q32 17 30.5 14Z" fill="#2C1A10"/>
 
       <!-- EARS -->
-      <ellipse cx="10.5" cy="12" rx="2.2" ry="2.7" fill="#F4A060"/>
-      <ellipse cx="33.5" cy="12" rx="2.2" ry="2.7" fill="#F4A060"/>
-      <ellipse cx="10.5" cy="12" rx="1.1" ry="1.6" fill="#D88040"/>
-      <ellipse cx="33.5" cy="12" rx="1.1" ry="1.6" fill="#D88040"/>
+      <ellipse cx="9.5" cy="16" rx="2.4" ry="2.9" fill="#F4BF82"/>
+      <ellipse cx="34.5" cy="16" rx="2.4" ry="2.9" fill="#F4BF82"/>
+      <ellipse cx="9.5" cy="16" rx="1.2" ry="1.7" fill="#D8A060"/>
+      <ellipse cx="34.5" cy="16" rx="1.2" ry="1.7" fill="#D8A060"/>
 
-      <!-- EYES -->
-      <!-- Left eye: fc-eye-l handles blink (scaleY), fc-iris-l handles look-around (translate) -->
+      <!-- CHIBI EYES — big dark circles with white highlight -->
       <g class="fc-eye-l">
-        <ellipse cx="17.5" cy="12" rx="3.4" ry="3.8" fill="white"/>
+        <ellipse cx="17.5" cy="14" rx="3.8" ry="4.2" fill="white"/>
         <g class="fc-iris-l">
-          <circle cx="18.1" cy="12.6" r="2.3" fill="#1A3BA8"/>
-          <circle cx="18.4" cy="12.9" r="1.3" fill="#05050F"/>
-          <circle cx="19.2" cy="11.6" r="0.75" fill="white"/>
-          <circle cx="17.8" cy="13.8" r="0.4" fill="rgba(255,255,255,0.65)"/>
+          <circle cx="18" cy="14.6" r="3.1" fill="#151515"/>
+          <circle cx="19.4" cy="13" r="1.2" fill="white"/>
+          <circle cx="17" cy="16.5" r="0.55" fill="rgba(255,255,255,0.5)"/>
         </g>
       </g>
-      <!-- Right eye -->
       <g class="fc-eye-r">
-        <ellipse cx="26.5" cy="12" rx="3.4" ry="3.8" fill="white"/>
+        <ellipse cx="26.5" cy="14" rx="3.8" ry="4.2" fill="white"/>
         <g class="fc-iris-r">
-          <circle cx="27.1" cy="12.6" r="2.3" fill="#1A3BA8"/>
-          <circle cx="27.4" cy="12.9" r="1.3" fill="#05050F"/>
-          <circle cx="28.2" cy="11.6" r="0.75" fill="white"/>
-          <circle cx="26.8" cy="13.8" r="0.4" fill="rgba(255,255,255,0.65)"/>
+          <circle cx="27" cy="14.6" r="3.1" fill="#151515"/>
+          <circle cx="28.4" cy="13" r="1.2" fill="white"/>
+          <circle cx="26" cy="16.5" r="0.55" fill="rgba(255,255,255,0.5)"/>
         </g>
       </g>
 
-      <!-- EYEBROWS (raised — happy/excited) -->
-      <path d="M14 8.5 Q17 7 20.5 8" stroke="#2A1006" stroke-width="1.7" stroke-linecap="round" fill="none"/>
-      <path d="M23.5 8 Q27 7 30 8.5" stroke="#2A1006" stroke-width="1.7" stroke-linecap="round" fill="none"/>
+      <!-- EYEBROWS (dark brown, friendly arch) -->
+      <path d="M13.5 10 Q17 8.5 21 9.5" stroke="#2C1A10" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M23 9.5 Q27 8.5 30.5 10" stroke="#2C1A10" stroke-width="2" stroke-linecap="round" fill="none"/>
 
-      <!-- NOSE (tiny) -->
-      <path d="M21 15.5 Q22 16.5 23 15.5" stroke="#C07840" stroke-width="1" stroke-linecap="round" fill="none"/>
+      <!-- NOSE -->
+      <path d="M20.5 18.5 Q22 19.5 23.5 18.5" stroke="#C07840" stroke-width="1" stroke-linecap="round" fill="none"/>
 
-      <!-- SMILE / MOUTH -->
-      <path d="M17 18.5 Q22 22.5 27 18.5" stroke="#A04820" stroke-width="1.6" stroke-linecap="round" fill="none"/>
-      <!-- Teeth visible -->
-      <path d="M18.5 19 Q22 22 25.5 19" fill="rgba(255,255,255,0.9)"/>
+      <!-- BIG FRIENDLY SMILE + teeth -->
+      <path d="M17 21 Q22 26.5 27 21" stroke="#9A3810" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      <path d="M18.5 21.5 Q22 25.5 25.5 21.5" fill="white"/>
 
-      <!-- CHEEKS blush -->
-      <ellipse cx="14" cy="16" rx="2.8" ry="1.7" fill="rgba(255,80,50,0.22)"/>
-      <ellipse cx="30" cy="16" rx="2.8" ry="1.7" fill="rgba(255,80,50,0.22)"/>
+      <!-- CHEEKS (round pink blush, prominent) -->
+      <ellipse cx="13" cy="18.5" rx="3.2" ry="2.2" fill="rgba(255,90,70,0.28)"/>
+      <ellipse cx="31" cy="18.5" rx="3.2" ry="2.2" fill="rgba(255,90,70,0.28)"/>
 
-      <!-- "Chat" label badge — built into the character -->
-      <rect x="7" y="55" width="30" height="9" rx="4.5" fill="rgba(255,255,255,0.22)"/>
-      <text x="22" y="59.8" text-anchor="middle" dominant-baseline="middle"
+      <!-- ═══ ORANGE HARD HAT (drawn over head) ═══ -->
+      <!-- Hat dome -->
+      <path d="M9.5 12 Q9 0.5 22 0 Q35 0.5 34.5 12 Z" fill="url(#bb-hat)"/>
+      <!-- Dome shine (main) -->
+      <path d="M13.5 3 Q20 1.5 28 3.5" stroke="rgba(255,255,255,0.55)" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+      <!-- Dome shine (secondary) -->
+      <path d="M15 6.5 Q20 5.5 26.5 7" stroke="rgba(255,255,255,0.22)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+      <!-- WHITE BADGE STICKER on front -->
+      <rect x="17.5" y="3.5" width="9" height="5.5" rx="1.2" fill="white" stroke="rgba(0,0,0,0.07)" stroke-width="0.5"/>
+      <!-- Ridge at dome base -->
+      <path d="M9.5 12 Q22 11 34.5 12" stroke="#904800" stroke-width="0.9" fill="none"/>
+      <!-- Sweatband shadow -->
+      <path d="M9.5 12 Q22 11 34.5 12 L34.5 13.5 Q22 12.5 9.5 13.5 Z" fill="rgba(0,0,0,0.12)"/>
+      <!-- BRIM (wider, darker orange) -->
+      <path d="M6.5 13.5 Q22 12 37.5 13.5 Q37.5 16 34 15.5 Q22 14.2 10 15.5 Q6.5 16 6.5 13.5 Z" fill="#C06000"/>
+      <path d="M10 15.5 Q22 14 34 15.5" stroke="rgba(0,0,0,0.2)" stroke-width="1.2" fill="none"/>
+
+      <!-- "CHAT" label badge -->
+      <rect x="7" y="57.5" width="30" height="8.5" rx="4.25" fill="rgba(255,255,255,0.22)"/>
+      <text x="22" y="61.9" text-anchor="middle" dominant-baseline="middle"
             font-family="Inter, sans-serif" font-size="6" font-weight="700"
             fill="white" letter-spacing="1">CHAT</text>
     </svg>
@@ -1878,6 +1928,6 @@
 
 <script src="/static/js/chart.umd.js"></script>
 <script src="/static/js/locality-insights.js?v=static1"></script>
-<script src="/static/js/app.js?v=features43"></script>
+<script src="/static/js/app.js?v=features48"></script>
 </body>
 </html>

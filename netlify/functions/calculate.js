@@ -5,7 +5,7 @@ function calcEmi(principal, annualRate, years) {
   return (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
 }
 
-function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentAppreciation, maintenancePct, stockReturn, tenure, downPct) {
+function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentAppreciation, maintenancePct, stockReturn, benchmarkReturn, tenure, downPct) {
   const down = homePrice * downPct / 100;
   const loan = homePrice - down;
   const monthlyEmi = calcEmi(loan, interestRate, tenure);
@@ -29,7 +29,7 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
   let breakEvenYear = null;
   const r = interestRate / 12 / 100;
   const discR = stockReturn / 12 / 100;
-  const snpR = 10.5 / 12 / 100;
+  const bmR   = benchmarkReturn / 12 / 100;
   let monthNum = 0;
   const monthlyMaintY1 = homePrice * maintenancePct / 100 / 12;
   const monthlyCfY1 = monthlyRent - monthlyEmi - monthlyMaintY1;
@@ -56,13 +56,13 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
       if (netOutflow > 0) { cashOutOfPocket += netOutflow; pvOutflowsOnly += netOutflow / Math.pow(1 + discR, monthNum); }
       else netWealthInflow += (-netOutflow);
       const diff = Math.max(0, netOutflow);
-      renterPortfolio = renterPortfolio * (1 + stockReturn / 12 / 100) + diff;
-      snpPortfolio = snpPortfolio * (1 + snpR) + diff;
+      renterPortfolio = renterPortfolio * (1 + bmR) + diff;
+      snpPortfolio    = snpPortfolio    * (1 + bmR) + diff;
       yearOutflowInvested += diff;
-      snpEmiSip = snpEmiSip * (1 + snpR) + monthlyEmi;
+      snpEmiSip = snpEmiSip * (1 + bmR) + monthlyEmi;
       const surplus = Math.max(0, curRent - monthlyEmi - maint);
       surplusInvested += surplus;
-      surplusSnp = surplusSnp * (1 + snpR) + surplus;
+      surplusSnp = surplusSnp * (1 + bmR) + surplus;
     }
 
     homeVal *= (1 + appreciation / 100);
@@ -193,7 +193,7 @@ exports.handler = async function (event) {
 
   const {
     home_price, monthly_rent, interest_rate, annual_appreciation,
-    rent_appreciation, maintenance_pct, stock_return, tenure_years, down_payment_pct,
+    rent_appreciation, maintenance_pct, stock_return, benchmark_return, tenure_years, down_payment_pct,
   } = data;
 
   if (!home_price || home_price < 100000) {
@@ -203,7 +203,7 @@ exports.handler = async function (event) {
   try {
     const result = runSimulation(
       home_price, monthly_rent, interest_rate, annual_appreciation,
-      rent_appreciation, maintenance_pct, stock_return, tenure_years, down_payment_pct
+      rent_appreciation, maintenance_pct, stock_return, benchmark_return ?? stock_return, tenure_years, down_payment_pct
     );
     return {
       statusCode: 200,

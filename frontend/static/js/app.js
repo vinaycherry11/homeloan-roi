@@ -81,11 +81,165 @@ function initHpSliderPair(inputId, sliderId, onUpdate) {
   syncSliderFromInput(sliderId, parseHpRs(inputId));
 }
 
-initHpSliderPair('homePrice', 'homePriceSlider', () => {
-  updateHomePriceFmt();
-  updateLiveEmi();
-});
-initHpSliderPair('rent', 'rentSlider');
+// Piecewise home-price slider
+// pos   0–198 → ₹10 L  to ₹10 Cr  (₹5 L / step)
+// pos 198–248 → ₹10 Cr to ₹20 Cr  (₹20 L / step, extended zone unlocks at ~₹9.8 Cr)
+const HP_BREAK_POS   = 198;
+const HP_MAX_POS     = 248;
+const HP_BREAK_PCT   = (HP_BREAK_POS / HP_MAX_POS * 100).toFixed(2) + '%'; // ~79.84%
+const HP_UNLOCK_POS  = 196; // ~₹9.8 Cr — dragging here unlocks the extended zone
+const HP_RELOCK_POS  = 180; // ~₹9 Cr  — re-locks when user backs well off
+const HP_MIN_PRICE   = 1000000;   // ₹10 L
+const HP_BREAK_PRICE = 100000000; // ₹10 Cr
+const HP_STEP_LOW    = 500000;    // ₹5 L per step (normal range)
+const HP_STEP_HIGH   = 2000000;   // ₹20 L per step (extended range)
+
+let hpExtUnlocked = false;
+
+function homePosToPrice(pos) {
+  if (pos <= HP_BREAK_POS) return HP_MIN_PRICE + pos * HP_STEP_LOW;
+  return HP_BREAK_PRICE + (pos - HP_BREAK_POS) * HP_STEP_HIGH;
+}
+
+function homePriceToPos(price) {
+  if (price <= HP_BREAK_PRICE) return Math.round((price - HP_MIN_PRICE) / HP_STEP_LOW);
+  return HP_BREAK_POS + Math.round((price - HP_BREAK_PRICE) / HP_STEP_HIGH);
+}
+
+function updateHomePriceSliderTrack(slider) {
+  const pos = +slider.value;
+  slider.style.setProperty('--hp-fill',  (pos / HP_MAX_POS * 100).toFixed(2) + '%');
+  slider.style.setProperty('--hp-break', HP_BREAK_PCT);
+
+  const label = document.getElementById('homePriceSliderMax');
+
+  if (!hpExtUnlocked) {
+    if (pos > HP_BREAK_POS) {
+      slider.value = HP_BREAK_POS;
+      slider.style.setProperty('--hp-fill', (HP_BREAK_POS / HP_MAX_POS * 100).toFixed(2) + '%');
+    }
+    if (pos >= HP_UNLOCK_POS) {
+      hpExtUnlocked = true;
+      slider.classList.add('hp-ext-active');
+      if (label) label.textContent = '₹20 Cr';
+    }
+  } else if (pos <= HP_RELOCK_POS) {
+    hpExtUnlocked = false;
+    slider.classList.remove('hp-ext-active');
+    if (label) label.textContent = '₹10 Cr';
+  }
+}
+
+function syncHomePriceSliderFromPrice(price) {
+  const slider = document.getElementById('homePriceSlider');
+  if (!slider) return;
+  const pos = Math.min(HP_MAX_POS, Math.max(0, homePriceToPos(price)));
+  slider.value = pos;
+  if (pos > HP_UNLOCK_POS && !hpExtUnlocked) {
+    hpExtUnlocked = true;
+    slider.classList.add('hp-ext-active');
+    const label = document.getElementById('homePriceSliderMax');
+    if (label) label.textContent = '₹20 Cr';
+  }
+  updateHomePriceSliderTrack(slider);
+}
+
+(function initHomePriceSlider() {
+  const slider = document.getElementById('homePriceSlider');
+  if (!slider) { attachHpFormatter('homePrice', () => { updateHomePriceFmt(); updateLiveEmi(); }); return; }
+  const onSliderMove = () => {
+    updateHomePriceSliderTrack(slider);
+    setHpInput('homePrice', homePosToPrice(+slider.value));
+    updateHomePriceFmt();
+    updateLiveEmi();
+  };
+  slider.addEventListener('input',  onSliderMove);
+  slider.addEventListener('change', onSliderMove);
+  attachHpFormatter('homePrice', () => {
+    syncHomePriceSliderFromPrice(parseHpRs('homePrice'));
+    updateHomePriceFmt();
+    updateLiveEmi();
+  });
+  syncHomePriceSliderFromPrice(parseHpRs('homePrice'));
+}());
+// Piecewise rent slider
+// pos   0–98  → ₹10 K to ₹5 L   (₹5 K / step)
+// pos  98–158 → ₹5 L  to ₹20 L  (₹25 K / step, extended zone unlocks at ~₹4.9 L)
+const RENT_BREAK_POS  = 98;
+const RENT_MAX_POS    = 128;
+const RENT_BREAK_PCT  = (RENT_BREAK_POS / RENT_MAX_POS * 100).toFixed(2) + '%'; // ~76.56%
+const RENT_UNLOCK_POS = 96;    // ~₹4.9 L
+const RENT_RELOCK_POS = 85;    // ~₹4.35 L
+const RENT_MIN        = 10000;  // ₹10 K
+const RENT_BREAK      = 500000; // ₹5 L
+const RENT_STEP_LOW   = 5000;   // ₹5 K / step
+const RENT_STEP_HIGH  = 50000;  // ₹50 K / step
+
+let rentExtUnlocked = false;
+
+function rentPosToValue(pos) {
+  if (pos <= RENT_BREAK_POS) return RENT_MIN + pos * RENT_STEP_LOW;
+  return RENT_BREAK + (pos - RENT_BREAK_POS) * RENT_STEP_HIGH;
+}
+
+function rentValueToPos(val) {
+  if (val <= RENT_BREAK) return Math.round((val - RENT_MIN) / RENT_STEP_LOW);
+  return RENT_BREAK_POS + Math.round((val - RENT_BREAK) / RENT_STEP_HIGH);
+}
+
+function updateRentSliderTrack(slider) {
+  const pos = +slider.value;
+  slider.style.setProperty('--rent-fill',  (pos / RENT_MAX_POS * 100).toFixed(2) + '%');
+  slider.style.setProperty('--rent-break', RENT_BREAK_PCT);
+
+  const label = document.getElementById('rentSliderMax');
+
+  if (!rentExtUnlocked) {
+    if (pos > RENT_BREAK_POS) {
+      slider.value = RENT_BREAK_POS;
+      slider.style.setProperty('--rent-fill', (RENT_BREAK_POS / RENT_MAX_POS * 100).toFixed(2) + '%');
+    }
+    if (pos >= RENT_UNLOCK_POS) {
+      rentExtUnlocked = true;
+      slider.classList.add('rent-ext-active');
+      if (label) label.textContent = '₹20 L';
+    }
+  } else if (pos <= RENT_RELOCK_POS) {
+    rentExtUnlocked = false;
+    slider.classList.remove('rent-ext-active');
+    if (label) label.textContent = '₹5 L';
+  }
+}
+
+function syncRentSliderFromValue(val) {
+  const slider = document.getElementById('rentSlider');
+  if (!slider) return;
+  const pos = Math.min(RENT_MAX_POS, Math.max(0, rentValueToPos(val)));
+  slider.value = pos;
+  if (pos > RENT_UNLOCK_POS && !rentExtUnlocked) {
+    rentExtUnlocked = true;
+    slider.classList.add('rent-ext-active');
+    const label = document.getElementById('rentSliderMax');
+    if (label) label.textContent = '₹20 L';
+  }
+  updateRentSliderTrack(slider);
+}
+
+(function initRentSlider() {
+  const slider = document.getElementById('rentSlider');
+  if (!slider) { attachHpFormatter('rent', () => {}); return; }
+  const onSliderMove = () => {
+    updateRentSliderTrack(slider);
+    setHpInput('rent', rentPosToValue(+slider.value));
+  };
+  slider.addEventListener('input',  onSliderMove);
+  slider.addEventListener('change', onSliderMove);
+  attachHpFormatter('rent', () => {
+    syncRentSliderFromValue(parseHpRs('rent'));
+  });
+  syncRentSliderFromValue(parseHpRs('rent'));
+}());
+
 updateHomePriceFmt();
 
 /* ── Nav hamburger (mobile) ── */
@@ -135,7 +289,7 @@ updateHomePriceFmt();
 
   const PANES = [
     'pane-verdict','pane-returns','pane-chart','pane-hvs',
-    'pane-cashflow','pane-breakdown','pane-benchmarks','pane-scenarios'
+    'pane-cashflow','pane-breakdown','pane-schedule','pane-benchmarks','pane-scenarios'
   ];
 
   function activatePane(id) {
@@ -180,10 +334,6 @@ document.querySelectorAll('.nav-tab').forEach(btn => {
     });
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.getElementById('tab-' + tab).classList.add('active');
-    // tab-amort lives inside #results which is hidden until first calculation
-    if (tab === 'amort') {
-      document.getElementById('results').classList.remove('hidden');
-    }
     const hideCalcUi = tab === 'compare' || tab === 'insights' || tab === 'support';
     ['inputsPanel', 'loanPanel', 'metricsHighlight', 'calcRow'].forEach(id => {
       document.getElementById(id).style.display = hideCalcUi ? 'none' : '';
@@ -589,6 +739,23 @@ function fmt(n) {
 }
 function fmtPct(n) { return (n >= 0 ? '+' : '') + n.toFixed(1) + '%'; }
 
+/* ── Benchmark fund helper ── */
+function getSelectedFund() {
+  const sel = document.getElementById('benchmarkFund');
+  if (!sel) return { label: 'Nifty 50', cagr: 12.0 };
+  const opt = sel.options[sel.selectedIndex];
+  return { label: opt.text.replace(/\s*\(.*\)$/, ''), cagr: parseFloat(opt.dataset.cagr) };
+}
+
+function updateBenchmarkLabels() {
+  const fund = getSelectedFund();
+  const el = id => document.getElementById(id);
+  if (el('benchmarkFundKpiLabel')) el('benchmarkFundKpiLabel').textContent = fund.label;
+  if (el('kpiStockNetGainSub')) el('kpiStockNetGainSub').textContent = `Down payment (day 1) + monthly outflow invested at ${fund.cagr}%/yr`;
+  if (el('hvsColFundNote1')) el('hvsColFundNote1').textContent = fund.label;
+  if (el('hvsColFundNote2')) el('hvsColFundNote2').textContent = fund.label;
+}
+
 /* ── Collect inputs ── */
 function getInputs() {
   return {
@@ -599,6 +766,7 @@ function getInputs() {
     rent_appreciation: parseFloat(document.getElementById('rentAppreciation').value),
     maintenance_pct: parseFloat(document.getElementById('maintenance').value),
     stock_return: parseFloat(document.getElementById('stockReturn').value),
+    benchmark_return: getSelectedFund().cagr,
     tenure_years: parseInt(document.getElementById('tenure').value),
     down_payment_pct: parseFloat(document.getElementById('downPct').value),
   };
@@ -758,13 +926,12 @@ function renderResults(data, inputs, sensData) {
   set('kpiHomeNetGain', fmt(homeWealthFinal), homeWealthFinal >= s.stock_net_gain ? 'up' : 'down',
     'Final equity ' + fmt(s.final_home_value) + ' + rent surplus after crossover');
   set('kpiStockNetGain', fmt(s.stock_net_gain), s.stock_net_gain > homeWealthFinal ? 'up' : 'down',
-    'Down payment (day 1) + monthly outflow compounded at 10.5%/yr');
+    `Down payment (day 1) + monthly outflow compounded at ${inputs.benchmark_return}%/yr`);
 
   drawInvestmentWealthChart(data.amortisation, s.down_payment);
   drawCostChart(data.amortisation);
   drawPieCharts(data);
   drawCashflowChart(data.amortisation);
-  buildRentTable(data.amortisation, s.total_paid);
   buildAmortTable(data.amortisation, s.break_even_year);
   buildHomeVsStockTable(data.amortisation, s);
   if (sensData) {
@@ -847,12 +1014,13 @@ function buildInsights(data, inputs) {
   const homeWealth = s.wealth_return;
   const snpEdge    = homeWealth - snpFinal;
   let snpTag, snpMsg;
+  const verdictFund = getSelectedFund();
   if (snpEdge >= 0) {
-    snpTag = ['good', 'Home beats S&P 500'];
-    snpMsg = `Investing the monthly outflow into S&P 500 at 10.5% would grow to <strong>${fmt(snpFinal)}</strong>. Home wealth (equity + rent surplus) of <strong>${fmt(homeWealth)}</strong> leads by <strong>${fmt(snpEdge)}</strong> — buying wins.`;
+    snpTag = ['good', `Home beats ${verdictFund.label}`];
+    snpMsg = `Investing the monthly outflow into ${verdictFund.label} at ${verdictFund.cagr}% would grow to <strong>${fmt(snpFinal)}</strong>. Home wealth (equity + rent surplus) of <strong>${fmt(homeWealth)}</strong> leads by <strong>${fmt(snpEdge)}</strong> — buying wins.`;
   } else {
-    snpTag = ['bad', 'S&P 500 renter wins'];
-    snpMsg = `Investing the monthly outflow into S&P 500 at 10.5% would grow to <strong>${fmt(snpFinal)}</strong> — <strong>${fmt(Math.abs(snpEdge))} more</strong> than home wealth (equity + rent surplus) of <strong>${fmt(homeWealth)}</strong>. The market outpaces property here.`;
+    snpTag = ['bad', `${verdictFund.label} renter wins`];
+    snpMsg = `Investing the monthly outflow into ${verdictFund.label} at ${verdictFund.cagr}% would grow to <strong>${fmt(snpFinal)}</strong> — <strong>${fmt(Math.abs(snpEdge))} more</strong> than home wealth (equity + rent surplus) of <strong>${fmt(homeWealth)}</strong>. The market outpaces property here.`;
   }
 
   const cards = [
@@ -912,9 +1080,15 @@ function drawInvestmentWealthChart(yearData, downPayment) {
     return '₹' + Math.round(a).toLocaleString('en-IN');
   };
 
-  /* ── LEFT chart: yearly money committed ── */
+  /* ── LEFT chart: cumulative money committed ── */
   const leftLabels = ['Yr 0', ...yearData.map(d => 'Yr ' + d.year)];
   const annualOutflow = [downPayment, ...yearData.map(d => Math.max(0, -d.annual_net_cf))];
+
+  // Build cumulative and previous-cumulative for stacked bars
+  const cumulativeCommitted = [];
+  let runningCommitted = 0;
+  for (const v of annualOutflow) { runningCommitted += v; cumulativeCommitted.push(runningCommitted); }
+  const prevCommitted = [0, ...cumulativeCommitted.slice(0, -1)];
 
   // First index in leftLabels where outflows stop (rent ≥ EMI+maint)
   let cfFlipIdx = -1;
@@ -960,46 +1134,71 @@ function drawInvestmentWealthChart(yearData, downPayment) {
       plugins: [outflowPlugin],
       data: {
         labels: leftLabels,
-        datasets: [{
-          label: 'Cash committed',
-          data: annualOutflow,
-          backgroundColor: leftLabels.map((_, i) => i === 0 ? 'rgba(190,18,60,0.88)' : 'rgba(244,63,94,0.70)'),
-          borderRadius: { topLeft: 3, topRight: 3 },
-          borderSkipped: 'bottom',
-        }],
+        datasets: [
+          {
+            label: 'Prior years (cumul.)',
+            data: prevCommitted,
+            backgroundColor: 'rgba(244,63,94,0.22)',
+            borderRadius: 0,
+            borderSkipped: 'bottom',
+            stack: 'committed',
+          },
+          {
+            label: "This year's addition",
+            data: annualOutflow,
+            backgroundColor: leftLabels.map((_, i) => i === 0 ? 'rgba(159,18,57,0.92)' : 'rgba(225,29,72,0.88)'),
+            borderRadius: { topLeft: 4, topRight: 4 },
+            borderSkipped: 'bottom',
+            stack: 'committed',
+          },
+        ],
       },
       options: {
         responsive: true, maintainAspectRatio: false,
         animation: { duration: 800, easing: 'easeInOutQuart' },
         interaction: { mode: 'index', intersect: false },
-        layout: { padding: { top: 18, right: 6, bottom: 4 } },
+        layout: { padding: { top: 8, right: 6, bottom: 4 } },
         plugins: {
-          legend: { display: false },
+          legend: {
+            display: true, position: 'top', align: 'end',
+            labels: {
+              font: { size: 11, family: "'Inter',sans-serif" },
+              padding: 14, boxWidth: 12, boxHeight: 12,
+              borderRadius: 3, useBorderRadius: true,
+              color: '#374151',
+            },
+          },
           tooltip: {
-            backgroundColor: 'rgba(8,10,20,0.93)',
+            backgroundColor: 'rgba(15,23,42,0.95)',
             titleColor: '#f1f5f9', bodyColor: '#94a3b8',
             padding: 12, cornerRadius: 10, boxPadding: 5,
+            filter: item => item.dataset.label !== 'Prior years (cumul.)',
             callbacks: {
               title: items => leftLabels[items[0].dataIndex],
               label(c) {
-                if (c.dataIndex === 0) return '  Down payment:  ' + fmtCr(downPayment);
-                const v = annualOutflow[c.dataIndex];
-                return v > 500 ? '  Net outflow:  ' + fmtCr(v) : '  Rent ≥ EMI — no outflow';
+                const idx = c.dataIndex;
+                const yearly = annualOutflow[idx];
+                const total = cumulativeCommitted[idx];
+                if (idx === 0) return ['  Down payment:  ' + fmtCr(downPayment), '  Cumulative:  ' + fmtCr(total)];
+                if (yearly <= 500) return '  Rent ≥ EMI — no outflow  |  Total: ' + fmtCr(total);
+                return ['  This year:  ' + fmtCr(yearly), '  Cumulative:  ' + fmtCr(total)];
               },
             },
           },
         },
         scales: {
           x: {
+            stacked: true,
             grid: { display: false },
             border: { display: false },
-            ticks: { color: '#9ba3ae', font: { size: 10 }, maxTicksLimit: 12 },
+            ticks: { color: '#64748b', font: { size: 11, family: "'Inter',sans-serif" }, maxTicksLimit: 12 },
           },
           y: {
-            grid: { color: 'rgba(0,0,0,0.04)', drawTicks: false },
+            stacked: true,
+            grid: { color: 'rgba(0,0,0,0.07)', drawTicks: false },
             border: { display: false },
             ticks: {
-              color: '#9ba3ae', font: { size: 10.5 }, maxTicksLimit: 6, padding: 6,
+              color: '#64748b', font: { size: 11, family: "'Inter',sans-serif" }, maxTicksLimit: 6, padding: 6,
               callback: v => fmtCr(v),
             },
           },
@@ -1027,16 +1226,16 @@ function drawInvestmentWealthChart(yearData, downPayment) {
           {
             label: 'Home equity',
             data: equityData,
-            backgroundColor: 'rgba(79,111,216,0.82)',
-            borderRadius: 0,
+            backgroundColor: 'rgba(79,70,229,0.85)',
+            borderRadius: { bottomLeft: 4, bottomRight: 4, topLeft: 0, topRight: 0 },
             borderSkipped: false,
             stack: 'wealth',
           },
           {
             label: 'Rent surplus (cumul.)',
             data: surplusData,
-            backgroundColor: 'rgba(16,185,129,0.78)',
-            borderRadius: { topLeft: 3, topRight: 3 },
+            backgroundColor: 'rgba(13,148,136,0.85)',
+            borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0 },
             borderSkipped: false,
             stack: 'wealth',
           },
@@ -1046,19 +1245,19 @@ function drawInvestmentWealthChart(yearData, downPayment) {
         responsive: true, maintainAspectRatio: false,
         animation: { duration: 800, easing: 'easeInOutQuart' },
         interaction: { mode: 'index', intersect: false },
-        layout: { padding: { top: 10, right: 6, bottom: 4 } },
+        layout: { padding: { top: 8, right: 6, bottom: 4 } },
         plugins: {
           legend: {
-            display: true, position: 'bottom',
+            display: true, position: 'top', align: 'end',
             labels: {
-              font: { size: 10.5 }, padding: 14,
-              boxWidth: 10, boxHeight: 10,
-              color: '#4a4e5a',
-              usePointStyle: true, pointStyle: 'rect',
+              font: { size: 11, family: "'Inter',sans-serif" },
+              padding: 14, boxWidth: 12, boxHeight: 12,
+              borderRadius: 3, useBorderRadius: true,
+              color: '#374151',
             },
           },
           tooltip: {
-            backgroundColor: 'rgba(8,10,20,0.93)',
+            backgroundColor: 'rgba(15,23,42,0.95)',
             titleColor: '#f1f5f9', bodyColor: '#94a3b8',
             padding: 12, cornerRadius: 10, boxPadding: 5,
             callbacks: {
@@ -1071,8 +1270,11 @@ function drawInvestmentWealthChart(yearData, downPayment) {
               },
               afterBody(items) {
                 const idx = items[0].dataIndex;
-                const total = equityData[idx] + surplusData[idx];
-                return ['', '  Total wealth:  ' + fmtCr(total)];
+                const eq = equityData[idx];
+                const sur = surplusData[idx];
+                const total = eq + sur;
+                const eqPct = total > 0 ? Math.round(eq / total * 100) : 0;
+                return ['', `  Equity ${eqPct}%  ·  Surplus ${100 - eqPct}%`, '  Total wealth:  ' + fmtCr(total)];
               },
             },
           },
@@ -1082,14 +1284,14 @@ function drawInvestmentWealthChart(yearData, downPayment) {
             stacked: true,
             grid: { display: false },
             border: { display: false },
-            ticks: { color: '#9ba3ae', font: { size: 10 }, maxTicksLimit: 12 },
+            ticks: { color: '#64748b', font: { size: 11, family: "'Inter',sans-serif" }, maxTicksLimit: 12 },
           },
           y: {
             stacked: true,
-            grid: { color: 'rgba(0,0,0,0.04)', drawTicks: false },
+            grid: { color: 'rgba(0,0,0,0.07)', drawTicks: false },
             border: { display: false },
             ticks: {
-              color: '#9ba3ae', font: { size: 10.5 }, maxTicksLimit: 6, padding: 6,
+              color: '#64748b', font: { size: 11, family: "'Inter',sans-serif" }, maxTicksLimit: 6, padding: 6,
               callback: v => fmtCr(v),
             },
           },
@@ -1131,37 +1333,6 @@ function drawCostChart(yearData) {
   });
 }
 
-/* ── Rent savings table ── */
-function buildRentTable(yearData, totalOutflow) {
-  const rows = yearData.map((d, i) => {
-    const pct  = totalOutflow > 0 ? (d.cum_rent_saved / totalOutflow * 100).toFixed(1) : '—';
-    const prev = i > 0 ? yearData[i - 1].rent_saved_year : null;
-    const yoy  = prev && prev > 0
-      ? `<span style="color:var(--emerald);font-weight:600">+${((d.rent_saved_year / prev - 1) * 100).toFixed(1)}%</span>`
-      : '<span style="color:var(--ink-faint)">—</span>';
-    return `<tr>
-      <td>Year ${d.year}</td>
-      <td class="td-pos">${fmt(d.rent_saved_year)}</td>
-      <td>${yoy}</td>
-      <td class="td-pos">${fmt(d.cum_rent_saved)}</td>
-      <td>${pct}%</td>
-    </tr>`;
-  }).join('');
-
-  const last   = yearData[yearData.length - 1];
-  const total  = yearData.reduce((s, d) => s + d.rent_saved_year, 0);
-  const totPct = totalOutflow > 0 ? (last.cum_rent_saved / totalOutflow * 100).toFixed(1) : '—';
-  const totals = `<tr class="totals-row">
-    <td>Total</td>
-    <td class="td-pos">${fmt(total)}</td>
-    <td>—</td>
-    <td class="td-pos">${fmt(last.cum_rent_saved)}</td>
-    <td>${totPct}%</td>
-  </tr>`;
-
-  document.getElementById('rentBody').innerHTML = rows + totals;
-}
-
 /* ── Amortisation table ── */
 function buildAmortTable(yearData, breakEvenYear) {
   const rows = yearData.map(d => `
@@ -1170,22 +1341,19 @@ function buildAmortTable(yearData, breakEvenYear) {
       <td>${fmt(d.emi_paid)}</td>
       <td class="td-pos">${fmt(d.principal)}</td>
       <td class="td-neg">${fmt(d.interest)}</td>
-      <td class="td-neg">${fmt(d.maintenance)}</td>
       <td>${fmt(d.loan_balance)}</td>
       <td>${fmt(d.home_value)}</td>
       <td class="${d.net_equity >= 0 ? 'td-pos' : 'td-neg'}">${fmt(d.net_equity)}</td>
-      <td class="td-pos">${fmt(d.rent_saved_year)}</td>
-      <td class="td-pos">${fmt(d.cum_rent_saved)}</td>
+      <td class="td-neg">${fmt(d.maintenance)}</td>
     </tr>
   `).join('');
 
   const last = yearData[yearData.length - 1];
   const totals = {
-    emi:   yearData.reduce((s, d) => s + d.emi_paid,        0),
-    prin:  yearData.reduce((s, d) => s + d.principal,       0),
-    int:   yearData.reduce((s, d) => s + d.interest,        0),
-    maint: yearData.reduce((s, d) => s + d.maintenance,     0),
-    rent:  yearData.reduce((s, d) => s + d.rent_saved_year, 0),
+    emi:   yearData.reduce((s, d) => s + d.emi_paid,    0),
+    prin:  yearData.reduce((s, d) => s + d.principal,   0),
+    int:   yearData.reduce((s, d) => s + d.interest,    0),
+    maint: yearData.reduce((s, d) => s + d.maintenance, 0),
   };
   const totalsRow = `
     <tr class="totals-row">
@@ -1193,15 +1361,99 @@ function buildAmortTable(yearData, breakEvenYear) {
       <td>${fmt(totals.emi)}</td>
       <td>${fmt(totals.prin)}</td>
       <td>${fmt(totals.int)}</td>
-      <td>${fmt(totals.maint)}</td>
       <td>${fmt(last.loan_balance)}</td>
       <td>${fmt(last.home_value)}</td>
       <td>${fmt(last.net_equity)}</td>
-      <td>${fmt(totals.rent)}</td>
-      <td>${fmt(last.cum_rent_saved)}</td>
+      <td>${fmt(totals.maint)}</td>
     </tr>`;
 
   document.getElementById('amortBody').innerHTML = rows + totalsRow;
+}
+
+/* ── Monthly amortisation data for PDF ── */
+function generateMonthlyAmort() {
+  const inp = getInputs();
+  const price   = inp.home_price;
+  const downPct = inp.down_payment_pct;
+  const P       = price * (1 - downPct / 100);
+  const r       = inp.interest_rate;
+  const n       = inp.tenure_years;
+  const maintPct = inp.maintenance_pct;
+  const appreciation = inp.annual_appreciation;
+
+  const monthlyRate = r / 100 / 12;
+  const totalMonths = n * 12;
+  const emi = monthlyRate > 0
+    ? P * monthlyRate * Math.pow(1 + monthlyRate, totalMonths) / (Math.pow(1 + monthlyRate, totalMonths) - 1)
+    : P / totalMonths;
+
+  const rows = [];
+  let balance = P;
+  let homeVal = price;
+
+  for (let mo = 1; mo <= totalMonths; mo++) {
+    const yr = Math.ceil(mo / 12);
+    if (mo > 1 && (mo - 1) % 12 === 0) {
+      homeVal *= (1 + appreciation / 100);
+    }
+    const maint    = homeVal * maintPct / 100 / 12;
+    const intPart  = balance * monthlyRate;
+    const prinPart = Math.min(emi - intPart, balance);
+    balance = Math.max(0, balance - prinPart);
+    rows.push({ mo, yr, emi, principal: prinPart, interest: intPart, balance, homeVal, maint });
+  }
+  return rows;
+}
+
+function downloadAmortPDF() {
+  const rows = generateMonthlyAmort();
+  if (!rows.length) { alert('Please calculate first.'); return; }
+
+  const fmtR = v => '₹' + Math.round(v).toLocaleString('en-IN');
+
+  const tableRows = rows.map(r => `
+    <tr>
+      <td>${r.yr}</td><td>${r.mo}</td>
+      <td>${fmtR(r.emi)}</td>
+      <td>${fmtR(r.principal)}</td>
+      <td>${fmtR(r.interest)}</td>
+      <td>${fmtR(r.balance)}</td>
+      <td>${fmtR(r.homeVal)}</td>
+      <td>${fmtR(r.homeVal - r.balance)}</td>
+      <td>${fmtR(r.maint)}</td>
+    </tr>`).join('');
+
+  const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Monthly Amortisation Schedule</title>
+<style>
+  body { font-family: Arial, sans-serif; font-size: 11px; margin: 16px; color: #1a1a2e; }
+  h2 { font-size: 15px; margin-bottom: 4px; }
+  p.sub { color: #555; margin: 0 0 12px; font-size: 10px; }
+  table { border-collapse: collapse; width: 100%; }
+  th { background: #1a237e; color: #fff; padding: 5px 7px; text-align: right; font-size: 10px; }
+  th:first-child, th:nth-child(2) { text-align: center; }
+  td { padding: 4px 7px; text-align: right; border-bottom: 1px solid #e8eaf6; }
+  td:first-child, td:nth-child(2) { text-align: center; }
+  tr:nth-child(even) { background: #f5f5ff; }
+  tr:last-child td { border-bottom: none; }
+  @media print { body { margin: 0; } }
+</style></head><body>
+<h2>Monthly Amortisation Schedule</h2>
+<p class="sub">Generated on ${new Date().toLocaleDateString('en-IN', {day:'2-digit',month:'short',year:'numeric'})}</p>
+<table>
+<thead><tr>
+  <th>Year</th><th>Month</th><th>EMI</th><th>Principal</th><th>Interest</th>
+  <th>Loan Balance</th><th>Home Value</th><th>Net Equity</th><th>Maintenance</th>
+</tr></thead>
+<tbody>${tableRows}</tbody>
+</table>
+</body></html>`;
+
+  const w = window.open('', '_blank', 'width=900,height=700');
+  w.document.write(html);
+  w.document.close();
+  w.focus();
+  setTimeout(() => w.print(), 400);
 }
 
 /* ── Home investing vs Stock investing table ── */
@@ -1209,10 +1461,11 @@ function buildHomeVsStockTable(yearData, summary) {
   const tbody = document.getElementById('homeVsStockBody');
   const note  = document.getElementById('homeVsStockNote');
 
+  const fund = getSelectedFund();
   const crossNote = summary.cf_positive_year
-    ? `Rent first exceeds EMI + maintenance in <strong>Year ${summary.cf_positive_year}</strong> — outflow investing stops there, but the S&amp;P 500 portfolio keeps compounding for the rest of the tenure.`
-    : `Rent never exceeds EMI + maintenance in this tenure — the outflow is invested into S&amp;P 500 every year.`;
-  note.innerHTML = `Down payment is invested on day 1. Each month, <strong>EMI + maintenance − rent</strong> is the outflow — invested into S&amp;P 500 at 10.5%/yr. ${crossNote} Home wealth = final equity + net cash flow (total rent saved − total EMI − total maintenance).`;
+    ? `Rent first exceeds EMI + maintenance in <strong>Year ${summary.cf_positive_year}</strong> — outflow investing stops there, but the ${fund.label} portfolio keeps compounding for the rest of the tenure.`
+    : `Rent never exceeds EMI + maintenance in this tenure — the outflow is invested into ${fund.label} every year.`;
+  note.innerHTML = `Down payment is invested on day 1. Each month, <strong>EMI + maintenance − rent</strong> is the outflow — invested into ${fund.label} at ${fund.cagr}%/yr. ${crossNote} Home wealth = final equity + net cash flow (total rent saved − total EMI − total maintenance).`;
 
   let rows = '';
 
@@ -1650,8 +1903,8 @@ function resetAll() {
   Object.entries(defaults).forEach(([id, val]) => { document.getElementById(id).value = val; });
   setHpInput('homePrice', 10000000);
   setHpInput('rent', 30000);
-  syncSliderFromInput('homePriceSlider', 10000000);
-  syncSliderFromInput('rentSlider', 30000);
+  syncHomePriceSliderFromPrice(10000000);
+  syncRentSliderFromValue(30000);
   document.getElementById('tenure').value = 20;
   document.getElementById('downPct').value = 20;
   document.getElementById('tenureLabel').textContent = '20 years';
@@ -1844,6 +2097,7 @@ function getCompareInputs(p) {
     rent_appreciation:   parseFloat(document.getElementById(p + '_rentAppreciation').value),
     maintenance_pct:     parseFloat(document.getElementById(p + '_maintenance').value),
     stock_return:        parseFloat(document.getElementById(p + '_stockReturn').value),
+    benchmark_return:    getSelectedFund().cagr,
     tenure_years:        parseInt(document.getElementById(p + '_tenure').value),
     down_payment_pct:    parseFloat(document.getElementById(p + '_downPct').value),
   };
@@ -1989,7 +2243,7 @@ function drawCompareChart(cdA, tenA, cdB, tenB) {
         { label: 'B — Home equity',        data: pad(cdB.equity,           maxT), borderColor: '#7970A2', _gt: 'rgba(121,112,162,0.22)', _gb: 'rgba(121,112,162,0.01)', tension: 0.4, fill: true,  pointRadius: 0, pointHoverRadius: 5, borderWidth: 2.5 },
         { label: 'A — Renter portfolio',   data: pad(cdA.renter_portfolio, maxT), borderColor: '#5580A8', tension: 0.4, fill: false, pointRadius: 0, pointHoverRadius: 4, borderWidth: 1.5, borderDash: [5, 3] },
         { label: 'B — Renter portfolio',   data: pad(cdB.renter_portfolio, maxT), borderColor: '#7970A2', tension: 0.4, fill: false, pointRadius: 0, pointHoverRadius: 4, borderWidth: 1.5, borderDash: [5, 3] },
-        { label: 'S&P 500 renter (10.5%)', data: pad(cdA.snp_portfolio,   maxT), borderColor: '#6DA4C4', tension: 0.4, fill: false, pointRadius: 0, pointHoverRadius: 4, borderWidth: 1.5, borderDash: [3, 3] },
+        { label: `${getSelectedFund().label} renter (${getSelectedFund().cagr}%)`, data: pad(cdA.snp_portfolio, maxT), borderColor: '#6DA4C4', tension: 0.4, fill: false, pointRadius: 0, pointHoverRadius: 4, borderWidth: 1.5, borderDash: [3, 3] },
       ],
     },
     options: {
@@ -2058,7 +2312,6 @@ function switchToTab(tab) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   const section = document.getElementById('tab-' + tab);
   if (section) section.classList.add('active');
-  if (tab === 'amort') document.getElementById('results').classList.remove('hidden');
   const hideCalcUi = tab === 'compare' || tab === 'insights' || tab === 'support';
   ['inputsPanel','loanPanel','metricsHighlight','calcRow'].forEach(id => {
     const el = document.getElementById(id);
@@ -2728,8 +2981,8 @@ function loadFromUrl() {
   };
 
   // INR text inputs
-  if (p.get('hp')) { setHpInput('homePrice', +p.get('hp')); syncSliderFromInput('homePriceSlider', +p.get('hp')); updateHomePriceFmt(); }
-  if (p.get('r'))  { setHpInput('rent', +p.get('r'));       syncSliderFromInput('rentSlider', +p.get('r')); }
+  if (p.get('hp')) { setHpInput('homePrice', +p.get('hp')); syncHomePriceSliderFromPrice(+p.get('hp')); updateHomePriceFmt(); }
+  if (p.get('r'))  { setHpInput('rent', +p.get('r'));       syncRentSliderFromValue(+p.get('r')); }
 
   // Number inputs
   setNum('interestRate',    'ri');
@@ -2770,3 +3023,15 @@ function loadFromUrl() {
 }
 
 loadFromUrl();
+
+// Re-run calculation when benchmark fund is changed so results stay in sync
+(function () {
+  const sel = document.getElementById('benchmarkFund');
+  if (!sel) return;
+  sel.addEventListener('change', function () {
+    updateBenchmarkLabels();
+    const results = document.getElementById('results');
+    if (results && !results.classList.contains('hidden')) calculate();
+  });
+  updateBenchmarkLabels();
+}());

@@ -5,7 +5,7 @@ function calcEmi(principal, annualRate, years) {
   return (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
 }
 
-function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentAppreciation, maintenancePct, stockReturn, tenure, downPct) {
+function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentAppreciation, maintenancePct, stockReturn, benchmarkReturn, tenure, downPct) {
   const down = homePrice * downPct / 100;
   const loan = homePrice - down;
   const monthlyEmi = calcEmi(loan, interestRate, tenure);
@@ -24,7 +24,7 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
   let curRent = monthlyRent;
   const r = interestRate / 12 / 100;
   const discR = stockReturn / 12 / 100;
-  const snpR = 10.5 / 12 / 100;
+  const bmR   = benchmarkReturn / 12 / 100;
   let monthNum = 0;
 
   for (let y = 1; y <= tenure; y++) {
@@ -41,11 +41,11 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
       if (netOutflow2 > 0) cashOutOfPocket2 += netOutflow2;
       else netWealthInflow2 += (-netOutflow2);
       const diff = Math.max(0, netOutflow2);
-      renterPortfolio = renterPortfolio * (1 + stockReturn / 12 / 100) + diff;
-      snpPortfolio = snpPortfolio * (1 + snpR) + diff;
+      renterPortfolio = renterPortfolio * (1 + bmR) + diff;
+      snpPortfolio    = snpPortfolio    * (1 + bmR) + diff;
       const surplus = Math.max(0, curRent - monthlyEmi - maint);
       surplusInvested += surplus;
-      surplusSnp = surplusSnp * (1 + snpR) + surplus;
+      surplusSnp = surplusSnp * (1 + bmR) + surplus;
     }
     homeVal *= (1 + appreciation / 100);
     curRent *= (1 + rentAppreciation / 100);
@@ -79,7 +79,7 @@ exports.handler = async function (event) {
 
   const {
     home_price, monthly_rent, interest_rate, annual_appreciation,
-    rent_appreciation, maintenance_pct, stock_return,
+    rent_appreciation, maintenance_pct, stock_return, benchmark_return,
     current_tenure, current_down_pct,
   } = data;
 
@@ -92,7 +92,7 @@ exports.handler = async function (event) {
       cells: downPayments.map(d => {
         const res = runSimulation(
           home_price, monthly_rent, interest_rate, annual_appreciation,
-          rent_appreciation, maintenance_pct, stock_return, t, d
+          rent_appreciation, maintenance_pct, stock_return, benchmark_return ?? stock_return, t, d
         );
         return { down_pct: d, roi: res.roi_pct, cagr_dcf: res.cagr_dcf_pct, monthly_emi: res.monthly_emi, is_current: t === current_tenure && d === current_down_pct };
       }),
