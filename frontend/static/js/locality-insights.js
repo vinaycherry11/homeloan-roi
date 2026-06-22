@@ -799,7 +799,237 @@ const LOCALITY_INSIGHTS = {
     },
 
   },
-  'Pune': {},
+  // Day 2 (2026-06-22): Pune
+  'Pune': {
+
+    'Hinjewadi': {
+      overview: 'Hinjewadi hosts Rajiv Gandhi Infotech Park — Pune\'s largest IT zone, spanning 2,800 acres across three phases with 300+ tech companies. It is the undisputed IT capital of Pune, employing hundreds of thousands of professionals. Microsoft invested ₹520 crore here in 2024 for data centre and office expansion. The Metro Line 3 (Hinjewadi–Civil Court) is under construction and will transform connectivity when complete in 2026.',
+      specialties: ['Pune\'s largest IT zone — 2,800 acres', 'Rajiv Gandhi Infotech Park Phases 1–3', 'Microsoft data centre investment', 'Metro Line 3 under construction', 'Largest IT workforce concentration in Pune'],
+      major_employers: ['Infosys (Phase 1)', 'Wipro (Phase 2)', 'HCL Technologies', 'Accenture', 'Persistent Systems', 'Tech Mahindra'],
+      schools: [
+        { name: 'Delhi Public School Hinjewadi', type: 'CBSE', note: 'DPS chain; strong academics, popular with IT families' },
+        { name: 'Elpro International School', type: 'CBSE/ICSE/IB', note: 'Multi-board school near Hinjewadi with sports facilities' },
+        { name: 'Pawar Public School Hinjewadi', type: 'CBSE', note: 'Well-regarded CBSE school serving Hinjewadi residents' },
+      ],
+      traffic: {
+        peak_hours: 'Severely congested on Hinjewadi–Wakad Road and Mumbai–Pune Expressway approach 8:30–10 am and 6:30–9 pm; one of Pune\'s worst commute corridors',
+        metro_access: 'Metro Line 3 (Pink Line) under construction — Hinjewadi, Wipro Phase II, Infosys Phase II stations planned; expected 2026',
+        highway_access: 'Mumbai–Pune Expressway — 5 km; NH-48 (Mumbai–Bangalore) via Wakad — 3 km',
+        congestion_level: 'Very High',
+      },
+      nearby_amenities: {
+        hospitals: ['Lifepoint Multispeciality Hospital Wakad (4 km)', 'Jupiter Hospital Baner (6 km)', 'Sahyadri Hospital Hadapsar (15 km)'],
+        malls: ['Xion Mall Wakad (4 km)', 'Westend Mall Aundh (8 km)', 'Phoenix Marketcity Viman Nagar (12 km)'],
+        parks: ['Mula-Mutha River front (8 km)', 'Hinjewadi Phase 3 green belt'],
+      },
+      investment_note: 'Hinjewadi has seen ~14% appreciation in 2023–24 and a 23% hike in Phase 1 prices over two years. Rental yields at 4.5% are among Pune\'s highest. Metro Line 3 completion in 2026 is expected to be a major price catalyst. Entry prices are moderate — best for 3–5 year hold investors targeting pre-metro upside.',
+    },
+
+    'Kharadi': {
+      overview: 'Kharadi is Pune\'s fastest-growing eastern IT corridor, anchored by EON Free Zone IT Park, World Trade Centre Pune, and the emerging Weikfield IT Park. It has attracted large GCCs and product companies and offers newer residential stock than older Pune suburbs. Kharadi sits between Viman Nagar (airport) and Hadapsar, giving it excellent connectivity in all directions. Property prices have risen ~12% in 2023–24.',
+      specialties: ['EON Free Zone & WTC IT hub', 'Fastest-growing Pune IT corridor', 'Airport proximity', 'New residential stock', 'GCC and product company belt'],
+      major_employers: ['Zensar Technologies (HQ)', 'Cybage Software', 'KPIT Technologies', 'Barclays Technology Centre', 'Credit Suisse (now UBS) GCC'],
+      schools: [
+        { name: 'Orchids The International School Kharadi', type: 'CBSE', note: 'Advanced learning modules; robotics and technology-focused' },
+        { name: 'Victorious Kidss Educares', type: 'IB', note: 'Top 10 IB school in Pune; rigorous international curriculum' },
+        { name: 'Delhi Public School Kharadi', type: 'CBSE', note: 'DPS chain campus serving east Pune IT professionals' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy on Kharadi Bypass Road and EON IT Park junction 8:30–10 am and 6:30–9 pm',
+        metro_access: 'Kharadi included in Phase 2 Pune Metro extension; no metro currently — Ramwadi Station (Aqua Line) — 3 km',
+        highway_access: 'Nagar Road (NH-753E) — adjacent; Pune Airport — 5 km; Pune–Solapur Road — 4 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Columbia Asia Hospital Kharadi (2 km)', 'Noble Hospital (4 km)', 'Jehangir Hospital (8 km)'],
+        malls: ['Phoenix Marketcity Nagar Road (3 km)', 'Nexus Westend Mall (10 km)', 'Amanora Mall Hadapsar (6 km)'],
+        parks: ['Eon Free Zone IT Park lake area', 'Mula River front (4 km)'],
+      },
+      investment_note: 'Kharadi has delivered ~12% appreciation in 2023–24 backed by strong GCC demand. Average prices at ~₹9,174/sqft with 4.5–5% rental yields. Phase 2 metro extension to Kharadi, if confirmed, will be a large price catalyst. Strong fundamentals make it one of Pune\'s best mid-term investment bets.',
+    },
+
+    'Baner': {
+      overview: 'Baner is Pune\'s most upscale mid-city residential address, popular with senior IT professionals and startup founders who want proximity to both Hinjewadi and the old city. It has a vibrant restaurant and café strip, premium apartment stock, and relatively low density compared to Koregaon Park. Baner-Balewadi-Aundh is a contiguous premium belt with seamless connectivity to the Hinjewadi IT corridor.',
+      specialties: ['Premium Hinjewadi fringe address', 'Vibrant F&B & café culture', 'Senior IT & startup professional belt', 'Low density premium apartments', 'Metro Line 3 corridor (planned)'],
+      major_employers: ['Hinjewadi Phase 1 IT park (5 km)', 'Westfield IT park Baner (local)', 'Infosys BPO Baner', 'L&T Technology Services', 'Persistent Systems (Senapati Bapat Road)'],
+      schools: [
+        { name: 'The Orchid School Baner', type: 'CBSE', note: 'Well-regarded CBSE school; strong academic and sports programme' },
+        { name: 'Delhi Public School Baner', type: 'CBSE', note: 'DPS chain campus; popular with IT-family professionals' },
+        { name: 'Mahindra International School', type: 'IB', note: 'Top IB school in Pune; premium international curriculum' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy at Baner Road junction and Pashan–Sus Road crossing 8–10 am and 6–9 pm',
+        metro_access: 'Baner and Baner Gaon stations on Metro Line 3 (Pink Line) under construction; expected 2026',
+        highway_access: 'Mumbai–Pune Expressway via Wakad — 6 km; NH-48 — 5 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Jupiter Hospital Baner (2 km)', 'Sahyadri Hospital Baner (1 km)', 'Deenanath Mangeshkar Hospital (5 km)'],
+        malls: ['Westend Mall Aundh (3 km)', 'Xion Mall Wakad (5 km)', 'Balewadi High Street (2 km)'],
+        parks: ['Baner Biodiversity Park (1 km)', 'Sus Road lake area'],
+      },
+      investment_note: 'Baner delivers 10–13% appreciation as a premium Hinjewadi corridor address. Rental yields at 4–4.8% are solid with 2BHK rents of ₹28,000–50,000/mo. Metro Line 3 (Hinjewadi to Civil Court via Baner) is the biggest near-term catalyst. One of Pune\'s top balanced investment localities.',
+    },
+
+    'Wakad': {
+      overview: 'Wakad is a high-density mid-market residential suburb between Hinjewadi and Pimpri-Chinchwad, offering the closest affordable housing to Hinjewadi IT Park at prices below Baner. It is predominantly apartment-heavy with strong rental demand from mid-level IT professionals. Wakad has Pune\'s highest rental yield among western suburbs and benefits from good road connectivity to the expressway.',
+      specialties: ['Closest affordable Hinjewadi fringe', 'Highest rental yield in west Pune', 'Dense apartment stock', 'Mid-IT professional catchment', 'Mumbai-Pune Expressway access'],
+      major_employers: ['Hinjewadi Phase 1 IT Park (3 km)', 'Pimpri-Chinchwad industrial belt (6 km)', 'Tata Motors (PCMC)', 'Bharat Forge (PCMC)'],
+      schools: [
+        { name: 'Vibgyor High School Wakad', type: 'CBSE', note: 'Popular CBSE school; strong co-curricular programme' },
+        { name: 'DPS Pimpri', type: 'CBSE', note: 'DPS chain campus serving Wakad and PCMC belt' },
+      ],
+      traffic: {
+        peak_hours: 'Very heavy on Wakad–Hinjewadi Road and Dange Chowk 8–10 am and 6:30–9 pm',
+        metro_access: 'Wakad Chowk station on Metro Line 3 (Pink Line) under construction; expected 2026',
+        highway_access: 'Mumbai–Pune Expressway — 2 km; NH-48 — 1 km',
+        congestion_level: 'Very High',
+      },
+      nearby_amenities: {
+        hospitals: ['Lifepoint Multispeciality Hospital (1 km)', 'Sahyadri Hospital Hadapsar (12 km)', 'Jupiter Hospital Baner (5 km)'],
+        malls: ['Xion Mall Wakad (1 km)', 'D-Mart Wakad (local)', 'Westend Mall Aundh (7 km)'],
+        parks: ['Wakad local community parks', 'Mula River corridor (5 km)'],
+      },
+      investment_note: 'Wakad offers Pune\'s best rental yields in the western belt at 4.8–5.2% with strong mid-income IT tenant demand. Appreciation at 10–12% p.a. is robust. Metro Line 3 completion will be transformative for commute times and prices. Best for rental income investors targeting Hinjewadi IT workers.',
+    },
+
+    'Viman Nagar': {
+      overview: 'Viman Nagar is a premium residential and commercial suburb adjacent to Pune International Airport, attracting frequent flyers, senior executives, and expats. It sits between Koregaon Park (lifestyle) and Kharadi (IT hub), giving residents the best of both worlds. Giga Space IT Park and proximity to Kharadi\'s EON Zone drive IT worker demand. Property stock is a mix of premium apartments and commercial towers.',
+      specialties: ['Airport-adjacent premium address', 'Koregaon Park & Kharadi proximity', 'Expat & senior executive zone', 'Giga Space IT Park', 'Premium lifestyle infrastructure'],
+      major_employers: ['Giga Space IT Park (local)', 'Tech Mahindra (Viman Nagar)', 'Global Step', 'Kharadi IT offices (4 km)', 'Pune Airport aerotropolis tenants'],
+      schools: [
+        { name: 'Victorious Kidss Educares (Viman Nagar)', type: 'IB', note: 'Top-rated IB school in Pune' },
+        { name: 'The Lexicon International School', type: 'CBSE/IB', note: 'Well-regarded multi-board school in east Pune' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate on Viman Nagar Main Road; Airport Road can congest during flight arrival peaks',
+        metro_access: 'Ramwadi Station (Aqua Line) — 2 km; Airport line proposed in future phases',
+        highway_access: 'Nagar Road (NH-753E) — 1 km; Pune Airport — 2 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Columbia Asia Hospital Kharadi (3 km)', 'Jehangir Hospital (5 km)', 'Noble Hospital (5 km)'],
+        malls: ['Phoenix Marketcity Nagar Road (2 km)', 'Amanora Mall Hadapsar (7 km)'],
+        parks: ['Lunkad Lake (local)', 'Mula River front (4 km)'],
+      },
+      investment_note: 'Viman Nagar delivers 8–10% appreciation at premium price points backed by airport adjacency and dual employment catchment (Giga Space + Kharadi). Rental yields at 4–4.5% with high tenant quality. Best for investors targeting expats and senior executives who value airport proximity.',
+    },
+
+    'Koregaon Park': {
+      overview: 'Koregaon Park is Pune\'s most prestigious and cosmopolitan residential address, known for its shaded avenues, colonial bungalows, luxury apartments, top restaurants, and international culture. It is home to the Osho International Meditation Resort, a major international draw. Housing supply is extremely limited and prices are among Pune\'s highest. Primarily an HNI, expat, and luxury lifestyle market.',
+      specialties: ['Pune\'s most prestigious address', 'Osho International Resort landmark', 'Luxury bungalow & apartment zone', 'Expat & HNI community', 'Iconic dining & nightlife belt'],
+      major_employers: ['Pune CBD offices (Senapati Bapat Rd — 6 km)', 'BPO cluster (Bund Garden Road)', 'Pune Cantonment establishments', 'NGOs & international organisations (Osho ecosystem)'],
+      schools: [
+        { name: 'St. Anne\'s High School', type: 'CBSE/State', note: 'Established English-medium school near Koregaon Park' },
+        { name: 'Bishop\'s School Camp', type: 'ICSE', note: 'One of Pune\'s most prestigious schools, near Koregaon Park' },
+        { name: 'St. Mary\'s School', type: 'ICSE', note: 'Heritage Christian school, Pune\'s oldest institutions' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; North Main Road and Lane 5–6 can congest on weekends due to restaurant traffic',
+        metro_access: 'No metro directly; Aqua Line\'s Ramwadi Station — 3 km',
+        highway_access: 'Nagar Road — 2 km; Bund Garden Road — 0.5 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Jehangir Hospital (2 km)', 'Ruby Hall Clinic (3 km)', 'KEM Hospital (4 km)'],
+        malls: ['Phoenix Marketcity (5 km)', 'Central Mall Camp (3 km)', 'High Street Phoenix (Camp)'],
+        parks: ['Osho Meditation Resort gardens (local)', 'Bund Garden (1 km)', 'Saras Baug (4 km)'],
+      },
+      investment_note: 'Koregaon Park is Pune\'s premier capital preservation play at 7–8% appreciation with very limited new supply. Rental yields are modest at 3.5–4% but tenant quality is exceptional (expats, HNIs, senior executives). Best for long-term luxury holding rather than yield-driven investment.',
+    },
+
+    'Hadapsar': {
+      overview: 'Hadapsar is Pune\'s largest eastern suburb and a major IT and industrial hub, anchored by Magarpatta City — a self-contained integrated township with IT parks, residential towers, schools, and hospitals. It connects to the Pune–Solapur Road and has good access to the airport. The area offers a wide range of housing from affordable to premium within the Magarpatta ecosystem.',
+      specialties: ['Magarpatta City integrated township', 'Pune–Solapur Road corridor', 'Large IT and BPO presence', 'Self-contained township infrastructure', 'Mix of affordable and premium housing'],
+      major_employers: ['Magarpatta Cybercity IT Park (Wipro, Cognizant, HSBC GCC)', 'Amanora Business District', 'Finolex Industries', 'Mercedes-Benz India (Chakan nearby)'],
+      schools: [
+        { name: 'Victorious Kidss Educares Hadapsar', type: 'IB', note: 'IB school in Magarpatta township area' },
+        { name: 'The Orchid School Hadapsar', type: 'CBSE', note: 'CBSE school serving east Pune residents' },
+        { name: 'Ryan International School Hadapsar', type: 'CBSE', note: 'Ryan chain campus in east Pune' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate to heavy on Magarpatta Road and Solapur Road junction 8:30–10 am and 6–8 pm',
+        metro_access: 'Phase 2 metro extension to Hadapsar proposed; no metro currently — nearest Ramwadi (Aqua Line) — 5 km',
+        highway_access: 'Pune–Solapur Road (NH-965) — adjacent; Pune Airport — 7 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Sahyadri Hospital Hadapsar (2 km)', 'Columbia Asia Hospital Kharadi (6 km)', 'Amanora Hospital (1 km)'],
+        malls: ['Amanora Mall Hadapsar (2 km)', 'Phoenix Marketcity Nagar Road (8 km)'],
+        parks: ['Magarpatta City central park (local)', 'Amanora park zone (local)'],
+      },
+      investment_note: 'Hadapsar has seen 8–10% appreciation annually driven by Magarpatta Cybercity demand. Rental yields at 3.5–4.5% are steady. Magarpatta City township commands a premium for its self-contained infrastructure. Good for investors seeking township-model stability with moderate entry prices.',
+    },
+
+    'Aundh': {
+      overview: 'Aundh is a well-established premium suburb in north-west Pune, popular with old Pune families, senior government employees, and IT professionals who prefer a quieter lifestyle with excellent social infrastructure. It has top schools, good hospitals, wide roads, and easy access to the Mumbai–Pune Expressway. Metro Line 3 will pass through Aundh, making the already-desirable locality even more connected.',
+      specialties: ['Premium north-west Pune address', 'Excellent social infrastructure', 'Metro Line 3 corridor (planned)', 'Old Pune family neighbourhood', 'Wide roads & low density'],
+      major_employers: ['Hinjewadi IT Park (8 km)', 'Bharat Electronics Limited (BEL) Pune', 'Pune Cantonment offices', 'Defence establishments (nearby)'],
+      schools: [
+        { name: 'Symbiosis International School', type: 'IB', note: 'One of Pune\'s top IB schools; part of Symbiosis group' },
+        { name: 'Delhi Public School Aundh', type: 'CBSE', note: 'DPS chain campus; very popular with IT families' },
+        { name: 'St. Mary\'s School Aundh', type: 'CBSE', note: 'Reputed Christian school in the locality' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate on Aundh Road and ITI Road; expressway access is smooth most times of day',
+        metro_access: 'Metro Line 3 stations (Aundh, NICMAR, Ram Nagar) under construction; expected 2026',
+        highway_access: 'Mumbai–Pune Expressway (Wakad gate) — 4 km; NH-48 — 5 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Deenanath Mangeshkar Hospital (3 km)', 'Jupiter Hospital Baner (4 km)', 'Aditya Birla Hospital (3 km)'],
+        malls: ['Westend Mall Aundh (1 km)', 'Elpro City Square (5 km)', 'Xion Mall Wakad (8 km)'],
+        parks: ['Aundh community garden', 'Pashan Lake (3 km)', 'Chatushrungi Mandir Hill (2 km)'],
+      },
+      investment_note: 'Aundh delivers steady 8–10% appreciation with premium pricing backed by Metro Line 3 pipeline and excellent social infrastructure. Rental yields at 3.5–4.5% are moderate. Best for owner-occupation or long-term capital growth rather than yield-maximisation. Very low vacancy ensures price stability.',
+    },
+
+    'Kothrud': {
+      overview: 'Kothrud is one of Pune\'s most densely populated and well-established suburbs, historically a middle-class stronghold that has upgraded significantly in recent years. It has excellent schools, hospitals, and a strong sense of community. Its strategic position on the western end gives access to both the Hinjewadi IT corridor and Pune\'s educational institutions. Property is predominantly mid-market to upper-mid.',
+      specialties: ['Densely established west Pune suburb', 'Educational institution proximity (COEP, MIT)', 'Strong owner-occupier base', 'Mid-market to premium residential', 'Green Line metro planned'],
+      major_employers: ['Hinjewadi IT Park (10 km)', 'Bharat Electronics Pashan (4 km)', 'COEP Tech Park (2 km)', 'Cummins India HQ (nearby)', 'Bajaj Auto Akurdi (8 km)'],
+      schools: [
+        { name: 'Abhinava Vidyalaya', type: 'CBSE/State', note: 'Old-established Kothrud institution with strong alumni network' },
+        { name: 'Kendriya Vidyalaya Paud Road', type: 'CBSE', note: 'Central government school serving west Pune' },
+        { name: 'MIT Vishwashanti Gurukul', type: 'CBSE/IB', note: 'Large MIT-group school in Kothrud area' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy at Karve Road and Chandni Chowk junction 8:30–10 am and 6–9 pm; Chandni Chowk is Pune\'s notorious bottleneck',
+        metro_access: 'No metro currently; Phase 2 Pune Metro Katraj–Chandni Chowk extension proposed through Kothrud',
+        highway_access: 'NH-48 (Mumbai–Bangalore) via Chandni Chowk — 3 km; Pune–Satara Road — 4 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Deenanath Mangeshkar Hospital (3 km)', 'Sahayadri Hospital Deccan (4 km)', 'Sahyadri Hospital Kothrud (local)'],
+        malls: ['Pune Central Kothrud (2 km)', 'Westend Mall Aundh (6 km)', 'Atul Kamath Mall (3 km)'],
+        parks: ['Katraj Snake Park (5 km)', 'Saras Baug (4 km)', 'Hanuman Tekdi Forest Hill'],
+      },
+      investment_note: 'Kothrud offers reliable 8–9% appreciation at moderate prices with strong owner-occupier demand. Rental yields at 3.5–4% are modest but vacancy is very low. Best suited for owner-occupation or conservative long-term investors. Chandni Chowk traffic remains a livability concern.',
+    },
+
+    'Nibm Road': {
+      overview: 'NIBM Road (National Institute of Bank Management Road) is a premium south Pune residential corridor popular with senior banking, IT and defence professionals. It offers relatively low density, green surroundings, wide roads, and proximity to both the old city\'s amenities and the eastern IT corridor. Large plotted villas and premium apartments coexist in a quieter, less commercial environment.',
+      specialties: ['Premium south Pune address', 'Low density & green surroundings', 'Senior executive & banking community', 'Close to Koregaon Park & Hadapsar', 'Large villa and premium apartment mix'],
+      major_employers: ['NIBM (National Institute of Bank Management)', 'Magarpatta Cybercity (8 km)', 'Kharadi EON Zone (10 km)', 'Pune Cantonment offices (5 km)'],
+      schools: [
+        { name: 'DPS NIBM (Delhi Public School)', type: 'CBSE', note: 'DPS campus serving south Pune premium families' },
+        { name: 'The Orchid School NIBM', type: 'CBSE', note: 'Popular CBSE school in the NIBM Road corridor' },
+      ],
+      traffic: {
+        peak_hours: 'Light to moderate on NIBM Road; Undri junction can slow during peak hours',
+        metro_access: 'No metro currently; Swargate (Purple Line) — 6 km; Phase 2 southern extension proposed',
+        highway_access: 'Pune–Solapur Road via Hadapsar — 5 km; Pune–Satara Road — 4 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Sahyadri Hospital Hadapsar (5 km)', 'Jehangir Hospital (6 km)', 'Ruby Hall Clinic (7 km)'],
+        malls: ['Amanora Mall Hadapsar (5 km)', 'Phoenix Marketcity (10 km)', 'Dorabjee\'s Mall (6 km)'],
+        parks: ['NIBM campus greenery (local)', 'Katraj Lake (6 km)', 'Sahyadri mountain trails (15 km)'],
+      },
+      investment_note: 'NIBM Road offers 8–9% appreciation in a premium low-density environment at prices below Koregaon Park. Rental yields at 3.5–4% from senior tenants. Low supply, greenery, and proximity to the old city\'s elite make it a strong capital-preservation play for conservative HNI investors.',
+    },
+
+  },
   'Mumbai': {},
   'Delhi NCR': {},
   'Chennai': {},
