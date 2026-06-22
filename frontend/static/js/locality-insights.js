@@ -1030,7 +1030,215 @@ const LOCALITY_INSIGHTS = {
     },
 
   },
-  'Mumbai': {},
+  // Day 2 (2026-06-22): Mumbai
+  'Mumbai': {
+
+    'Powai': {
+      overview: 'Powai is Mumbai\'s premier planned IT and residential township, built around the scenic Powai Lake inside the Hiranandani Gardens development. It is home to IIT Bombay and Hiranandani Business Park, making it the intellectual and tech hub of central Mumbai. Powai\'s high-quality social infrastructure, planned roads, and lake views command a significant premium. Metro Line 6 (Pink Line) will directly serve IIT Powai and Powai Lake stations.',
+      specialties: ['Hiranandani Business Park IT hub', 'IIT Bombay proximity', 'Powai Lake & planned township', 'Metro Line 6 (Pink Line) pipeline', 'Premium gated community stock'],
+      major_employers: ['Hiranandani Business Park tenants (TCS, Deloitte, CRISIL, HDFC)', 'IIT Bombay & spinoffs', 'Bisleri Industries HQ', 'Lodha Group offices'],
+      schools: [
+        { name: 'Hiranandani Foundation School', type: 'ICSE/IB', note: 'Top school in Powai; CISCE and IB curricula; part of Hiranandani group' },
+        { name: 'Podar International School Powai', type: 'CBSE', note: 'Top 10 international day school in India for 10 consecutive years; Education World 2024–25' },
+        { name: 'Bombay Scottish School Powai', type: 'CBSE', note: 'Historic 1847 institution; one of Mumbai\'s most prestigious schools' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy at Powai Plaza junction and LBS Road cross 8:30–10:30 am and 6:30–9 pm; Jogeshwari–Vikhroli Link Road (JVLR) is the main artery',
+        metro_access: 'Metro Line 6 (Pink Line): IIT Powai and Powai Lake stations under construction; Line 1 Ghatkopar Station — 4 km',
+        highway_access: 'Eastern Express Highway — 3 km; JVLR — adjacent; Mumbai–Nashik Expressway — 8 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Hiranandani Hospital Powai (1 km)', 'Fortis Hospital Mulund (5 km)', 'Kokilaben Dhirubhai Ambani Hospital (7 km)'],
+        malls: ['Galleria Mall Hiranandani (1 km)', 'R-City Mall Ghatkopar (4 km)', 'Viviana Mall Thane (8 km)'],
+        parks: ['Powai Lake promenade (local)', 'Sanjay Gandhi National Park (8 km)', 'IIT Bombay campus lake area'],
+      },
+      investment_note: 'Powai is Mumbai\'s most reliable long-term capital appreciation locality at 10–14% p.a., driven by IIT proximity, Hiranandani Business Park demand, and severe supply constraints. Rental yields at 3.5–4.5% are moderate but tenant quality is exceptional. Metro Line 6 stations at IIT and Powai Lake are major near-term catalysts.',
+    },
+
+    'BKC (Bandra Kurla Complex)': {
+      overview: 'Bandra Kurla Complex is Mumbai\'s only purpose-built planned CBD and the country\'s most prestigious commercial address, housing the RBI, SEBI, NSE, and headquarters of India\'s largest banks, insurance companies, and MNC offices. The Aqua Line metro (Line 3) now directly serves BKC station (operational since Oct 2024), making it the best-connected business district in Mumbai. Residential supply immediately adjacent is extremely scarce and ultra-premium.',
+      specialties: ['Mumbai\'s premium planned CBD', 'RBI, SEBI, NSE headquarters', 'Aqua Line (Line 3) metro served', 'Ultra-premium residential adjacency', 'MNC & BFSI headquarters cluster'],
+      major_employers: ['RBI (Reserve Bank of India)', 'SEBI', 'NSE & BSE', 'HDFC Bank HQ', 'Citibank India HQ', 'Facebook/Meta India HQ', 'ICICI Bank HQ'],
+      schools: [
+        { name: 'Mount Litera School International (MLSI)', type: 'IB', note: 'IB school in BKC area; co-educational from playgroup to Class 11' },
+        { name: 'Dhirubhai Ambani International School (DAIS)', type: 'IB/IGCSE', note: 'One of India\'s most prestigious international schools; very high fees and demand' },
+      ],
+      traffic: {
+        peak_hours: 'Very heavy at BKC Gate 1, CST Road and Kalanagar junction 9–11 am and 6–9 pm; one of Mumbai\'s most congested nodes',
+        metro_access: 'BKC Station (Aqua Line / Metro Line 3) — directly on the corridor; operational since October 2024',
+        highway_access: 'Eastern Freeway via Sion — 4 km; Western Express Highway via Bandra — 3 km; SCLR — adjacent',
+        congestion_level: 'Very High',
+      },
+      nearby_amenities: {
+        hospitals: ['Lilavati Hospital Bandra (3 km)', 'Hinduja Hospital Mahim (3 km)', 'Kokilaben Hospital (5 km)'],
+        malls: ['Linking Road Bandra (3 km)', 'Phoenix Palladium Lower Parel (5 km)', 'High Street Phoenix (5 km)'],
+        parks: ['Carter Road Promenade Bandra (3 km)', 'Mahim Nature Park (2 km)'],
+      },
+      investment_note: 'BKC-adjacent residential is ultra-premium capital preservation with 8–10% appreciation and 3–4% yields. The Aqua Line metro has elevated connectivity to the whole island city and western suburbs. Investment is primarily HNI/institutional — entry prices are among India\'s highest. Best for long-term wealth stores, not yield plays.',
+    },
+
+    'Andheri East': {
+      overview: 'Andheri East is Mumbai\'s most important mid-market commercial and residential suburb, strategically located between the Western Express Highway, the Mumbai Metro Line 1, and Mumbai Airport. It is home to SEEPZ (software export zone), Marol IT Park, and a large number of corporate offices, making it the hub for mid-to-senior IT professionals who want central Mumbai access without South Mumbai prices.',
+      specialties: ['SEEPZ & Marol IT Park hub', 'Airport proximity (2 km)', 'Metro Line 1 & 7 served', 'Mid-premium corporate belt', 'Strong rental demand'],
+      major_employers: ['SEEPZ (Software Technology Park)', 'Marol IT Park tenants', 'Reliance Corporate Office', 'HDFC Life', 'Atos India'],
+      schools: [
+        { name: 'JBCN International School Oshiwara', type: 'IB/IGCSE', note: 'Top 40 IB School globally (Education Advisers 2025); Top IB School in World 2024 & 2025' },
+        { name: 'Ryan International School Andheri', type: 'CBSE', note: 'Ryan chain campus; large school serving Andheri families' },
+        { name: 'ST. Joseph\'s High School Andheri', type: 'ICSE', note: 'Well-established ICSE school in Andheri West' },
+      ],
+      traffic: {
+        peak_hours: 'Very heavy on Western Express Highway and Andheri Station area 8–10:30 am and 6–9 pm; among Mumbai\'s busiest suburban nodes',
+        metro_access: 'Andheri Station (Metro Line 1 — Blue Line) — operational; Western Express Highway Station (Line 1); Gundavali Station (Line 7)',
+        highway_access: 'Western Express Highway — adjacent; Mumbai Airport — 2 km; Eastern Express Highway — 5 km via JVLR',
+        congestion_level: 'Very High',
+      },
+      nearby_amenities: {
+        hospitals: ['Kokilaben Dhirubhai Ambani Hospital (3 km)', 'Seven Hills Hospital (2 km)', 'Holy Spirit Hospital (2 km)'],
+        malls: ['Infiniti Mall Andheri (2 km)', 'Citi Mall (2 km)', 'Oberoi Mall Goregaon (5 km)'],
+        parks: ['Joggers Park Bandra (5 km)', 'SEEPZ grounds', 'Juhu Beach (4 km)'],
+      },
+      investment_note: 'Andheri East offers strong 9–12% appreciation driven by airport proximity, SEEPZ, and metro connectivity. Rental yields at 3.5–4.5% with high occupancy from IT and airline professionals. Metro Line 1 has been a sustained price driver since 2014. Mid-entry price point makes it accessible compared to South Mumbai or BKC.',
+    },
+
+    'Goregaon East': {
+      overview: 'Goregaon East is an established residential and commercial hub along the Western Express Highway, anchored by the massive Mindspace Business Park and Oberoi Garden City. It sits between Andheri and Malad and benefits from excellent metro connectivity via Lines 2A and 7. A large, well-planned township with schools, hospitals, and retail, it caters to mid-to-premium IT families.',
+      specialties: ['Mindspace Business Park hub', 'Oberoi Garden City township', 'Metro Lines 2A & 7 served', 'Western Express Highway frontage', 'Established IT professional community'],
+      major_employers: ['Mindspace Business Park tenants (Accenture, Oracle, KPMG)', 'Oberoi Commerz IT offices', 'Crisil (a part of S&P Global)', 'Hathway Cable HQ'],
+      schools: [
+        { name: 'Oberoi International School (OIS)', type: 'IB/IGCSE', note: 'Premium IB school in Oberoi Garden City; international families' },
+        { name: 'Ryan International School Kandivali East', type: 'CBSE', note: 'Large Ryan campus serving Goregaon–Kandivali belt' },
+        { name: 'St. Francis D\'Assisi High School', type: 'ICSE', note: 'Well-established ICSE school in Borivali/Goregaon belt' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy on Western Express Highway and Goregaon station area 8–10:30 am and 6–9 pm',
+        metro_access: 'Goregaon West Station (Metro Line 2A — Yellow Line) and Oshiwara/Pahadi Goregaon stations operational; Line 7 also serves the area',
+        highway_access: 'Western Express Highway — adjacent; Link Road — 1 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Kokilaben Hospital (4 km)', 'Lifeline Hospital Malad (3 km)', 'HN Reliance Hospital (10 km)'],
+        malls: ['Oberoi Mall Goregaon (1 km)', 'Infiniti Mall Malad (3 km)', 'Growel\'s 101 Mall Kandivali (4 km)'],
+        parks: ['Aarey Milk Colony (2 km)', 'Sanjay Gandhi National Park (5 km)', 'Oberoi Garden City greens'],
+      },
+      investment_note: 'Goregaon East delivers 9–12% appreciation with dual metro connectivity (Lines 2A and 7) as structural demand anchors. Rental yields at 3.5–4% with strong demand from Mindspace IT employees. Oberoi Garden City commands a township premium. Good balanced investment for mid-premium IT corridor buyers.',
+    },
+
+    'Thane West': {
+      overview: 'Thane West is Mumbai Metropolitan Region\'s fastest-growing suburban city, offering significantly more space at lower prices than Mumbai city while connecting via fast suburban rail to CST and Andheri in under 30 minutes. It is a self-contained city with excellent social infrastructure, multiple lakes, large residential townships, and a growing commercial belt. Upcoming Metro Line 4 and the Thane Ring Metro will further transform connectivity.',
+      specialties: ['MMR\'s fastest-growing suburban city', 'Suburban rail to Mumbai in 30 min', 'Multiple lakes & green cover', 'Large township residential stock', 'Metro Line 4 & Ring Metro pipeline'],
+      major_employers: ['Majiwada IT Park', 'Wagle Estate industrial & IT belt', 'Lodha commercial developments', 'Viviana Mall commercial ecosystem', 'Thane Municipal Corporation offices'],
+      schools: [
+        { name: 'CP Goenka International School Thane', type: 'IGCSE/IB', note: 'Premium international school offering IGCSE and IB' },
+        { name: 'Hiranandani Foundation School Thane', type: 'ICSE/IB', note: 'Part of Hiranandani group; high quality infrastructure' },
+        { name: 'Kendriya Vidyalaya Thane', type: 'CBSE', note: 'Central government school; high quality and affordable' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy on Ghodbunder Road and Thane station area 8–10 am and 6:30–9 pm; Eastern Express Highway from LBS Marg also congested',
+        metro_access: 'Metro Line 4 (Wadala–Kasarvadavali) under construction; Thane Integral Ring Metro (29 km, 22 stations) approved Aug 2024',
+        highway_access: 'Eastern Express Highway — adjacent; Mumbai–Nashik Highway (NH-160) — 3 km; Ghodbunder Road (to Western suburbs) — 1 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Jupiter Hospital Thane (2 km)', 'Kaushalya Medical Foundation (2 km)', 'Bethany Hospital (3 km)'],
+        malls: ['Viviana Mall Thane (2 km)', 'R-Mall Thane (3 km)', 'Hypercity Thane (2 km)'],
+        parks: ['Upvan Lake (2 km)', 'Masunda (Talao Pali) Lake (1 km)', 'Yeoor Hills (5 km)'],
+      },
+      investment_note: 'Thane West offers strong 10–14% appreciation at prices 30–40% below comparable Mumbai localities. Rental yields at 4–5% are among MMR\'s best outside Navi Mumbai. Metro Line 4 and Ring Metro approvals are major value catalysts. Best affordability–appreciation balance in the Mumbai region for mid-budget investors.',
+    },
+
+    'Kharghar (Navi Mumbai)': {
+      overview: 'Kharghar is a well-planned sector in Navi Mumbai developed by CIDCO, offering the best quality-of-life in the MMR at a fraction of Mumbai prices. It has wide roads, golf courses, and excellent schools. The opening of Navi Mumbai International Airport (NMIA) in December 2025 and the approaching Metro Line 8 have triggered 24–27% YoY price appreciation, making it one of India\'s fastest-appreciating residential markets.',
+      specialties: ['CIDCO planned township', 'Navi Mumbai International Airport proximity', 'Golf course & sector parks', 'Metro Line 8 pipeline', '24–27% YoY appreciation'],
+      major_employers: ['Reliance Corporate Park (nearby Ghansoli)', 'TCS Navi Mumbai campus', 'DY Patil University ecosystem', 'Belapur CBD offices (7 km)'],
+      schools: [
+        { name: 'Delhi Public School Navi Mumbai', type: 'CBSE', note: 'Large DPS campus; popular with Navi Mumbai IT families' },
+        { name: 'Orchids The International School Kharghar', type: 'CBSE', note: 'Technology-focused CBSE school in Kharghar' },
+        { name: 'Ryan International School Kharghar', type: 'CBSE', note: 'Ryan chain campus; well-attended CBSE school' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; Sion–Panvel Expressway approach can congest during peak; NMIA road works temporarily affecting some sectors',
+        metro_access: 'Metro Line 8 (NMIA–CST) planned through Kharghar; Belapur Station (Harbour Line) — 5 km; Palm Beach Metro proposed',
+        highway_access: 'Sion–Panvel Expressway — 2 km; Mumbai–Pune Expressway via Panvel — 5 km; MTHL (sea bridge to Mumbai) — 8 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['MGM Hospital Kamothe (5 km)', 'Terna Medical College Hospital (3 km)', 'Apollo Clinic Kharghar (local)'],
+        malls: ['Glomax Mall Kharghar (2 km)', 'Little World Mall (3 km)', 'Inorbit Mall Vashi (10 km)'],
+        parks: ['Kharghar Central Park (sector 23)', 'Golf Course Sector 23 (local)', 'Parsik Hills (3 km)'],
+      },
+      investment_note: 'Kharghar is seeing 24–27% YoY appreciation — among India\'s highest — driven by the NMIA airport opening (Dec 2025) and MTHL sea bridge access. Entry prices are still 40–60% below comparable Mumbai localities. Rental yields at 4–5%. Ideal for medium-term investors; the airport catalyst is still in early innings.',
+    },
+
+    'Vashi (Navi Mumbai)': {
+      overview: 'Vashi is Navi Mumbai\'s commercial capital and most mature suburb, home to Inorbit Mall, APMC market, and a large established residential population. It has the best connectivity in Navi Mumbai via Harbour Line suburban rail, easy access to Mumbai via MTHL sea bridge, and a growing IT commercial belt along the NH-4B corridor. Social infrastructure is excellent with top schools and hospitals.',
+      specialties: ['Navi Mumbai commercial capital', 'Best suburban rail connectivity in NM', 'MTHL sea bridge to Mumbai', 'Inorbit Mall anchor', 'Mature established residential suburb'],
+      major_employers: ['Vishwaroop IT Park (ICICI Lombard, Nomura, Alight Solutions)', 'APMC market ecosystem', 'Navi Mumbai Municipal Corporation offices', 'Seawoods Grand Central corporate offices (adjacent)'],
+      schools: [
+        { name: 'NES International School Vashi', type: 'IB/IGCSE', note: 'International school in Vashi; well-regarded in Navi Mumbai' },
+        { name: 'Ryan International School Vashi', type: 'CBSE', note: 'Established Ryan CBSE campus in Vashi' },
+        { name: 'St. Joseph\'s High School Vashi', type: 'CBSE', note: 'Christian missionary school with strong academic record' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; Palm Beach Road is generally free-flowing; Vashi station area gets congested 8:30–10 am',
+        metro_access: 'Metro Line 8 (planned) to serve Vashi; Vashi Station (Harbour Line) — on the main Harbour rail corridor',
+        highway_access: 'Palm Beach Road — adjacent; NH-4B — 1 km; MTHL (Trans Harbour Link to Mumbai) — 5 km via Sewri',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Apollo Hospital Navi Mumbai (3 km)', 'Meenakshi Hospital Vashi (1 km)', 'DY Patil Hospital Nerul (5 km)'],
+        malls: ['Inorbit Mall Vashi (1 km)', 'Centre One Mall Vashi (1 km)', 'Seawoods Grand Central (4 km)'],
+        parks: ['Vashi Jetty & Palm Beach promenade (1 km)', 'Flamingo Sanctuary (5 km)', 'Parsik Hills (8 km)'],
+      },
+      investment_note: 'Vashi offers stable 8–10% appreciation with best-in-class Navi Mumbai connectivity. Rental yields at 4–4.5% are solid with strong demand from APMC traders and IT professionals. MTHL sea bridge has materially reduced travel time to Mumbai, acting as a sustained price catalyst. Best for stable long-term investors in Navi Mumbai.',
+    },
+
+    'Lower Parel': {
+      overview: 'Lower Parel is Mumbai\'s most dramatic urban transformation — old textile mill lands redeveloped into a premium commercial and residential district housing the highest concentration of luxury malls, media companies, and corporate offices between South Mumbai and BKC. It is the HQ of Hindustan Unilever, and home to offices of Google, McKinsey, and dozens of financial firms. Residential supply is very limited and ultra-premium.',
+      specialties: ['Mill land redevelopment district', 'HUL & Google India HQ zone', 'Phoenix Palladium luxury retail', 'Ultra-premium limited residential', 'Financial and media company hub'],
+      major_employers: ['Hindustan Unilever HQ', 'Google India (One BKC — nearby)', 'McKinsey & Company India', 'STAR India HQ', 'Lodha commercial tenants (World One)'],
+      schools: [
+        { name: 'Cathedral and John Connon School', type: 'ICSE/IB', note: 'One of India\'s most prestigious schools; nearby in South Mumbai' },
+        { name: 'St. Mary\'s School Mazgaon', type: 'ICSE', note: 'Prestigious old-established school serving South Mumbai' },
+      ],
+      traffic: {
+        peak_hours: 'Severely congested at Senapati Bapat Marg and Delisle Road junction throughout the day; one of Mumbai\'s busiest corridors',
+        metro_access: 'Lower Parel Station (Aqua Line / Metro Line 3) — operational, part of the Colaba–Aarey line opened 2025; Mumbai local also serves Elphinstone Road',
+        highway_access: 'Eastern Freeway via Byculla — 3 km; Western Express Highway via Worli — 5 km',
+        congestion_level: 'Very High',
+      },
+      nearby_amenities: {
+        hospitals: ['Breach Candy Hospital (4 km)', 'KEM Hospital (2 km)', 'HN Reliance Foundation Hospital (3 km)'],
+        malls: ['High Street Phoenix / Phoenix Palladium (local)', 'Palladium Hotel & Mall (local)', 'Inorbit Mall Malad (12 km)'],
+        parks: ['Priyadarshini Park Worli (3 km)', 'Mahalaxmi Racecourse (2 km)'],
+      },
+      investment_note: 'Lower Parel is ultra-premium capital preservation at 8–10% appreciation. Residential units are among Mumbai\'s priciest and rental yields are moderate at 3–3.5% but tenant quality is exceptional. Aqua Line metro has cemented its connectivity advantage. Best for HNI investors seeking South Mumbai adjacency at a relative discount.',
+    },
+
+    'Malad West': {
+      overview: 'Malad West is a large, well-established western suburb with a strong mid-to-premium residential base, good metro connectivity via Line 2A, and proximity to the Mindspace Business Park in Goregaon. It is popular with mid-level IT professionals and film industry workers (Film City at nearby Goregaon East). Inorbit Mall anchors its retail ecosystem and social infrastructure is mature.',
+      specialties: ['Metro Line 2A served', 'Film City & Mindspace proximity', 'Large mid-premium residential base', 'Strong western suburb connectivity', 'Inorbit Mall anchor'],
+      major_employers: ['Mindspace Business Park Goregaon (4 km)', 'Film City Goregaon East (5 km)', 'Infinity IT Park Malad (local)', 'Times of India offices (nearby)'],
+      schools: [
+        { name: 'Orchids The International School Malad', type: 'CBSE', note: 'Technology-forward CBSE school in Malad' },
+        { name: 'Ryan International School Kandivali East', type: 'CBSE', note: 'Large Ryan campus accessible from Malad' },
+        { name: 'St. Joseph\'s High School Malad', type: 'ICSE', note: 'Established ICSE missionary school in Malad West' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy at Malad Station and S.V. Road junction 8–10:30 am and 6:30–9 pm; SV Road is a chronic Mumbai bottleneck',
+        metro_access: 'Lower Malad and Malad West Stations (Metro Line 2A — Yellow Line) — operational',
+        highway_access: 'Western Express Highway (Malad interchange) — 2 km; Link Road — adjacent',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Lifeline Hospital Malad (2 km)', 'Kokilaben Hospital (5 km)', 'Riddhi Vinayak Hospital (2 km)'],
+        malls: ['Inorbit Mall Malad (1 km)', 'Infiniti Mall Malad (2 km)', 'Oberoi Mall Goregaon (5 km)'],
+        parks: ['Mindspace garden area Goregaon (4 km)', 'Aarey Colony (6 km)', 'Malad Creek waterfront'],
+      },
+      investment_note: 'Malad West offers 9–11% appreciation with dual metro line access (Line 2A) and strong rental demand from Mindspace IT workers and film industry professionals. Rental yields at 3.5–4.5% are solid. Entry prices are 20–30% below Goregaon or Andheri for similar connectivity, making it a good value play.',
+    },
+
+  },
   'Delhi NCR': {},
   'Chennai': {},
   'Kolkata': {},
