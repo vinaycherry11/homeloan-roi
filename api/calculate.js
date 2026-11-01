@@ -30,7 +30,7 @@ module.exports = async function (req, res) {
   try {
     const result = runSimulation(
       home_price, monthly_rent, interest_rate, annual_appreciation,
-      rent_appreciation, maintenance_pct, stock_return, benchmark_return ?? stock_return, tenure_years, down_payment_pct
+      rent_appreciation, maintenance_pct, benchmark_return ?? stock_return ?? 12, tenure_years, down_payment_pct
     );
     res.status(200).json({ success: true, data: result });
   } catch (e) {

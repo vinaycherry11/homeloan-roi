@@ -74,7 +74,6 @@ Then open http://localhost:3000.
   "annual_appreciation": 6,
   "rent_appreciation": 5,
   "maintenance_pct": 1,
-  "stock_return": 12,
   "benchmark_return": 12,
   "tenure_years": 20,
   "down_payment_pct": 20

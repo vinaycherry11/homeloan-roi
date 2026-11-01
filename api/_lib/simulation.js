@@ -20,7 +20,7 @@ function irrAnnualPct(flows) {
   return (Math.pow(1 + (lo + hi) / 2, 12) - 1) * 100;
 }
 
-function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentAppreciation, maintenancePct, stockReturn, benchmarkReturn, tenure, downPct) {
+function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentAppreciation, maintenancePct, benchmarkReturn, tenure, downPct) {
   const down = homePrice * downPct / 100;
   const loan = homePrice - down;
   const monthlyEmi = calcEmi(loan, interestRate, tenure);
@@ -36,16 +36,12 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
   let surplusInvested = 0;
   let cumCost = down;
   let cumRent = 0;
-  let pvOutflow = down;
-  let pvOutflowsOnly = 0;
   let cashOutOfPocket = down;
   let netWealthInflow = 0;
   let curRent = monthlyRent;
   let breakEvenYear = null;
   const r = interestRate / 12 / 100;
-  const discR = stockReturn / 12 / 100;
   const bmR   = benchmarkReturn / 12 / 100;
-  let monthNum = 0;
   const monthlyMaintY1 = homePrice * maintenancePct / 100 / 12;
   const monthlyCfY1 = monthlyRent - monthlyEmi - monthlyMaintY1;
   let cumNetCf = 0;
@@ -57,7 +53,6 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
     let yearPrincipal = 0, yearInterest = 0, yearMaint = 0, yearRent = 0, yearOutflowInvested = 0;
 
     for (let m = 0; m < 12; m++) {
-      monthNum++;
       const interest = loanBal * r;
       const principal = Math.min(monthlyEmi - interest, loanBal);
       loanBal = Math.max(0, loanBal - principal);
@@ -70,8 +65,7 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
       yearRent += curRent;
       const netOutflow = (monthlyEmi + maint) - curRent;
       monthlyFlows.push(-netOutflow);
-      pvOutflow += netOutflow / Math.pow(1 + discR, monthNum);
-      if (netOutflow > 0) { cashOutOfPocket += netOutflow; pvOutflowsOnly += netOutflow / Math.pow(1 + discR, monthNum); }
+      if (netOutflow > 0) cashOutOfPocket += netOutflow;
       else netWealthInflow += (-netOutflow);
       const diff = Math.max(0, netOutflow);
       renterPortfolio = renterPortfolio * (1 + bmR) + diff;
@@ -138,8 +132,6 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
   const wealthReturn = finalEquity + netWealthInflow;
   const roiDcf = cashOutOfPocket > 0 ? (wealthReturn / cashOutOfPocket - 1) * 100 : 0;
   const cagrDcf = cashOutOfPocket > 0 ? Math.pow(wealthReturn / cashOutOfPocket, 1 / tenure) - 1 : 0;
-  const pvCashOut = down + pvOutflowsOnly;
-  const cagrDcfReal = pvCashOut > 0 ? Math.pow(wealthReturn / pvCashOut, 1 / tenure) - 1 : 0;
   const rentVsBuy = finalEquity - finalRenter;
   const stockNetGain = finalSnp;                // down payment + monthly outflow invested in S&P 500
   const homeVsSnp = homeNetGain - stockNetGain; // positive = home wins vs S&P 500 renter
@@ -153,7 +145,6 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
       loan_amount: Math.round(loan),
       final_home_value: finalEquity,
       total_paid: totalPaid,
-      pv_outflow: Math.round(pvOutflow),
       cash_out_of_pocket: Math.round(cashOutOfPocket),
       wealth_return: Math.round(wealthReturn),
       cumulative_rent_saved: Math.round(cumRent),
@@ -162,9 +153,6 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
       cagr_pct: Math.round(cagr * 10000) / 100,
       roi_dcf_pct: Math.round(roiDcf * 100) / 100,
       cagr_dcf_pct: Math.round(cagrDcf * 10000) / 100,
-      pv_outflows_only: Math.round(pvOutflowsOnly),
-      pv_cash_out: Math.round(pvCashOut),
-      cagr_dcf_real_pct: Math.round(cagrDcfReal * 10000) / 100,
       irr_pct: irr === null ? null : Math.round(irr * 100) / 100,
       rent_vs_buy: Math.round(rentVsBuy),
       final_snp_portfolio: Math.round(finalSnp),

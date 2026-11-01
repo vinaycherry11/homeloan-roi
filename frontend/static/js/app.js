@@ -961,7 +961,6 @@ function getInputs() {
     annual_appreciation: parseFloat(document.getElementById('appreciation').value),
     rent_appreciation: parseFloat(document.getElementById('rentAppreciation').value),
     maintenance_pct: parseFloat(document.getElementById('maintenance').value),
-    stock_return: parseFloat(document.getElementById('stockReturn').value),
     benchmark_return: getSelectedFund().cagr,
     tenure_years: parseInt(document.getElementById('tenure').value),
     down_payment_pct: parseFloat(document.getElementById('downPct').value),
@@ -1095,7 +1094,7 @@ function renderResults(data, inputs, sensData) {
     tenure_years: inputs.tenure_years,
     annual_appreciation: inputs.annual_appreciation,
     rental_yield: inputs.rental_yield,
-    stock_return: inputs.stock_return,
+    benchmark_fund: `${getSelectedFund().label} (${inputs.benchmark_return}%)`,
     total_interest: totalInterestPaid,
     tax_saving: taxSaving,
     irr: s.irr_pct,
@@ -1158,7 +1157,6 @@ function buildInsights(data, inputs) {
   const emiToRent  = s.monthly_emi / inputs.monthly_rent;
   const monthlyPremium = s.monthly_emi - inputs.monthly_rent;
   const leverage   = inputs.home_price / s.down_payment;
-  const downOpCost = s.down_payment * Math.pow(1 + inputs.stock_return / 100, n);
   const minAppreciation = Math.max(0, inputs.interest_rate - rentYield).toFixed(1);
 
   // 1. Price-to-Rent ratio
@@ -1888,7 +1886,6 @@ function resetAll() {
   const defaults = {
     interestRate: 8.5,
     appreciation: 6, rentAppreciation: 5, maintenance: 0.5,
-    stockReturn: 12,
   };
   Object.entries(defaults).forEach(([id, val]) => { document.getElementById(id).value = val; });
   setHpInput('homePrice', 10000000);
@@ -1924,7 +1921,6 @@ let compareChart = null;
 const COMPARE_METRICS = [
   { key: 'monthly_emi',           label: 'Monthly EMI',        note: 'Your monthly outflow',                   fmt: fmt,    lowerWins: true  },
   { key: 'total_paid',            label: 'Total cash paid',    note: 'EMI + maintenance + down payment',        fmt: fmt,    lowerWins: true  },
-  { key: 'pv_outflow',            label: 'PV of outflows',     note: 'DCF-equivalent lump sum today',           fmt: fmt,    lowerWins: true  },
   { key: 'final_home_value',      label: 'Final home value',   note: 'Home equity at end of tenure',            fmt: fmt,    lowerWins: false },
   { key: 'net_gain',              label: 'Net gain',           note: 'Equity + rent saved − total paid',        fmt: fmt,    lowerWins: false },
   { key: 'roi_pct',               label: 'ROI (nominal)',      note: 'Total return on cash outflows',           fmt: fmtPct, lowerWins: false },
@@ -1942,7 +1938,6 @@ function getCompareInputs(p) {
     annual_appreciation: parseFloat(document.getElementById(p + '_appreciation').value),
     rent_appreciation:   parseFloat(document.getElementById(p + '_rentAppreciation').value),
     maintenance_pct:     parseFloat(document.getElementById(p + '_maintenance').value),
-    stock_return:        parseFloat(document.getElementById(p + '_stockReturn').value),
     benchmark_return:    getSelectedFund().cagr,
     tenure_years:        parseInt(document.getElementById(p + '_tenure').value),
     down_payment_pct:    parseFloat(document.getElementById(p + '_downPct').value),
@@ -1950,7 +1945,7 @@ function getCompareInputs(p) {
 }
 
 function copyFromCalculator() {
-  const fields = ['interestRate', 'appreciation', 'rentAppreciation', 'maintenance', 'stockReturn'];
+  const fields = ['interestRate', 'appreciation', 'rentAppreciation', 'maintenance'];
   fields.forEach(id => { document.getElementById('a_' + id).value = document.getElementById(id).value; });
   document.getElementById('a_homePrice').value = fmtHpInput(parseHpRs('homePrice'));
   document.getElementById('a_rent').value = parseHpRs('rent');
@@ -1961,7 +1956,7 @@ function copyFromCalculator() {
 }
 
 function copyAtoB() {
-  const fields = ['rent', 'interestRate', 'appreciation', 'rentAppreciation', 'maintenance', 'stockReturn'];
+  const fields = ['rent', 'interestRate', 'appreciation', 'rentAppreciation', 'maintenance'];
   fields.forEach(id => { document.getElementById('b_' + id).value = document.getElementById('a_' + id).value; });
   document.getElementById('b_homePrice').value = fmtHpInput(parseHpRs('a_homePrice'));
   document.getElementById('b_tenure').value  = document.getElementById('a_tenure').value;
@@ -2560,7 +2555,7 @@ function buildCalcContext() {
     `EMI: Rs ${emi}/month at ${r.interest_rate}% for ${r.tenure_years} years`,
     `Property appreciation: ${r.annual_appreciation}% per year`,
     `Rental yield: ${r.rental_yield}%`,
-    `Benchmark stock return: ${r.stock_return}%`,
+    `Comparison fund: ${r.benchmark_fund}`,
     `Total interest to bank: Rs ${interest}L over tenure`,
     `Estimated tax saving (yr 1): Rs ${Math.round(r.tax_saving).toLocaleString('en-IN')}`,
     `Annual return (IRR): ${r.irr != null ? r.irr.toFixed(2) + '% per year' : 'N/A'}`,
@@ -2919,7 +2914,6 @@ function buildShareUrl() {
     a:  document.getElementById('appreciation').value,
     ra: document.getElementById('rentAppreciation').value,
     m:  document.getElementById('maintenance').value,
-    sr: document.getElementById('stockReturn').value,
     t:  document.getElementById('tenure').value,
     dp: document.getElementById('downPct').value,
   });
@@ -2988,7 +2982,6 @@ function loadFromUrl() {
   setNum('appreciation',    'a');
   setNum('rentAppreciation','ra');
   setNum('maintenance',     'm');
-  setNum('stockReturn',     'sr');
 
   // Sliders with labels
   if (p.get('t')) {

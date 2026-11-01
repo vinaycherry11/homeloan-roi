@@ -32,7 +32,7 @@ module.exports = async function (req, res) {
       cells: downPayments.map(d => {
         const { summary } = runSimulation(
           home_price, monthly_rent, interest_rate, annual_appreciation,
-          rent_appreciation, maintenance_pct, stock_return, benchmark_return ?? stock_return, t, d
+          rent_appreciation, maintenance_pct, benchmark_return ?? stock_return ?? 12, t, d
         );
         return { down_pct: d, roi: Math.round(summary.roi_pct * 10) / 10, irr: summary.irr_pct, monthly_emi: summary.monthly_emi, is_current: t === current_tenure && d === current_down_pct };
       }),
