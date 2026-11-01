@@ -933,6 +933,7 @@ function fmt(n) {
   return s + '₹' + Math.round(a).toLocaleString('en-IN');
 }
 function fmtPct(n) { return (n >= 0 ? '+' : '') + n.toFixed(1) + '%'; }
+function fmtIrr(n) { return n == null ? 'n/a' : fmtPct(n); }
 
 /* ── Benchmark fund helper ── */
 function getSelectedFund() {
@@ -1041,9 +1042,9 @@ function renderResults(data, inputs, sensData) {
 
   // hero
   const heroEl = document.getElementById('heroRoi');
-  const heroRate = s.cagr_dcf_real_pct ?? s.cagr_dcf_pct;
-  heroEl.textContent = fmtPct(heroRate);
-  heroEl.className = 'hero-stat-num ' + (heroRate >= 0 ? 'positive' : 'negative');
+  const heroRate = s.irr_pct;
+  heroEl.textContent = heroRate == null ? '—' : fmtPct(heroRate);
+  heroEl.className = 'hero-stat-num ' + (heroRate == null ? '' : heroRate >= 0 ? 'positive' : 'negative');
 
   // show results section + jump nav + scroll hints
   document.getElementById('results').classList.remove('hidden');
@@ -1062,8 +1063,8 @@ function renderResults(data, inputs, sensData) {
     : `A renter who invests the difference ends up ${fmt(Math.abs(s.rent_vs_buy))} ahead of your home equity — the market beats this property.`;
 
   const cagrChip = document.getElementById('verdictCagr');
-  cagrChip.textContent = fmtPct(heroRate) + ' p.a. CAGR';
-  cagrChip.className = 'verdict-chip ' + (heroRate >= 0 ? 'pos' : 'neg');
+  cagrChip.textContent = heroRate == null ? 'Annual return n/a' : fmtPct(heroRate) + ' a year';
+  cagrChip.className = 'verdict-chip ' + (heroRate == null ? '' : heroRate >= 0 ? 'pos' : 'neg');
   document.getElementById('verdictRentSaved').textContent = fmt(s.cumulative_rent_saved) + ' rental income over tenure';
 
   // ── Loan summary strip (plain English) ──
@@ -1097,24 +1098,31 @@ function renderResults(data, inputs, sensData) {
     stock_return: inputs.stock_return,
     total_interest: totalInterestPaid,
     tax_saving: taxSaving,
-    cagr_dcf: s.cagr_dcf_pct,
+    irr: s.irr_pct,
     break_even_year: s.break_even_year,
     home_wealth_final: finalHomeVal,
     buying_wins: s.buying_wins,
     rent_vs_buy: s.rent_vs_buy,
   };
 
-  // ── DCF ──
-  // Row 1 — cash basis
-  set('kpiPvOut', fmt(s.cash_out_of_pocket), '', 'Down payment + net outflows where EMI+maint exceeded rent (nominal cash, not discounted)');
-  set('kpiWealth', fmt(s.wealth_return), s.wealth_return >= s.cash_out_of_pocket ? 'up' : 'down', 'Final equity + positive net cashflows when rent exceeded EMI+maint');
+  // ── Returns ──
+  const fund = getSelectedFund();
+  const headline = document.getElementById('returnsHeadline');
+  if (s.irr_pct == null) {
+    headline.textContent = `We couldn't work out a yearly return for these inputs. Compare the totals below with ${fund.label} in the Home vs Stock tab.`;
+  } else {
+    const gap = s.irr_pct - fund.cagr;
+    const verdict = Math.abs(gap) < 0.25
+      ? 'about the same'
+      : `<strong>${Math.abs(gap).toFixed(1)} points ${gap > 0 ? 'more' : 'less'}</strong> than the fund`;
+    headline.innerHTML = `Your home grows your money at <strong>${s.irr_pct.toFixed(1)}% a year</strong>. ` +
+      `${fund.label} would give ${fund.cagr}% a year, so the home earns ${verdict}.`;
+  }
+  set('kpiPvOut', fmt(s.cash_out_of_pocket), '', 'Down payment + months where EMI and maintenance cost more than rent');
+  set('kpiWealth', fmt(s.wealth_return), s.wealth_return >= s.cash_out_of_pocket ? 'up' : 'down', 'Home equity + months where rent was more than EMI and maintenance');
   const gain = s.wealth_return - s.cash_out_of_pocket;
-  const roiPct = s.cash_out_of_pocket > 0 ? (gain / s.cash_out_of_pocket * 100) : 0;
-  set('kpiGain', fmt(gain), gain >= 0 ? 'up' : 'down', (roiPct >= 0 ? '+' : '') + roiPct.toFixed(1) + '% return on cash out of pocket');
-  // Row 2 — DCF basis
-  set('kpiDown0', fmt(s.down_payment), '', 'Paid on day of purchase — already at present value, no discounting needed');
-  set('kpiPvOutflows', fmt(s.pv_outflows_only || 0), '', 'Monthly (EMI+maint−rent) where >0, discounted to Year 0 at ' + inputs.stock_return + '% benchmark');
-  set('kpiCagrDcf', fmtPct(s.cagr_dcf_real_pct ?? s.cagr_dcf_pct), (s.cagr_dcf_real_pct ?? s.cagr_dcf_pct) >= 0 ? 'up' : 'down', 'Wealth ÷ (down + PV outflows), annualised — compare to MF / FD rates (' + inputs.stock_return + '% benchmark)');
+  const multiple = s.cash_out_of_pocket > 0 ? s.wealth_return / s.cash_out_of_pocket : 0;
+  set('kpiGain', fmt(gain), gain >= 0 ? 'up' : 'down', `Every ₹1 you put in becomes ₹${multiple.toFixed(2)}`);
 
   // ── Home investing vs Stock investing ──
   const homeWealthFinal = s.wealth_return;
@@ -1131,7 +1139,7 @@ function renderResults(data, inputs, sensData) {
     lastSensData = sensData;
     lastSensInputs = inputs;
     initEmiFilters(sensData);
-    drawHeatmap('sensChartCagr', 'sensLegendCagr', sensData, 'cagr_dcf', 1, '%', inputs, null, null);
+    drawHeatmap('sensChartCagr', 'sensLegendCagr', sensData, 'irr', 1, '%', inputs, null, null);
   }
   buildInsights(data, inputs);
 
@@ -1719,7 +1727,7 @@ function drawHeatmap(canvasId, legendId, sensData, valueKey, decimals, suffix, i
   ctx.scale(dpr, dpr);
   ctx.clearRect(0, 0, W, H);
 
-  const allVals = rows.flatMap(r => r.cells.map(c => c[valueKey]));
+  const allVals = rows.flatMap(r => r.cells.map(c => c[valueKey])).filter(v => v != null);
   const minV = Math.min(...allVals);
   const maxV = Math.max(...allVals);
 
@@ -1747,7 +1755,7 @@ function drawHeatmap(canvasId, legendId, sensData, valueKey, decimals, suffix, i
       const alpha = emiInRange ? 1 : 0.18;
 
       ctx.globalAlpha = alpha;
-      ctx.fillStyle = cellColor(v);
+      ctx.fillStyle = v == null ? '#9ca3af' : cellColor(v);
       ctx.fillRect(x + 1, y + 1, CELL_W - 2, CELL_H - 2);
 
       if (cell.is_current) {
@@ -1761,7 +1769,7 @@ function drawHeatmap(canvasId, legendId, sensData, valueKey, decimals, suffix, i
       ctx.font = '600 12px "Inter", sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(v.toFixed(decimals) + suffix, x + CELL_W / 2, y + CELL_H / 2);
+      ctx.fillText(v == null ? '—' : v.toFixed(decimals) + suffix, x + CELL_W / 2, y + CELL_H / 2);
       ctx.globalAlpha = 1;
     });
   });
@@ -1815,7 +1823,7 @@ function drawHeatmap(canvasId, legendId, sensData, valueKey, decimals, suffix, i
   canvas.style.cursor = 'crosshair';
   const tt = document.getElementById('heatmapTooltip');
   if (!tt) return;
-  const metricLabel = valueKey === 'cagr_dcf' ? 'CAGR (DCF)' : 'ROI';
+  const metricLabel = valueKey === 'irr' ? 'Annual return' : 'ROI';
 
   function showTt(show) { tt.style.display = show ? 'block' : 'none'; }
 
@@ -1843,7 +1851,7 @@ function drawHeatmap(canvasId, legendId, sensData, valueKey, decimals, suffix, i
           : Math.round(loan / n);
       }
       const emi = (emiVal != null) ? fmt(emiVal) : '—';
-      const val = cell[valueKey].toFixed(decimals) + suffix;
+      const val = cell[valueKey] == null ? 'n/a' : cell[valueKey].toFixed(decimals) + suffix;
 
       tt.innerHTML = `
         <div class="hm-tt-emi">${emi}</div>
@@ -1920,7 +1928,7 @@ const COMPARE_METRICS = [
   { key: 'final_home_value',      label: 'Final home value',   note: 'Home equity at end of tenure',            fmt: fmt,    lowerWins: false },
   { key: 'net_gain',              label: 'Net gain',           note: 'Equity + rent saved − total paid',        fmt: fmt,    lowerWins: false },
   { key: 'roi_pct',               label: 'ROI (nominal)',      note: 'Total return on cash outflows',           fmt: fmtPct, lowerWins: false },
-  { key: 'cagr_dcf_pct',          label: 'CAGR (DCF)',         note: 'Annualised, PV-adjusted — compare to MFs',fmt: fmtPct, lowerWins: false },
+  { key: 'irr_pct',               label: 'Annual return',      note: 'Yearly return (IRR) — compare to funds',  fmt: fmtIrr, lowerWins: false },
   { key: 'cumulative_rent_saved', label: 'Rent saved',         note: 'Total rent avoided over tenure',          fmt: fmt,    lowerWins: false },
   { key: 'rent_vs_buy',           label: 'Buy vs rent edge',   note: 'Home equity minus renter portfolio',      fmt: fmt,    lowerWins: false },
   { key: 'break_even_year',       label: 'Break-even year',    note: 'Equity + rent saved ≥ total paid',        fmt: v => v ? 'Year ' + v : 'Never', lowerWins: true },
@@ -2022,7 +2030,7 @@ function renderComparison(dataA, dataB, inA, inB) {
       <div class="winner-icon">${winner === 'A' ? '🏆' : '🥇'}</div>
       <div class="winner-text">
         Property <strong>${winner}</strong> is the stronger investment
-        <span class="winner-sub">Wins <strong>${wins} of ${total}</strong> metrics · CAGR ${winner === 'A' ? fmtPct(sA.cagr_dcf_pct) : fmtPct(sB.cagr_dcf_pct)} vs ${winner === 'A' ? fmtPct(sB.cagr_dcf_pct) : fmtPct(sA.cagr_dcf_pct)}</span>
+        <span class="winner-sub">Wins <strong>${wins} of ${total}</strong> metrics · Annual return ${fmtIrr(winner === 'A' ? sA.irr_pct : sB.irr_pct)} vs ${fmtIrr(winner === 'A' ? sB.irr_pct : sA.irr_pct)}</span>
       </div>`;
   } else {
     banner.innerHTML = `<div class="winner-icon">⚖️</div><div class="winner-text"><strong>Too close to call</strong><span class="winner-sub">Both properties tied on ${total} metrics</span></div>`;
@@ -2260,7 +2268,7 @@ const GUIDE_CONTENT = {
       <p>A Nifty SIP can be redeemed in 2 days. Selling a property takes 2–6 months, costs 1–3% in transaction fees, and may require capital gains tax (LTCG at 20% with indexation after 2 years). Factor this illiquidity premium into your comparison.</p>
 
       <h3>Use GoWinDhan to model your scenario</h3>
-      <p>The calculator gives you the exact DCF-adjusted CAGR for your inputs — this is the apples-to-apples number to compare against your SIP return expectation.</p>
+      <p>The calculator gives you the exact annual return (IRR) for your inputs — this is the apples-to-apples number to compare against your SIP return expectation.</p>
       <div class="guide-modal-cta">
         <button class="cta-primary" onclick="switchToTab('calc'); closeGuideModal()">Run the comparison</button>
         <button class="cta-secondary" onclick="closeGuideModal()">Close</button>
@@ -2555,7 +2563,7 @@ function buildCalcContext() {
     `Benchmark stock return: ${r.stock_return}%`,
     `Total interest to bank: Rs ${interest}L over tenure`,
     `Estimated tax saving (yr 1): Rs ${Math.round(r.tax_saving).toLocaleString('en-IN')}`,
-    `DCF-adjusted CAGR: ${r.cagr_dcf !== undefined ? r.cagr_dcf.toFixed(2) : 'N/A'}% p.a.`,
+    `Annual return (IRR): ${r.irr != null ? r.irr.toFixed(2) + '% per year' : 'N/A'}`,
     `Break-even year: ${r.break_even_year || 'beyond tenure'}`,
     `Home wealth at end of tenure: Rs ${homeVal} Cr`,
     `Verdict: ${r.buying_wins ? 'Buying wins' : 'Renting + investing wins'} by Rs ${Math.round(Math.abs(r.rent_vs_buy)).toLocaleString('en-IN')}`,
@@ -2627,7 +2635,7 @@ function initEmiFilters(sensData) {
       if (lo > hi) { minEl.value = hi; return; }
       if (minVal) minVal.textContent = fmt(lo);
       if (maxVal) maxVal.textContent = fmt(hi);
-      drawHeatmap('sensChartCagr', 'sensLegendCagr', lastSensData, 'cagr_dcf', 1, '%', lastSensInputs, lo, hi);
+      drawHeatmap('sensChartCagr', 'sensLegendCagr', lastSensData, 'irr', 1, '%', lastSensInputs, lo, hi);
     }
     minEl.addEventListener('input', onFilterChange);
     maxEl.addEventListener('input', onFilterChange);

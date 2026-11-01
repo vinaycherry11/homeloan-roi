@@ -5,6 +5,21 @@ function calcEmi(principal, annualRate, years) {
   return (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
 }
 
+// Annual internal rate of return (%) for monthly cash flows, flows[0] at t=0.
+// Returns null when no rate in roughly -46%..+214%/yr makes the NPV zero.
+function irrAnnualPct(flows) {
+  const npv = r => flows.reduce((sum, f, i) => sum + f / Math.pow(1 + r, i), 0);
+  let lo = -0.05, hi = 0.10;
+  let npvLo = npv(lo);
+  if (npvLo * npv(hi) > 0) return null;
+  for (let i = 0; i < 100; i++) {
+    const mid = (lo + hi) / 2;
+    const npvMid = npv(mid);
+    if (npvMid * npvLo > 0) { lo = mid; npvLo = npvMid; } else hi = mid;
+  }
+  return (Math.pow(1 + (lo + hi) / 2, 12) - 1) * 100;
+}
+
 function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentAppreciation, maintenancePct, stockReturn, benchmarkReturn, tenure, downPct) {
   const down = homePrice * downPct / 100;
   const loan = homePrice - down;
@@ -35,6 +50,8 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
   const monthlyCfY1 = monthlyRent - monthlyEmi - monthlyMaintY1;
   let cumNetCf = 0;
   let cfPositiveYear = null;
+  // Buyer's cash flows for the IRR: avoided rent counts as income, equity is the exit value.
+  const monthlyFlows = [-down];
 
   for (let y = 1; y <= tenure; y++) {
     let yearPrincipal = 0, yearInterest = 0, yearMaint = 0, yearRent = 0, yearOutflowInvested = 0;
@@ -52,6 +69,7 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
       cumRent += curRent;
       yearRent += curRent;
       const netOutflow = (monthlyEmi + maint) - curRent;
+      monthlyFlows.push(-netOutflow);
       pvOutflow += netOutflow / Math.pow(1 + discR, monthNum);
       if (netOutflow > 0) { cashOutOfPocket += netOutflow; pvOutflowsOnly += netOutflow / Math.pow(1 + discR, monthNum); }
       else netWealthInflow += (-netOutflow);
@@ -104,6 +122,8 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
   }
 
   const finalEquity = equityArr[equityArr.length - 1];
+  monthlyFlows[monthlyFlows.length - 1] += homeVal - loanBal;
+  const irr = irrAnnualPct(monthlyFlows);
   const finalRenter = renterArr[renterArr.length - 1];
   const finalSnp = snpArr[snpArr.length - 1];
   const totalPaid = costArr[costArr.length - 1];
@@ -145,6 +165,7 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
       pv_outflows_only: Math.round(pvOutflowsOnly),
       pv_cash_out: Math.round(pvCashOut),
       cagr_dcf_real_pct: Math.round(cagrDcfReal * 10000) / 100,
+      irr_pct: irr === null ? null : Math.round(irr * 100) / 100,
       rent_vs_buy: Math.round(rentVsBuy),
       final_snp_portfolio: Math.round(finalSnp),
       home_net_gain: Math.round(homeNetGain),

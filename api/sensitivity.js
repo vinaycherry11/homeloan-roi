@@ -34,7 +34,7 @@ module.exports = async function (req, res) {
           home_price, monthly_rent, interest_rate, annual_appreciation,
           rent_appreciation, maintenance_pct, stock_return, benchmark_return ?? stock_return, t, d
         );
-        return { down_pct: d, roi: Math.round(summary.roi_pct * 10) / 10, cagr_dcf: summary.cagr_dcf_pct, monthly_emi: summary.monthly_emi, is_current: t === current_tenure && d === current_down_pct };
+        return { down_pct: d, roi: Math.round(summary.roi_pct * 10) / 10, irr: summary.irr_pct, monthly_emi: summary.monthly_emi, is_current: t === current_tenure && d === current_down_pct };
       }),
     }));
 

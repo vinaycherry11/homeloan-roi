@@ -45,7 +45,7 @@
   "featureList": [
     "Home loan EMI calculator",
     "Buy vs rent comparison",
-    "DCF-adjusted CAGR analysis",
+    "Annual return (IRR) analysis",
     "S&P 500 SIP vs home wealth comparison",
     "City and locality-wise property appreciation presets",
     "Sensitivity heatmaps for tenure and down payment",
@@ -83,7 +83,7 @@
       "name": "How do I calculate home loan ROI in India?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Enter the home price, loan interest rate, down payment percentage, monthly rent, and expected property appreciation. GoWinDhan computes DCF-adjusted CAGR, break-even year, total interest paid, and compares your home wealth against an equivalent S&P 500 SIP investment."
+        "text": "Enter the home price, loan interest rate, down payment percentage, monthly rent, and expected property appreciation. GoWinDhan computes your annual return (IRR), break-even year, total interest paid, and compares your home wealth against an equivalent S&P 500 SIP investment."
       }
     },
     {
@@ -319,7 +319,7 @@
       <h1>Does buying your home <em>actually</em> pay off?</h1>
       <p>Enter your property details and get a plain-English answer: is buying smarter than renting — or would you be better off investing that money?</p>
       <ul class="hero-bullets">
-        <li>Real CAGR vs mutual fund returns — not just EMI math</li>
+        <li>Annual return vs mutual fund returns — not just EMI math</li>
         <li>Find the exact year buying overtakes stock investing</li>
         <li>160+ localities across 8 Indian cities, completely free</li>
       </ul>
@@ -327,9 +327,9 @@
     <div class="hero-prop-wrap">
       <!-- CAGR stat -->
       <div class="hero-stat-box">
-        <div class="hero-stat-eyebrow">Projected CAGR</div>
+        <div class="hero-stat-eyebrow">Projected return</div>
         <div class="hero-stat-num" id="heroRoi">—</div>
-        <div class="hero-stat-foot">DCF-adjusted · p.a.</div>
+        <div class="hero-stat-foot">per year (IRR)</div>
       </div>
 
       <!-- Isometric building + appreciation chart -->
@@ -712,48 +712,30 @@
           <!-- RETURNS -->
           <div class="result-pane" id="pane-returns">
             <div class="kpi-section-label lbl-dcf" id="sec-dcf">Investment returns</div>
-            <div class="kpi-row-header">
-              <span class="kpi-row-title">Cash basis</span>
-              <span class="kpi-row-sub">What you actually paid vs what you got back</span>
-            </div>
+            <p class="returns-headline" id="returnsHeadline">—</p>
             <div class="kpi-grid">
               <div class="kpi a-gold">
-                <div class="kpi-label">Cash out of pocket <span class="kpi-abbr">invested</span></div>
+                <div class="kpi-label">Money you put in</div>
                 <div class="kpi-value" id="kpiPvOut">—</div>
-                <div class="kpi-sub" id="kpiPvOutSub">Down payment + net outflows where EMI+maint exceeded rent</div>
+                <div class="kpi-sub" id="kpiPvOutSub">Down payment + months where EMI and maintenance cost more than rent</div>
               </div>
               <div class="kpi a-gold">
-                <div class="kpi-label">Total wealth <span class="kpi-abbr">returned</span></div>
+                <div class="kpi-label">What you end with</div>
                 <div class="kpi-value" id="kpiWealth">—</div>
-                <div class="kpi-sub" id="kpiWealthSub">Final equity + positive net cashflows when rent exceeded EMI+maint</div>
+                <div class="kpi-sub" id="kpiWealthSub">Home equity + months where rent was more than EMI and maintenance</div>
               </div>
               <div class="kpi a-gold">
-                <div class="kpi-label">Net gain <span class="kpi-abbr">ROI</span></div>
+                <div class="kpi-label">Profit</div>
                 <div class="kpi-value" id="kpiGain">—</div>
-                <div class="kpi-sub" id="kpiGainSub">Wealth − invested · return on cash out of pocket</div>
+                <div class="kpi-sub" id="kpiGainSub">What you end with − money you put in</div>
               </div>
             </div>
-            <div class="kpi-row-header" style="margin-top:12px">
-              <span class="kpi-row-title">DCF basis</span>
-              <span class="kpi-row-sub">Outflows discounted to Year 0 — this gives the real time-adjusted CAGR</span>
-            </div>
-            <div class="kpi-grid">
-              <div class="kpi a-blue">
-                <div class="kpi-label">Down payment <span class="kpi-abbr">Year 0</span></div>
-                <div class="kpi-value" id="kpiDown0">—</div>
-                <div class="kpi-sub">Paid on day of purchase — already at present value</div>
-              </div>
-              <div class="kpi a-blue">
-                <div class="kpi-label">PV of net outflows <span class="kpi-abbr">discounted</span></div>
-                <div class="kpi-value" id="kpiPvOutflows">—</div>
-                <div class="kpi-sub" id="kpiPvOutflowsSub">Monthly (EMI+maint−rent) where &gt;0, discounted to Year 0 at benchmark rate</div>
-              </div>
-              <div class="kpi a-blue">
-                <div class="kpi-label">Real CAGR <span class="kpi-abbr">DCF-adjusted</span></div>
-                <div class="kpi-value" id="kpiCagrDcf">—</div>
-                <div class="kpi-sub" id="kpiCagrDcfSub">Wealth ÷ (down + PV outflows), annualised — compare to MF / FD rates</div>
-              </div>
-            </div>
+            <details class="returns-how">
+              <summary>How is the annual return calculated?</summary>
+              <p>We treat the home as an investment. On day 1 you pay the down payment. Every month after that, EMI and maintenance go out and the rent you no longer pay counts as coming in. At the end you keep the home's value minus any loan left.</p>
+              <p>The annual return (IRR) is the yearly rate at which those exact amounts, on those exact dates, would grow into what you end with. It allows for timing, so a rupee paid in year 15 weighs less than one paid today. That's why you can compare it directly with a fund's yearly return.</p>
+              <p>It doesn't include stamp duty, registration, brokerage, tax deductions or selling costs.</p>
+            </details>
           </div>
 
           <!-- INVESTMENT CHART -->
@@ -863,8 +845,8 @@
           <div class="result-pane" id="pane-scenarios">
             <div class="insight-grid" id="insightGrid"></div>
             <div class="panel" id="sec-heatmaps">
-              <div class="panel-title">CAGR % (DCF-adjusted) — Tenure × Down payment</div>
-              <p class="sens-note">Annualised return on cash out of pocket. Compare directly to MF returns. <em>White border</em> = your selection.</p>
+              <div class="panel-title">Annual return % — Tenure × Down payment</div>
+              <p class="sens-note">Yearly return (IRR) for each loan length and down payment. Compare directly to fund returns. <em>White border</em> = your selection.</p>
               <div class="emi-filter-bar" id="emiFilterCagr">
                 <div class="emi-filter-head">Filter by EMI range</div>
                 <div class="emi-filter-sliders">
@@ -881,7 +863,7 @@
                 </div>
               </div>
               <div class="sens-chart-wrap">
-                <canvas id="sensChartCagr" role="img" aria-label="DCF CAGR heatmap"></canvas>
+                <canvas id="sensChartCagr" role="img" aria-label="Annual return heatmap"></canvas>
               </div>
               <div class="sens-legend" id="sensLegendCagr"></div>
             </div>
@@ -1565,7 +1547,7 @@
     <strong>GoWinDhan</strong> — Free Home Loan ROI &amp; Buy vs Rent Calculator for India
   </div>
   <div class="footer-desc">
-    Analyse home loan returns with DCF-adjusted CAGR, EMI breakdowns, break-even analysis,
+    Analyse home loan returns with annual return (IRR), EMI breakdowns, break-even analysis,
     and a direct comparison of home wealth vs S&amp;P 500 SIP investment.
     Covers 160+ localities across Hyderabad, Bangalore, Mumbai, Pune, Delhi&nbsp;NCR, Chennai, Kolkata and Ahmedabad
     using blended 10-year property appreciation trend data (2014–2024).
