@@ -1,6 +1,5 @@
 /* ── State ── */
-let costChart = null, sensHeatmap = null, cashflowChart = null, investWealthChartObj = null, iwOutflowChartObj = null;
-let outflowPieChart = null, returnsPieChart = null;
+let costChart = null, sensHeatmap = null, investWealthChartObj = null, iwOutflowChartObj = null;
 let chatHistory = [];
 let lastCalcResult = null;
 let chatOpen = false;
@@ -289,7 +288,7 @@ updateHomePriceFmt();
 
   const PANES = [
     'pane-verdict','pane-returns','pane-chart','pane-hvs',
-    'pane-cashflow','pane-breakdown','pane-schedule','pane-benchmarks','pane-scenarios'
+    'pane-schedule','pane-scenarios'
   ];
 
   function activatePane(id) {
@@ -1126,8 +1125,6 @@ function renderResults(data, inputs, sensData) {
 
   drawInvestmentWealthChart(data.amortisation, s.down_payment);
   drawCostChart(data.amortisation);
-  drawPieCharts(data);
-  drawCashflowChart(data.amortisation);
   buildAmortTable(data.amortisation, s.break_even_year);
   buildHomeVsStockTable(data.amortisation, s);
   if (sensData) {
@@ -1136,7 +1133,6 @@ function renderResults(data, inputs, sensData) {
     initEmiFilters(sensData);
     drawHeatmap('sensChartCagr', 'sensLegendCagr', sensData, 'cagr_dcf', 1, '%', inputs, null, null);
   }
-  drawBenchmarks(s, inputs);
   buildInsights(data, inputs);
 
   const _resultsEl = document.getElementById('results');
@@ -1879,221 +1875,11 @@ function drawHeatmap(canvasId, legendId, sensData, valueKey, decimals, suffix, i
   canvas.addEventListener('mouseleave', onMouseLeave);
 }
 
-/* ── Pie charts: outflow breakdown & returns breakdown ── */
-function drawPieCharts(data) {
-  const s = data.summary;
-  const yd = data.amortisation;
-
-  const totalInterest  = Math.round(yd.reduce((a, d) => a + d.interest,    0));
-  const totalPrincipal = Math.round(yd.reduce((a, d) => a + d.principal,   0));
-  const totalMaint     = Math.round(yd.reduce((a, d) => a + d.maintenance, 0));
-
-  // Center-text plugin (inline local plugin, no global registration needed)
-  const centerTextPlugin = {
-    id: 'centerText',
-    afterDraw(chart, _args, opts) {
-      if (!opts || !opts.lines) return;
-      const { ctx, chartArea: { left, right, top, bottom } } = chart;
-      const cx = (left + right) / 2, cy = (top + bottom) / 2;
-      ctx.save();
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      opts.lines.forEach((line, i) => {
-        ctx.fillStyle = line.color || '#0f172a';
-        ctx.font = `${line.weight || '600'} ${line.size || 13}px Inter, sans-serif`;
-        const offset = (i - (opts.lines.length - 1) / 2) * (line.gap || 18);
-        ctx.fillText(line.text, cx, cy + offset);
-      });
-      ctx.restore();
-    },
-  };
-
-  function makeDoughnut(canvasId, items, total, centerLines) {
-    return new Chart(document.getElementById(canvasId), {
-      type: 'doughnut',
-      plugins: [centerTextPlugin],
-      data: {
-        labels: items.map(d => d.label),
-        datasets: [{
-          data: items.map(d => d.value),
-          backgroundColor: items.map(d => d.color),
-          borderColor: '#ffffff',
-          borderWidth: 2.5,
-          hoverBorderColor: '#ffffff',
-          hoverBorderWidth: 3,
-          hoverOffset: 12,
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        cutout: '67%',
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            backgroundColor: '#1e293b',
-            titleColor: '#e2e8f0',
-            bodyColor: '#94a3b8',
-            padding: 10,
-            cornerRadius: 8,
-            callbacks: {
-              label: c => '  ' + c.label + ': ' + fmt(c.parsed) + '  (' + (c.parsed / total * 100).toFixed(1) + '%)',
-            },
-          },
-          centerText: { lines: centerLines },
-        },
-        animation: { animateRotate: true, duration: 700, easing: 'easeInOutQuart' },
-      },
-    });
-  }
-
-  // ── Outflow pie ──
-  const outItems = [
-    { label: 'Down payment',    value: s.down_payment,  color: '#5580A8' },
-    { label: 'Interest paid',   value: totalInterest,   color: '#B55C62' },
-    { label: 'Principal repaid', value: totalPrincipal, color: '#4D8E72' },
-    { label: 'Maintenance',     value: totalMaint,      color: '#B5883C' },
-  ];
-  const totalOut = outItems.reduce((a, d) => a + d.value, 0);
-  document.getElementById('outflowPieSub').textContent = 'Total paid: ' + fmt(totalOut);
-  if (outflowPieChart) outflowPieChart.destroy();
-  outflowPieChart = makeDoughnut('outflowPie', outItems, totalOut, [
-    { text: fmt(totalOut), size: 13, weight: '700', color: '#0f172a', gap: 18 },
-    { text: 'total paid',  size: 10, weight: '400', color: '#94a3b8', gap: 18 },
-  ]);
-  document.getElementById('outflowLegend').innerHTML = outItems.map(d => `
-    <div class="pie-leg-item">
-      <span class="pie-dot" style="background:${d.color}"></span>
-      <div class="pie-leg-info">
-        <div class="pie-leg-label">${d.label}</div>
-        <div class="pie-leg-stats">${(d.value / totalOut * 100).toFixed(1)}% &middot; ${fmt(d.value)}</div>
-      </div>
-    </div>`).join('');
-
-  // ── Returns pie ──
-  let surplusGain = (s.surplus_growth != null) ? s.surplus_growth : Math.max(0, (s.surplus_snp_final || 0) - (s.surplus_invested || 0));
-  if (surplusGain === 0 && yd.some(d => d.annual_net_cf > 0)) {
-    const SNP_R      = 10.5 / 12 / 100;
-    const SNP_ANNUAL = Math.pow(1 + SNP_R, 12);
-    let clientSip = 0, clientInvested = 0;
-    yd.forEach(d => {
-      const surplus = Math.max(0, d.annual_net_cf);
-      clientInvested += surplus;
-      clientSip = clientSip * SNP_ANNUAL + surplus / 12 * (SNP_ANNUAL - 1) / SNP_R;
-    });
-    surplusGain = Math.max(0, Math.round(clientSip - clientInvested));
-  }
-  const retItems = [
-    { label: 'Home equity',   value: s.final_home_value,      color: '#5580A8' },
-    { label: 'Rental income', value: s.cumulative_rent_saved, color: '#4D8E72' },
-  ];
-  if (surplusGain > 0) retItems.push({ label: 'S&P SIP gain', value: surplusGain, color: '#7970A2' });
-  const totalReturns = retItems.reduce((a, d) => a + d.value, 0);
-  document.getElementById('returnsPieSub').textContent = 'Total returns: ' + fmt(totalReturns);
-  if (returnsPieChart) returnsPieChart.destroy();
-  returnsPieChart = makeDoughnut('returnsPie', retItems, totalReturns, [
-    { text: fmt(totalReturns),  size: 13, weight: '700', color: '#0f172a', gap: 18 },
-    { text: 'total returns',    size: 10, weight: '400', color: '#94a3b8', gap: 18 },
-  ]);
-  document.getElementById('returnsLegend').innerHTML = retItems.map(d => `
-    <div class="pie-leg-item">
-      <span class="pie-dot" style="background:${d.color}"></span>
-      <div class="pie-leg-info">
-        <div class="pie-leg-label">${d.label}</div>
-        <div class="pie-leg-stats">${(d.value / totalReturns * 100).toFixed(1)}% &middot; ${fmt(d.value)}</div>
-      </div>
-    </div>`).join('');
-}
-
-
-function drawCashflowChart(yearData) {
-  // Compute SIP portfolio client-side (post-crossover surplus reinvested monthly)
-  const SNP_R = 10.5 / 12 / 100;
-  const SNP_ANNUAL = Math.pow(1 + SNP_R, 12);
-  let clientSip = 0;
-  const sipValues = yearData.map(d => {
-    const surplus = Math.max(0, d.annual_net_cf);
-    clientSip = clientSip * SNP_ANNUAL + surplus / 12 * (SNP_ANNUAL - 1) / SNP_R;
-    return (d.surplus_snp_value > 0) ? d.surplus_snp_value : Math.round(clientSip);
-  });
-  const hasSipData = sipValues.some(v => v > 0);
-
-  if (cashflowChart) cashflowChart.destroy();
-  const datasets = [
-    {
-      label: 'Rent received',
-      data: yearData.map(d => d.rent_saved_year),
-      backgroundColor: 'rgba(77,142,114,0.55)',
-      borderColor: '#4D8E72', borderWidth: 0, borderRadius: 5, borderSkipped: false,
-      yAxisID: 'y',
-    },
-    {
-      label: 'EMI + maintenance',
-      data: yearData.map(d => d.emi_paid + d.maintenance),
-      backgroundColor: 'rgba(181,92,98,0.5)',
-      borderColor: '#B55C62', borderWidth: 0, borderRadius: 5, borderSkipped: false,
-      yAxisID: 'y',
-    },
-    {
-      type: 'line',
-      label: 'Cumulative net cash flow',
-      data: yearData.map(d => d.cum_net_cf),
-      borderColor: '#5580A8', backgroundColor: 'transparent',
-      tension: 0.4, pointRadius: 0, pointHoverRadius: 5, pointHoverBackgroundColor: '#5580A8', borderWidth: 2.5,
-      borderDash: [6, 3], yAxisID: 'y2',
-    },
-  ];
-  if (hasSipData) {
-    datasets.push({
-      type: 'line',
-      label: 'SIP portfolio (S&P 500)',
-      data: sipValues,
-      borderColor: '#7970A2', backgroundColor: 'rgba(121,112,162,0.08)',
-      tension: 0.4, pointRadius: 0, pointHoverRadius: 5, pointHoverBackgroundColor: '#7970A2', borderWidth: 2,
-      fill: true, yAxisID: 'y2',
-    });
-  }
-  cashflowChart = new Chart(document.getElementById('cashflowChart'), {
-    type: 'bar',
-    plugins: [GRADIENT_PLUGIN],
-    data: {
-      labels: yearData.map(d => 'Yr ' + d.year),
-      datasets,
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      animation: { duration: 700, easing: 'easeInOutQuart' },
-      interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: 'rgba(20,27,40,0.92)', titleColor: '#e2e8f0', bodyColor: '#94a3b8',
-          padding: 12, cornerRadius: 10, boxPadding: 5,
-          callbacks: { label: c => '  ' + c.dataset.label + '  ' + fmt(c.parsed.y) },
-        },
-      },
-      scales: {
-        x: { grid: { display: false }, ticks: { color: '#9ba3ae', font: { size: 10 }, maxTicksLimit: 12 } },
-        y: {
-          grid: { color: 'rgba(0,0,0,0.03)' },
-          ticks: { color: '#9ba3ae', font: { size: 11 }, callback: v => fmt(v) },
-          title: { display: true, text: 'Annual ₹', font: { size: 10, weight: '500' }, color: '#9ba3ae' },
-        },
-        y2: {
-          position: 'right', grid: { display: false },
-          ticks: { color: '#5580A8', font: { size: 11 }, callback: v => fmt(v) },
-          title: { display: true, text: 'Cumulative ₹', font: { size: 10, weight: '500' }, color: '#5580A8' },
-        },
-      },
-    },
-  });
-}
-
 /* ── Reset ── */
 function resetAll() {
   const defaults = {
     interestRate: 8.5,
-    appreciation: 6, rentAppreciation: 5, maintenance: 1,
+    appreciation: 6, rentAppreciation: 5, maintenance: 0.5,
     stockReturn: 12,
   };
   Object.entries(defaults).forEach(([id, val]) => { document.getElementById(id).value = val; });
@@ -2111,15 +1897,9 @@ function resetAll() {
   document.getElementById('resultsJumpNav').classList.remove('visible');
   document.getElementById('apiError').classList.add('hidden');
   document.getElementById('insightGrid').innerHTML = '';
-  const bmi = document.getElementById('benchmarkInsight');
-  if (bmi) { bmi.innerHTML = ''; bmi.style.display = 'none'; }
   if (investWealthChartObj) { investWealthChartObj.destroy(); investWealthChartObj = null; }
   if (iwOutflowChartObj)   { iwOutflowChartObj.destroy();   iwOutflowChartObj = null; }
   if (costChart)       { costChart.destroy();       costChart = null; }
-  if (cashflowChart)   { cashflowChart.destroy();   cashflowChart = null; }
-  if (outflowPieChart) { outflowPieChart.destroy(); outflowPieChart = null; }
-  if (returnsPieChart) { returnsPieChart.destroy(); returnsPieChart = null; }
-  if (benchmarkChart)  { benchmarkChart.destroy();  benchmarkChart = null; }
   ['sensChartCagr'].forEach(id => {
     const c = document.getElementById(id);
     if (c) c.getContext('2d').clearRect(0, 0, c.width, c.height);
@@ -2128,144 +1908,6 @@ function resetAll() {
     const l = document.getElementById(id); if (l) l.innerHTML = '';
   });
   updateLiveEmi();
-}
-
-/* ── Benchmark comparison ── */
-let benchmarkChart = null;
-
-const BENCHMARKS = [
-  { label: 'S&P 500',       cagr: 10.5, color: '#6DA4C4', note: '30yr avg · USD',       home: false },
-  { label: 'Nifty 50',      cagr: 12.0, color: '#7970A2', note: '20yr avg · INR',        home: false },
-  { label: 'Large Cap MF',  cagr: 13.0, color: '#8B7EB8', note: 'Hist. avg · India',     home: false },
-  { label: 'Bank FD',       cagr:  7.0, color: '#8E9BAA', note: 'Current rate',          home: false },
-  { label: 'PPF',           cagr:  7.1, color: '#7A8B96', note: 'Govt. guaranteed rate', home: false },
-];
-
-function drawBenchmarks(summary, inputs) {
-  const pv  = summary.pv_outflow;
-  const n   = inputs.tenure_years;
-  const homeBenefit = summary.final_home_value + summary.cumulative_rent_saved;
-  const homeCagr    = summary.cagr_dcf_pct;
-
-  // Build rows: benchmarks + home
-  const rows = BENCHMARKS.map(bm => ({
-    ...bm,
-    finalValue: pv * Math.pow(1 + bm.cagr / 100, n),
-  }));
-  rows.push({ label: 'Home buying', cagr: homeCagr, color: '#5580A8', note: 'DCF-adj. CAGR · incl. rent saved', home: true, finalValue: homeBenefit });
-
-  // Sort descending by final value
-  rows.sort((a, b) => b.finalValue - a.finalValue);
-
-  // Update header text
-  document.getElementById('bmCapital').textContent = fmt(pv);
-  document.getElementById('bmTenure').textContent  = n;
-
-  // ── Chart ──
-  if (benchmarkChart) benchmarkChart.destroy();
-  benchmarkChart = new Chart(document.getElementById('benchmarkChart'), {
-    type: 'bar',
-    data: {
-      labels: rows.map(r => r.label),
-      datasets: [{
-        data: rows.map(r => r.finalValue),
-        backgroundColor: rows.map(r => r.home ? r.color + 'e0' : r.color + 'a0'),
-        borderColor:     rows.map(r => r.color),
-        borderWidth: rows.map(r => r.home ? 2 : 1),
-        borderRadius: 7,
-        borderSkipped: false,
-      }],
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true, maintainAspectRatio: false,
-      animation: { duration: 800, easing: 'easeInOutQuart' },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: 'rgba(20,27,40,0.92)', titleColor: '#e2e8f0', bodyColor: '#94a3b8',
-          padding: 12, cornerRadius: 10, boxPadding: 5,
-          callbacks: {
-            title: c => rows[c[0].dataIndex]?.label,
-            label: c => {
-              const r = rows[c.dataIndex];
-              return ['  Final value  ' + fmt(c.parsed.x), '  CAGR  ' + r.cagr.toFixed(1) + '%  ·  ' + r.note];
-            },
-          },
-        },
-      },
-      scales: {
-        x: {
-          grid: { color: 'rgba(0,0,0,0.03)' },
-          ticks: { color: '#9ba3ae', font: { size: 11 }, callback: v => fmt(v) },
-        },
-        y: {
-          grid: { display: false },
-          ticks: {
-            color: r => rows[r.index]?.home ? '#5580A8' : '#4a5568',
-            font: r => ({ size: 12, weight: rows[r.index]?.home ? '700' : '500', family: "'Inter', sans-serif" }),
-          },
-        },
-      },
-    },
-  });
-
-  // ── Table ──
-  let html = `<thead><tr>
-    <th>#</th><th>Asset</th><th>CAGR</th><th>Final value</th><th>vs Home</th>
-  </tr></thead><tbody>`;
-
-  const homeVal = homeBenefit;
-  rows.forEach((r, i) => {
-    const rank   = i + 1;
-    const delta  = r.finalValue - homeVal;
-    const isHome = r.home;
-    const rankCls = isHome ? 'home-rank' : rank <= 3 ? `rank-${rank}` : '';
-    const deltaTxt = isHome ? '<span class="bm-delta neu">—</span>'
-      : delta >= 0
-        ? `<span class="bm-delta pos">+${fmt(delta)}</span>`
-        : `<span class="bm-delta neg">−${fmt(Math.abs(delta))}</span>`;
-    const cagrColor = r.cagr >= homeCagr ? 'color:var(--emerald)' : r.home ? '' : 'color:var(--rose)';
-
-    html += `<tr class="${isHome ? 'bm-home' : ''}">
-      <td class="bm-rank"><span class="rank-badge ${rankCls}">${rank}</span></td>
-      <td>
-        <div class="bm-asset">
-          <span class="bm-dot" style="background:${r.color}"></span>
-          <span class="bm-label">${r.label}</span>
-          <span class="bm-note">${r.note}</span>
-        </div>
-      </td>
-      <td class="bm-cagr" style="${cagrColor}">${r.cagr.toFixed(1)}%</td>
-      <td class="bm-val">${fmt(r.finalValue)}</td>
-      <td>${deltaTxt}</td>
-    </tr>`;
-  });
-  html += '</tbody>';
-  document.getElementById('benchmarkTable').innerHTML = html;
-
-  // Auto-generated benchmark insight
-  const homeIdx  = rows.findIndex(r => r.home);
-  const homeRank = homeIdx + 1;
-  const total    = rows.length;
-  const trails   = rows.slice(0, homeIdx).filter(r => !r.home).map(r => r.label);
-  const beats    = rows.slice(homeIdx + 1).filter(r => !r.home).map(r => r.label);
-  const inEl      = document.getElementById('benchmarkInsight');
-  let insightTxt  = `Home buying ranks <strong>#${homeRank} of ${total}</strong> assets by final wealth after ${n} years. `;
-  if (trails.length === 0) {
-    insightTxt += `It <strong>tops all benchmarks</strong> — your DCF-adjusted CAGR of ${homeCagr.toFixed(1)}% beats every alternative.`;
-  } else if (beats.length === 0) {
-    insightTxt += `It <strong>trails every benchmark</strong> — investing the same capital in ${trails[0]} would have generated more wealth.`;
-  } else {
-    insightTxt += `It beats <strong>${beats.join(', ')}</strong> but trails <strong>${trails.join(', ')}</strong>.`;
-    if (homeCagr < 10) {
-      insightTxt += ` At ${homeCagr.toFixed(1)}% CAGR, even a Bank FD strategy deserves consideration if capital preservation matters.`;
-    } else if (homeCagr >= 12) {
-      insightTxt += ` A ${homeCagr.toFixed(1)}% CAGR is competitive — this home is pulling its weight as an investment.`;
-    }
-  }
-  inEl.innerHTML = insightTxt;
-  inEl.style.display = 'block';
 }
 
 /* ── Comparison ── */

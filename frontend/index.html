@@ -665,10 +665,7 @@
           <button class="stepper-tab" data-pane="pane-returns">Returns</button>
           <button class="stepper-tab" data-pane="pane-chart">Investment Chart</button>
           <button class="stepper-tab" data-pane="pane-hvs">Home vs Stock</button>
-          <button class="stepper-tab" data-pane="pane-cashflow">Cash Flow</button>
-          <button class="stepper-tab" data-pane="pane-breakdown">Breakdown</button>
           <button class="stepper-tab" data-pane="pane-schedule">Loan Schedule</button>
-          <button class="stepper-tab" data-pane="pane-benchmarks">Benchmarks</button>
           <button class="stepper-tab" data-pane="pane-scenarios">Scenarios</button>
         </div>
       </div>
@@ -829,53 +826,6 @@
             </div>
           </div>
 
-          <!-- CASH FLOW -->
-          <div class="result-pane" id="pane-cashflow">
-            <div class="panel" id="ownershipPanel">
-              <div class="panel-title">Rental cash flow over time</div>
-              <p class="sens-note">Sage bars = rent received &middot; Rose bars = EMI + maintenance &middot; Steel line = cumulative net cash flow (right axis). When the line crosses zero, the investment breaks even on a cash basis.</p>
-              <div class="chart-legend">
-                <span><span class="leg" style="background:#4D8E72"></span>Rent received</span>
-                <span><span class="leg" style="background:#B55C62"></span>EMI + maintenance</span>
-                <span><span class="leg dashed" style="border-color:#5580A8"></span>Cumulative net CF</span>
-                <span><span class="leg dashed" style="border-color:#7970A2"></span>SIP portfolio (S&amp;P 500)</span>
-              </div>
-              <div class="chart-container short">
-                <canvas id="cashflowChart" role="img" aria-label="Annual rental cash flow chart"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <!-- BREAKDOWN -->
-          <div class="result-pane" id="pane-breakdown">
-            <div class="panel" id="sec-pie">
-              <div class="panel-title">Outflow breakdown &amp; Returns breakdown</div>
-              <div class="pie-main-grid">
-                <div class="pie-section">
-                  <div class="pie-sec-header">
-                    <div class="pie-sec-title">Where your money goes</div>
-                    <div class="pie-sec-total" id="outflowPieSub">Total paid: —</div>
-                  </div>
-                  <div class="pie-sec-body">
-                    <div class="pie-wrap"><canvas id="outflowPie" role="img" aria-label="Outflow breakdown"></canvas></div>
-                    <div class="pie-legend" id="outflowLegend"></div>
-                  </div>
-                </div>
-                <div class="pie-v-divider"></div>
-                <div class="pie-section">
-                  <div class="pie-sec-header">
-                    <div class="pie-sec-title">What you get back</div>
-                    <div class="pie-sec-total" id="returnsPieSub">Total returns: —</div>
-                  </div>
-                  <div class="pie-sec-body">
-                    <div class="pie-wrap"><canvas id="returnsPie" role="img" aria-label="Returns breakdown"></canvas></div>
-                    <div class="pie-legend" id="returnsLegend"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- LOAN SCHEDULE -->
           <div class="result-pane" id="pane-schedule">
             <div class="panel">
@@ -906,21 +856,6 @@
                   <tbody id="amortBody"></tbody>
                 </table>
               </div>
-            </div>
-          </div>
-
-          <!-- BENCHMARKS -->
-          <div class="result-pane" id="pane-benchmarks">
-            <div class="panel" id="benchmarkPanel">
-              <div class="panel-title">Final wealth — Home vs benchmarks</div>
-              <p class="sens-note">Same starting capital: <strong id="bmCapital">—</strong> (PV of all your outflows) invested for <strong id="bmTenure">—</strong> years. Benchmarks use long-run historical averages — past returns don't guarantee future results.</p>
-              <div class="chart-container bm-chart">
-                <canvas id="benchmarkChart" role="img" aria-label="Benchmark comparison chart"></canvas>
-              </div>
-              <div class="bm-table-wrap">
-                <table class="bm-table" id="benchmarkTable"></table>
-              </div>
-              <div class="bm-insight" id="benchmarkInsight" style="display:none"></div>
             </div>
           </div>
 
@@ -955,7 +890,7 @@
           <!-- Prev / Next navigator -->
           <div class="pane-nav">
             <button class="pane-nav-btn" id="panePrev" disabled>&#8592; Prev</button>
-            <span class="pane-nav-indicator" id="paneIndicator">1 / 8</span>
+            <span class="pane-nav-indicator" id="paneIndicator">1 / 6</span>
             <button class="pane-nav-btn" id="paneNext">Next &#8594;</button>
           </div>
 
