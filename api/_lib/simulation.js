@@ -179,38 +179,4 @@ function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentA
   };
 }
 
-exports.handler = async function (event) {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: JSON.stringify({ detail: 'Method not allowed' }) };
-  }
-
-  let data;
-  try {
-    data = JSON.parse(event.body);
-  } catch {
-    return { statusCode: 400, body: JSON.stringify({ detail: 'Invalid JSON' }) };
-  }
-
-  const {
-    home_price, monthly_rent, interest_rate, annual_appreciation,
-    rent_appreciation, maintenance_pct, stock_return, benchmark_return, tenure_years, down_payment_pct,
-  } = data;
-
-  if (!home_price || home_price < 100000) {
-    return { statusCode: 400, body: JSON.stringify({ detail: 'Home price must be at least ₹1 lakh' }) };
-  }
-
-  try {
-    const result = runSimulation(
-      home_price, monthly_rent, interest_rate, annual_appreciation,
-      rent_appreciation, maintenance_pct, stock_return, benchmark_return ?? stock_return, tenure_years, down_payment_pct
-    );
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify({ success: true, data: result }),
-    };
-  } catch (e) {
-    return { statusCode: 400, body: JSON.stringify({ detail: e.message }) };
-  }
-};
+module.exports = { calcEmi, runSimulation };

@@ -6,11 +6,13 @@ A full-stack web app to calculate the ROI of buying a home vs renting — with a
 
 ## Tech Stack
 
-| Layer    | Technology                      |
-|----------|---------------------------------|
-| Backend  | Python · FastAPI · Uvicorn      |
-| Frontend | Vanilla HTML / CSS / JS         |
-| Charts   | Chart.js (CDN)                  |
+| Layer    | Technology                                  |
+|----------|---------------------------------------------|
+| Hosting  | Vercel (static site + serverless functions) |
+| API      | Node.js functions in `api/`                 |
+| Frontend | Vanilla HTML / CSS / JS                     |
+| Charts   | Chart.js                                    |
+| Chat     | Claude via the Anthropic API                |
 
 ---
 
@@ -18,53 +20,38 @@ A full-stack web app to calculate the ROI of buying a home vs renting — with a
 
 ```
 homeloan-roi/
-├── backend/
-│   ├── main.py            # FastAPI app + all calculation logic
-│   └── requirements.txt
+├── api/
+│   ├── _lib/
+│   │   ├── simulation.js   # All loan + ROI math (single source of truth)
+│   │   └── rate-limit.js   # Per-IP limit for the endpoints that call Claude
+│   ├── calculate.js        # POST /api/calculate
+│   ├── sensitivity.js      # POST /api/sensitivity
+│   ├── chat.js             # POST /api/chat
+│   └── locality.js         # POST /api/locality
 ├── frontend/
-│   ├── index.html         # Single-page app shell
-│   └── static/
-│       ├── css/style.css
-│       └── js/app.js
-├── run.sh                 # One-command startup
+│   ├── index.html          # Single-page app shell
+│   └── static/             # CSS, JS, images
+├── vercel.json
 └── README.md
 ```
 
 ---
 
-## Local Setup
+## Deploying
 
-### 1. Install Python dependencies
+The live site (https://www.gowindhan.com) deploys automatically on Vercel when you push to `main` on GitHub.
 
-```bash
-cd backend
-pip install -r requirements.txt
-```
+The chat and locality endpoints need an `ANTHROPIC_API_KEY` environment variable set in the Vercel project settings.
 
-> Requires Python 3.9+. Use a virtual environment if preferred:
-> ```bash
-> python -m venv venv && source venv/bin/activate
-> pip install -r requirements.txt
-> ```
+## Running Locally
 
-### 2. Start the server
-
-From the project root:
+Requires [Node.js](https://nodejs.org). From the project root:
 
 ```bash
-# Option A — use the run script
-bash run.sh
-
-# Option B — manual
-cd backend
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+npx vercel dev
 ```
 
-### 3. Open the app
-
-```
-http://localhost:8000
-```
+Then open http://localhost:3000.
 
 ---
 
@@ -72,9 +59,10 @@ http://localhost:8000
 
 | Method | Path               | Description                              |
 |--------|--------------------|------------------------------------------|
-| GET    | `/api/health`      | Health check                             |
 | POST   | `/api/calculate`   | Run full loan + ROI simulation           |
 | POST   | `/api/sensitivity` | ROI matrix across tenure × down payment  |
+| POST   | `/api/chat`        | Chat assistant (rate-limited)            |
+| POST   | `/api/locality`    | AI locality insights (rate-limited)      |
 
 ### POST `/api/calculate` — Request body
 
@@ -87,6 +75,7 @@ http://localhost:8000
   "rent_appreciation": 5,
   "maintenance_pct": 1,
   "stock_return": 12,
+  "benchmark_return": 12,
   "tenure_years": 20,
   "down_payment_pct": 20
 }
@@ -118,56 +107,11 @@ http://localhost:8000
 
 ---
 
-## Deploying Later
-
-### Option A — Docker (recommended)
-
-Create a `Dockerfile` in the project root:
-
-```dockerfile
-FROM python:3.11-slim
-WORKDIR /app
-COPY backend/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY backend/ ./backend/
-COPY frontend/ ./frontend/
-EXPOSE 8000
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
-```
-
-Build and run:
-```bash
-docker build -t homeloan-roi .
-docker run -p 8000:8000 homeloan-roi
-```
-
-### Option B — Render / Railway / Fly.io
-
-1. Push to GitHub
-2. Connect your repo in the platform dashboard
-3. Set start command: `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`
-4. Done — the frontend is served by FastAPI's static file mount
-
-### Option C — VPS (nginx + systemd)
-
-```nginx
-server {
-    listen 80;
-    server_name yourdomain.com;
-    location / {
-        proxy_pass http://127.0.0.1:8000;
-        proxy_set_header Host $host;
-    }
-}
-```
-
----
-
 ## What gets calculated
 
 - **Monthly EMI** via standard reducing-balance formula
 - **Home equity** = appreciated property value − remaining loan balance
-- **Renter portfolio** = down payment invested in equities + monthly savings (EMI+maintenance−rent), compounding monthly
+- **Renter portfolio** = down payment invested in the chosen benchmark fund + monthly savings (EMI+maintenance−rent), compounding monthly
 - **ROI** = (final equity / total cash paid) − 1
 - **Buy vs rent edge** = final equity − renter portfolio at the end of tenure
 - **Break-even year** = first year equity exceeds cumulative cash outflow

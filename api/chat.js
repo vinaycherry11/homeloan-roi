@@ -1,3 +1,10 @@
+const { allowRequest } = require('./_lib/rate-limit');
+
+const CHATS_PER_HOUR = 30;
+const MAX_MESSAGES = 12;
+const MAX_MESSAGE_CHARS = 4000;
+const MAX_CONTEXT_CHARS = 4000;
+
 const SYSTEM_PROMPT = `You are a knowledgeable and friendly assistant for GoWinDhan (Go Win Dhan) — a home loan ROI and buy-vs-rent calculator for India.
 
 Help users with:
@@ -19,16 +26,8 @@ Style rules:
 - Do not guarantee future returns or make specific buy/sell recommendations
 - Format responses in plain text without markdown symbols like asterisks or hashes`;
 
+// No CORS headers: only our own page should be able to spend API credit here.
 module.exports = async function (req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') {
-    res.status(204).end();
-    return;
-  }
-
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
     return;
@@ -48,8 +47,23 @@ module.exports = async function (req, res) {
     return;
   }
 
-  const systemPrompt = context
-    ? SYSTEM_PROMPT + '\n\nUser\'s current calculator inputs and results:\n' + context
+  const recent = messages.slice(-MAX_MESSAGES);
+  // The API requires the conversation to open with a user turn.
+  while (recent.length && recent[0]?.role === 'assistant') recent.shift();
+  const valid = recent.every(m =>
+    m && (m.role === 'user' || m.role === 'assistant') &&
+    typeof m.content === 'string' && m.content.length <= MAX_MESSAGE_CHARS
+  );
+  if (!recent.length || !valid) {
+    res.status(400).json({ error: `Messages must be text under ${MAX_MESSAGE_CHARS} characters.` });
+    return;
+  }
+
+  if (!allowRequest(req, res, CHATS_PER_HOUR)) return;
+
+  const contextText = Array.isArray(context) ? context.join('\n') : String(context || '');
+  const systemPrompt = contextText
+    ? SYSTEM_PROMPT + '\n\nUser\'s current calculator inputs and results:\n' + contextText.slice(0, MAX_CONTEXT_CHARS)
     : SYSTEM_PROMPT;
 
   try {
@@ -64,7 +78,7 @@ module.exports = async function (req, res) {
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 800,
         system: systemPrompt,
-        messages: messages.slice(-12),
+        messages: recent,
       }),
     });
 

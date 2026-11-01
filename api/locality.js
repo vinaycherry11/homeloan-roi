@@ -1,13 +1,9 @@
+const { allowRequest } = require('./_lib/rate-limit');
+
+const LOOKUPS_PER_HOUR = 20;
+
+// No CORS headers: only our own page should be able to spend API credit here.
 module.exports = async function (req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') {
-    res.status(204).end();
-    return;
-  }
-
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
     return;
@@ -24,6 +20,13 @@ module.exports = async function (req, res) {
     res.status(503).json({ error: 'ANTHROPIC_API_KEY not configured' });
     return;
   }
+
+  if (typeof city !== 'string' || typeof locality !== 'string' || city.length > 60 || locality.length > 80) {
+    res.status(400).json({ error: 'city and locality must be short text' });
+    return;
+  }
+
+  if (!allowRequest(req, res, LOOKUPS_PER_HOUR)) return;
 
   const prompt = `You are a real estate data assistant with deep knowledge of Indian property markets, drawing on data similar to what 99acres, MagicBricks, Google Maps, and local news would provide.
 
