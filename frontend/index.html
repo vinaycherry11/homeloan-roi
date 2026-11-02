@@ -130,7 +130,7 @@
 <link rel="apple-touch-icon" href="/static/img/gwd-bars-logo.png">
 <link rel="stylesheet" href="/static/css/style.css?v=features58">
 </head>
-<body>
+<body class="chat-off">
 
 <!-- ── NAV ── -->
 <nav>
@@ -1130,8 +1130,8 @@
         <div class="sp-stat"><span class="sp-stat-num">8</span><span class="sp-stat-lbl">Topics</span></div>
         <div class="sp-stat-div"></div>
         <div class="sp-stat"><span class="sp-stat-num">15</span><span class="sp-stat-lbl">FAQs</span></div>
-        <div class="sp-stat-div"></div>
-        <div class="sp-stat"><span class="sp-stat-num">24/7</span><span class="sp-stat-lbl">AI Chat</span></div>
+        <div class="sp-stat-div chat-entry"></div>
+        <div class="sp-stat chat-entry"><span class="sp-stat-num">24/7</span><span class="sp-stat-lbl">AI Chat</span></div>
       </div>
     </div>
 
@@ -1405,7 +1405,7 @@
           </div>
 
         </div>
-        <p class="sp-faq-empty hidden" id="spFaqEmpty">No matching questions found. Try a different keyword or <button class="sp-inline-link" onclick="toggleChat()">ask our assistant</button>.</p>
+        <p class="sp-faq-empty hidden" id="spFaqEmpty">No matching questions found. Try a different keyword<span class="chat-entry"> or <button class="sp-inline-link" onclick="toggleChat()">ask our assistant</button></span>.</p>
       </div>
 
       <!-- Popular Guides (6 cards) -->
@@ -1506,7 +1506,7 @@
       </div>
 
       <!-- CTA strip -->
-      <div class="sp-cta">
+      <div class="sp-cta chat-entry">
         <div class="sp-cta-icon">💬</div>
         <div class="sp-cta-text">
           <div class="sp-cta-title">Didn't find your answer?</div>
@@ -1564,12 +1564,12 @@
 </div>
 
 <!-- ── CHAT WIDGET ────────────────────────────────────────────────────────── -->
-<div id="chatWidget">
+<div id="chatWidget" class="chat-entry">
   <div id="chatPanel" class="chat-panel" aria-hidden="true">
     <div class="chat-header">
       <div class="chat-header-left">
         <div class="chat-avatar-wrap" aria-hidden="true">
-          <img class="chat-avatar-img" src="/static/img/chatbot-avatar.png" alt="" draggable="false"/>
+          <img class="chat-avatar-img" src="/static/img/chatbot-avatar.png" alt="" loading="lazy" draggable="false"/>
           <svg style="display:none" viewBox="0 0 36 36" fill="none">
             <circle cx="18" cy="18" r="18" fill="#1c2d3e"/>
             <!-- Face -->
@@ -1688,7 +1688,7 @@
     </div>
   </div>
   <button class="chat-fab" id="chatFab" onclick="toggleChat()" aria-label="Open chat assistant" title="Ask GoWinDhan Assistant">
-    <img class="fab-icon-chat fab-char" src="/static/img/chatbot-avatar.png" alt="" draggable="false"/>
+    <img class="fab-icon-chat fab-char" src="/static/img/chatbot-avatar.png" alt="" loading="lazy" draggable="false"/>
     <!-- (unused SVG placeholder kept for close-icon sibling logic) -->
     <svg style="display:none" viewBox="0 0 44 65" xmlns="http://www.w3.org/2000/svg">
       <defs>
