@@ -1084,7 +1084,7 @@ function renderResults(data, inputs, sensData) {
   document.getElementById('lssHomeValSub').textContent  = `at ${inputs.annual_appreciation}%/yr · today it's ${fmt(inputs.home_price)}`;
   document.getElementById('lssTax').textContent         = taxSaving > 0 ? fmt(taxSaving) : '—';
   document.getElementById('lssTaxSub').textContent      = taxSaving > 0
-    ? `Old regime, 30% slab + cess · ₹${(sec24b/1000).toFixed(0)}k Sec 24(b) + ₹${(sec80c/1000).toFixed(0)}k Sec 80C (yr 1) · not included in returns`
+    ? 'Old regime, 30% slab + cess · year 1 · not included in returns'
     : 'No deductible surplus in year 1';
 
   // store for chatbot context
@@ -1134,6 +1134,8 @@ function renderResults(data, inputs, sensData) {
       : `Final equity (home value − loan left)`);
   set('kpiStockNetGain', fmt(s.stock_net_gain), s.stock_net_gain > homeWealthFinal ? 'up' : 'down',
     `Down payment + stamp duty (day 1) + monthly outflow compounded at ${inputs.benchmark_return}%/yr`);
+
+  addTileWorkings(data, inputs, totalInterestPaid, finalHomeVal, sec24b, sec80c, taxSaving);
 
   drawInvestmentWealthChart(data.amortisation, s.down_payment + s.buying_costs);
   drawCostChart(data.amortisation);
@@ -1247,6 +1249,54 @@ function buildInsights(data, inputs) {
       <span class="insight-tag ${c.tag[0]}">${c.tag[1]}</span>
     </div>
   `).join('');
+}
+
+/* ── One-line worked example under each result tile ── */
+function setTileCalc(anchorId, html) {
+  const anchor = document.getElementById(anchorId);
+  if (!anchor) return;
+  const host = anchor.closest('.lss-card, .kpi') || anchor.parentElement;
+  let el = host.querySelector(':scope > .tile-calc');
+  if (!el) {
+    el = document.createElement('div');
+    el.className = 'tile-calc';
+    if (host === anchor.parentElement && !anchor.closest('.lss-card, .kpi')) anchor.after(el);
+    else host.appendChild(el);
+  }
+  el.innerHTML = html;
+}
+
+function addTileWorkings(data, inputs, totalInterest, finalHomeVal, sec24b, sec80c, taxSaving) {
+  const s = data.summary;
+  const n = inputs.tenure_years * 12;
+  const upfront = s.down_payment + s.buying_costs;
+  const topUps = s.cash_out_of_pocket - upfront;
+  const renterAdded = data.amortisation.reduce((a, d) => a + (d.outflow_invested_year || 0), 0);
+  const fund = getSelectedFund();
+  const cashIn = s.wealth_return - s.final_home_value;
+
+  setTileCalc('verdictDesc',
+    `${fmt(s.home_net_gain)} your wealth − ${fmt(s.stock_net_gain)} renter's portfolio = <b>${fmt(s.rent_vs_buy)}</b>`);
+
+  setTileCalc('lssEmi', `${fmt(s.loan_amount)} loan at ${inputs.interest_rate}% ÷ 12 = ${(inputs.interest_rate / 12).toFixed(3)}%/mo, repaid over ${n} months`);
+  setTileCalc('lssInterest', `${n} × ${fmt(s.monthly_emi)} = ${fmt(s.monthly_emi * n)} paid − ${fmt(s.loan_amount)} borrowed = <b>${fmt(totalInterest)}</b>`);
+  setTileCalc('lssHomeVal', `${fmt(inputs.home_price)} × (1 + ${inputs.annual_appreciation}%)<sup>${inputs.tenure_years}</sup> = <b>${fmt(finalHomeVal)}</b>`);
+  setTileCalc('lssTax', taxSaving > 0
+    ? `(${fmt(sec24b)} interest + ${fmt(sec80c)} principal) × 31.2% = <b>${fmt(taxSaving)}</b>`
+    : 'No deductible interest or principal in year 1');
+
+  setTileCalc('kpiPvOut', `${fmt(s.down_payment)} down + ${fmt(s.buying_costs)} stamp duty${topUps > 0 ? ` + ${fmt(topUps)} monthly top-ups` : ''} = <b>${fmt(s.cash_out_of_pocket)}</b>`);
+  const loanLeft = finalHomeVal - s.final_home_value;
+  setTileCalc('kpiWealth', `${fmt(finalHomeVal)} home${loanLeft > 0 ? ` − ${fmt(loanLeft)} loan left` : ', loan fully repaid'}${cashIn > 0 ? ` + ${fmt(cashIn)} rent surplus` : ''} = <b>${fmt(s.wealth_return)}</b>`);
+  setTileCalc('kpiGain', `${fmt(s.wealth_return)} − ${fmt(s.cash_out_of_pocket)} = <b>${fmt(s.net_gain)}</b>`);
+
+  setTileCalc('kpiHomeNetGain', `${fmt(inputs.home_price)} × (1 + ${inputs.annual_appreciation}%)<sup>${inputs.tenure_years}</sup> − loan left = ${fmt(s.final_home_value)}` +
+    (s.surplus_portfolio > 0 ? `, + ${fmt(s.surplus_portfolio)} invested surplus = <b>${fmt(s.home_net_gain)}</b>` : ''));
+  setTileCalc('kpiStockNetGain', `${fmt(upfront)} on day 1${renterAdded > 0 ? ` + ${fmt(renterAdded)} added monthly` : ''}, grown at ${fund.cagr}%/yr = <b>${fmt(s.stock_net_gain)}</b>`);
+
+  if (s.irr_pct != null) {
+    setTileCalc('returnsHeadline', `e.g. ₹1 L invested in this home grows like ₹1 L × (1 + ${s.irr_pct.toFixed(1)}%)<sup>${inputs.tenure_years}</sup> = ${fmt(1e5 * Math.pow(1 + s.irr_pct / 100, inputs.tenure_years))} after ${inputs.tenure_years} years. In ${fund.label}: ₹1 L × (1 + ${fund.cagr}%)<sup>${inputs.tenure_years}</sup> = ${fmt(1e5 * Math.pow(1 + fund.cagr / 100, inputs.tenure_years))}`);
+  }
 }
 
 /* ── The Math: every formula with the user's numbers plugged in ── */
