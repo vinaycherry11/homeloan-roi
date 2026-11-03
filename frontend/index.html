@@ -575,6 +575,14 @@
         </div>
         <span class="field-hint">Of property value annually</span>
       </div>
+      <div class="field">
+        <label for="buyingCost">Stamp duty + registration <span class="info-icon" data-tooltip="One-time cost when you buy, as % of price. Stamp duty is 4–7% depending on state, plus about 1% registration. E.g. 7% on ₹1 Cr = ₹7 L." aria-label="info"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><circle cx="12" cy="8" r="0.5" fill="currentColor" stroke="none"/></svg></span></label>
+        <div class="input-wrap suffix-only">
+          <input type="number" id="buyingCost" value="7" min="0" max="15" step="0.5" placeholder="7">
+          <span class="input-suffix">%</span>
+        </div>
+        <span class="field-hint">Paid once, on purchase</span>
+      </div>
     </div>
   </div>
 
@@ -659,6 +667,7 @@
           <button class="stepper-tab" data-pane="pane-hvs">Home vs Stock</button>
           <button class="stepper-tab" data-pane="pane-schedule">Loan Schedule</button>
           <button class="stepper-tab" data-pane="pane-scenarios">Scenarios</button>
+          <button class="stepper-tab" data-pane="pane-math">The Math</button>
         </div>
       </div>
 
@@ -696,10 +705,10 @@
               <div class="lss-card">
                 <div class="lss-label">Est. tax savings / yr <span class="lss-badge">Sec 80C + 24B</span></div>
                 <div class="lss-value pos" id="lssTax">—</div>
-                <div class="lss-sub" id="lssTaxSub">at 30% slab · principal + interest deduction</div>
+                <div class="lss-sub" id="lssTaxSub">old regime, 30% slab · principal + interest deduction</div>
               </div>
             </div>
-            <p class="verdict-disclaimer">Estimates for planning only, not financial advice. Actual results depend on future prices, rents and interest rates, and exclude stamp duty, tax benefits and selling costs. Consult a SEBI-registered advisor before deciding.</p>
+            <p class="verdict-disclaimer">Estimates for planning only, not financial advice. Actual results depend on future prices, rents and interest rates, and exclude tax benefits, brokerage and selling costs. Consult a SEBI-registered advisor before deciding. <a href="#" class="math-link" data-goto-pane="pane-math">See every formula with your numbers →</a></p>
           </div>
 
           <!-- RETURNS -->
@@ -710,7 +719,7 @@
               <div class="kpi a-gold">
                 <div class="kpi-label">Money you put in</div>
                 <div class="kpi-value" id="kpiPvOut">—</div>
-                <div class="kpi-sub" id="kpiPvOutSub">Down payment + months where EMI and maintenance cost more than rent</div>
+                <div class="kpi-sub" id="kpiPvOutSub">Down payment + stamp duty + months where EMI and maintenance cost more than rent</div>
               </div>
               <div class="kpi a-gold">
                 <div class="kpi-label">What you end with</div>
@@ -725,9 +734,9 @@
             </div>
             <details class="returns-how">
               <summary>How is the annual return calculated?</summary>
-              <p>We treat the home as an investment. On day 1 you pay the down payment. Every month after that, EMI and maintenance go out and the rent you no longer pay counts as coming in. At the end you keep the home's value minus any loan left.</p>
+              <p>We treat the home as an investment. On day 1 you pay the down payment plus stamp duty and registration. Every month after that, EMI and maintenance go out and the rent you no longer pay counts as coming in. At the end you keep the home's value minus any loan left.</p>
               <p>The annual return (IRR) is the yearly rate at which those exact amounts, on those exact dates, would grow into what you end with. It allows for timing, so a rupee paid in year 15 weighs less than one paid today. That's why you can compare it directly with a fund's yearly return.</p>
-              <p>It doesn't include stamp duty, registration, brokerage, tax deductions or selling costs.</p>
+              <p>It doesn't include brokerage, tax deductions or selling costs.</p>
             </details>
           </div>
 
@@ -774,12 +783,12 @@
                 <div class="kpi a-emerald">
                   <div class="kpi-label">Home total wealth</div>
                   <div class="kpi-value" id="kpiHomeNetGain">—</div>
-                  <div class="kpi-sub" id="kpiHomeNetGainSub">Final equity + rent surplus after crossover</div>
+                  <div class="kpi-sub" id="kpiHomeNetGainSub">Final equity + invested rent surplus</div>
                 </div>
                 <div class="kpi a-violet">
                   <div class="kpi-label">Stock total wealth <span class="kpi-abbr" id="benchmarkFundKpiLabel">Nifty 50</span></div>
                   <div class="kpi-value" id="kpiStockNetGain">—</div>
-                  <div class="kpi-sub" id="kpiStockNetGainSub">Down payment (day 1) + monthly outflow invested at 12%/yr</div>
+                  <div class="kpi-sub" id="kpiStockNetGainSub">Down payment + stamp duty (day 1) + monthly outflow invested at 12%/yr</div>
                 </div>
               </div>
               <div class="amort-wrapper" style="margin-top:20px">
@@ -792,7 +801,7 @@
                       <th>Net outflow <span class="th-note">(EMI+maint − rent)</span></th>
                       <th>Invested this yr <span class="th-note" id="hvsColFundNote1">Nifty 50</span></th>
                       <th>Stock portfolio <span class="th-note" id="hvsColFundNote2">Nifty 50</span></th>
-                      <th>Home equity <span class="th-note">(value − loan)</span></th>
+                      <th>Home wealth <span class="th-note">(equity + invested surplus)</span></th>
                     </tr>
                   </thead>
                   <tbody id="homeVsStockBody"></tbody>
@@ -862,10 +871,19 @@
             </div>
           </div>
 
+          <!-- THE MATH -->
+          <div class="result-pane" id="pane-math">
+            <div class="panel">
+              <div class="panel-title">How every number is calculated</div>
+              <p class="sens-note">Each step below shows the formula, then the same formula with your inputs plugged in. You can check any line with a calculator or spreadsheet. Figures are rounded to the nearest rupee.</p>
+              <div id="mathSteps"></div>
+            </div>
+          </div>
+
           <!-- Prev / Next navigator -->
           <div class="pane-nav">
             <button class="pane-nav-btn" id="panePrev" disabled>&#8592; Prev</button>
-            <span class="pane-nav-indicator" id="paneIndicator">1 / 6</span>
+            <span class="pane-nav-indicator" id="paneIndicator">1 / 7</span>
             <button class="pane-nav-btn" id="paneNext">Next &#8594;</button>
           </div>
 
@@ -945,6 +963,13 @@
               <span class="input-suffix">%/yr</span>
             </div>
           </div>
+          <div class="field">
+            <label>Stamp duty + reg.</label>
+            <div class="input-wrap suffix-only">
+              <input type="number" id="a_buyingCost" value="7" min="0" max="15" step="0.5">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
         </div>
         <div class="slider-panel cmp-sliders">
           <div class="slider-field">
@@ -1019,6 +1044,13 @@
               <span class="input-suffix">%/yr</span>
             </div>
           </div>
+          <div class="field">
+            <label>Stamp duty + reg.</label>
+            <div class="input-wrap suffix-only">
+              <input type="number" id="b_buyingCost" value="7" min="0" max="15" step="0.5">
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
         </div>
         <div class="slider-panel cmp-sliders">
           <div class="slider-field">
@@ -1063,10 +1095,10 @@
       </div>
 
       <div class="panel">
-        <div class="panel-title">Equity growth — A vs B</div>
+        <div class="panel-title">Wealth growth — A vs B</div>
         <div class="chart-legend">
-          <span><span class="leg" style="background:#2563eb"></span>A — Home equity</span>
-          <span><span class="leg" style="background:#7c3aed"></span>B — Home equity</span>
+          <span><span class="leg" style="background:#2563eb"></span>A — Home wealth</span>
+          <span><span class="leg" style="background:#7c3aed"></span>B — Home wealth</span>
           <span><span class="leg dashed" style="border-color:#2563eb"></span>A — Renter portfolio</span>
           <span><span class="leg dashed" style="border-color:#7c3aed"></span>B — Renter portfolio</span>
         </div>

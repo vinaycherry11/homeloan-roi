@@ -288,7 +288,7 @@ updateHomePriceFmt();
 
   const PANES = [
     'pane-verdict','pane-returns','pane-chart','pane-hvs',
-    'pane-schedule','pane-scenarios'
+    'pane-schedule','pane-scenarios','pane-math'
   ];
 
   function activatePane(id) {
@@ -308,6 +308,8 @@ updateHomePriceFmt();
   }
 
   document.addEventListener('click', function(e) {
+    const link = e.target.closest('[data-goto-pane]');
+    if (link) { e.preventDefault(); activatePane(link.dataset.gotoPane); return; }
     const btn = e.target.closest('.stepper-tab');
     if (!btn || !btn.dataset.pane) return;
     activatePane(btn.dataset.pane);
@@ -947,7 +949,7 @@ function updateBenchmarkLabels() {
   const fund = getSelectedFund();
   const el = id => document.getElementById(id);
   if (el('benchmarkFundKpiLabel')) el('benchmarkFundKpiLabel').textContent = fund.label;
-  if (el('kpiStockNetGainSub')) el('kpiStockNetGainSub').textContent = `Down payment (day 1) + monthly outflow invested at ${fund.cagr}%/yr`;
+  if (el('kpiStockNetGainSub')) el('kpiStockNetGainSub').textContent = `Down payment + stamp duty (day 1) + monthly outflow invested at ${fund.cagr}%/yr`;
   if (el('hvsColFundNote1')) el('hvsColFundNote1').textContent = fund.label;
   if (el('hvsColFundNote2')) el('hvsColFundNote2').textContent = fund.label;
 }
@@ -961,6 +963,7 @@ function getInputs() {
     annual_appreciation: parseFloat(document.getElementById('appreciation').value),
     rent_appreciation: parseFloat(document.getElementById('rentAppreciation').value),
     maintenance_pct: parseFloat(document.getElementById('maintenance').value),
+    buying_cost_pct: parseFloat(document.getElementById('buyingCost').value) || 0,
     benchmark_return: getSelectedFund().cagr,
     tenure_years: parseInt(document.getElementById('tenure').value),
     down_payment_pct: parseFloat(document.getElementById('downPct').value),
@@ -1058,8 +1061,8 @@ function renderResults(data, inputs, sensData) {
     ? 'Buying this property is a good investment'
     : 'Renting + investing would likely serve you better';
   document.getElementById('verdictDesc').textContent = s.buying_wins
-    ? `Your home equity outpaces a stock portfolio by ${fmt(Math.abs(s.rent_vs_buy))} over ${inputs.tenure_years} years — buying wins the wealth race here.`
-    : `A renter who invests the difference ends up ${fmt(Math.abs(s.rent_vs_buy))} ahead of your home equity — the market beats this property.`;
+    ? `After ${inputs.tenure_years} years you end up ${fmt(Math.abs(s.rent_vs_buy))} richer than a renter who invests the same money in ${getSelectedFund().label}.`
+    : `A renter who invests the same money in ${getSelectedFund().label} ends up ${fmt(Math.abs(s.rent_vs_buy))} richer than you after ${inputs.tenure_years} years.`;
 
   const cagrChip = document.getElementById('verdictCagr');
   cagrChip.textContent = heroRate == null ? 'Annual return n/a' : fmtPct(heroRate) + ' a year';
@@ -1071,7 +1074,7 @@ function renderResults(data, inputs, sensData) {
   const yr1 = data.amortisation[0] || {};
   const sec24b = Math.min(yr1.interest  || 0, 200000); // max ₹2L/yr deductible under Sec 24(b)
   const sec80c  = Math.min(yr1.principal || 0, 150000); // max ₹1.5L/yr deductible under Sec 80C
-  const taxSaving = Math.round((sec24b + sec80c) * 0.30);
+  const taxSaving = Math.round((sec24b + sec80c) * 0.312); // 30% slab + 4% cess
   const finalHomeVal = (data.amortisation[data.amortisation.length - 1] || {}).home_value || 0;
 
   document.getElementById('lssEmi').textContent         = fmt(s.monthly_emi);
@@ -1081,7 +1084,7 @@ function renderResults(data, inputs, sensData) {
   document.getElementById('lssHomeValSub').textContent  = `at ${inputs.annual_appreciation}%/yr · today it's ${fmt(inputs.home_price)}`;
   document.getElementById('lssTax').textContent         = taxSaving > 0 ? fmt(taxSaving) : '—';
   document.getElementById('lssTaxSub').textContent      = taxSaving > 0
-    ? `30% slab · ₹${(sec24b/1000).toFixed(0)}k Sec 24B + ₹${(sec80c/1000).toFixed(0)}k Sec 80C (yr 1)`
+    ? `Old regime, 30% slab + cess · ₹${(sec24b/1000).toFixed(0)}k Sec 24(b) + ₹${(sec80c/1000).toFixed(0)}k Sec 80C (yr 1) · not included in returns`
     : 'No deductible surplus in year 1';
 
   // store for chatbot context
@@ -1117,20 +1120,22 @@ function renderResults(data, inputs, sensData) {
     headline.innerHTML = `Your home grows your money at <strong>${s.irr_pct.toFixed(1)}% a year</strong>. ` +
       `${fund.label} would give ${fund.cagr}% a year, so the home earns ${verdict}.`;
   }
-  set('kpiPvOut', fmt(s.cash_out_of_pocket), '', 'Down payment + months where EMI and maintenance cost more than rent');
+  set('kpiPvOut', fmt(s.cash_out_of_pocket), '', 'Down payment + stamp duty + months where EMI and maintenance cost more than rent');
   set('kpiWealth', fmt(s.wealth_return), s.wealth_return >= s.cash_out_of_pocket ? 'up' : 'down', 'Home equity + months where rent was more than EMI and maintenance');
   const gain = s.wealth_return - s.cash_out_of_pocket;
   const multiple = s.cash_out_of_pocket > 0 ? s.wealth_return / s.cash_out_of_pocket : 0;
   set('kpiGain', fmt(gain), gain >= 0 ? 'up' : 'down', `Every ₹1 you put in becomes ₹${multiple.toFixed(2)}`);
 
   // ── Home investing vs Stock investing ──
-  const homeWealthFinal = s.wealth_return;
+  const homeWealthFinal = s.home_net_gain;
   set('kpiHomeNetGain', fmt(homeWealthFinal), homeWealthFinal >= s.stock_net_gain ? 'up' : 'down',
-    'Final equity ' + fmt(s.final_home_value) + ' + rent surplus after crossover');
+    s.surplus_portfolio > 0
+      ? `Final equity ${fmt(s.final_home_value)} + rent surplus invested at ${inputs.benchmark_return}%/yr ${fmt(s.surplus_portfolio)}`
+      : `Final equity (home value − loan left)`);
   set('kpiStockNetGain', fmt(s.stock_net_gain), s.stock_net_gain > homeWealthFinal ? 'up' : 'down',
-    `Down payment (day 1) + monthly outflow compounded at ${inputs.benchmark_return}%/yr`);
+    `Down payment + stamp duty (day 1) + monthly outflow compounded at ${inputs.benchmark_return}%/yr`);
 
-  drawInvestmentWealthChart(data.amortisation, s.down_payment);
+  drawInvestmentWealthChart(data.amortisation, s.down_payment + s.buying_costs);
   drawCostChart(data.amortisation);
   buildAmortTable(data.amortisation, s.break_even_year);
   buildHomeVsStockTable(data.amortisation, s);
@@ -1141,6 +1146,7 @@ function renderResults(data, inputs, sensData) {
     drawHeatmap('sensChartCagr', 'sensLegendCagr', sensData, 'irr', 1, '%', inputs, null, null);
   }
   buildInsights(data, inputs);
+  buildMathPane(data, inputs);
 
   const _resultsEl = document.getElementById('results');
   const _navH = (document.querySelector('nav')?.offsetHeight || 58) + 8;
@@ -1157,28 +1163,27 @@ function buildInsights(data, inputs) {
   const emiToRent  = s.monthly_emi / inputs.monthly_rent;
   const monthlyPremium = s.monthly_emi - inputs.monthly_rent;
   const leverage   = inputs.home_price / s.down_payment;
-  const minAppreciation = Math.max(0, inputs.interest_rate - rentYield).toFixed(1);
 
   // 1. Price-to-Rent ratio
   let prTag, prMsg;
   if (prRatio < 15) {
     prTag = ['good', 'Buying strongly favored'];
-    prMsg = `P/R ratio of <strong>${prRatio.toFixed(1)}</strong> — historically, ratios below 15 make buying the clear financial winner over renting.`;
+    prMsg = `Price is <strong>${prRatio.toFixed(1)}×</strong> a year's rent. A common rule of thumb says below 15 favours buying. Most Indian metros sit well above 25, so treat this as a rough guide.`;
   } else if (prRatio < 20) {
     prTag = ['warn', 'Marginally favors buying'];
-    prMsg = `P/R ratio of <strong>${prRatio.toFixed(1)}</strong> — borderline. Returns depend heavily on whether property appreciates as expected.`;
+    prMsg = `Price is <strong>${prRatio.toFixed(1)}×</strong> a year's rent — borderline by the usual rule of thumb (15–20). Returns depend heavily on appreciation.`;
   } else if (prRatio < 25) {
     prTag = ['warn', 'Neutral zone'];
-    prMsg = `P/R ratio of <strong>${prRatio.toFixed(1)}</strong> — elevated. Renting and investing the difference could match or beat buying if markets do well.`;
+    prMsg = `Price is <strong>${prRatio.toFixed(1)}×</strong> a year's rent — elevated. Renting and investing the difference could match or beat buying if markets do well.`;
   } else {
     prTag = ['bad', 'Renting may outperform'];
-    prMsg = `P/R ratio of <strong>${prRatio.toFixed(1)}</strong> — high. Ratios above 25 historically favour renting and investing over buying.`;
+    prMsg = `Price is <strong>${prRatio.toFixed(1)}×</strong> a year's rent — high. By the usual rule of thumb, above 25 favours renting and investing.`;
   }
 
   // 2. Interest burden
   const intPct = (totalInterest / s.loan_amount * 100).toFixed(0);
   const intTag = totalInterest / s.loan_amount > 0.8 ? ['warn', 'Heavy interest cost'] : ['info', 'Moderate interest cost'];
-  const intMsg = `You'll pay <strong>${fmt(totalInterest)}</strong> in interest over ${n} years — <strong>${intPct}%</strong> on top of your <strong>${fmt(s.loan_amount)}</strong> principal. The bank earns nearly as much as you borrow.`;
+  const intMsg = `You'll pay <strong>${fmt(totalInterest)}</strong> in interest over ${n} years — <strong>${intPct}%</strong> on top of your <strong>${fmt(s.loan_amount)}</strong> principal. ${totalInterest / s.loan_amount > 0.8 ? 'The bank earns nearly as much as you borrow.' : ''}`;
 
   // 3. EMI vs Rent (monthly premium)
   let emiTag, emiMsg;
@@ -1196,37 +1201,42 @@ function buildInsights(data, inputs) {
     emiMsg = `Your EMI <strong>(${fmt(s.monthly_emi)})</strong> is <strong>${emiToRent.toFixed(1)}×</strong> rent. The <strong>${fmt(monthlyPremium)}/mo</strong> premium is steep — rent yield of ${rentYield.toFixed(1)}% vs loan rate of ${inputs.interest_rate}% creates a structural gap.`;
   }
 
-  // 4. Rent yield vs loan rate
-  const yieldGap = (inputs.interest_rate - rentYield).toFixed(1);
+  // 4. Appreciation needed to tie with the fund
+  const beApp = s.breakeven_appreciation_pct;
+  const fundForBe = getSelectedFund();
   let yieldTag, yieldMsg;
-  if (rentYield >= inputs.interest_rate) {
-    yieldTag = ['good', 'Yield covers loan rate'];
-    yieldMsg = `Gross rent yield of <strong>${rentYield.toFixed(1)}%</strong> exceeds the loan rate of <strong>${inputs.interest_rate}%</strong>. Even zero appreciation would generate positive cash flow — a rare and favourable scenario.`;
+  if (beApp == null) {
+    const beatsAnyway = s.buying_wins;
+    yieldTag = [beatsAnyway ? 'good' : 'bad', beatsAnyway ? 'Wins at any price path' : 'Hard to beat the fund'];
+    yieldMsg = beatsAnyway
+      ? `Rent yield of <strong>${rentYield.toFixed(1)}%</strong> is high enough that buying beats ${fundForBe.label} even if prices fall 10% a year.`
+      : `Even 30%/yr appreciation wouldn't let buying beat ${fundForBe.label} at these inputs.`;
   } else {
-    yieldTag = ['warn', `Need ${minAppreciation}%+ appreciation`];
-    yieldMsg = `Gross rent yield of <strong>${rentYield.toFixed(1)}%</strong> is below the loan rate of <strong>${inputs.interest_rate}%</strong> — a gap of <strong>${yieldGap}%</strong>. You need property to appreciate at least <strong>${minAppreciation}%/yr</strong> to cover the shortfall vs renting.`;
+    const ok = inputs.annual_appreciation >= beApp;
+    yieldTag = [ok ? 'good' : 'warn', `Needs ${beApp.toFixed(1)}%/yr appreciation`];
+    yieldMsg = `Buying ties with ${fundForBe.label} at <strong>${beApp.toFixed(1)}%/yr</strong> price growth (solved exactly, all else held fixed). You've assumed <strong>${inputs.annual_appreciation}%</strong> — ${ok ? `a cushion of ${(inputs.annual_appreciation - beApp).toFixed(1)} points` : `${(beApp - inputs.annual_appreciation).toFixed(1)} points short`}. Rent yield is ${rentYield.toFixed(1)}%; the loan rate is ${inputs.interest_rate}%.`;
   }
 
   // 5. Home investing vs Stock investing (S&P 500)
   const snpFinal   = s.stock_net_gain;
-  const homeWealth = s.wealth_return;
+  const homeWealth = s.home_net_gain;
   const snpEdge    = homeWealth - snpFinal;
   let snpTag, snpMsg;
   const verdictFund = getSelectedFund();
   if (snpEdge >= 0) {
     snpTag = ['good', `Home beats ${verdictFund.label}`];
-    snpMsg = `Investing the monthly outflow into ${verdictFund.label} at ${verdictFund.cagr}% would grow to <strong>${fmt(snpFinal)}</strong>. Home wealth (equity + rent surplus) of <strong>${fmt(homeWealth)}</strong> leads by <strong>${fmt(snpEdge)}</strong> — buying wins.`;
+    snpMsg = `Investing the monthly outflow into ${verdictFund.label} at ${verdictFund.cagr}% would grow to <strong>${fmt(snpFinal)}</strong>. Home wealth (equity + invested rent surplus) of <strong>${fmt(homeWealth)}</strong> leads by <strong>${fmt(snpEdge)}</strong> — buying wins.`;
   } else {
     snpTag = ['bad', `${verdictFund.label} renter wins`];
-    snpMsg = `Investing the monthly outflow into ${verdictFund.label} at ${verdictFund.cagr}% would grow to <strong>${fmt(snpFinal)}</strong> — <strong>${fmt(Math.abs(snpEdge))} more</strong> than home wealth (equity + rent surplus) of <strong>${fmt(homeWealth)}</strong>. The market outpaces property here.`;
+    snpMsg = `Investing the monthly outflow into ${verdictFund.label} at ${verdictFund.cagr}% would grow to <strong>${fmt(snpFinal)}</strong> — <strong>${fmt(Math.abs(snpEdge))} more</strong> than home wealth (equity + invested rent surplus) of <strong>${fmt(homeWealth)}</strong>. The market outpaces property here.`;
   }
 
   const cards = [
     { icon: '📊', title: 'Price-to-Rent Ratio',       body: prMsg,    tag: prTag   },
     { icon: '💸', title: 'Interest burden',            body: intMsg,   tag: intTag  },
     { icon: '🏷️', title: 'EMI vs Monthly rent',       body: emiMsg,   tag: emiTag  },
-    { icon: '📉', title: 'Rent yield vs loan rate',    body: yieldMsg, tag: yieldTag },
-    { icon: '📈', title: 'Home vs S&P 500 renter',     body: snpMsg,   tag: snpTag  },
+    { icon: '📉', title: 'Break-even appreciation',    body: yieldMsg, tag: yieldTag },
+    { icon: '📈', title: `Home vs ${verdictFund.label} renter`, body: snpMsg,   tag: snpTag  },
   ];
 
   document.getElementById('insightGrid').innerHTML = cards.map(c => `
@@ -1237,6 +1247,151 @@ function buildInsights(data, inputs) {
       <span class="insight-tag ${c.tag[0]}">${c.tag[1]}</span>
     </div>
   `).join('');
+}
+
+/* ── The Math: every formula with the user's numbers plugged in ── */
+function buildMathPane(data, inputs) {
+  const s = data.summary;
+  const yd = data.amortisation;
+  const last = yd[yd.length - 1];
+  const fund = getSelectedFund();
+  const rs = v => (v < 0 ? '−₹' : '₹') + Math.round(Math.abs(v)).toLocaleString('en-IN');
+  const pct = (v, d = 2) => v.toFixed(d) + '%';
+
+  const P = inputs.home_price, T = inputs.tenure_years, n = T * 12;
+  const down = s.down_payment, L = s.loan_amount, bc = s.buying_costs, upfront = down + bc;
+  const rM = inputs.interest_rate / 12 / 100;
+  const grow = Math.pow(1 + rM, n);
+  const emiExact = rM > 0 ? L * rM * grow / (grow - 1) : L / n;
+  const int1 = L * rM, prin1 = emiExact - int1;
+  const maint1 = P * inputs.maintenance_pct / 100 / 12;
+  const cf1 = inputs.monthly_rent - emiExact - maint1;
+  const fundM = Math.pow(1 + inputs.benchmark_return / 100, 1 / 12) - 1;
+  const totalInt = yd.reduce((a, d) => a + d.interest, 0);
+  const totalPrin = yd.reduce((a, d) => a + d.principal, 0);
+  const totalEmi = yd.reduce((a, d) => a + d.emi_paid, 0);
+  const rentT = inputs.monthly_rent * Math.pow(1 + inputs.rent_appreciation / 100, T - 1);
+  const yr1 = yd[0];
+  const sec24b = Math.min(yr1.interest, 200000), sec80c = Math.min(yr1.principal, 150000);
+  const check = (ok, msg) => `<div class="math-check${ok ? '' : ' bad'}">${ok ? '✓' : '✗'} ${msg}</div>`;
+  const near = (a, b) => Math.abs(a - b) <= Math.max(2, Math.abs(b) * 1e-4) + yd.length;
+
+  const steps = [
+    {
+      t: 'Down payment, buying costs and loan',
+      f: 'Down payment  = Home price × Down %\nBuying costs  = Home price × Stamp duty + registration %\nCash on day 1 = Down payment + Buying costs\nLoan          = Home price − Down payment',
+      w: `Down payment  = ${rs(P)} × ${inputs.down_payment_pct}% = <b>${rs(down)}</b>\nBuying costs  = ${rs(P)} × ${inputs.buying_cost_pct}% = <b>${rs(bc)}</b>\nCash on day 1 = ${rs(down)} + ${rs(bc)} = <b>${rs(upfront)}</b>\nLoan          = ${rs(P)} − ${rs(down)} = <b>${rs(L)}</b>`,
+    },
+    {
+      t: 'Monthly EMI',
+      p: 'Standard reducing-balance formula used by every Indian bank. The yearly rate is split evenly across 12 months.',
+      f: 'r   = annual rate ÷ 12          n = years × 12\nEMI = L × r × (1+r)ⁿ ÷ ((1+r)ⁿ − 1)',
+      w: rM > 0
+        ? `r   = ${inputs.interest_rate}% ÷ 12 = ${(rM * 100).toFixed(5)}%      n = ${T} × 12 = ${n}\n(1+r)ⁿ = ${grow.toFixed(4)}\nEMI = ${rs(L)} × ${rM.toFixed(6)} × ${grow.toFixed(4)} ÷ ${(grow - 1).toFixed(4)} = <b>${rs(emiExact)}</b>`
+        : `Rate is 0%, so EMI = ${rs(L)} ÷ ${n} = <b>${rs(emiExact)}</b>`,
+    },
+    {
+      t: 'How each EMI splits (month 1)',
+      p: 'Interest is charged on the balance still owed; the rest of the EMI pays down the loan. Early EMIs are mostly interest.',
+      f: 'Interest  = Balance × r\nPrincipal = EMI − Interest\nBalance   = Balance − Principal',
+      w: `Interest  = ${rs(L)} × ${rM.toFixed(6)} = <b>${rs(int1)}</b>\nPrincipal = ${rs(emiExact)} − ${rs(int1)} = <b>${rs(prin1)}</b>\nBalance   = ${rs(L)} − ${rs(prin1)} = <b>${rs(L - prin1)}</b>`,
+      c: check(near(totalPrin, L), `All principal repaid over ${n} months adds up to the loan: ${rs(totalPrin)} ≈ ${rs(L)}`) +
+         check(near(totalEmi, L + totalInt), `Total EMIs = loan + total interest: ${rs(totalEmi)} ≈ ${rs(L)} + ${rs(totalInt)}`),
+    },
+    {
+      t: 'Home value and equity',
+      p: 'Prices grow at your appreciation rate once a year. Equity is what you would own outright if you sold.',
+      f: `Home value after ${T} yrs = Price × (1 + g)^${T}\nEquity = Home value − Loan left`,
+      w: `Home value = ${rs(P)} × (1 + ${inputs.annual_appreciation}%)^${T} = <b>${rs(last.home_value)}</b>\nEquity     = ${rs(last.home_value)} − ${rs(last.loan_balance)} = <b>${rs(last.net_equity)}</b>`,
+    },
+    {
+      t: 'Monthly cash flow vs renting',
+      p: 'Owning saves you the rent you would otherwise pay. Maintenance is a % of the current home value; rent grows once a year.',
+      f: 'Maintenance / month = m% × Home value ÷ 12\nCash flow / month   = Rent − EMI − Maintenance',
+      w: `Maintenance (yr 1) = ${inputs.maintenance_pct}% × ${rs(P)} ÷ 12 = <b>${rs(maint1)}</b>\nCash flow (yr 1)   = ${rs(inputs.monthly_rent)} − ${rs(emiExact)} − ${rs(maint1)} = <b>${rs(cf1)}</b>\nRent in year ${T}     = ${rs(inputs.monthly_rent)} × (1 + ${inputs.rent_appreciation}%)^${T - 1} = ${rs(rentT)}`,
+      p2: cf1 < 0
+        ? `Negative means owning costs you ${rs(-cf1)} a month more than renting in year 1. ${s.cf_positive_year ? `Rent overtakes EMI + maintenance in year ${s.cf_positive_year}.` : 'Rent never overtakes EMI + maintenance within the loan tenure.'}`
+        : 'Positive means owning is already cheaper than renting each month.',
+    },
+    {
+      t: `The renter: invest in ${fund.label} instead`,
+      p: `A fair comparison gives the renter the same money. They invest the buyer's day-1 cash (down payment + buying costs) on day 1, and each month they invest whatever the buyer spends over rent. ${fund.label}'s ${fund.cagr}%/yr is compounded monthly at the equivalent rate, so it really is ${fund.cagr}% a year.`,
+      f: 'i = (1 + fund return)^(1/12) − 1\nPortfolio₀ = Down payment + Buying costs\nPortfolio  = Portfolio × (1 + i) + max(0, EMI + Maintenance − Rent)   each month',
+      w: `i = (1 + ${fund.cagr}%)^(1/12) − 1 = ${(fundM * 100).toFixed(4)}% a month\nPortfolio₀ = <b>${rs(upfront)}</b>\nAfter ${n} months = <b>${rs(s.stock_net_gain)}</b>`,
+    },
+    {
+      t: 'The buyer: equity plus invested surplus',
+      p: 'In months where rent is higher than EMI + maintenance, the buyer is the one saving money, so they invest that surplus in the same fund. Both sides get identical treatment.',
+      f: 'Surplus pot = Surplus pot × (1 + i) + max(0, Rent − EMI − Maintenance)   each month\nHome wealth = Equity + Surplus pot',
+      w: `Home wealth = ${rs(s.final_home_value)} + ${rs(s.surplus_portfolio)} = <b>${rs(s.home_net_gain)}</b>`,
+    },
+    {
+      t: 'Verdict: buy vs rent edge',
+      f: 'Edge = Home wealth − Renter portfolio',
+      w: `Edge = ${rs(s.home_net_gain)} − ${rs(s.stock_net_gain)} = <b>${rs(s.rent_vs_buy)}</b>  →  ${s.buying_wins ? 'buying wins' : 'renting + investing wins'}`,
+    },
+    {
+      t: 'Annual return (IRR)',
+      p: `The single yearly rate that turns your exact cash flows, on their exact dates, into your final equity. We solve it numerically (bisection to under ₹1 of error). Because the renter's fund grows at ${fund.cagr}%, the edge above is positive exactly when the IRR beats ${fund.cagr}%, so the headline and the verdict always agree.`,
+      f: 'Cash flow month 0     = −(Down payment + Buying costs)\nCash flow months 1…n  = Rent − EMI − Maintenance\nCash flow month n     += Final equity\nFind m so that  Σ CFₜ ÷ (1+m)ᵗ = 0,   then IRR = (1+m)¹² − 1',
+      w: `CF₀ = <b>${rs(-upfront)}</b>,   CF₁ = <b>${rs(cf1)}</b>,   …,   CF${n} includes <b>${rs(s.final_home_value)}</b>\nIRR = <b>${s.irr_pct == null ? 'no solution in range' : pct(s.irr_pct)}</b>   vs   ${fund.label} ${pct(fund.cagr, 1)}`,
+      c: s.irr_pct == null ? '' : check((s.irr_pct > fund.cagr) === s.buying_wins || Math.abs(s.irr_pct - fund.cagr) < 0.01,
+        `IRR ${s.irr_pct > fund.cagr ? 'above' : 'below'} the fund ↔ edge ${s.buying_wins ? 'positive' : 'negative'}`),
+    },
+    {
+      t: 'Money in, money out',
+      p: 'A simpler view that ignores timing (₹1 in year 15 counts the same as ₹1 today). That is why it looks larger than the IRR.',
+      f: 'Money in  = Down payment + Buying costs + months where EMI + Maintenance > Rent\nMoney out = Final equity + months where Rent > EMI + Maintenance\nTotal return = (Money out − Money in) ÷ Money in',
+      w: `Money in  = <b>${rs(s.cash_out_of_pocket)}</b>\nMoney out = <b>${rs(s.wealth_return)}</b>\nTotal return = ${rs(s.net_gain)} ÷ ${rs(s.cash_out_of_pocket)} = <b>${pct(s.roi_pct, 1)}</b>`,
+    },
+    {
+      t: 'Break-even year',
+      p: 'The first year your equity plus the rent you avoided covers everything you have paid so far. Until then, selling would leave you behind. Stamp duty is the main reason this takes a few years.',
+      f: 'First year where  Equity + Rent avoided so far ≥ Day-1 cash + EMIs + Maintenance so far',
+      w: (() => {
+        const be = s.break_even_year;
+        if (!be) return `Not reached within ${T} years`;
+        const d = yd[be - 1];
+        const paid = upfront + yd.slice(0, be).reduce((a, x) => a + x.emi_paid + x.maintenance, 0);
+        return `Year ${be}:  ${rs(d.net_equity)} + ${rs(d.cum_rent_saved)} = ${rs(d.net_equity + d.cum_rent_saved)}  ≥  ${rs(paid)}   →  <b>Year ${be}</b>`;
+      })(),
+    },
+    {
+      t: 'Break-even appreciation',
+      p: 'We re-run the full simulation with different appreciation rates and solve for the one where the edge is exactly ₹0, holding every other input fixed.',
+      f: 'Find g such that  Edge(g) = 0',
+      w: s.breakeven_appreciation_pct == null
+        ? `No solution between −10% and +30% a year (buying ${s.buying_wins ? 'wins' : 'loses'} across that whole range)`
+        : `g = <b>${pct(s.breakeven_appreciation_pct)}</b> a year   (you assumed ${inputs.annual_appreciation}%)`,
+    },
+    {
+      t: 'Tax saving (year 1, shown separately)',
+      p: 'Old tax regime, self-occupied home. Not added to any return above, because it depends on your slab and regime.',
+      f: 'Saving = (min(Interest, ₹2,00,000) + min(Principal, ₹1,50,000)) × 31.2%\n         Sec 24(b)                   Sec 80C              30% + 4% cess',
+      w: `Saving = (${rs(sec24b)} + ${rs(sec80c)}) × 31.2% = <b>${rs((sec24b + sec80c) * 0.312)}</b>`,
+    },
+  ];
+
+  const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const html = steps.map((st, i) => `
+    <div class="math-step">
+      <h4><span class="math-n">${i + 1}</span>${st.t}</h4>
+      ${st.p ? `<p>${st.p}</p>` : ''}
+      <div class="math-formula">${esc(st.f)}</div>
+      <div class="math-work">${st.w}</div>
+      ${st.p2 ? `<p>${st.p2}</p>` : ''}
+      ${st.c || ''}
+    </div>`).join('') + `
+    <div class="math-step">
+      <h4><span class="math-n">!</span>What the model leaves out</h4>
+      <ul class="math-list">
+        <li>Brokerage and selling costs (stamp duty and registration are included at the % you entered)</li>
+        <li>Tax on capital gains, rental income, or fund returns. All figures are pre-tax and in today's nominal rupees, not adjusted for inflation</li>
+        <li>Property tax, insurance, and vacancy. Rate changes on floating-rate loans</li>
+        <li>Fund returns are steady averages. Real markets and property prices move unevenly year to year</li>
+      </ul>
+    </div>`;
+  document.getElementById('mathSteps').innerHTML = html;
 }
 
 function set(id, val, cls, sub) {
@@ -1661,9 +1816,9 @@ function buildHomeVsStockTable(yearData, summary) {
 
   const fund = getSelectedFund();
   const crossNote = summary.cf_positive_year
-    ? `Rent first exceeds EMI + maintenance in <strong>Year ${summary.cf_positive_year}</strong> — outflow investing stops there, but the ${fund.label} portfolio keeps compounding for the rest of the tenure.`
+    ? `Rent first exceeds EMI + maintenance in <strong>Year ${summary.cf_positive_year}</strong> — the renter stops adding, but their portfolio keeps compounding.`
     : `Rent never exceeds EMI + maintenance in this tenure — the outflow is invested into ${fund.label} every year.`;
-  note.innerHTML = `Down payment is invested on day 1. Each month, <strong>EMI + maintenance − rent</strong> is the outflow — invested into ${fund.label} at ${fund.cagr}%/yr. ${crossNote} Home wealth = final equity + net cash flow (total rent saved − total EMI − total maintenance).`;
+  note.innerHTML = `The renter invests the buyer's day-1 cash (down payment + stamp duty) on day 1. Each month, <strong>EMI + maintenance − rent</strong> is what the buyer spends extra — the renter invests that into ${fund.label} at ${fund.cagr}%/yr. ${crossNote}${summary.cf_positive_year ? ' From then on the buyer is the one saving, and invests that surplus in the same fund. Home wealth = equity + that invested surplus.' : ''}`;
 
   let rows = '';
 
@@ -1681,7 +1836,7 @@ function buildHomeVsStockTable(yearData, summary) {
         <td class="${outflow >= 0 ? 'td-neg' : 'td-pos'}">${outflow >= 0 ? '+' : ''}${fmt(outflow)}</td>
         <td class="${invested > 0 ? 'td-sip' : 'td-faint'}">${invested > 0 ? fmt(invested) : '—'}</td>
         <td class="td-sip">${fmt(d.snp_portfolio_value || 0)}</td>
-        <td class="td-pos">${fmt(d.net_equity)}</td>
+        <td class="td-pos">${fmt(d.home_wealth)}</td>
       </tr>`;
   });
 
@@ -1694,7 +1849,7 @@ function buildHomeVsStockTable(yearData, summary) {
       <td>—</td>
       <td>—</td>
       <td class="td-sip">${fmt(last.snp_portfolio_value || 0)}</td>
-      <td class="td-pos">${fmt(last.net_equity)}</td>
+      <td class="td-pos">${fmt(last.home_wealth)}</td>
     </tr>`;
 
   tbody.innerHTML = rows;
@@ -1885,7 +2040,7 @@ function drawHeatmap(canvasId, legendId, sensData, valueKey, decimals, suffix, i
 function resetAll() {
   const defaults = {
     interestRate: 8.5,
-    appreciation: 6, rentAppreciation: 5, maintenance: 0.5,
+    appreciation: 6, rentAppreciation: 5, maintenance: 0.5, buyingCost: 7,
   };
   Object.entries(defaults).forEach(([id, val]) => { document.getElementById(id).value = val; });
   setHpInput('homePrice', 10000000);
@@ -1922,11 +2077,11 @@ const COMPARE_METRICS = [
   { key: 'monthly_emi',           label: 'Monthly EMI',        note: 'Your monthly outflow',                   fmt: fmt,    lowerWins: true  },
   { key: 'total_paid',            label: 'Total cash paid',    note: 'EMI + maintenance + down payment',        fmt: fmt,    lowerWins: true  },
   { key: 'final_home_value',      label: 'Final home value',   note: 'Home equity at end of tenure',            fmt: fmt,    lowerWins: false },
-  { key: 'net_gain',              label: 'Net gain',           note: 'Equity + rent saved − total paid',        fmt: fmt,    lowerWins: false },
-  { key: 'roi_pct',               label: 'ROI (nominal)',      note: 'Total return on cash outflows',           fmt: fmtPct, lowerWins: false },
+  { key: 'net_gain',              label: 'Net gain',           note: 'What you end with − money you put in',    fmt: fmt,    lowerWins: false },
+  { key: 'roi_pct',               label: 'Total return',       note: 'Net gain ÷ money put in (ignores timing)', fmt: fmtPct, lowerWins: false },
   { key: 'irr_pct',               label: 'Annual return',      note: 'Yearly return (IRR) — compare to funds',  fmt: fmtIrr, lowerWins: false },
   { key: 'cumulative_rent_saved', label: 'Rent saved',         note: 'Total rent avoided over tenure',          fmt: fmt,    lowerWins: false },
-  { key: 'rent_vs_buy',           label: 'Buy vs rent edge',   note: 'Home equity minus renter portfolio',      fmt: fmt,    lowerWins: false },
+  { key: 'rent_vs_buy',           label: 'Buy vs rent edge',   note: 'Home wealth minus renter portfolio',      fmt: fmt,    lowerWins: false },
   { key: 'break_even_year',       label: 'Break-even year',    note: 'Equity + rent saved ≥ total paid',        fmt: v => v ? 'Year ' + v : 'Never', lowerWins: true },
 ];
 
@@ -1938,6 +2093,7 @@ function getCompareInputs(p) {
     annual_appreciation: parseFloat(document.getElementById(p + '_appreciation').value),
     rent_appreciation:   parseFloat(document.getElementById(p + '_rentAppreciation').value),
     maintenance_pct:     parseFloat(document.getElementById(p + '_maintenance').value),
+    buying_cost_pct:     parseFloat(document.getElementById(p + '_buyingCost').value) || 0,
     benchmark_return:    getSelectedFund().cagr,
     tenure_years:        parseInt(document.getElementById(p + '_tenure').value),
     down_payment_pct:    parseFloat(document.getElementById(p + '_downPct').value),
@@ -1945,7 +2101,7 @@ function getCompareInputs(p) {
 }
 
 function copyFromCalculator() {
-  const fields = ['interestRate', 'appreciation', 'rentAppreciation', 'maintenance'];
+  const fields = ['interestRate', 'appreciation', 'rentAppreciation', 'maintenance', 'buyingCost'];
   fields.forEach(id => { document.getElementById('a_' + id).value = document.getElementById(id).value; });
   document.getElementById('a_homePrice').value = fmtHpInput(parseHpRs('homePrice'));
   document.getElementById('a_rent').value = parseHpRs('rent');
@@ -1956,7 +2112,7 @@ function copyFromCalculator() {
 }
 
 function copyAtoB() {
-  const fields = ['rent', 'interestRate', 'appreciation', 'rentAppreciation', 'maintenance'];
+  const fields = ['rent', 'interestRate', 'appreciation', 'rentAppreciation', 'maintenance', 'buyingCost'];
   fields.forEach(id => { document.getElementById('b_' + id).value = document.getElementById('a_' + id).value; });
   document.getElementById('b_homePrice').value = fmtHpInput(parseHpRs('a_homePrice'));
   document.getElementById('b_tenure').value  = document.getElementById('a_tenure').value;
@@ -2080,11 +2236,10 @@ function drawCompareChart(cdA, tenA, cdB, tenB) {
     data: {
       labels,
       datasets: [
-        { label: 'A — Home equity',        data: pad(cdA.equity,           maxT), borderColor: '#5580A8', _gt: 'rgba(85,128,168,0.25)',  _gb: 'rgba(85,128,168,0.01)',  tension: 0.4, fill: true,  pointRadius: 0, pointHoverRadius: 5, borderWidth: 2.5 },
-        { label: 'B — Home equity',        data: pad(cdB.equity,           maxT), borderColor: '#7970A2', _gt: 'rgba(121,112,162,0.22)', _gb: 'rgba(121,112,162,0.01)', tension: 0.4, fill: true,  pointRadius: 0, pointHoverRadius: 5, borderWidth: 2.5 },
+        { label: 'A — Home wealth',        data: pad(cdA.home_wealth,      maxT), borderColor: '#5580A8', _gt: 'rgba(85,128,168,0.25)',  _gb: 'rgba(85,128,168,0.01)',  tension: 0.4, fill: true,  pointRadius: 0, pointHoverRadius: 5, borderWidth: 2.5 },
+        { label: 'B — Home wealth',        data: pad(cdB.home_wealth,      maxT), borderColor: '#7970A2', _gt: 'rgba(121,112,162,0.22)', _gb: 'rgba(121,112,162,0.01)', tension: 0.4, fill: true,  pointRadius: 0, pointHoverRadius: 5, borderWidth: 2.5 },
         { label: 'A — Renter portfolio',   data: pad(cdA.renter_portfolio, maxT), borderColor: '#5580A8', tension: 0.4, fill: false, pointRadius: 0, pointHoverRadius: 4, borderWidth: 1.5, borderDash: [5, 3] },
         { label: 'B — Renter portfolio',   data: pad(cdB.renter_portfolio, maxT), borderColor: '#7970A2', tension: 0.4, fill: false, pointRadius: 0, pointHoverRadius: 4, borderWidth: 1.5, borderDash: [5, 3] },
-        { label: `${getSelectedFund().label} renter (${getSelectedFund().cagr}%)`, data: pad(cdA.snp_portfolio, maxT), borderColor: '#6DA4C4', tension: 0.4, fill: false, pointRadius: 0, pointHoverRadius: 4, borderWidth: 1.5, borderDash: [3, 3] },
       ],
     },
     options: {
@@ -2914,6 +3069,7 @@ function buildShareUrl() {
     a:  document.getElementById('appreciation').value,
     ra: document.getElementById('rentAppreciation').value,
     m:  document.getElementById('maintenance').value,
+    bc: document.getElementById('buyingCost').value,
     t:  document.getElementById('tenure').value,
     dp: document.getElementById('downPct').value,
   });
@@ -2982,6 +3138,7 @@ function loadFromUrl() {
   setNum('appreciation',    'a');
   setNum('rentAppreciation','ra');
   setNum('maintenance',     'm');
+  setNum('buyingCost',      'bc');
 
   // Sliders with labels
   if (p.get('t')) {
