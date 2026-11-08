@@ -2,6 +2,7 @@
 let costChart = null, sensHeatmap = null, investWealthChartObj = null, iwOutflowChartObj = null;
 let chatHistory = [];
 let lastCalcResult = null;
+let lastVerdict = null;   // what the "Share my verdict" image is drawn from
 let chatOpen = false;
 let lastSensData = null;
 let lastSensInputs = null;
@@ -1098,6 +1099,7 @@ function renderResults(data, inputs, sensData) {
     ? 'Annual return n/a'
     : `${heroRate >= chipFund.cagr ? '▲' : '▼'} Home ${heroRate.toFixed(1)}%/yr vs ${chipFund.label} ${chipFund.cagr}%/yr`;
   cagrChip.className = 'verdict-chip ' + (heroRate == null ? '' : heroRate >= chipFund.cagr ? 'pos' : 'neg');
+  lastVerdict = { s, inputs, fund: chipFund };
   document.getElementById('verdictRentSaved').textContent = fmt(s.cumulative_rent_saved) + ' rent saved over ' + inputs.tenure_years + ' yrs';
 
   // ── Loan summary strip (plain English) ──
@@ -3179,6 +3181,8 @@ function buildShareUrl() {
     t:  document.getElementById('tenure').value,
     dp: document.getElementById('downPct').value,
   });
+  const fundSel = document.getElementById('benchmarkFund');
+  if (fundSel && fundSel.value !== 'nifty50') p.set('f', fundSel.value);
   const city = document.getElementById('locCity').value;
   const loc  = document.getElementById('locLocality').value;
   if (city) p.set('city', encodeURIComponent(city));
@@ -3223,6 +3227,181 @@ function emailResult() {
   window.location.href = `mailto:?subject=${subject}&body=${body}`;
 }
 
+/* ── Share my verdict: a 1080×1080 image of the result ── */
+function verdictPlace() {
+  const pick = id => {
+    const el = document.getElementById(id);
+    if (!el || !el.value) return '';
+    return el.options[el.selectedIndex].text.replace(/\s*\(.*\)\s*$/, '').trim();
+  };
+  const city = pick('locCity'), loc = pick('locLocality');
+  return loc ? `${loc}, ${city}` : city;
+}
+
+function verdictShareText(v) {
+  const { s, inputs, fund } = v;
+  const place = verdictPlace();
+  const home = place ? `a home in ${place}` : 'this home';
+  const edge = fmt(Math.abs(s.rent_vs_buy));
+  return s.buying_wins
+    ? `Buying ${home} beats renting + investing in ${fund.label} by ${edge} over ${inputs.tenure_years} years. Check your own numbers:`
+    : `Renting + investing in ${fund.label} beats buying ${home} by ${edge} over ${inputs.tenure_years} years. Check your own numbers:`;
+}
+
+function drawVerdictCard(v) {
+  const { s, inputs, fund } = v;
+  const W = 1080, H = 1080, cv = document.createElement('canvas');
+  cv.width = W; cv.height = H;
+  const c = cv.getContext('2d');
+  const SERIF = "'DM Serif Display', Georgia, serif", SANS = "Inter, system-ui, sans-serif";
+
+  // Background — same night-sky gradient as the site hero
+  const bg = c.createLinearGradient(0, 0, W * 0.6, H);
+  bg.addColorStop(0, '#020617'); bg.addColorStop(0.55, '#0f172a'); bg.addColorStop(1, '#111827');
+  c.fillStyle = bg; c.fillRect(0, 0, W, H);
+  const glow = (x, y, r, col) => { const g = c.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, col); g.addColorStop(1, 'rgba(0,0,0,0)'); c.fillStyle = g; c.fillRect(0, 0, W, H); };
+  glow(W * 0.85, H * 0.2, 560, 'rgba(79,70,229,0.26)');
+  glow(W * 0.05, H * 0.95, 520, 'rgba(37,99,235,0.2)');
+
+  const rrect = (x, y, w, h, r) => {
+    r = Math.min(r, w / 2, h / 2);
+    c.beginPath();
+    c.moveTo(x + r, y); c.lineTo(x + w - r, y); c.quadraticCurveTo(x + w, y, x + w, y + r);
+    c.lineTo(x + w, y + h); c.lineTo(x, y + h); c.lineTo(x, y + r); c.quadraticCurveTo(x, y, x + r, y);
+    c.closePath();
+  };
+
+  // Logo
+  const L = 80, lx = 80, ly = 70, sc = 1.45;
+  [[0, 18, 10, '#93c5fd'], [12, 10, 18, '#60a5fa'], [24, 2, 26, '#f59e0b']].forEach(([x, y, h, col]) => {
+    c.fillStyle = col; rrect(lx + x * sc, ly + y * sc, 9 * sc, h * sc, 2.5 * sc); c.fill();
+  });
+  c.textBaseline = 'alphabetic';
+  c.font = "40px Sniglet, sans-serif";
+  let tx = lx + 33 * sc + 16;
+  [['Go', '#ffffff'], ['Win', '#60a5fa'], ['Dhan', '#f59e0b']].forEach(([t, col]) => { c.fillStyle = col; c.fillText(t, tx, ly + 36); tx += c.measureText(t).width; });
+
+  // Place
+  const place = verdictPlace();
+  c.font = `600 26px ${SANS}`;
+  c.fillStyle = 'rgba(255,255,255,0.62)';
+  c.fillText((place || 'My buy vs rent result').toUpperCase(), L, 205);
+
+  // Headline
+  const winCol = s.buying_wins ? '#93c5fd' : '#86d1ad';
+  c.font = `76px ${SERIF}`;
+  c.fillStyle = '#ffffff';
+  c.fillText(s.buying_wins ? 'Buying wins' : 'Renting + investing', L, 292);
+  c.fillStyle = winCol;
+  c.fillText(s.buying_wins ? `by ${fmt(Math.abs(s.rent_vs_buy))}` : `wins by ${fmt(Math.abs(s.rent_vs_buy))}`, L, 378);
+
+  c.font = `400 30px ${SANS}`;
+  c.fillStyle = 'rgba(255,255,255,0.78)';
+  c.fillText(`after ${inputs.tenure_years} years, vs ${s.buying_wins ? `a renter investing in ${fund.label}` : 'buying this home'}`, L, 434);
+
+  // Inputs line
+  c.font = `500 25px ${SANS}`;
+  c.fillStyle = 'rgba(255,255,255,0.55)';
+  c.fillText(`${fmt(inputs.home_price)} home · ${fmt(inputs.monthly_rent)}/mo rent · ${inputs.interest_rate}% loan · ${inputs.down_payment_pct}% down`, L, 482);
+
+  // Bars
+  const vals = [
+    { v: Math.max(0, s.home_net_gain), label: 'Buying', sub: 'home wealth', a: '#6b9ac4', b: '#3f6690', win: s.buying_wins },
+    { v: Math.max(0, s.stock_net_gain), label: 'Renting', sub: `+ ${fund.label}`, a: '#6fb293', b: '#3a7a60', win: !s.buying_wins },
+  ];
+  const max = Math.max(vals[0].v, vals[1].v, 1);
+  const base = 880, maxH = 270, bw = 330, gap = 100, x0 = (W - (bw * 2 + gap)) / 2;
+  vals.forEach((d, i) => {
+    const x = x0 + i * (bw + gap), h = Math.max(10, d.v / max * maxH), y = base - h;
+    const g = c.createLinearGradient(0, y, 0, base); g.addColorStop(0, d.a); g.addColorStop(1, d.b);
+    c.fillStyle = g; rrect(x, y, bw, h, 18); c.fill();
+    c.textAlign = 'center';
+    c.font = `46px ${SERIF}`;
+    c.fillStyle = d.win ? '#ffffff' : 'rgba(255,255,255,0.75)';
+    c.fillText(fmt(d.v), x + bw / 2, y - 22);
+    c.font = `600 27px ${SANS}`;
+    c.fillStyle = 'rgba(255,255,255,0.88)';
+    c.fillText(d.label + (d.win ? '  ▲' : ''), x + bw / 2, base + 42);
+    c.font = `400 22px ${SANS}`;
+    c.fillStyle = 'rgba(255,255,255,0.6)';
+    c.fillText(d.sub, x + bw / 2, base + 74);
+    c.textAlign = 'left';
+  });
+
+  // Footer
+  c.fillStyle = 'rgba(255,255,255,0.12)'; c.fillRect(L, 990, W - 2 * L, 1);
+  c.font = `700 28px ${SANS}`;
+  c.fillStyle = '#ffffff';
+  c.fillText('gowindhan.com', L, 1036);
+  c.font = `500 24px ${SANS}`;
+  c.fillStyle = 'rgba(255,255,255,0.6)';
+  c.textAlign = 'right';
+  c.fillText('Check your own numbers · free · estimates only', W - L, 1036);
+  c.textAlign = 'left';
+  return cv;
+}
+
+let vsBlobUrl = null, vsFile = null, vsLastFocus = null;
+
+async function openVerdictShare() {
+  if (!lastVerdict) return;
+  vsLastFocus = document.activeElement;
+  try {
+    await Promise.all([
+      document.fonts.load("76px 'DM Serif Display'"),
+      document.fonts.load('40px Sniglet'),
+      document.fonts.load('600 27px Inter'),
+      document.fonts.load('400 27px Inter'),
+      document.fonts.load('700 27px Inter'),
+    ]);
+  } catch (e) { /* fall back to system fonts */ }
+
+  const cv = drawVerdictCard(lastVerdict);
+  const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
+  if (vsBlobUrl) URL.revokeObjectURL(vsBlobUrl);
+  vsBlobUrl = URL.createObjectURL(blob);
+  vsFile = new File([blob], 'gowindhan-verdict.png', { type: 'image/png' });
+
+  const url = buildShareUrl();
+  const text = verdictShareText(lastVerdict);
+  document.getElementById('vsPreview').src = vsBlobUrl;
+  document.getElementById('vsWhatsapp').href = 'https://wa.me/?text=' + encodeURIComponent(`${text} ${url}`);
+
+  const nativeBtn = document.getElementById('vsNative');
+  const canShareFile = !!(navigator.canShare && navigator.canShare({ files: [vsFile] }));
+  nativeBtn.classList.toggle('hidden', !canShareFile);
+  nativeBtn.onclick = () => {
+    navigator.share({ files: [vsFile], title: 'My buy vs rent result', text: `${text} ${url}` }).catch(() => {});
+  };
+  document.getElementById('vsDownload').onclick = () => {
+    const a = document.createElement('a');
+    a.href = vsBlobUrl; a.download = 'gowindhan-verdict.png';
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+  const copyBtn = document.getElementById('vsCopy');
+  copyBtn.textContent = 'Copy link';
+  copyBtn.onclick = () => {
+    const done = () => { copyBtn.textContent = '✓ Link copied'; setTimeout(() => { copyBtn.textContent = 'Copy link'; }, 2500); };
+    if (navigator.clipboard) navigator.clipboard.writeText(`${text} ${url}`).then(done).catch(() => prompt('Copy this link:', url));
+    else prompt('Copy this link:', url);
+  };
+
+  const modal = document.getElementById('vsModal');
+  modal.classList.remove('hidden');
+  document.body.classList.add('vs-open');
+  document.getElementById('vsClose').focus();
+}
+
+function closeVerdictShare() {
+  document.getElementById('vsModal').classList.add('hidden');
+  document.body.classList.remove('vs-open');
+  if (vsLastFocus && vsLastFocus.focus) vsLastFocus.focus();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !document.getElementById('vsModal').classList.contains('hidden')) closeVerdictShare();
+});
+
 function loadFromUrl() {
   const p = new URLSearchParams(location.search);
   if (!p.has('hp') && !p.has('r')) return;
@@ -3246,6 +3425,15 @@ function loadFromUrl() {
   setNum('maintenance',     'm');
   setNum('buyingCost',      'bc');
   { const bcEl = document.getElementById('buyingCost'); if (bcEl && bcEl.value !== '') bcEl.value = clampBuyingCost(bcEl.value); }   // old links may carry > 7%
+
+  // Benchmark fund
+  if (p.get('f')) {
+    const fundSel = document.getElementById('benchmarkFund');
+    if (fundSel && [...fundSel.options].some(o => o.value === p.get('f'))) {
+      fundSel.value = p.get('f');
+      updateBenchmarkLabels();
+    }
+  }
 
   // Sliders with labels
   if (p.get('t')) {
