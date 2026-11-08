@@ -1086,7 +1086,7 @@ function renderResults(data, inputs, sensData) {
   document.getElementById('verdictIcon').textContent = s.buying_wins ? '🏠' : '📈';
   document.getElementById('verdictTitle').textContent = s.buying_wins
     ? 'Buying this property is a good investment'
-    : 'Renting + investing would likely serve you better';
+    : 'Rent and Invest would likely serve you better';
   document.getElementById('verdictDesc').textContent = s.buying_wins
     ? `After ${inputs.tenure_years} years you end up ${fmt(Math.abs(s.rent_vs_buy))} richer than a renter who invests the same money in ${getSelectedFund().label}.`
     : `A renter who invests the same money in ${getSelectedFund().label} ends up ${fmt(Math.abs(s.rent_vs_buy))} richer than you after ${inputs.tenure_years} years.`;
@@ -1406,7 +1406,7 @@ function buildMathPane(data, inputs) {
     {
       t: 'Verdict: buy vs rent edge',
       f: 'Edge = Home wealth − Renter portfolio',
-      w: `Edge = ${rs(s.home_net_gain)} − ${rs(s.stock_net_gain)} = <b>${rs(s.rent_vs_buy)}</b>  →  ${s.buying_wins ? 'buying wins' : 'renting + investing wins'}`,
+      w: `Edge = ${rs(s.home_net_gain)} − ${rs(s.stock_net_gain)} = <b>${rs(s.rent_vs_buy)}</b>  →  ${s.buying_wins ? 'buying wins' : 'Rent and Invest wins'}`,
     },
     {
       t: 'Annual return (IRR)',
@@ -2824,7 +2824,7 @@ function buildCalcContext() {
     `Annual return (IRR): ${r.irr != null ? r.irr.toFixed(2) + '% per year' : 'N/A'}`,
     `Break-even year: ${r.break_even_year || 'beyond tenure'}`,
     `Home wealth at end of tenure: Rs ${homeVal} Cr`,
-    `Verdict: ${r.buying_wins ? 'Buying wins' : 'Renting + investing wins'} by Rs ${Math.round(Math.abs(r.rent_vs_buy)).toLocaleString('en-IN')}`,
+    `Verdict: ${r.buying_wins ? 'Buying wins' : 'Rent and Invest wins'} by Rs ${Math.round(Math.abs(r.rent_vs_buy)).toLocaleString('en-IN')}`,
   ].join('\n');
 }
 
@@ -3244,8 +3244,8 @@ function verdictShareText(v) {
   const home = place ? `a home in ${place}` : 'this home';
   const edge = fmt(Math.abs(s.rent_vs_buy));
   return s.buying_wins
-    ? `Buying ${home} beats renting + investing in ${fund.label} by ${edge} over ${inputs.tenure_years} years. Check your own numbers:`
-    : `Renting + investing in ${fund.label} beats buying ${home} by ${edge} over ${inputs.tenure_years} years. Check your own numbers:`;
+    ? `Buying ${home} beats Rent and Invest (${fund.label}) by ${edge} over ${inputs.tenure_years} years. Check your own numbers:`
+    : `Rent and Invest (${fund.label}) beats buying ${home} by ${edge} over ${inputs.tenure_years} years. Check your own numbers:`;
 }
 
 function drawVerdictCard(v) {
@@ -3291,7 +3291,7 @@ function drawVerdictCard(v) {
   const winCol = s.buying_wins ? '#93c5fd' : '#86d1ad';
   c.font = `76px ${SERIF}`;
   c.fillStyle = '#ffffff';
-  c.fillText(s.buying_wins ? 'Buying wins' : 'Renting + investing', L, 292);
+  c.fillText(s.buying_wins ? 'Buying wins' : 'Rent and Invest', L, 292);
   c.fillStyle = winCol;
   c.fillText(s.buying_wins ? `by ${fmt(Math.abs(s.rent_vs_buy))}` : `wins by ${fmt(Math.abs(s.rent_vs_buy))}`, L, 378);
 
@@ -3307,7 +3307,7 @@ function drawVerdictCard(v) {
   // Bars
   const vals = [
     { v: Math.max(0, s.home_net_gain), label: 'Buying', sub: 'home wealth', a: '#6b9ac4', b: '#3f6690', win: s.buying_wins },
-    { v: Math.max(0, s.stock_net_gain), label: 'Renting', sub: `+ ${fund.label}`, a: '#6fb293', b: '#3a7a60', win: !s.buying_wins },
+    { v: Math.max(0, s.stock_net_gain), label: 'Rent and Invest', sub: `in ${fund.label}`, a: '#6fb293', b: '#3a7a60', win: !s.buying_wins },
   ];
   const max = Math.max(vals[0].v, vals[1].v, 1);
   const base = 880, maxH = 270, bw = 330, gap = 100, x0 = (W - (bw * 2 + gap)) / 2;
