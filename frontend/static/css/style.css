@@ -115,12 +115,6 @@ nav {
   background-clip: text;
 }
 .nav-right { display: flex; align-items: center; gap: 1.5rem; }
-.nav-tagline {
-  font-size: 11px; color: rgba(255,255,255,0.26);
-  letter-spacing: 0.07em; text-transform: uppercase;
-  display: none;
-}
-@media (min-width: 700px) { .nav-tagline { display: block; } }
 
 .nav-tabs {
   display: flex; gap: 2px;
@@ -131,9 +125,9 @@ nav {
 }
 .nav-tab {
   font-size: 13px; font-weight: 500;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.68);
   background: none; border: none; cursor: pointer;
-  padding: 6px 16px; border-radius: 7px;
+  padding: 9px 16px; border-radius: 7px;   /* ~36px tall click target */
   transition: all 0.15s;
   font-family: var(--sans);
   touch-action: manipulation;
@@ -180,12 +174,19 @@ nav {
   border-left: 1px solid rgba(255,255,255,0.08);
   z-index: 1200;
   transform: translateX(100%);
-  transition: transform 0.26s cubic-bezier(0.4,0,0.2,1);
+  /* Hidden + shadowless while closed, so its shadow doesn't leak onto the page edge */
+  visibility: hidden;
+  box-shadow: none;
+  transition: transform 0.26s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0.26s, box-shadow 0.26s;
   display: flex;
   flex-direction: column;
-  box-shadow: -4px 0 32px rgba(0,0,0,0.4);
 }
-.nav-drawer.open { transform: translateX(0); }
+.nav-drawer.open {
+  transform: translateX(0);
+  visibility: visible;
+  box-shadow: -4px 0 32px rgba(0,0,0,0.4);
+  transition: transform 0.26s cubic-bezier(0.4,0,0.2,1), visibility 0s, box-shadow 0.26s;
+}
 .nav-drawer-header {
   display: flex;
   align-items: center;
@@ -376,6 +377,9 @@ nav {
   .hero-prop-svg { display: none; }
   .hero-stat-box { flex: 1; text-align: left; min-width: unset; padding: 0.9rem 1.1rem; }
   .hero-text p { font-size: 12.5px; }
+  /* Text stacks over the skyline on phones: dim the buildings so copy stays readable */
+  .hero-skyline { animation: none; opacity: 0.28; height: 120px; }
+  .hero-inner { position: relative; z-index: 1; }
 }
 @media (max-width: 400px) {
   .hero-text h1 { font-size: 1.15rem; }
@@ -649,16 +653,32 @@ input[type="range"]::-moz-range-thumb {
 
 .btn-calc {
   display: flex; align-items: center; gap: 8px;
-  background: linear-gradient(135deg, var(--blue-600) 0%, var(--indigo-600) 100%);
+  /* Brighter than the muted palette on purpose: this is the page's one primary action */
+  background: linear-gradient(135deg, #3b63e0 0%, #4f46e5 100%);
   color: #fff; border: none; border-radius: var(--radius-sm);
   font-family: var(--sans); font-size: 14px; font-weight: 600;
   padding: 12px 30px; cursor: pointer;
   touch-action: manipulation;
   transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
   letter-spacing: 0.01em;
-  box-shadow: var(--shadow-blue);
+  box-shadow: 0 4px 18px rgba(59,99,224,0.35);
 }
-.btn-calc:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(37,99,235,0.38); }
+.btn-calc:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(59,99,224,0.45); }
+
+/* Floating "Run analysis" on phones, shown only while the real button is below the screen */
+.calc-float { display: none; }
+@media (max-width: 640px) {
+  .calc-float {
+    display: flex; justify-content: center;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: linear-gradient(to top, rgba(244,246,251,0.98) 70%, rgba(244,246,251,0));
+    transform: translateY(110%); transition: transform 0.22s ease;
+    pointer-events: none;
+  }
+  .calc-float.show { transform: translateY(0); pointer-events: auto; }
+  .calc-float .btn-calc { width: 100%; justify-content: center; }
+}
 .btn-calc:active { transform: translateY(0); }
 .btn-calc:disabled { opacity: 0.55; box-shadow: none; cursor: not-allowed; transform: none; }
 
@@ -1378,19 +1398,20 @@ footer strong { color: rgba(255,255,255,0.5); font-weight: 700; }
   align-items: stretch;
   border: 1px solid var(--border);
   border-radius: 12px;
-  overflow: hidden;
+  overflow: clip;              /* clip (not hidden) so the sticky tab list still works */
   margin-top: 0.5rem;
+  scroll-margin-top: 72px;     /* clear the sticky nav when scrolled into view */
 }
 .stepper-header {
   width: 160px;
   flex-shrink: 0;
   border-right: 1px solid var(--border);
   padding: 4px 0;
-  max-height: 72vh;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
   background: var(--surface-2);
+}
+/* Desktop: the tab list follows you down long panes; the panes grow with the page */
+@media (min-width: 641px) {
+  .stepper-tabs { position: sticky; top: 70px; }
 }
 .stepper-header::-webkit-scrollbar { width: 4px; }
 .stepper-header::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
@@ -1429,21 +1450,13 @@ footer strong { color: rgba(255,255,255,0.5); font-weight: 700; }
   flex: 1;
   min-width: 0;
   padding: 1.5rem 1.75rem;
-  max-height: 72vh;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
 }
-.results-content::-webkit-scrollbar { width: 6px; }
-.results-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 6px; }
-.results-content::-webkit-scrollbar-track { background: transparent; }
 
 @media (max-width: 640px) {
   .stepper-wrap { flex-direction: column; }
   .stepper-header {
     width: 100%;
     position: relative;          /* for the fade ::after */
-    max-height: none;
     border-right: none;
     border-bottom: 1px solid var(--border);
     padding: 0;
@@ -1482,8 +1495,6 @@ footer strong { color: rgba(255,255,255,0.5); font-weight: 700; }
   /* Results content: natural page flow on mobile */
   .results-content {
     padding: 1.1rem 0.875rem 1.5rem;
-    max-height: none;
-    overflow-y: visible;
   }
   /* Pane nav: hide on mobile — tab bar handles navigation directly */
   .pane-nav { display: none; }
@@ -1621,9 +1632,12 @@ footer strong { color: rgba(255,255,255,0.5); font-weight: 700; }
 /* Medium screens: prevent nav-tab overflow, soften layout */
 @media (max-width: 860px) {
   nav { padding: 0 1.5rem; }
-  .nav-tab { font-size: 12px; padding: 6px 11px; }
+  .nav-tab { font-size: 12px; padding: 9px 11px; }
   .loan-summary-strip { grid-template-columns: repeat(2, 1fr); }
   .lss-card:last-child { grid-column: auto; }
+}
+/* Narrow sidebar only while it's still a sidebar; ≤640px it becomes a full-width tab bar */
+@media (min-width: 641px) and (max-width: 860px) {
   .stepper-header { width: 140px; }
   .stepper-tab { font-size: 12.5px; padding: 10px 12px; white-space: normal; line-height: 1.3; }
 }
@@ -3047,9 +3061,15 @@ img.fab-char {
 .tile-calc {
   margin-top: 8px; padding: 6px 9px;
   background: var(--emerald-50); border-radius: 6px;
-  font-family: var(--mono); font-size: 10.5px; line-height: 1.5;
-  color: var(--ink-subtle); overflow-wrap: anywhere;
+  /* Sans + tabular figures: narrower than mono, so the sums wrap between terms, not mid-number */
+  font-family: var(--sans); font-variant-numeric: tabular-nums;
+  font-size: 11px; line-height: 1.5;
+  color: var(--ink-subtle); overflow-wrap: break-word;
 }
+/* Tiles in a row share a height; pin the worked example to the bottom so they line up */
+.lss-card { display: flex; flex-direction: column; }
+.lss-card > .tile-calc { margin-top: auto; }
+.lss-card > :has(+ .tile-calc) { margin-bottom: 8px; }   /* min gap above the pinned example */
 .tile-calc b { color: var(--ink); font-weight: 700; }
 .tile-calc sup { font-size: 0.75em; }
 .verdict-text .tile-calc { display: block; font-size: 11.5px; background: rgba(255,255,255,0.6); }

@@ -143,7 +143,6 @@
     Go<span class="logo-win">Win</span><span class="logo-dhan">Dhan</span>
   </div>
   <div class="nav-right">
-    <span class="nav-tagline">Home Investment Analyser</span>
     <div class="nav-tabs">
       <button class="nav-tab active" data-tab="calc">Calculator</button>
       <button class="nav-tab" data-tab="compare">Compare</button>
@@ -649,6 +648,9 @@
     <button class="btn-share" onclick="emailResult()">✉️ Email</button>
     <span class="api-error hidden" id="apiError"></span>
   </div>
+  <div class="calc-float" id="calcFloat" aria-hidden="true">
+    <button class="btn-calc" type="button" tabindex="-1" onclick="calculate()">Run analysis</button>
+  </div>
 
   <!-- ── RESULTS ── -->
   <div id="results" class="hidden">
@@ -708,7 +710,7 @@
                 <div class="lss-sub" id="lssTaxSub">old regime, 30% slab · principal + interest deduction</div>
               </div>
             </div>
-            <p class="verdict-disclaimer">Estimates for planning only, not financial advice. Actual results depend on future prices, rents and interest rates, and exclude tax benefits, brokerage and selling costs. Consult a SEBI-registered advisor before deciding. <a href="#" class="math-link" data-goto-pane="pane-math">See every formula with your numbers →</a></p>
+            <p class="verdict-disclaimer">Estimates for planning only, not financial advice. Actual results depend on future prices, rents and interest rates, and exclude brokerage and selling costs. Tax savings are shown for reference but not counted in the returns. Consult a SEBI-registered advisor before deciding. <a href="#" class="math-link" data-goto-pane="pane-math">See every formula with your numbers →</a></p>
           </div>
 
           <!-- RETURNS -->

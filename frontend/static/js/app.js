@@ -280,6 +280,17 @@ updateHomePriceFmt();
   });
 }());
 
+/* ── Floating Run button on phones: visible while the real one is still below the screen ── */
+(function() {
+  const row = document.getElementById('calcRow');
+  const float = document.getElementById('calcFloat');
+  if (!row || !float || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(([e]) => {
+    // When another top-level tab hides the form, the row's rect is all zeros → hidden too
+    float.classList.toggle('show', !e.isIntersecting && e.boundingClientRect.top > 0);
+  }).observe(row);
+}());
+
 /* ── Results stepper pane switching + prev/next ── */
 (function() {
   const prevBtn   = document.getElementById('panePrev');
@@ -305,6 +316,10 @@ updateHomePriceFmt();
     // scroll active tab into view
     const activeTab = document.querySelector(`.stepper-tab[data-pane="${id}"]`);
     if (activeTab) activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    // Panes now grow with the page: if you switched tabs from far down a long
+    // pane, bring the top of the results back into view.
+    const wrap = document.querySelector('.stepper-wrap');
+    if (wrap && wrap.getBoundingClientRect().top < 0) wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   document.addEventListener('click', function(e) {
@@ -339,6 +354,7 @@ document.querySelectorAll('.nav-tab').forEach(btn => {
     ['inputsPanel', 'loanPanel', 'metricsHighlight', 'calcRow'].forEach(id => {
       document.getElementById(id).style.display = hideCalcUi ? 'none' : '';
     });
+    if (hideCalcUi) document.getElementById('calcFloat')?.classList.remove('show');
   });
 });
 
@@ -406,7 +422,7 @@ function updateMetricsHighlight() {
   const rate    = parseFloat(document.getElementById('interestRate').value) || 0;
   const tenure  = parseInt(document.getElementById('tenure').value) || 20;
   const downPct = parseFloat(document.getElementById('downPct').value) || 20;
-  const rent    = parseFloat(document.getElementById('rent').value) || 0;
+  const rent    = parseHpRs('rent');
   const down    = price * downPct / 100;
   const loan    = price - down;
   const r       = rate / 12 / 100;
@@ -1065,9 +1081,14 @@ function renderResults(data, inputs, sensData) {
     : `A renter who invests the same money in ${getSelectedFund().label} ends up ${fmt(Math.abs(s.rent_vs_buy))} richer than you after ${inputs.tenure_years} years.`;
 
   const cagrChip = document.getElementById('verdictCagr');
-  cagrChip.textContent = heroRate == null ? 'Annual return n/a' : fmtPct(heroRate) + ' a year';
-  cagrChip.className = 'verdict-chip ' + (heroRate == null ? '' : heroRate >= 0 ? 'pos' : 'neg');
-  document.getElementById('verdictRentSaved').textContent = fmt(s.cumulative_rent_saved) + ' rental income over tenure';
+  // Show the home's return next to the fund's, coloured by which one wins, so the
+  // chip never looks "good" (green) on a card that says renting wins.
+  const chipFund = getSelectedFund();
+  cagrChip.textContent = heroRate == null
+    ? 'Annual return n/a'
+    : `Home ${heroRate.toFixed(1)}%/yr vs ${chipFund.label} ${chipFund.cagr}%/yr`;
+  cagrChip.className = 'verdict-chip ' + (heroRate == null ? '' : heroRate >= chipFund.cagr ? 'pos' : 'neg');
+  document.getElementById('verdictRentSaved').textContent = fmt(s.cumulative_rent_saved) + ' rent saved over ' + inputs.tenure_years + ' yrs';
 
   // ── Loan summary strip (plain English) ──
   const totalInterestPaid = Math.round(data.amortisation.reduce((sum, d) => sum + d.interest, 0));
@@ -1263,7 +1284,8 @@ function setTileCalc(anchorId, html) {
     if (host === anchor.parentElement && !anchor.closest('.lss-card, .kpi')) anchor.after(el);
     else host.appendChild(el);
   }
-  el.innerHTML = html;
+  // Keep "₹93.0 L" / "₹3.21 Cr" on one line
+  el.innerHTML = html.replace(/(₹[\d.,]+) (L|Cr)\b/g, '$1\u00a0$2');
 }
 
 function addTileWorkings(data, inputs, totalInterest, finalHomeVal, sec24b, sec80c, taxSaving) {
@@ -1517,7 +1539,8 @@ function drawInvestmentWealthChart(yearData, downPayment) {
   };
 
   /* ── LEFT chart: cumulative money committed ── */
-  const leftLabels = ['Yr 0', ...yearData.map(d => 'Yr ' + d.year)];
+  // Yr 0 is the down payment; naming it on the axis avoids a drawn label that collided with bars
+  const leftLabels = ['Down pmt', ...yearData.map(d => 'Yr ' + d.year)];
   const annualOutflow = [downPayment, ...yearData.map(d => Math.max(0, -d.annual_net_cf))];
 
   // Build cumulative and previous-cumulative for stacked bars
@@ -1537,13 +1560,6 @@ function drawInvestmentWealthChart(yearData, downPayment) {
     afterDraw(chart) {
       const { ctx, chartArea: ca, scales: { x } } = chart;
       ctx.save();
-      // Label the Yr 0 bar as "Down payment"
-      const x0 = x.getPixelForValue(0);
-      ctx.font = '600 9px "Inter",sans-serif';
-      ctx.fillStyle = 'rgba(159,18,57,0.85)';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'bottom';
-      ctx.fillText('Down pmt', x0, ca.top + 11);
       // Dashed line + label at the year rent covers costs
       if (cfFlipIdx > 0 && cfFlipIdx < leftLabels.length) {
         const xp = x.getPixelForValue(cfFlipIdx);
