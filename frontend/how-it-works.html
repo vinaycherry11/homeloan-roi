@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How the GoWinDhan Buy vs Rent Calculator Works — Method, Formulas &amp; Data Sources</title>
+<meta name="description" content="The exact method behind GoWinDhan's buy vs rent calculator for India: how EMI, home wealth, the index-fund comparison and annual return are calculated, with a worked ₹1 Cr example and every data source.">
+<link rel="canonical" href="https://www.gowindhan.com/how-it-works">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.gowindhan.com/how-it-works">
+<meta property="og:title" content="How the GoWinDhan buy vs rent calculator works">
+<meta property="og:description" content="Every formula, assumption and data source behind the calculator, with a worked ₹1 Cr example you can check yourself.">
+<meta property="og:site_name" content="GoWinDhan">
+<meta property="og:locale" content="en_IN">
+<meta property="og:image" content="https://www.gowindhan.com/static/img/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GoWinDhan — Buy a home, or rent and invest? Free calculator for India.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.gowindhan.com/static/img/og-card.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "How the GoWinDhan buy vs rent calculator works",
+  "description": "Method, formulas, worked example and data sources behind GoWinDhan's home loan ROI and buy vs rent calculator for India.",
+  "url": "https://www.gowindhan.com/how-it-works",
+  "inLanguage": "en-IN",
+  "dateModified": "2026-11-08",
+  "publisher": { "@type": "Organization", "name": "GoWinDhan", "url": "https://www.gowindhan.com/", "logo": "https://www.gowindhan.com/static/img/gwd-bars-logo.png" },
+  "image": "https://www.gowindhan.com/static/img/og-card.jpg"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sniglet:wght@400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/static/img/gwd-bars-logo.png">
+<link rel="stylesheet" href="/static/css/style.css?v=features59">
+<link rel="stylesheet" href="/static/css/page.css?v=1">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/" aria-label="GoWinDhan home">
+    <svg class="nav-logo-icon" viewBox="0 0 33 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="0"  y="18" width="9" height="10" rx="2.5" fill="#93c5fd"/>
+      <rect x="12" y="10" width="9" height="18" rx="2.5" fill="#60a5fa"/>
+      <rect x="24" y="2"  width="9" height="26" rx="2.5" fill="#f59e0b"/>
+    </svg>
+    Go<span class="logo-win">Win</span><span class="logo-dhan">Dhan</span>
+  </a>
+  <div class="nav-links">
+    <a href="/" class="hide-sm">Calculator</a>
+    <a href="/how-it-works" aria-current="page">How it works</a>
+    <a href="/about">About</a>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="page-eyebrow">Method</div>
+  <h1>How the calculator works</h1>
+  <p class="lede">Nothing here is a black box. This page explains every step the calculator takes, which numbers it assumes, and where the data comes from, so you can check any result yourself.</p>
+
+  <div class="page-toc">
+    <strong>On this page</strong>
+    <ol>
+      <li><a href="#question">The question it answers</a></li>
+      <li><a href="#two-people">Two people, same money</a></li>
+      <li><a href="#month">What happens each month</a></li>
+      <li><a href="#example">A worked example: ₹1 Cr flat</a></li>
+      <li><a href="#return">Annual return and break-even</a></li>
+      <li><a href="#not-modelled">What it doesn't model</a></li>
+      <li><a href="#sources">Data sources</a></li>
+    </ol>
+  </div>
+
+  <h2 id="question">The question it answers</h2>
+  <p>“Should I buy?” is really a comparison. The money you put into a home could have gone somewhere else. So the calculator asks: <strong>if you buy this home, will you end up richer than if you rented a similar one and invested the difference?</strong></p>
+  <p>It answers by following both choices month by month, for as long as your loan runs, and comparing what each person owns at the end.</p>
+
+  <h2 id="two-people">Two people, same money</h2>
+  <p>Imagine two people with the same savings and the same monthly budget.</p>
+  <ul>
+    <li><strong>The buyer</strong> pays the down payment plus stamp duty and registration, takes the loan, and pays EMI and maintenance every month.</li>
+    <li><strong>The renter</strong> puts that same upfront amount into an index fund (Nifty 50 by default, and you can pick others) and pays rent every month.</li>
+  </ul>
+  <p>Both spend the same amount every month. Whoever's monthly cost is lower invests the gap in the fund. Usually that's the renter early on, because EMI plus maintenance is higher than rent. Later, as rent rises, it can flip to the buyer.</p>
+  <div class="callout">This is the fair way to compare. If the buyer's extra spending simply disappeared, buying would always look worse; if the renter spent the difference, renting would. Investing the gap keeps both people on the same budget.</div>
+
+  <h2 id="month">What happens each month</h2>
+  <h3>1. EMI</h3>
+  <p>The standard reducing-balance formula Indian banks use, with the annual rate split into twelve monthly ones:</p>
+  <div class="formula">EMI = P × r × (1 + r)<sup>n</sup> ÷ ((1 + r)<sup>n</sup> − 1)<br>P = loan amount, r = annual rate ÷ 12, n = months</div>
+  <p>Each month the interest is charged on the outstanding balance, and the rest of the EMI repays principal.</p>
+
+  <h3>2. Maintenance</h3>
+  <p>A percentage of the home's current value each year (0.5% by default), so it grows as the home appreciates. Taxes are not included.</p>
+
+  <h3>3. Who invests the difference</h3>
+  <div class="formula">gap = (EMI + maintenance) − rent<br>gap &gt; 0 → the renter invests it<br>gap &lt; 0 → the buyer invests it</div>
+
+  <h3>4. Growth</h3>
+  <p>Fund returns are quoted as yearly growth rates (CAGR), so the fund compounds at the equivalent monthly rate. Home price and rent each step up once a year by the rates you choose.</p>
+
+  <h3>5. What each person owns</h3>
+  <div class="formula">Buyer's wealth = home value − loan left + buyer's fund (if any)<br>Renter's wealth = renter's fund</div>
+
+  <h2 id="example">A worked example: ₹1 Cr flat</h2>
+  <p>These are the calculator's default inputs, run through exactly the same code as the live site.</p>
+  <table class="example">
+    <tr><th>Home price</th><td>₹1 Cr</td></tr>
+    <tr><th>Rent for a similar home</th><td>₹30,000 / month</td></tr>
+    <tr><th>Down payment (20%) + stamp duty &amp; registration (7%)</th><td>₹20 L + ₹7 L = ₹27 L</td></tr>
+    <tr><th>Loan · rate · tenure</th><td>₹80 L · 8.5% · 20 yrs</td></tr>
+    <tr><th>Home price growth · rent growth</th><td>6% · 5% a year</td></tr>
+    <tr><th>Maintenance</th><td>0.5% of value a year</td></tr>
+    <tr><th>Renter's fund</th><td>Nifty 50 at 12% a year</td></tr>
+  </table>
+
+  <h3>Month one</h3>
+  <table class="example">
+    <tr><th>EMI</th><td>₹69,426</td></tr>
+    <tr><th>Maintenance (0.5% × ₹1 Cr ÷ 12)</th><td>₹4,167</td></tr>
+    <tr><th>Rent</th><td>₹30,000</td></tr>
+    <tr><th>Gap, invested by the renter</th><td>₹43,593</td></tr>
+  </table>
+  <p>The renter starts with ₹27 L in the fund and adds ₹43,593 in the first month. The gap shrinks every year as rent rises.</p>
+
+  <h3>After 20 years</h3>
+  <table class="example">
+    <tr><th>Home value (loan fully repaid)</th><td>₹3.21 Cr</td></tr>
+    <tr><th>Buyer's wealth</th><td>₹3.21 Cr</td></tr>
+    <tr><th>Renter's fund</th><td>₹5.71 Cr</td></tr>
+    <tr><th>Buyer's annual return</th><td>8.25% a year</td></tr>
+    <tr><th>Home price growth needed to tie</th><td>9.25% a year</td></tr>
+  </table>
+  <p>With these inputs, renting and investing comes out ahead by about ₹2.5 Cr. That isn't a general verdict on buying. Change the price growth, rent, rate or fund and the answer can flip, which is the point of running your own numbers.</p>
+  <a class="page-cta" href="/">Run your own numbers →</a>
+
+  <h2 id="return">Annual return and break-even</h2>
+  <h3>Annual return (IRR)</h3>
+  <p>The single yearly rate that makes the buyer's cash flows add up to zero: the upfront payment going out, each month's (rent avoided − EMI − maintenance), and the home's value coming back at the end. If it's higher than the fund's rate, buying wins. That's exactly the same test as comparing the two people's final wealth.</p>
+  <h3>Break-even price growth</h3>
+  <p>The yearly home price growth at which both people end with exactly the same wealth. The calculator finds it by searching between −10% and +30%.</p>
+  <h3>Break-even year</h3>
+  <p>A simpler check that ignores what the money could have earned elsewhere: the first year when your equity plus the rent you didn't pay covers everything you've spent on the home.</p>
+
+  <h2 id="not-modelled">What it doesn't model</h2>
+  <div class="callout warn">
+    <ul style="margin-bottom:0">
+      <li>Taxes of any kind: income-tax deductions on the loan, capital-gains tax on either side, or property tax.</li>
+      <li>Brokerage, selling costs, interiors and furnishing.</li>
+      <li>Changing interest rates, prepayments and loan transfers.</li>
+      <li>Vacant months, rent negotiations and moving costs.</li>
+      <li>Market ups and downs: both home prices and the fund grow at a steady rate.</li>
+    </ul>
+  </div>
+  <p>Stamp duty and registration are capped at 7% of the price.</p>
+
+  <h2 id="sources">Data sources</h2>
+  <h3>Locality price growth</h3>
+  <p>The city and locality presets use a blended 10-year trend (2014–2024) built from the <strong>RBI House Price Index</strong>, <strong>NHB Residex</strong>, <strong>Anarock Research</strong>, <strong>Knight Frank India</strong> and <strong>99acres</strong> listings. No single official index covers every locality continuously, so the figures are estimates of the typical trend, not exact records. Individual buildings vary a lot.</p>
+  <h3>Locality insights</h3>
+  <p>Employers, schools, transit and amenities were compiled in June 2026 from 99acres, MagicBricks, Google Maps, JLL, Anarock and Knight Frank research.</p>
+  <h3>Fund returns</h3>
+  <p>The fund rates are long-run assumptions you can change, not forecasts: Nifty 50 12%, S&amp;P 500 10.5%, Nifty Next 50 13.5%, Nifty Midcap 150 15%, large-cap mutual funds 13%, gold 9%, bank FD 7%, PPF 7.1%.</p>
+  <h3>Spotted a mistake?</h3>
+  <p>If a number looks wrong for a locality you know, please <a href="/about#contact">tell us</a>. Corrections are what make this useful.</p>
+
+  <p style="margin-top:2rem;font-size:14px;color:var(--ink-faint)">Last updated 8 November 2026. GoWinDhan is an educational tool, not financial advice. Please speak to a SEBI-registered adviser before a major financial decision.</p>
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="/">Calculator</a>
+    <a href="/how-it-works">How it works</a>
+    <a href="/about">About</a>
+    <a href="/about#contact">Contact</a>
+  </div>
+  <div class="footer-legal">
+    GoWinDhan is an educational tool, not financial advice. Figures are estimates — consult a SEBI-registered advisor before major financial decisions.
+  </div>
+</footer>
+</body>
+</html>
