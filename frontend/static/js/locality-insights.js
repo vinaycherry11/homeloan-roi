@@ -25,7 +25,7 @@ const LOCALITY_INSIGHTS = {
         malls: ['Inorbit Mall (2 km)', 'Sarath City Capital Mall (4 km)', 'Forum Sujana Mall (5 km)'],
         parks: ['Gachibowli Stadium grounds', 'Telangana Tourism Park (2 km)'],
       },
-      investment_note: 'Gachibowli remains one of Hyderabad\'s strongest investment micro-markets with consistent 9–11% appreciation, driven by large tech campuses and limited new residential supply. Rental yields are among the highest in the city at 6–7% gross.',
+      investment_note: 'Gachibowli remains one of Hyderabad\'s strongest investment micro-markets with consistent 9–11% appreciation, driven by large tech campuses and limited new residential supply. Gross rental yields of about 3.5–4% are among the better ones in the city.',
     },
 
     'Hitech City': {
@@ -113,7 +113,7 @@ const LOCALITY_INSIGHTS = {
         malls: ['Sarath City Capital Mall (6 km)', 'Forum Mall (8 km)'],
         parks: ['Necklace Road (12 km)', 'Local community parks'],
       },
-      investment_note: 'Puppalaguda offers the best value-for-money access to the Hyderabad IT belt at 10–11% appreciation, with lower base prices than Gachibowli. Rental yields are strong at 6.5–7% making it a solid income + appreciation play.',
+      investment_note: 'Puppalaguda offers the best value-for-money access to the Hyderabad IT belt at 10–11% appreciation, with lower base prices than Gachibowli. Gross rental yields of about 3.5–4.5% make it a solid income + appreciation play.',
     },
 
     'Madhapur': {
@@ -135,7 +135,7 @@ const LOCALITY_INSIGHTS = {
         malls: ['Inorbit Mall (1.5 km)', 'Central Mall (3 km)'],
         parks: ['Durgam Cheruvu (1 km)', 'KBR Park (3 km)'],
       },
-      investment_note: 'Madhapur offers premium rentals due to its walkability to IT campuses; a 2BHK typically fetches ₹35,000–50,000/mo. Appreciation at 9–10% p.a. is reliable but capital values are high, compressing yield slightly to 5.5–6.5%.',
+      investment_note: 'Madhapur offers premium rentals due to its walkability to IT campuses; a 2BHK typically fetches ₹35,000–50,000/mo. Appreciation at 9–10% p.a. is reliable but capital values are high, compressing gross yield to about 3.5–4%.',
     },
 
     'Kondapur': {
@@ -158,7 +158,7 @@ const LOCALITY_INSIGHTS = {
         malls: ['Sarath City Capital Mall (4 km)', 'Nexus Shantiniketan (6 km)'],
         parks: ['Kondapur community park', 'Kothaguda Park (1 km)'],
       },
-      investment_note: 'Kondapur offers a balanced investment with a 10-year average appreciation of ~9.3% p.a. (CAGR) and 5.5–6% rental yield — entry prices are lower than Gachibowli, making the yield more attractive for rental investors. The recent pace (2022–2025) has been running slightly ahead at ~10–11% driven by Hyderabad\'s overall IT corridor momentum. Metro Blue Line connectivity has been a sustained value driver since 2018.',
+      investment_note: 'Kondapur offers a balanced investment with a 10-year average appreciation of ~9.3% p.a. (CAGR) and 3.5–4.5% gross rental yield — entry prices are lower than Gachibowli, making the yield more attractive for rental investors. The recent pace (2022–2025) has been running slightly ahead at ~10–11% driven by Hyderabad\'s overall IT corridor momentum. Metro Blue Line connectivity has been a sustained value driver since 2018.',
     },
 
     'Miyapur': {
@@ -181,7 +181,7 @@ const LOCALITY_INSIGHTS = {
         malls: ['Manjeera Mall (2 km)', 'GSM Mall (4 km)'],
         parks: ['Botanical Garden (5 km)', 'Miyapur Lake Park'],
       },
-      investment_note: 'Miyapur is an affordable growth zone with metro-boosted appreciation of 7–8% p.a. and decent rental yields of 5–5.5%. Best suited for first-time buyers and investors targeting budget tenants in the IT segment.',
+      investment_note: 'Miyapur is an affordable growth zone with metro-boosted appreciation of 7–8% p.a. and decent gross rental yields of about 4–4.5%. Best suited for first-time buyers and investors targeting budget tenants in the IT segment.',
     },
 
     'KPHB Colony': {
@@ -293,7 +293,7 @@ const LOCALITY_INSIGHTS = {
         malls: ['Manjeera Mall (1 km)', 'V One Mall (2 km)'],
         parks: ['JNTU campus grounds (1 km)', 'Balanagar Lake Park (2 km)'],
       },
-      investment_note: 'Kukatpally delivers reliable 8% appreciation and 5–5.5% rental yields at affordable prices. Metro connectivity has made it a solid mid-market rental investment with consistent tenant demand from HITEC City workers.',
+      investment_note: 'Kukatpally delivers reliable 8% appreciation and about 4–4.5% gross rental yields at affordable prices. Metro connectivity has made it a solid mid-market rental investment with consistent tenant demand from HITEC City workers.',
     },
 
     'Bachupally': {
@@ -498,7 +498,7 @@ const LOCALITY_INSIGHTS = {
         malls: ['Grand Mall Electronic City (2 km)', 'Mantri Square (18 km via elevated expressway)', 'Market Square Mall (4 km)'],
         parks: ['Electronic City Phase 2 lake area', 'Begur Lake (5 km)'],
       },
-      investment_note: 'Electronic City offers Bangalore\'s best rental yields at 5–6% due to large captive IT employee demand. Appreciation has been 8–10% p.a. and the 2025 Yellow Line metro opening is expected to provide a further structural uplift. Ideal for rental income investors; entry prices are lower than east Bangalore.',
+      investment_note: 'Electronic City offers some of Bangalore\'s best gross rental yields, about 4–4.5%, due to large captive IT employee demand. Appreciation has been 8–10% p.a. and the 2025 Yellow Line metro opening is expected to provide a further structural uplift. Ideal for rental income investors; entry prices are lower than east Bangalore.',
     },
 
     'Sarjapur Road': {
@@ -635,7 +635,7 @@ const LOCALITY_INSIGHTS = {
         malls: ['Phoenix Marketcity (4 km)', 'Innovative Multiplex (2 km)', 'VR Bengaluru (5 km)'],
         parks: ['Krishnarajapura Lake (3 km)', 'Bagmane Tech Park lake area'],
       },
-      investment_note: 'Marathahalli offers solid 8–10% appreciation and strong 5–5.5% rental yields at mid-range entry prices — making it one of Bangalore\'s better rental income localities. Metro Phase 2 extension on the ORR will be a significant upside trigger. Best for investors targeting mid-income IT tenants.',
+      investment_note: 'Marathahalli offers solid 8–10% appreciation and strong gross rental yields of about 4–4.5% at mid-range entry prices — making it one of Bangalore\'s better rental income localities. Metro Phase 2 extension on the ORR will be a significant upside trigger. Best for investors targeting mid-income IT tenants.',
     },
 
     'Hebbal': {
@@ -772,7 +772,7 @@ const LOCALITY_INSIGHTS = {
         malls: ['Forum Mall Koramangala (3 km)', 'Market Square Mall (5 km)', 'Vega City Mall (5 km)'],
         parks: ['Madiwala Lake (2 km)', 'Agara Lake (2 km)'],
       },
-      investment_note: 'BTM Layout is primarily a rental income play with 5–5.5% gross yields driven by high demand from IT and startup workers. Capital appreciation at 7–8% p.a. is steady but moderate. Very affordable entry prices make it accessible to first-time investors. Silk Board metro proximity is the key value anchor.',
+      investment_note: 'BTM Layout is primarily a rental income play with gross yields of about 4–4.5% driven by high demand from IT and startup workers. Capital appreciation at 7–8% p.a. is steady but moderate. Very affordable entry prices make it accessible to first-time investors. Silk Board metro proximity is the key value anchor.',
     },
 
     'Jayanagar': {
@@ -890,7 +890,7 @@ const LOCALITY_INSIGHTS = {
         malls: ['Xion Mall Wakad (1 km)', 'D-Mart Wakad (local)', 'Westend Mall Aundh (7 km)'],
         parks: ['Wakad local community parks', 'Mula River corridor (5 km)'],
       },
-      investment_note: 'Wakad offers Pune\'s best rental yields in the western belt at 4.8–5.2% with strong mid-income IT tenant demand. Appreciation at 10–12% p.a. is robust. Metro Line 3 completion will be transformative for commute times and prices. Best for rental income investors targeting Hinjewadi IT workers.',
+      investment_note: 'Wakad offers some of Pune\'s best rental yields in the western belt, about 4–4.5% gross, with strong mid-income IT tenant demand. Appreciation at 10–12% p.a. is robust. Metro Line 3 completion will be transformative for commute times and prices. Best for rental income investors targeting Hinjewadi IT workers.',
     },
 
     'Viman Nagar': {
