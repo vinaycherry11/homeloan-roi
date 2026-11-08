@@ -577,6 +577,12 @@ input[type="range"] {
 }
 
 /* Home-price slider: two-zone track with fill + separator + muted extended zone */
+input[type="range"].fill-slider {
+  background: linear-gradient(to right,
+    var(--rose-500) 0%, var(--rose-500) var(--fill, 50%),
+    var(--border)   var(--fill, 50%), var(--border) 100%);
+}
+
 #homePriceSlider {
   background: linear-gradient(to right,
     var(--rose-500)      0%,
@@ -3051,8 +3057,9 @@ img.fab-char {
 .math-formula, .math-work {
   font-family: var(--mono); font-size: 12.5px; line-height: 1.75;
   padding: 10px 14px; border-radius: var(--radius-sm);
-  margin-top: 8px; overflow-x: auto; white-space: pre;
+  margin-top: 8px; overflow-x: auto;
 }
+.math-formula .ml, .math-work .ml { white-space: pre; }
 .math-formula { background: var(--surface-2); color: var(--ink); border-left: 3px solid var(--blue-600); }
 .math-work { background: var(--emerald-50); color: var(--ink-muted); border-left: 3px solid var(--emerald-500); }
 .math-work b { color: var(--ink); font-weight: 700; }
@@ -3060,7 +3067,10 @@ img.fab-char {
 .math-check.bad { color: var(--rose-600); }
 .math-list { font-size: 13px; color: var(--ink-muted); line-height: 1.7; margin: 6px 0 0 18px; }
 @media (max-width: 640px) {
-  .math-formula, .math-work { font-size: 11.5px; padding: 9px 11px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .math-formula, .math-work { font-size: 11.5px; padding: 9px 11px; }
+  /* Phones: let each line wrap, continuation indented under its start */
+  .math-formula .ml, .math-work .ml { white-space: normal; overflow-wrap: anywhere; padding-left: 1.5em; text-indent: -1.5em; }
+  .math-formula .ml + .ml, .math-work .ml + .ml { margin-top: 3px; }
 }
 
 /* Worked example inside result tiles */

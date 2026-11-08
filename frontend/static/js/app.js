@@ -360,6 +360,29 @@ document.querySelectorAll('.nav-tab').forEach(btn => {
 });
 
 /* ── Slider sync ── */
+/* Loan-structure sliders: rose fill up to the thumb, like home price and rent.
+   Patching .value keeps the fill right when code sets it (reset, shared links, Compare). */
+function paintSliderFill(el) {
+  const min = parseFloat(el.min) || 0, max = parseFloat(el.max) || 100;
+  const pct = max > min ? (parseFloat(el.value) - min) / (max - min) * 100 : 0;
+  el.style.setProperty('--fill', Math.min(100, Math.max(0, pct)).toFixed(2) + '%');
+}
+(function () {
+  const valueProp = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+  ['tenure', 'downPct', 'a_tenure', 'a_downPct', 'b_tenure', 'b_downPct'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add('fill-slider');
+    Object.defineProperty(el, 'value', {
+      configurable: true,
+      get() { return valueProp.get.call(this); },
+      set(v) { valueProp.set.call(this, v); paintSliderFill(this); },
+    });
+    el.addEventListener('input', () => paintSliderFill(el));
+    paintSliderFill(el);
+  });
+})();
+
 document.getElementById('tenure').addEventListener('input', () => {
   document.getElementById('tenureLabel').textContent = document.getElementById('tenure').value + ' years';
   updateLiveEmi();
@@ -1394,24 +1417,29 @@ function buildMathPane(data, inputs) {
     {
       t: `The renter: invest in ${fund.label} instead`,
       p: `A fair comparison gives the renter the same money. They invest the buyer's day-1 cash (down payment + buying costs) on day 1, and each month they invest whatever the buyer spends over rent. ${fund.label}'s ${fund.cagr}%/yr is compounded monthly at the equivalent rate, so it really is ${fund.cagr}% a year.`,
-      f: 'i = (1 + fund return)^(1/12) − 1\nPortfolio₀ = Down payment + Buying costs\nPortfolio  = Portfolio × (1 + i) + max(0, EMI + Maintenance − Rent)   each month',
+      f: 'i = (1 + fund return)^(1/12) − 1\nPortfolio₀ = Down payment + Buying costs\nEach month: Portfolio = Portfolio × (1 + i)\n                      + max(0, EMI + Maintenance − Rent)',
       w: `i = (1 + ${fund.cagr}%)^(1/12) − 1 = ${(fundM * 100).toFixed(4)}% a month\nPortfolio₀ = <b>${rs(upfront)}</b>\nAfter ${n} months = <b>${rs(s.stock_net_gain)}</b>`,
+      c: (() => {
+        const renterIn = upfront + yd.reduce((a, d) => a + d.outflow_invested_year, 0);
+        return check(near(renterIn, s.cash_out_of_pocket), `Renter put in the same money the buyer paid in: ${rs(renterIn)} ≈ ${rs(s.cash_out_of_pocket)}`);
+      })(),
     },
     {
       t: 'The buyer: equity plus invested surplus',
       p: 'In months where rent is higher than EMI + maintenance, the buyer is the one saving money, so they invest that surplus in the same fund. Both sides get identical treatment.',
-      f: 'Surplus pot = Surplus pot × (1 + i) + max(0, Rent − EMI − Maintenance)   each month\nHome wealth = Equity + Surplus pot',
+      f: 'Each month: Surplus pot = Surplus pot × (1 + i)\n                        + max(0, Rent − EMI − Maintenance)\nHome wealth = Equity + Surplus pot',
       w: `Home wealth = ${rs(s.final_home_value)} + ${rs(s.surplus_portfolio)} = <b>${rs(s.home_net_gain)}</b>`,
     },
     {
       t: 'Verdict: buy vs rent edge',
+      p: 'Positive means buying leaves you richer. Negative means Rent and Invest does.',
       f: 'Edge = Home wealth − Renter portfolio',
       w: `Edge = ${rs(s.home_net_gain)} − ${rs(s.stock_net_gain)} = <b>${rs(s.rent_vs_buy)}</b>  →  ${s.buying_wins ? 'buying wins' : 'Rent and Invest wins'}`,
     },
     {
       t: 'Annual return (IRR)',
-      p: `The single yearly rate that turns your exact cash flows, on their exact dates, into your final equity. We solve it numerically (bisection to under ₹1 of error). Because the renter's fund grows at ${fund.cagr}%, the edge above is positive exactly when the IRR beats ${fund.cagr}%, so the headline and the verdict always agree.`,
-      f: 'Cash flow month 0     = −(Down payment + Buying costs)\nCash flow months 1…n  = Rent − EMI − Maintenance\nCash flow month n     += Final equity\nFind m so that  Σ CFₜ ÷ (1+m)ᵗ = 0,   then IRR = (1+m)¹² − 1',
+      p: `The single yearly rate that turns your exact cash flows, on their exact dates, into your final equity. We solve it numerically by narrowing in on the rate step by step. Because the renter's fund grows at ${fund.cagr}%, the edge above is positive exactly when the IRR beats ${fund.cagr}%, so the headline and the verdict always agree.`,
+      f: 'Cash flow month 0     = −(Down payment + Buying costs)\nCash flow months 1…n  = Rent − EMI − Maintenance\nCash flow month n     += Final equity\nFind m so that  Σ CFₜ ÷ (1+m)ᵗ = 0\nIRR = (1+m)¹² − 1',
       w: `CF₀ = <b>${rs(-upfront)}</b>,   CF₁ = <b>${rs(cf1)}</b>,   …,   CF${n} includes <b>${rs(s.final_home_value)}</b>\nIRR = <b>${s.irr_pct == null ? 'no solution in range' : pct(s.irr_pct)}</b>   vs   ${fund.label} ${pct(fund.cagr, 1)}`,
       c: s.irr_pct == null ? '' : check((s.irr_pct > fund.cagr) === s.buying_wins || Math.abs(s.irr_pct - fund.cagr) < 0.01,
         `IRR ${s.irr_pct > fund.cagr ? 'above' : 'below'} the fund ↔ edge ${s.buying_wins ? 'positive' : 'negative'}`),
@@ -1419,20 +1447,8 @@ function buildMathPane(data, inputs) {
     {
       t: 'Money in, money out',
       p: 'A simpler view that ignores timing (₹1 in year 15 counts the same as ₹1 today). That is why it looks larger than the IRR.',
-      f: 'Money in  = Down payment + Buying costs + months where EMI + Maintenance > Rent\nMoney out = Final equity + months where Rent > EMI + Maintenance\nTotal return = (Money out − Money in) ÷ Money in',
+      f: 'Money in  = Down payment + Buying costs\n            + monthly gaps where EMI + Maintenance > Rent\nMoney out = Final equity\n            + monthly gaps where Rent > EMI + Maintenance\nTotal return = (Money out − Money in) ÷ Money in',
       w: `Money in  = <b>${rs(s.cash_out_of_pocket)}</b>\nMoney out = <b>${rs(s.wealth_return)}</b>\nTotal return = ${rs(s.net_gain)} ÷ ${rs(s.cash_out_of_pocket)} = <b>${pct(s.roi_pct, 1)}</b>`,
-    },
-    {
-      t: 'Break-even year',
-      p: 'The first year your equity plus the rent you avoided covers everything you have paid so far. Until then, selling would leave you behind. Stamp duty is the main reason this takes a few years.',
-      f: 'First year where  Equity + Rent avoided so far ≥ Day-1 cash + EMIs + Maintenance so far',
-      w: (() => {
-        const be = s.break_even_year;
-        if (!be) return `Not reached within ${T} years`;
-        const d = yd[be - 1];
-        const paid = upfront + yd.slice(0, be).reduce((a, x) => a + x.emi_paid + x.maintenance, 0);
-        return `Year ${be}:  ${rs(d.net_equity)} + ${rs(d.cum_rent_saved)} = ${rs(d.net_equity + d.cum_rent_saved)}  ≥  ${rs(paid)}   →  <b>Year ${be}</b>`;
-      })(),
     },
     {
       t: 'Break-even appreciation',
@@ -1445,19 +1461,20 @@ function buildMathPane(data, inputs) {
   ];
 
   const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const lines = t => t.split('\n').map(l => `<div class="ml">${l}</div>`).join('');
   const html = steps.map((st, i) => `
     <div class="math-step">
       <h4><span class="math-n">${i + 1}</span>${st.t}</h4>
       ${st.p ? `<p>${st.p}</p>` : ''}
-      <div class="math-formula">${esc(st.f)}</div>
-      <div class="math-work">${st.w}</div>
+      <div class="math-formula">${lines(esc(st.f))}</div>
+      <div class="math-work">${lines(st.w)}</div>
       ${st.p2 ? `<p>${st.p2}</p>` : ''}
       ${st.c || ''}
     </div>`).join('') + `
     <div class="math-step">
       <h4><span class="math-n">!</span>What the model leaves out</h4>
       <ul class="math-list">
-        <li>Brokerage and selling costs (stamp duty and registration are included at the % you entered)</li>
+        <li>Brokerage and selling costs (stamp duty and registration are included at the % you entered, capped at 7%)</li>
         <li>All taxes: home-loan deductions (80C, 24(b)), capital gains, and tax on fund returns. Figures are pre-tax and in nominal rupees, not adjusted for inflation</li>
         <li>Property tax, insurance, and vacancy. Rate changes on floating-rate loans</li>
         <li>Fund returns are steady averages. Real markets and property prices move unevenly year to year</li>
