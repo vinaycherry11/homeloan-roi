@@ -83,3 +83,68 @@ nav a.nav-logo { text-decoration: none; }
   .page { padding-top: 1.75rem; font-size: 15.5px; }
   .example th, .example td { padding: 0.5rem 0.7rem; }
 }
+
+/* ── SEO content pages: cities, localities, guides, EMI calculator ── */
+.page.wide { max-width: 980px; }
+.crumbs { font-size: 13px; color: var(--ink-faint); margin-bottom: 0.75rem; }
+.crumbs a { color: var(--ink-faint); text-decoration: none; }
+.crumbs a:hover { color: var(--accent-text); text-decoration: underline; }
+.crumbs span[aria-hidden] { margin: 0 0.4rem; }
+.updated { font-size: 13px; color: var(--ink-faint); margin: -0.25rem 0 1.75rem; }
+
+.verdict-box {
+  border-radius: var(--radius-sm); padding: 1.1rem 1.25rem; margin: 0 0 1.5rem;
+  border: 1px solid var(--border); border-left: 4px solid var(--blue-600); background: var(--surface);
+}
+.verdict-box.buy  { border-left-color: var(--emerald-500); background: var(--emerald-50); }
+.verdict-box.rent { border-left-color: var(--rose-500);    background: #faf3f3; }
+.verdict-box .vb-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+.verdict-box .vb-head { font-family: var(--serif); font-size: 1.45rem; line-height: 1.25; color: var(--ink); margin: 0.2rem 0 0.4rem; }
+.verdict-box p:last-child { margin-bottom: 0; }
+
+.pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.buy  { background: var(--emerald-100); color: var(--emerald-600); }
+.pill.rent { background: var(--rose-100);    color: var(--rose-600); }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.6rem; margin: 0.5rem 0 1.5rem; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.7rem 0.9rem; }
+.stat .s-label { font-size: 12.5px; color: var(--ink-faint); line-height: 1.4; }
+.stat .s-value { font-size: 1.15rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+.table-wrap { overflow-x: auto; margin: 0.5rem 0 1.5rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.data-table th, .data-table td { padding: 0.55rem 0.75rem; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+.data-table th:first-child, .data-table td:first-child { text-align: left; }
+.data-table thead th { font-size: 12px; font-weight: 700; color: var(--ink-subtle); background: var(--surface-2); vertical-align: bottom; white-space: normal; }
+.data-table tbody tr:last-child td { border-bottom: 0; }
+.data-table td { color: var(--ink); font-family: var(--sans); }
+.data-table td a { font-weight: 600; }
+.table-note { font-size: 13px; color: var(--ink-faint); margin-top: -1rem; }
+
+.link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.35rem 1.25rem; list-style: none; margin: 0.5rem 0 1.5rem !important; padding: 0; }
+.link-grid li { margin: 0; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.8rem; margin: 0.75rem 0 1.5rem; }
+.card { display: block; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem 1.1rem; text-decoration: none; color: var(--ink-muted) !important; }
+.card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-sm); }
+.card strong { display: block; color: var(--ink); font-size: 1rem; margin-bottom: 0.25rem; }
+.card span { font-size: 14px; line-height: 1.55; }
+
+.page .chips { margin-left: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.25rem 0 1rem; padding: 0; list-style: none; }
+.chips li { margin: 0; font-size: 13px; background: var(--blue-50); color: var(--blue-700); padding: 3px 10px; border-radius: 999px; }
+
+.faq details { border-bottom: 1px solid var(--border); padding: 0.8rem 0; }
+.faq summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.faq details p { margin: 0.5rem 0 0; }
+
+.emi-form { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; margin: 0.5rem 0 0.75rem; }
+.emi-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; color: var(--ink-subtle); }
+.emi-form input { font: 600 16px var(--sans); color: var(--ink); padding: 0.55rem 0.7rem; border: 1px solid var(--border-strong); border-radius: var(--radius-xs); width: 100%; background: #fff; }
+.emi-form input:focus { outline: 2px solid var(--blue-600); outline-offset: 1px; }
+
+@media (max-width: 640px) {
+  .emi-form { grid-template-columns: 1fr; }
+  .data-table { font-size: 13px; }
+  .data-table th, .data-table td { padding: 0.5rem 0.55rem; }
+  .verdict-box .vb-head { font-size: 1.25rem; }
+}

@@ -1,0 +1,571 @@
+{
+ "Hyderabad": {
+  "Gachibowli": {
+   "sqft": 1200,
+   "price": 11000000,
+   "rent": 34000,
+   "yield": 3.71,
+   "rent_source": "note-yield"
+  },
+  "Hitech City": {
+   "sqft": 1200,
+   "price": 13500000,
+   "rent": 39000,
+   "yield": 3.47,
+   "rent_source": "city-yield"
+  },
+  "Financial District": {
+   "sqft": 1200,
+   "price": 15000000,
+   "rent": 44000,
+   "yield": 3.52,
+   "rent_source": "city-yield"
+  },
+  "Narsingi": {
+   "sqft": 1200,
+   "price": 9500000,
+   "rent": 28000,
+   "yield": 3.54,
+   "rent_source": "city-yield"
+  },
+  "Puppalaguda": {
+   "sqft": 1200,
+   "price": 9500000,
+   "rent": 32000,
+   "yield": 4.04,
+   "rent_source": "note-yield"
+  },
+  "Madhapur": {
+   "sqft": 1200,
+   "price": 13000000,
+   "rent": 42000,
+   "yield": 3.88,
+   "rent_source": "note-rent"
+  },
+  "Kondapur": {
+   "sqft": 1200,
+   "price": 10000000,
+   "rent": 33000,
+   "yield": 3.96,
+   "rent_source": "note-yield"
+  },
+  "Miyapur": {
+   "sqft": 1200,
+   "price": 7000000,
+   "rent": 25000,
+   "yield": 4.29,
+   "rent_source": "note-yield"
+  },
+  "KPHB Colony": {
+   "sqft": 1200,
+   "price": 6500000,
+   "rent": 19000,
+   "yield": 3.51,
+   "rent_source": "city-yield"
+  },
+  "Manikonda": {
+   "sqft": 1200,
+   "price": 10000000,
+   "rent": 29000,
+   "yield": 3.48,
+   "rent_source": "city-yield"
+  },
+  "Banjara Hills": {
+   "sqft": 1200,
+   "price": 17500000,
+   "rent": 51000,
+   "yield": 3.5,
+   "rent_source": "note-yield"
+  },
+  "Jubilee Hills": {
+   "sqft": 1200,
+   "price": 21000000,
+   "rent": 66000,
+   "yield": 3.77,
+   "rent_source": "note-yield"
+  },
+  "Kukatpally": {
+   "sqft": 1200,
+   "price": 7000000,
+   "rent": 25000,
+   "yield": 4.29,
+   "rent_source": "note-yield"
+  },
+  "Bachupally": {
+   "sqft": 1200,
+   "price": 6000000,
+   "rent": 18000,
+   "yield": 3.6,
+   "rent_source": "city-yield"
+  },
+  "Kompally": {
+   "sqft": 1200,
+   "price": 5500000,
+   "rent": 16000,
+   "yield": 3.49,
+   "rent_source": "city-yield"
+  },
+  "LB Nagar": {
+   "sqft": 1200,
+   "price": 5500000,
+   "rent": 16000,
+   "yield": 3.49,
+   "rent_source": "city-yield"
+  },
+  "Secunderabad": {
+   "sqft": 1200,
+   "price": 8000000,
+   "rent": 23000,
+   "yield": 3.45,
+   "rent_source": "city-yield"
+  },
+  "Ameerpet": {
+   "sqft": 1200,
+   "price": 9000000,
+   "rent": 33000,
+   "yield": 4.4,
+   "rent_source": "note-yield"
+  },
+  "Chanda Nagar": {
+   "sqft": 1200,
+   "price": 6500000,
+   "rent": 24000,
+   "yield": 4.43,
+   "rent_source": "note-yield"
+  },
+  "Attapur": {
+   "sqft": 1200,
+   "price": 5500000,
+   "rent": 16000,
+   "yield": 3.49,
+   "rent_source": "city-yield"
+  }
+ },
+ "Bangalore": {
+  "Whitefield": {
+   "sqft": 1150,
+   "price": 10000000,
+   "rent": 37000,
+   "yield": 4.44,
+   "rent_source": "note-rent"
+  },
+  "Electronic City": {
+   "sqft": 1150,
+   "price": 6500000,
+   "rent": 23000,
+   "yield": 4.25,
+   "rent_source": "note-yield"
+  },
+  "Sarjapur Road": {
+   "sqft": 1150,
+   "price": 10500000,
+   "rent": 39000,
+   "yield": 4.46,
+   "rent_source": "note-yield"
+  },
+  "Koramangala": {
+   "sqft": 1150,
+   "price": 16000000,
+   "rent": 57000,
+   "yield": 4.28,
+   "rent_source": "note-yield"
+  },
+  "Indiranagar": {
+   "sqft": 1150,
+   "price": 17000000,
+   "rent": 57000,
+   "yield": 4.02,
+   "rent_source": "note-yield"
+  },
+  "HSR Layout": {
+   "sqft": 1150,
+   "price": 12500000,
+   "rent": 46000,
+   "yield": 4.42,
+   "rent_source": "note-yield"
+  },
+  "Bellandur": {
+   "sqft": 1150,
+   "price": 11500000,
+   "rent": 43000,
+   "yield": 4.49,
+   "rent_source": "note-yield"
+  },
+  "Marathahalli": {
+   "sqft": 1150,
+   "price": 10000000,
+   "rent": 35000,
+   "yield": 4.2,
+   "rent_source": "note-yield"
+  },
+  "Hebbal": {
+   "sqft": 1150,
+   "price": 12000000,
+   "rent": 45000,
+   "yield": 4.5,
+   "rent_source": "note-yield"
+  },
+  "Yelahanka": {
+   "sqft": 1150,
+   "price": 8000000,
+   "rent": 28000,
+   "yield": 4.2,
+   "rent_source": "note-yield"
+  },
+  "JP Nagar": {
+   "sqft": 1150,
+   "price": 10500000,
+   "rent": 37000,
+   "yield": 4.23,
+   "rent_source": "note-yield"
+  },
+  "Bannerghatta Road": {
+   "sqft": 1150,
+   "price": 8500000,
+   "rent": 31000,
+   "yield": 4.38,
+   "rent_source": "note-yield"
+  },
+  "Brookefield": {
+   "sqft": 1150,
+   "price": 11000000,
+   "rent": 30000,
+   "yield": 3.27,
+   "rent_source": "note-rent"
+  },
+  "BTM Layout": {
+   "sqft": 1150,
+   "price": 11500000,
+   "rent": 41000,
+   "yield": 4.28,
+   "rent_source": "note-yield"
+  },
+  "Jayanagar": {
+   "sqft": 1150,
+   "price": 15000000,
+   "rent": 47000,
+   "yield": 3.76,
+   "rent_source": "note-yield"
+  }
+ },
+ "Pune": {
+  "Hinjewadi": {
+   "sqft": 1000,
+   "price": 8000000,
+   "rent": 30000,
+   "yield": 4.5,
+   "rent_source": "note-yield"
+  },
+  "Kharadi": {
+   "sqft": 1000,
+   "price": 9000000,
+   "rent": 33000,
+   "yield": 4.4,
+   "rent_source": "note-yield"
+  },
+  "Baner": {
+   "sqft": 1000,
+   "price": 10000000,
+   "rent": 37000,
+   "yield": 4.44,
+   "rent_source": "note-rent"
+  },
+  "Wakad": {
+   "sqft": 1000,
+   "price": 8000000,
+   "rent": 28000,
+   "yield": 4.2,
+   "rent_source": "note-yield"
+  },
+  "Viman Nagar": {
+   "sqft": 1000,
+   "price": 10500000,
+   "rent": 37000,
+   "yield": 4.23,
+   "rent_source": "note-yield"
+  },
+  "Koregaon Park": {
+   "sqft": 1000,
+   "price": 15000000,
+   "rent": 47000,
+   "yield": 3.76,
+   "rent_source": "note-yield"
+  },
+  "Hadapsar": {
+   "sqft": 1000,
+   "price": 7000000,
+   "rent": 23000,
+   "yield": 3.94,
+   "rent_source": "note-yield"
+  },
+  "Aundh": {
+   "sqft": 1000,
+   "price": 10000000,
+   "rent": 33000,
+   "yield": 3.96,
+   "rent_source": "note-yield"
+  },
+  "Kothrud": {
+   "sqft": 1000,
+   "price": 11000000,
+   "rent": 34000,
+   "yield": 3.71,
+   "rent_source": "note-yield"
+  },
+  "Nibm Road": {
+   "sqft": 1000,
+   "price": 8000000,
+   "rent": 25000,
+   "yield": 3.75,
+   "rent_source": "note-yield"
+  }
+ },
+ "Mumbai": {
+  "Powai": {
+   "sqft": 750,
+   "price": 16000000,
+   "rent": 53000,
+   "yield": 3.98,
+   "rent_source": "note-yield"
+  },
+  "BKC": {
+   "sqft": 750,
+   "price": 34000000,
+   "rent": 99000,
+   "yield": 3.49,
+   "rent_source": "note-yield"
+  },
+  "Andheri East": {
+   "sqft": 750,
+   "price": 18000000,
+   "rent": 60000,
+   "yield": 4.0,
+   "rent_source": "note-yield"
+  },
+  "Goregaon East": {
+   "sqft": 750,
+   "price": 16500000,
+   "rent": 52000,
+   "yield": 3.78,
+   "rent_source": "note-yield"
+  },
+  "Thane": {
+   "sqft": 750,
+   "price": 12500000,
+   "rent": 46000,
+   "yield": 4.42,
+   "rent_source": "note-yield"
+  },
+  "Kharghar": {
+   "sqft": 750,
+   "price": 7500000,
+   "rent": 28000,
+   "yield": 4.48,
+   "rent_source": "note-yield"
+  },
+  "Vashi": {
+   "sqft": 750,
+   "price": 11000000,
+   "rent": 39000,
+   "yield": 4.25,
+   "rent_source": "note-yield"
+  },
+  "Lower Parel": {
+   "sqft": 750,
+   "price": 30000000,
+   "rent": 81000,
+   "yield": 3.24,
+   "rent_source": "note-yield"
+  },
+  "Malad West": {
+   "sqft": 750,
+   "price": 16500000,
+   "rent": 55000,
+   "yield": 4.0,
+   "rent_source": "note-yield"
+  }
+ },
+ "Delhi NCR": {
+  "DLF City Phases": {
+   "sqft": 1300,
+   "price": 19500000,
+   "rent": 65000,
+   "yield": 4.0,
+   "rent_source": "note-yield"
+  },
+  "Golf Course Ext Road": {
+   "sqft": 1300,
+   "price": 23500000,
+   "rent": 69000,
+   "yield": 3.52,
+   "rent_source": "note-yield"
+  },
+  "Sohna Road": {
+   "sqft": 1300,
+   "price": 12000000,
+   "rent": 45000,
+   "yield": 4.5,
+   "rent_source": "note-yield"
+  },
+  "Noida Sector 62–137": {
+   "sqft": 1300,
+   "price": 11000000,
+   "rent": 41000,
+   "yield": 4.47,
+   "rent_source": "note-yield"
+  },
+  "Noida Sec 44–52": {
+   "sqft": 1300,
+   "price": 9000000,
+   "rent": 33000,
+   "yield": 4.4,
+   "rent_source": "note-yield"
+  },
+  "Greater Noida West": {
+   "sqft": 1300,
+   "price": 7500000,
+   "rent": 28000,
+   "yield": 4.48,
+   "rent_source": "note-yield"
+  },
+  "Dwarka Sectors": {
+   "sqft": 1300,
+   "price": 13000000,
+   "rent": 43000,
+   "yield": 3.97,
+   "rent_source": "note-yield"
+  },
+  "South Delhi": {
+   "sqft": 1300,
+   "price": 42000000,
+   "rent": 114000,
+   "yield": 3.26,
+   "rent_source": "note-yield"
+  }
+ },
+ "Chennai": {
+  "Sholinganallur": {
+   "sqft": 1050,
+   "price": 7500000,
+   "rent": 28000,
+   "yield": 4.48,
+   "rent_source": "note-rent"
+  },
+  "Velachery": {
+   "sqft": 1050,
+   "price": 9000000,
+   "rent": 33000,
+   "yield": 4.4,
+   "rent_source": "note-yield"
+  },
+  "Anna Nagar": {
+   "sqft": 1050,
+   "price": 14000000,
+   "rent": 47000,
+   "yield": 4.03,
+   "rent_source": "note-yield"
+  },
+  "Adyar": {
+   "sqft": 1050,
+   "price": 17500000,
+   "rent": 51000,
+   "yield": 3.5,
+   "rent_source": "note-yield"
+  },
+  "Porur": {
+   "sqft": 1050,
+   "price": 7500000,
+   "rent": 28000,
+   "yield": 4.48,
+   "rent_source": "note-yield"
+  },
+  "Ambattur": {
+   "sqft": 1050,
+   "price": 6000000,
+   "rent": 22000,
+   "yield": 4.4,
+   "rent_source": "note-yield"
+  }
+ },
+ "Kolkata": {
+  "Salt Lake Sector V": {
+   "sqft": 1000,
+   "price": 7500000,
+   "rent": 28000,
+   "yield": 4.48,
+   "rent_source": "note-yield"
+  },
+  "Rajarhat (IT Zone)": {
+   "sqft": 1000,
+   "price": 7000000,
+   "rent": 26000,
+   "yield": 4.46,
+   "rent_source": "note-yield"
+  },
+  "Ballygunge": {
+   "sqft": 1000,
+   "price": 16500000,
+   "rent": 48000,
+   "yield": 3.49,
+   "rent_source": "note-yield"
+  },
+  "Alipore": {
+   "sqft": 1000,
+   "price": 21500000,
+   "rent": 58000,
+   "yield": 3.24,
+   "rent_source": "note-yield"
+  },
+  "Tollygunj": {
+   "sqft": 1000,
+   "price": 8500000,
+   "rent": 31000,
+   "yield": 4.38,
+   "rent_source": "note-yield"
+  }
+ },
+ "Ahmedabad": {
+  "SG Highway (North)": {
+   "sqft": 1150,
+   "price": 10500000,
+   "rent": 39000,
+   "yield": 4.46,
+   "rent_source": "note-yield"
+  },
+  "Prahlad Nagar": {
+   "sqft": 1150,
+   "price": 10000000,
+   "rent": 25000,
+   "yield": 3.0,
+   "rent_source": "note-yield"
+  },
+  "GIFT City": {
+   "sqft": 1150,
+   "price": 12000000,
+   "rent": 35000,
+   "yield": 3.5,
+   "rent_source": "city-yield"
+  },
+  "Bopal": {
+   "sqft": 1150,
+   "price": 6500000,
+   "rent": 22000,
+   "yield": 4.06,
+   "rent_source": "note-yield"
+  },
+  "Navrangpura": {
+   "sqft": 1150,
+   "price": 9000000,
+   "rent": 30000,
+   "yield": 4.0,
+   "rent_source": "note-yield"
+  },
+  "Bodakdev": {
+   "sqft": 1150,
+   "price": 17000000,
+   "rent": 46000,
+   "yield": 3.25,
+   "rent_source": "note-yield"
+  }
+ }
+}

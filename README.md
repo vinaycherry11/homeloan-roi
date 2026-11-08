@@ -122,3 +122,18 @@ The site's "The Math" tab shows every formula with the user's own numbers plugge
 - **Break-even year**: the first year equity + rent saved ≥ total cash paid (undiscounted)
 
 Not modelled: any taxes (home-loan deductions, capital gains, tax on fund returns, property tax), brokerage, selling costs, insurance, vacancy. Ongoing ownership cost is maintenance only.
+
+## Content pages (SEO)
+
+The city, locality, guide and EMI calculator pages are static HTML generated from the site's own data and engine:
+
+```
+python3 scripts/seo/build.py
+```
+
+This rewrites `frontend/buy-vs-rent.html`, `frontend/buy-vs-rent/**`, `frontend/guides.html`, `frontend/guides/**`, `frontend/emi-calculator.html` and `frontend/sitemap.xml`. Commit the output; Vercel serves it as-is. It needs macOS (it runs the JS with JavaScriptCore, no Node needed).
+
+- **Locality data** comes from `LOCALITY_DATA` / `LOCALITY_METRICS` in `app.js` and `locality-insights.js` (read by `scripts/extract-data.js`). A locality gets a page when it has an entry in `locality-insights.js`.
+- **Typical 2BHK price and rent** per locality live in `scripts/seo/typicals.json`. These are estimates: edit them by hand and rebuild. `scripts/seo/make_typicals.py` drafted them once (price = city 2BHK size × middle of the price/sq ft range; rent from the locality note, capped at a 4.5% gross yield).
+- **Verdicts** run `api/_lib/simulation.js` via `scripts/seo/compute.js` with the calculator's defaults (8.5%, 20 years, 20% down, 7% stamp duty, 0.5% maintenance, Nifty 50 at 12%). Within 0.5 points of break-even growth counts as a "close call".
+- **Guides** and the EMI page are in `scripts/seo/guides.py`. Change `UPDATED` / `UPDATED_ISO` in `build.py` when you refresh the data.
