@@ -1375,12 +1375,14 @@ function buildMathPane(data, inputs) {
   const totalEmi = yd.reduce((a, d) => a + d.emi_paid, 0);
   const rentT = inputs.monthly_rent * Math.pow(1 + inputs.rent_appreciation / 100, T - 1);
   const check = (ok, msg) => `<div class="math-check${ok ? '' : ' bad'}">${ok ? '✓' : '✗'} ${msg}</div>`;
+  const renterAdded = yd.reduce((a, d) => a + (d.outflow_invested_year || 0), 0);
+  const buyerAdded = s.wealth_return - s.final_home_value;
   const near = (a, b) => Math.abs(a - b) <= Math.max(2, Math.abs(b) * 1e-4) + yd.length;
 
   const steps = [
     {
       t: 'Down payment, buying costs and loan',
-      f: 'Down payment  = Home price × Down %\nBuying costs  = Home price × Stamp duty + registration %\nCash on day 1 = Down payment + Buying costs\nLoan          = Home price − Down payment',
+      f: 'Down payment  = Home price × Down %\nBuying costs  = Home price × (Stamp duty + registration) %\nCash on day 1 = Down payment + Buying costs\nLoan          = Home price − Down payment',
       w: `Down payment  = ${rs(P)} × ${inputs.down_payment_pct}% = <b>${rs(down)}</b>\nBuying costs  = ${rs(P)} × ${inputs.buying_cost_pct}% = <b>${rs(bc)}</b>\nCash on day 1 = ${rs(down)} + ${rs(bc)} = <b>${rs(upfront)}</b>\nLoan          = ${rs(P)} − ${rs(down)} = <b>${rs(L)}</b>`,
     },
     {
@@ -1395,14 +1397,14 @@ function buildMathPane(data, inputs) {
       t: 'How each EMI splits (month 1)',
       p: 'Interest is charged on the balance still owed; the rest of the EMI pays down the loan. Early EMIs are mostly interest.',
       f: 'Interest  = Balance × r\nPrincipal = EMI − Interest\nBalance   = Balance − Principal',
-      w: `Interest  = ${rs(L)} × ${rM.toFixed(6)} = <b>${rs(int1)}</b>\nPrincipal = ${rs(emiExact)} − ${rs(int1)} = <b>${rs(prin1)}</b>\nBalance   = ${rs(L)} − ${rs(prin1)} = <b>${rs(L - prin1)}</b>`,
+      w: `Interest  = ${rs(L)} × ${rM.toFixed(6)} = <b>${rs(int1)}</b>\nPrincipal = ${rs(emiExact)} − ${rs(int1)} = <b>${rs(prin1)}</b>\nBalance   = ${rs(L)} − ${rs(prin1)} = <b>${rs(L - prin1)}</b>\nTotal interest over ${n} months = <b>${rs(totalInt)}</b>`,
       c: check(near(totalPrin, L), `All principal repaid over ${n} months adds up to the loan: ${rs(totalPrin)} ≈ ${rs(L)}`) +
          check(near(totalEmi, L + totalInt), `Total EMIs = loan + total interest: ${rs(totalEmi)} ≈ ${rs(L)} + ${rs(totalInt)}`),
     },
     {
       t: 'Home value and equity',
       p: 'Prices grow at your appreciation rate once a year. Equity is what you would own outright if you sold.',
-      f: `Home value after ${T} yrs = Price × (1 + g)^${T}\nEquity = Home value − Loan left`,
+      f: `g = yearly price growth (appreciation)\nHome value after ${T} yrs = Price × (1 + g)^${T}\nEquity = Home value − Loan left`,
       w: `Home value = ${rs(P)} × (1 + ${inputs.annual_appreciation}%)^${T} = <b>${rs(last.home_value)}</b>\nEquity     = ${rs(last.home_value)} − ${rs(last.loan_balance)} = <b>${rs(last.net_equity)}</b>`,
     },
     {
@@ -1418,9 +1420,9 @@ function buildMathPane(data, inputs) {
       t: `The renter: invest in ${fund.label} instead`,
       p: `A fair comparison gives the renter the same money. They invest the buyer's day-1 cash (down payment + buying costs) on day 1, and each month they invest whatever the buyer spends over rent. ${fund.label}'s ${fund.cagr}%/yr is compounded monthly at the equivalent rate, so it really is ${fund.cagr}% a year.`,
       f: 'i = (1 + fund return)^(1/12) − 1\nPortfolio₀ = Down payment + Buying costs\nEach month: Portfolio = Portfolio × (1 + i)\n                      + max(0, EMI + Maintenance − Rent)',
-      w: `i = (1 + ${fund.cagr}%)^(1/12) − 1 = ${(fundM * 100).toFixed(4)}% a month\nPortfolio₀ = <b>${rs(upfront)}</b>\nAfter ${n} months = <b>${rs(s.stock_net_gain)}</b>`,
+      w: `i = (1 + ${fund.cagr}%)^(1/12) − 1 = ${(fundM * 100).toFixed(4)}% a month\nPortfolio₀ = <b>${rs(upfront)}</b>\nAdded over ${n} months = <b>${rs(renterAdded)}</b>\nPortfolio after ${n} months = <b>${rs(s.stock_net_gain)}</b>`,
       c: (() => {
-        const renterIn = upfront + yd.reduce((a, d) => a + d.outflow_invested_year, 0);
+        const renterIn = upfront + renterAdded;
         return check(near(renterIn, s.cash_out_of_pocket), `Renter put in the same money the buyer paid in: ${rs(renterIn)} ≈ ${rs(s.cash_out_of_pocket)}`);
       })(),
     },
@@ -1428,19 +1430,19 @@ function buildMathPane(data, inputs) {
       t: 'The buyer: equity plus invested surplus',
       p: 'In months where rent is higher than EMI + maintenance, the buyer is the one saving money, so they invest that surplus in the same fund. Both sides get identical treatment.',
       f: 'Each month: Surplus pot = Surplus pot × (1 + i)\n                        + max(0, Rent − EMI − Maintenance)\nHome wealth = Equity + Surplus pot',
-      w: `Home wealth = ${rs(s.final_home_value)} + ${rs(s.surplus_portfolio)} = <b>${rs(s.home_net_gain)}</b>`,
+      w: `Equity (step 4)     = <b>${rs(s.final_home_value)}</b>\n${buyerAdded > 0 ? `Surplus added       = ${rs(buyerAdded)} over ${n} months\nSurplus pot at end  = <b>${rs(s.surplus_portfolio)}</b>` : 'Surplus pot         = ₹0  (rent never beat EMI + maintenance)'}\nHome wealth         = ${rs(s.final_home_value)} + ${rs(s.surplus_portfolio)} = <b>${rs(s.home_net_gain)}</b>`,
     },
     {
       t: 'Verdict: buy vs rent edge',
       p: 'Positive means buying leaves you richer. Negative means Rent and Invest does.',
-      f: 'Edge = Home wealth − Renter portfolio',
+      f: 'Edge = Home wealth (step 7) − Renter portfolio (step 6)',
       w: `Edge = ${rs(s.home_net_gain)} − ${rs(s.stock_net_gain)} = <b>${rs(s.rent_vs_buy)}</b>  →  ${s.buying_wins ? 'buying wins' : 'Rent and Invest wins'}`,
     },
     {
       t: 'Annual return (IRR)',
       p: `The single yearly rate that turns your exact cash flows, on their exact dates, into your final equity. We solve it numerically by narrowing in on the rate step by step. Because the renter's fund grows at ${fund.cagr}%, the edge above is positive exactly when the IRR beats ${fund.cagr}%, so the headline and the verdict always agree.`,
-      f: 'Cash flow month 0     = −(Down payment + Buying costs)\nCash flow months 1…n  = Rent − EMI − Maintenance\nCash flow month n     += Final equity\nFind m so that  Σ CFₜ ÷ (1+m)ᵗ = 0\nIRR = (1+m)¹² − 1',
-      w: `CF₀ = <b>${rs(-upfront)}</b>,   CF₁ = <b>${rs(cf1)}</b>,   …,   CF${n} includes <b>${rs(s.final_home_value)}</b>\nIRR = <b>${s.irr_pct == null ? 'no solution in range' : pct(s.irr_pct)}</b>   vs   ${fund.label} ${pct(fund.cagr, 1)}`,
+      f: 'Cash flow month 0     = −(Down payment + Buying costs)\nCash flow months 1…n  = Rent − EMI − Maintenance\nMonth n also adds    Final equity\nm = monthly rate     Find m so that  Σ CFₜ ÷ (1+m)ᵗ = 0\nIRR = (1+m)¹² − 1',
+      w: `CF₀ = <b>${rs(-upfront)}</b>      CF₁ = <b>${rs(cf1)}</b>   …\nCF${n} also adds <b>${rs(s.final_home_value)}</b> final equity\nIRR = <b>${s.irr_pct == null ? 'no solution in range' : pct(s.irr_pct)}</b>   vs   ${fund.label} ${pct(fund.cagr, 1)}`,
       c: s.irr_pct == null ? '' : check((s.irr_pct > fund.cagr) === s.buying_wins || Math.abs(s.irr_pct - fund.cagr) < 0.01,
         `IRR ${s.irr_pct > fund.cagr ? 'above' : 'below'} the fund ↔ edge ${s.buying_wins ? 'positive' : 'negative'}`),
     },
@@ -1448,7 +1450,7 @@ function buildMathPane(data, inputs) {
       t: 'Money in, money out',
       p: 'A simpler view that ignores timing (₹1 in year 15 counts the same as ₹1 today). That is why it looks larger than the IRR.',
       f: 'Money in  = Down payment + Buying costs\n            + monthly gaps where EMI + Maintenance > Rent\nMoney out = Final equity\n            + monthly gaps where Rent > EMI + Maintenance\nTotal return = (Money out − Money in) ÷ Money in',
-      w: `Money in  = <b>${rs(s.cash_out_of_pocket)}</b>\nMoney out = <b>${rs(s.wealth_return)}</b>\nTotal return = ${rs(s.net_gain)} ÷ ${rs(s.cash_out_of_pocket)} = <b>${pct(s.roi_pct, 1)}</b>`,
+      w: `Money in  = ${rs(upfront)} + ${rs(renterAdded)} = <b>${rs(s.cash_out_of_pocket)}</b>\nMoney out = ${rs(s.final_home_value)} + ${rs(buyerAdded)} = <b>${rs(s.wealth_return)}</b>\nTotal return = ${rs(s.net_gain)} ÷ ${rs(s.cash_out_of_pocket)} = <b>${pct(s.roi_pct, 1)}</b>`,
     },
     {
       t: 'Break-even appreciation',
@@ -1461,7 +1463,8 @@ function buildMathPane(data, inputs) {
   ];
 
   const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  const lines = t => t.split('\n').map(l => `<div class="ml">${l}</div>`).join('');
+  const sup = l => l.replace(/\^\(([^)]*)\)/g, '<sup>$1</sup>').replace(/\^([\w.−-]+)/g, '<sup>$1</sup>');
+  const lines = t => t.split('\n').map(l => `<div class="ml">${sup(l)}</div>`).join('');
   const html = steps.map((st, i) => `
     <div class="math-step">
       <h4><span class="math-n">${i + 1}</span>${st.t}</h4>

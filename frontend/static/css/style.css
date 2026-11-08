@@ -576,61 +576,18 @@ input[type="range"] {
   border-radius: 4px; cursor: pointer;
 }
 
-/* Home-price slider: two-zone track with fill + separator + muted extended zone */
+/* Filled track: rose up to the thumb, grey after. Same look on every slider. */
 input[type="range"].fill-slider {
   background: linear-gradient(to right,
     var(--rose-500) 0%, var(--rose-500) var(--fill, 50%),
     var(--border)   var(--fill, 50%), var(--border) 100%);
 }
-
-#homePriceSlider {
+#homePriceSlider { --fill: var(--hp-fill, 7.3%); }
+#rentSlider      { --fill: var(--rent-fill, 2.5%); }
+#homePriceSlider, #rentSlider {
   background: linear-gradient(to right,
-    var(--rose-500)      0%,
-    var(--rose-500)      var(--hp-fill, 7.3%),
-    var(--border)        var(--hp-fill, 7.3%),
-    var(--border)        calc(var(--hp-break, 79.8%) - 1.5px),
-    var(--ink-faint)     calc(var(--hp-break, 79.8%) - 1.5px),
-    var(--ink-faint)     var(--hp-break, 79.8%),
-    var(--slate-100)     var(--hp-break, 79.8%),
-    var(--slate-100)     100%
-  ) !important;
-}
-#rentSlider {
-  background: linear-gradient(to right,
-    var(--rose-500)  0%,
-    var(--rose-500)  var(--rent-fill, 2.5%),
-    var(--border)    var(--rent-fill, 2.5%),
-    var(--border)    calc(var(--rent-break, 76.56%) - 1.5px),
-    var(--ink-faint) calc(var(--rent-break, 76.56%) - 1.5px),
-    var(--ink-faint) var(--rent-break, 76.56%),
-    var(--slate-100) var(--rent-break, 76.56%),
-    var(--slate-100) 100%
-  ) !important;
-}
-#rentSlider.rent-ext-active {
-  background: linear-gradient(to right,
-    var(--rose-500)  0%,
-    var(--rose-500)  var(--rent-fill, 2.5%),
-    var(--border)    var(--rent-fill, 2.5%),
-    var(--border)    calc(var(--rent-break, 76.56%) - 1.5px),
-    var(--ink-faint) calc(var(--rent-break, 76.56%) - 1.5px),
-    var(--ink-faint) var(--rent-break, 76.56%),
-    var(--border)    var(--rent-break, 76.56%),
-    var(--border)    100%
-  ) !important;
-}
-
-#homePriceSlider.hp-ext-active {
-  background: linear-gradient(to right,
-    var(--rose-500)      0%,
-    var(--rose-500)      var(--hp-fill, 7.3%),
-    var(--border)        var(--hp-fill, 7.3%),
-    var(--border)        calc(var(--hp-break, 79.8%) - 1.5px),
-    var(--ink-faint)     calc(var(--hp-break, 79.8%) - 1.5px),
-    var(--ink-faint)     var(--hp-break, 79.8%),
-    var(--border)        var(--hp-break, 79.8%),
-    var(--border)        100%
-  ) !important;
+    var(--rose-500) 0%, var(--rose-500) var(--fill),
+    var(--border)   var(--fill), var(--border) 100%);
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -3060,6 +3017,13 @@ img.fab-char {
   margin-top: 8px; overflow-x: auto;
 }
 .math-formula .ml, .math-work .ml { white-space: pre; }
+.math-formula::before, .math-work::before {
+  display: block; font-family: var(--sans); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px;
+}
+.math-formula::before { content: 'Formula'; color: var(--blue-700); }
+.math-work::before { content: 'With your numbers'; color: var(--emerald-600); }
+.math-formula sup, .math-work sup { font-size: 0.75em; line-height: 0; }
 .math-formula { background: var(--surface-2); color: var(--ink); border-left: 3px solid var(--blue-600); }
 .math-work { background: var(--emerald-50); color: var(--ink-muted); border-left: 3px solid var(--emerald-500); }
 .math-work b { color: var(--ink); font-weight: 700; }
