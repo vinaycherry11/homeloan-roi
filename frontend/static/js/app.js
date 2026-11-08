@@ -1483,6 +1483,39 @@ function drawInvestmentWealthChart(yearData, downPayment) {
     return '₹' + Math.round(a).toLocaleString('en-IN');
   };
 
+  // Axis ticks need more precision than tooltips once the axis no longer starts at 0
+  const fmtTick = v => {
+    const a = Math.abs(v), sign = v < 0 ? '−' : '';
+    if (a >= 1e7) return sign + '₹' + parseFloat((a / 1e7).toFixed(2)) + ' Cr';
+    if (a >= 1e5) return sign + '₹' + parseFloat((a / 1e5).toFixed(1)) + ' L';
+    return sign + '₹' + Math.round(a).toLocaleString('en-IN');
+  };
+
+  // Robinhood-style y-axis: fit the axis to the data's own range (with a little
+  // headroom) instead of always starting at ₹0, so year-to-year change is visible.
+  const dynamicYRange = values => {
+    const finite = values.filter(Number.isFinite);
+    if (!finite.length) return {};
+    const lo = Math.min(...finite), hi = Math.max(...finite);
+    const span = hi - lo || Math.abs(hi) || 1;
+    const rough = (span * 1.14) / 5;
+    const mag = Math.pow(10, Math.floor(Math.log10(rough)));
+    const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(s => s >= rough);
+    // Hug the data: small padding, snapped to quarter-steps (not whole steps,
+    // which would usually drag the floor back to ₹0).
+    const q = step / 4;
+    let min = Math.floor((lo - span * 0.08) / q) * q;
+    const max = Math.ceil((hi + span * 0.06) / q) * q;
+    if (lo >= 0 && min < 0) min = 0;   // never dip below zero for all-positive data
+    return { min, max, stepSize: step };
+  };
+  // Gridlines/labels only on round multiples of the step, not at the odd min/max edges
+  const roundTicksOnly = step => scale => {
+    const ticks = [];
+    for (let k = Math.ceil(scale.min / step - 1e-9); k * step <= scale.max + 1e-6; k++) ticks.push({ value: k * step });
+    scale.ticks = ticks;
+  };
+
   /* ── LEFT chart: cumulative money committed ── */
   const leftLabels = ['Yr 0', ...yearData.map(d => 'Yr ' + d.year)];
   const annualOutflow = [downPayment, ...yearData.map(d => Math.max(0, -d.annual_net_cf))];
@@ -1530,6 +1563,7 @@ function drawInvestmentWealthChart(yearData, downPayment) {
     },
   };
 
+  const leftRange = dynamicYRange(cumulativeCommitted);
   const leftCanvas = document.getElementById('iwOutflowChart');
   if (leftCanvas) {
     iwOutflowChartObj = new Chart(leftCanvas, {
@@ -1598,11 +1632,14 @@ function drawInvestmentWealthChart(yearData, downPayment) {
           },
           y: {
             stacked: true,
+            beginAtZero: false,
+            min: leftRange.min, max: leftRange.max,
+            afterBuildTicks: roundTicksOnly(leftRange.stepSize),
             grid: { color: 'rgba(0,0,0,0.07)', drawTicks: false },
             border: { display: false },
             ticks: {
-              color: '#64748b', font: { size: 11, family: "'Inter',sans-serif" }, maxTicksLimit: 6, padding: 6,
-              callback: v => fmtCr(v),
+              color: '#64748b', font: { size: 11, family: "'Inter',sans-serif" }, padding: 6,
+              callback: v => fmtTick(v),
             },
           },
         },
@@ -1619,6 +1656,7 @@ function drawInvestmentWealthChart(yearData, downPayment) {
     return cumSurplus;
   });
 
+  const rightRange = dynamicYRange(equityData.map((e, i) => e + surplusData[i]).concat(equityData));
   const rightCanvas = document.getElementById('iwWealthChart');
   if (rightCanvas) {
     investWealthChartObj = new Chart(rightCanvas, {
@@ -1691,11 +1729,14 @@ function drawInvestmentWealthChart(yearData, downPayment) {
           },
           y: {
             stacked: true,
+            beginAtZero: false,
+            min: rightRange.min, max: rightRange.max,
+            afterBuildTicks: roundTicksOnly(rightRange.stepSize),
             grid: { color: 'rgba(0,0,0,0.07)', drawTicks: false },
             border: { display: false },
             ticks: {
-              color: '#64748b', font: { size: 11, family: "'Inter',sans-serif" }, maxTicksLimit: 6, padding: 6,
-              callback: v => fmtCr(v),
+              color: '#64748b', font: { size: 11, family: "'Inter',sans-serif" }, padding: 6,
+              callback: v => fmtTick(v),
             },
           },
         },
