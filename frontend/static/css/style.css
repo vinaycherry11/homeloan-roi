@@ -780,7 +780,7 @@ input[type="range"]::-moz-range-thumb {
 /* ── LOAN SUMMARY STRIP (plain-English at-a-glance) ── */
 .loan-summary-strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.75rem;
   margin-bottom: 1.25rem;
 }
@@ -817,7 +817,7 @@ input[type="range"]::-moz-range-thumb {
 }
 @media (max-width: 720px) {
   .loan-summary-strip { grid-template-columns: repeat(2, 1fr); }
-  .lss-card:last-child { grid-column: auto; }
+  .lss-card:last-child { grid-column: 1 / -1; }
 }
 
 /* ── KPI GRID ─────────────────────────────────────── */
@@ -1634,7 +1634,7 @@ footer strong { color: rgba(255,255,255,0.5); font-weight: 700; }
   nav { padding: 0 1.5rem; }
   .nav-tab { font-size: 12px; padding: 9px 11px; }
   .loan-summary-strip { grid-template-columns: repeat(2, 1fr); }
-  .lss-card:last-child { grid-column: auto; }
+  .lss-card:last-child { grid-column: 1 / -1; }
 }
 /* Narrow sidebar only while it's still a sidebar; ≤640px it becomes a full-width tab bar */
 @media (min-width: 641px) and (max-width: 860px) {

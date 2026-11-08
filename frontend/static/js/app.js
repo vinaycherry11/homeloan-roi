@@ -1092,10 +1092,6 @@ function renderResults(data, inputs, sensData) {
 
   // ── Loan summary strip (plain English) ──
   const totalInterestPaid = Math.round(data.amortisation.reduce((sum, d) => sum + d.interest, 0));
-  const yr1 = data.amortisation[0] || {};
-  const sec24b = Math.min(yr1.interest  || 0, 200000); // max ₹2L/yr deductible under Sec 24(b)
-  const sec80c  = Math.min(yr1.principal || 0, 150000); // max ₹1.5L/yr deductible under Sec 80C
-  const taxSaving = Math.round((sec24b + sec80c) * 0.312); // 30% slab + 4% cess
   const finalHomeVal = (data.amortisation[data.amortisation.length - 1] || {}).home_value || 0;
 
   document.getElementById('lssEmi').textContent         = fmt(s.monthly_emi);
@@ -1103,10 +1099,6 @@ function renderResults(data, inputs, sensData) {
   document.getElementById('lssInterestSub').textContent = `over ${inputs.tenure_years} yrs · ${Math.round(totalInterestPaid / s.loan_amount * 100)}% on top of ₹${(s.loan_amount/1e5).toFixed(0)}L loan`;
   document.getElementById('lssHomeVal').textContent     = fmt(finalHomeVal);
   document.getElementById('lssHomeValSub').textContent  = `at ${inputs.annual_appreciation}%/yr · today it's ${fmt(inputs.home_price)}`;
-  document.getElementById('lssTax').textContent         = taxSaving > 0 ? fmt(taxSaving) : '—';
-  document.getElementById('lssTaxSub').textContent      = taxSaving > 0
-    ? 'Old regime, 30% slab + cess · year 1 · not included in returns'
-    : 'No deductible surplus in year 1';
 
   // store for chatbot context
   lastCalcResult = {
@@ -1120,7 +1112,6 @@ function renderResults(data, inputs, sensData) {
     rental_yield: inputs.rental_yield,
     benchmark_fund: `${getSelectedFund().label} (${inputs.benchmark_return}%)`,
     total_interest: totalInterestPaid,
-    tax_saving: taxSaving,
     irr: s.irr_pct,
     break_even_year: s.break_even_year,
     home_wealth_final: finalHomeVal,
@@ -1156,7 +1147,7 @@ function renderResults(data, inputs, sensData) {
   set('kpiStockNetGain', fmt(s.stock_net_gain), s.stock_net_gain > homeWealthFinal ? 'up' : 'down',
     `Down payment + stamp duty (day 1) + monthly outflow compounded at ${inputs.benchmark_return}%/yr`);
 
-  addTileWorkings(data, inputs, totalInterestPaid, finalHomeVal, sec24b, sec80c, taxSaving);
+  addTileWorkings(data, inputs, totalInterestPaid, finalHomeVal);
 
   drawInvestmentWealthChart(data.amortisation, s.down_payment + s.buying_costs);
   drawCostChart(data.amortisation);
@@ -1288,7 +1279,7 @@ function setTileCalc(anchorId, html) {
   el.innerHTML = html.replace(/(₹[\d.,]+) (L|Cr)\b/g, '$1\u00a0$2');
 }
 
-function addTileWorkings(data, inputs, totalInterest, finalHomeVal, sec24b, sec80c, taxSaving) {
+function addTileWorkings(data, inputs, totalInterest, finalHomeVal) {
   const s = data.summary;
   const n = inputs.tenure_years * 12;
   const upfront = s.down_payment + s.buying_costs;
@@ -1303,9 +1294,6 @@ function addTileWorkings(data, inputs, totalInterest, finalHomeVal, sec24b, sec8
   setTileCalc('lssEmi', `${fmt(s.loan_amount)} loan at ${inputs.interest_rate}% ÷ 12 = ${(inputs.interest_rate / 12).toFixed(3)}%/mo, repaid over ${n} months`);
   setTileCalc('lssInterest', `${n} × ${fmt(s.monthly_emi)} = ${fmt(s.monthly_emi * n)} paid − ${fmt(s.loan_amount)} borrowed = <b>${fmt(totalInterest)}</b>`);
   setTileCalc('lssHomeVal', `${fmt(inputs.home_price)} × (1 + ${inputs.annual_appreciation}%)<sup>${inputs.tenure_years}</sup> = <b>${fmt(finalHomeVal)}</b>`);
-  setTileCalc('lssTax', taxSaving > 0
-    ? `(${fmt(sec24b)} interest + ${fmt(sec80c)} principal) × 31.2% = <b>${fmt(taxSaving)}</b>`
-    : 'No deductible interest or principal in year 1');
 
   setTileCalc('kpiPvOut', `${fmt(s.down_payment)} down + ${fmt(s.buying_costs)} stamp duty${topUps > 0 ? ` + ${fmt(topUps)} monthly top-ups` : ''} = <b>${fmt(s.cash_out_of_pocket)}</b>`);
   const loanLeft = finalHomeVal - s.final_home_value;
@@ -1343,8 +1331,6 @@ function buildMathPane(data, inputs) {
   const totalPrin = yd.reduce((a, d) => a + d.principal, 0);
   const totalEmi = yd.reduce((a, d) => a + d.emi_paid, 0);
   const rentT = inputs.monthly_rent * Math.pow(1 + inputs.rent_appreciation / 100, T - 1);
-  const yr1 = yd[0];
-  const sec24b = Math.min(yr1.interest, 200000), sec80c = Math.min(yr1.principal, 150000);
   const check = (ok, msg) => `<div class="math-check${ok ? '' : ' bad'}">${ok ? '✓' : '✗'} ${msg}</div>`;
   const near = (a, b) => Math.abs(a - b) <= Math.max(2, Math.abs(b) * 1e-4) + yd.length;
 
@@ -1436,12 +1422,6 @@ function buildMathPane(data, inputs) {
         ? `No solution between −10% and +30% a year (buying ${s.buying_wins ? 'wins' : 'loses'} across that whole range)`
         : `g = <b>${pct(s.breakeven_appreciation_pct)}</b> a year   (you assumed ${inputs.annual_appreciation}%)`,
     },
-    {
-      t: 'Tax saving (year 1, shown separately)',
-      p: 'Old tax regime, self-occupied home. Not added to any return above, because it depends on your slab and regime.',
-      f: 'Saving = (min(Interest, ₹2,00,000) + min(Principal, ₹1,50,000)) × 31.2%\n         Sec 24(b)                   Sec 80C              30% + 4% cess',
-      w: `Saving = (${rs(sec24b)} + ${rs(sec80c)}) × 31.2% = <b>${rs((sec24b + sec80c) * 0.312)}</b>`,
-    },
   ];
 
   const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -1458,7 +1438,7 @@ function buildMathPane(data, inputs) {
       <h4><span class="math-n">!</span>What the model leaves out</h4>
       <ul class="math-list">
         <li>Brokerage and selling costs (stamp duty and registration are included at the % you entered)</li>
-        <li>Tax on capital gains, rental income, or fund returns. All figures are pre-tax and in today's nominal rupees, not adjusted for inflation</li>
+        <li>All taxes: home-loan deductions (80C, 24(b)), capital gains, and tax on fund returns. Figures are pre-tax and in nominal rupees, not adjusted for inflation</li>
         <li>Property tax, insurance, and vacancy. Rate changes on floating-rate loans</li>
         <li>Fund returns are steady averages. Real markets and property prices move unevenly year to year</li>
       </ul>
@@ -2819,7 +2799,6 @@ function buildCalcContext() {
     `Rental yield: ${r.rental_yield}%`,
     `Comparison fund: ${r.benchmark_fund}`,
     `Total interest to bank: Rs ${interest}L over tenure`,
-    `Estimated tax saving (yr 1): Rs ${Math.round(r.tax_saving).toLocaleString('en-IN')}`,
     `Annual return (IRR): ${r.irr != null ? r.irr.toFixed(2) + '% per year' : 'N/A'}`,
     `Break-even year: ${r.break_even_year || 'beyond tenure'}`,
     `Home wealth at end of tenure: Rs ${homeVal} Cr`,

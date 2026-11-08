@@ -121,4 +121,4 @@ The site's "The Math" tab shows every formula with the user's own numbers plugge
 - **Break-even appreciation**: the appreciation rate at which the edge is exactly zero, solved by bisection
 - **Break-even year**: the first year equity + rent saved ≥ total cash paid (undiscounted)
 
-Not modelled: brokerage, selling costs, taxes on gains, property tax, insurance, vacancy.
+Not modelled: any taxes (home-loan deductions, capital gains, tax on fund returns, property tax), brokerage, selling costs, insurance, vacancy. Ongoing ownership cost is maintenance only.

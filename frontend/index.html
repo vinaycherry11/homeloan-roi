@@ -49,7 +49,6 @@
     "S&P 500 SIP vs home wealth comparison",
     "City and locality-wise property appreciation presets",
     "Sensitivity heatmaps for tenure and down payment",
-    "Tax savings estimation (Section 80C and Section 24B)",
     "Property comparison (A vs B)"
   ],
   "offers": {
@@ -567,7 +566,7 @@
         <span class="field-hint">How fast rents rise each year</span>
       </div>
       <div class="field">
-        <label for="maintenance">Maintenance + tax <span class="info-icon" data-tooltip="Annual cost as % of property value. Covers society charges, property tax, minor repairs. Typical: 0.5-1.5%/yr. E.g. 1% on ₹1 Cr = ₹8,333/mo." aria-label="info"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><circle cx="12" cy="8" r="0.5" fill="currentColor" stroke="none"/></svg></span></label>
+        <label for="maintenance">Maintenance <span class="info-icon" data-tooltip="Annual cost as % of property value. Covers society charges and minor repairs. Typical: 0.5-1.5%/yr. E.g. 1% on ₹1 Cr = ₹8,333/mo." aria-label="info"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><circle cx="12" cy="8" r="0.5" fill="currentColor" stroke="none"/></svg></span></label>
         <div class="input-wrap suffix-only">
           <input type="number" id="maintenance" value="0.5" min="0" max="5" step="0.1" placeholder="1">
           <span class="input-suffix">%/yr</span>
@@ -704,13 +703,8 @@
                 <div class="lss-value pos" id="lssHomeVal">—</div>
                 <div class="lss-sub" id="lssHomeValSub">estimated at your appreciation rate</div>
               </div>
-              <div class="lss-card">
-                <div class="lss-label">Est. tax savings / yr <span class="lss-badge">Sec 80C + 24B</span></div>
-                <div class="lss-value pos" id="lssTax">—</div>
-                <div class="lss-sub" id="lssTaxSub">old regime, 30% slab · principal + interest deduction</div>
-              </div>
             </div>
-            <p class="verdict-disclaimer">Estimates for planning only, not financial advice. Actual results depend on future prices, rents and interest rates, and exclude brokerage and selling costs. Tax savings are shown for reference but not counted in the returns. Consult a SEBI-registered advisor before deciding. <a href="#" class="math-link" data-goto-pane="pane-math">See every formula with your numbers →</a></p>
+            <p class="verdict-disclaimer">Estimates for planning only, not financial advice. Actual results depend on future prices, rents and interest rates, and exclude taxes, brokerage and selling costs. Consult a SEBI-registered advisor before deciding. <a href="#" class="math-link" data-goto-pane="pane-math">See every formula with your numbers →</a></p>
           </div>
 
           <!-- RETURNS -->
@@ -738,7 +732,7 @@
               <summary>How is the annual return calculated?</summary>
               <p>We treat the home as an investment. On day 1 you pay the down payment plus stamp duty and registration. Every month after that, EMI and maintenance go out and the rent you no longer pay counts as coming in. At the end you keep the home's value minus any loan left.</p>
               <p>The annual return (IRR) is the yearly rate at which those exact amounts, on those exact dates, would grow into what you end with. It allows for timing, so a rupee paid in year 15 weighs less than one paid today. That's why you can compare it directly with a fund's yearly return.</p>
-              <p>It doesn't include brokerage, tax deductions or selling costs.</p>
+              <p>It doesn't include taxes, brokerage or selling costs.</p>
             </details>
           </div>
 
@@ -836,7 +830,7 @@
                       <th>Loan balance <span class="th-note">(outstanding)</span></th>
                       <th>Home value <span class="th-note">(estimated)</span></th>
                       <th>Net equity <span class="th-note">(value − loan)</span></th>
-                      <th>Maintenance <span class="th-note">(incl. tax)</span></th>
+                      <th>Maintenance</th>
                     </tr>
                   </thead>
                   <tbody id="amortBody"></tbody>
