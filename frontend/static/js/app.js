@@ -1086,7 +1086,7 @@ function renderResults(data, inputs, sensData) {
   const chipFund = getSelectedFund();
   cagrChip.textContent = heroRate == null
     ? 'Annual return n/a'
-    : `Home ${heroRate.toFixed(1)}%/yr vs ${chipFund.label} ${chipFund.cagr}%/yr`;
+    : `${heroRate >= chipFund.cagr ? '▲' : '▼'} Home ${heroRate.toFixed(1)}%/yr vs ${chipFund.label} ${chipFund.cagr}%/yr`;
   cagrChip.className = 'verdict-chip ' + (heroRate == null ? '' : heroRate >= chipFund.cagr ? 'pos' : 'neg');
   document.getElementById('verdictRentSaved').textContent = fmt(s.cumulative_rent_saved) + ' rent saved over ' + inputs.tenure_years + ' yrs';
 
@@ -1140,12 +1140,20 @@ function renderResults(data, inputs, sensData) {
 
   // ── Home investing vs Stock investing ──
   const homeWealthFinal = s.home_net_gain;
-  set('kpiHomeNetGain', fmt(homeWealthFinal), homeWealthFinal >= s.stock_net_gain ? 'up' : 'down',
+  // Both are wealth, not gains/losses: show them in plain ink and badge the larger one
+  const homeWins = homeWealthFinal >= s.stock_net_gain;
+  set('kpiHomeNetGain', fmt(homeWealthFinal), '',
     s.surplus_portfolio > 0
       ? `Final equity ${fmt(s.final_home_value)} + rent surplus invested at ${inputs.benchmark_return}%/yr ${fmt(s.surplus_portfolio)}`
       : `Final equity (home value − loan left)`);
-  set('kpiStockNetGain', fmt(s.stock_net_gain), s.stock_net_gain > homeWealthFinal ? 'up' : 'down',
+  set('kpiStockNetGain', fmt(s.stock_net_gain), '',
     `Down payment + stamp duty (day 1) + monthly outflow compounded at ${inputs.benchmark_return}%/yr`);
+  [['kpiHomeNetGain', homeWins], ['kpiStockNetGain', !homeWins]].forEach(([id, wins]) => {
+    const label = document.getElementById(id)?.closest('.kpi')?.querySelector('.kpi-label');
+    if (!label) return;
+    label.querySelector('.kpi-win')?.remove();
+    if (wins) label.insertAdjacentHTML('beforeend', ' <span class="kpi-win">▲ Higher</span>');
+  });
 
   addTileWorkings(data, inputs, totalInterestPaid, finalHomeVal);
 
@@ -1545,12 +1553,12 @@ function drawInvestmentWealthChart(yearData, downPayment) {
         const xp = x.getPixelForValue(cfFlipIdx);
         ctx.beginPath();
         ctx.setLineDash([4, 3]);
-        ctx.strokeStyle = 'rgba(16,185,129,0.65)';
+        ctx.strokeStyle = 'rgba(77,142,114,0.7)';    // --emerald-500
         ctx.lineWidth = 1.5;
         ctx.moveTo(xp, ca.top); ctx.lineTo(xp, ca.bottom);
         ctx.stroke(); ctx.setLineDash([]);
         ctx.font = '600 9px "Inter",sans-serif';
-        ctx.fillStyle = 'rgba(5,150,105,0.9)';
+        ctx.fillStyle = '#3a7a60';                   // --emerald-600
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
         ctx.fillText('Rent ≥ EMI', xp + 4, ca.top + 4);
@@ -1571,7 +1579,7 @@ function drawInvestmentWealthChart(yearData, downPayment) {
           {
             label: 'Prior years (cumul.)',
             data: prevCommitted,
-            backgroundColor: 'rgba(244,63,94,0.22)',
+            backgroundColor: 'rgba(181,92,98,0.2)',      // --rose-500, faded
             borderRadius: 0,
             borderSkipped: 'bottom',
             stack: 'committed',
@@ -1579,7 +1587,7 @@ function drawInvestmentWealthChart(yearData, downPayment) {
           {
             label: "This year's addition",
             data: annualOutflow,
-            backgroundColor: leftLabels.map((_, i) => i === 0 ? 'rgba(159,18,57,0.92)' : 'rgba(225,29,72,0.88)'),
+            backgroundColor: leftLabels.map((_, i) => i === 0 ? '#9a484d' : 'rgba(181,92,98,0.9)'),   // --rose-600 / --rose-500
             borderRadius: { topLeft: 4, topRight: 4 },
             borderSkipped: 'bottom',
             stack: 'committed',
@@ -1663,7 +1671,7 @@ function drawInvestmentWealthChart(yearData, downPayment) {
           {
             label: 'Home equity',
             data: equityData,
-            backgroundColor: 'rgba(79,70,229,0.85)',
+            backgroundColor: 'rgba(85,128,168,0.88)',    // --blue-600
             borderRadius: { bottomLeft: 4, bottomRight: 4, topLeft: 0, topRight: 0 },
             borderSkipped: false,
             stack: 'wealth',
@@ -1671,7 +1679,7 @@ function drawInvestmentWealthChart(yearData, downPayment) {
           {
             label: 'Rent surplus (cumul.)',
             data: surplusData,
-            backgroundColor: 'rgba(13,148,136,0.85)',
+            backgroundColor: 'rgba(77,142,114,0.88)',    // --emerald-500
             borderRadius: { topLeft: 4, topRight: 4, bottomLeft: 0, bottomRight: 0 },
             borderSkipped: false,
             stack: 'wealth',
@@ -1687,6 +1695,8 @@ function drawInvestmentWealthChart(yearData, downPayment) {
           legend: {
             display: true, position: 'top', align: 'end',
             labels: {
+              // Don't list "Rent surplus" when rent never exceeds EMI + maintenance (all zeros)
+              filter: item => item.datasetIndex !== 1 || surplusData.some(v => v > 0),
               font: { size: 11, family: "'Inter',sans-serif" },
               padding: 14, boxWidth: 12, boxHeight: 12,
               borderRadius: 3, useBorderRadius: true,
@@ -1920,7 +1930,7 @@ function buildHomeVsStockTable(yearData, summary) {
         <td>Year ${d.year}${isCross ? ' <span class="sip-cross-badge">crossover</span>' : ''}</td>
         <td class="td-neg">${fmt(emiPlusMaint)}</td>
         <td class="td-pos">${fmt(d.rent_saved_year)}</td>
-        <td class="${outflow >= 0 ? 'td-neg' : 'td-pos'}">${outflow >= 0 ? '+' : ''}${fmt(outflow)}</td>
+        <td class="${outflow > 0 ? 'td-neg' : 'td-pos'}">${outflow > 0 ? '−' + fmt(outflow) : '+' + fmt(-outflow)}</td>
         <td class="${invested > 0 ? 'td-sip' : 'td-faint'}">${invested > 0 ? fmt(invested) : '—'}</td>
         <td class="td-sip">${fmt(d.snp_portfolio_value || 0)}</td>
         <td class="td-pos">${fmt(d.home_wealth)}</td>
@@ -2979,24 +2989,24 @@ function buildPriceChart(city, locality, metrics) {
         {
           label: `10-yr avg (${baseApp}% p.a.)`,
           data: cagrLine,
-          borderColor: '#1e88e5',
-          backgroundColor: 'rgba(30,136,229,0.07)',
+          borderColor: '#5580A8',
+          backgroundColor: 'rgba(85,128,168,0.08)',
           fill: true,
           tension: 0.3,
           borderWidth: 2,
           pointRadius: (ctx) => ctx.dataIndex === pivotIdx ? 5 : 2,
-          pointBackgroundColor: '#1e88e5',
+          pointBackgroundColor: '#5580A8',
         },
         {
           label: `Recent pace (~${recentApp}%)`,
           data: recentLine,
-          borderColor: '#16a34a',
+          borderColor: '#4D8E72',
           borderDash: [6, 4],
           fill: false,
           tension: 0.3,
           borderWidth: 2,
           pointRadius: 2,
-          pointBackgroundColor: '#16a34a',
+          pointBackgroundColor: '#4D8E72',
         }
       ]
     },
