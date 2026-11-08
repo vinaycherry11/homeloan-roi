@@ -2994,7 +2994,7 @@ function fetchInsights() {
     renderInsights(city, locality, {
       _minimal: true,
       overview: locality + ' is a ' + ldLoc.note.toLowerCase().replace(' · ', ' area of ') + ' in ' + city + '.',
-      investment_note: 'Appreciation trend: ~' + ldLoc.app + '% p.a. · Gross rental yield: ~' + ldLoc.rent + '%. Detailed locality research is being prepared and will be published soon.',
+      investment_note: 'Appreciation trend: ~' + ldLoc.app + '% p.a. · Rent growth: ~' + ldLoc.rent + '% p.a. Detailed locality research is being prepared and will be published soon.',
     });
     return;
   }
@@ -3157,8 +3157,8 @@ function renderInsights(city, locality, d) {
           <div class="ins-metric-value">${m.price}</div>
         </div>
         <div class="ins-metric">
-          <div class="ins-metric-label">Rental Yield</div>
-          <div class="ins-metric-value ins-metric-yield">${m.yield}</div>
+          <div class="ins-metric-label">Rent growth (10-yr avg)</div>
+          <div class="ins-metric-value ins-metric-yield">${m.yield} p.a.</div>
         </div>
         <div class="ins-metric">
           <div class="ins-metric-label">Appreciation (10-yr avg)</div>
