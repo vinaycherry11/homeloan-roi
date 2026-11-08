@@ -112,7 +112,7 @@ The site's "The Math" tab shows every formula with the user's own numbers plugge
 
 - **Monthly EMI**: standard reducing-balance formula, monthly rate = annual rate ÷ 12
 - **Home equity** = appreciated property value − remaining loan balance
-- **Buying costs** = stamp duty + registration, `buying_cost_pct` of price, paid on day 1 (defaults to 0 in the API, 7% in the UI)
+- **Buying costs** = stamp duty + registration, `buying_cost_pct` of price, paid on day 1 (defaults to 0 in the API, 7% in the UI; capped at 7% in both)
 - **Renter portfolio** = down payment + buying costs invested in the benchmark fund on day 1, plus every month where EMI + maintenance > rent. The fund compounds at (1 + annual return)^(1/12) − 1 a month, so a 12% fund really earns 12% a year
 - **Home wealth** = equity + the buyer's surplus (months where rent > EMI + maintenance), invested in the same fund
 - **Buy vs rent edge** = home wealth − renter portfolio. It is positive exactly when the IRR beats the fund's return

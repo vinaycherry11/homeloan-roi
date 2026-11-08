@@ -953,6 +953,16 @@ function fmt(n) {
 function fmtPct(n) { return (n >= 0 ? '+' : '') + n.toFixed(1) + '%'; }
 function fmtIrr(n) { return n == null ? 'n/a' : fmtPct(n); }
 
+/* ── Stamp duty + registration is capped at 7% ── */
+const BUYING_COST_MAX = 7;
+function clampBuyingCost(v) { return Math.min(BUYING_COST_MAX, Math.max(0, parseFloat(v) || 0)); }
+['buyingCost', 'a_buyingCost', 'b_buyingCost'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('change', () => {
+    if (el.value !== '' && +el.value !== clampBuyingCost(el.value)) el.value = clampBuyingCost(el.value);
+  });
+});
+
 /* ── Benchmark fund helper ── */
 function getSelectedFund() {
   const sel = document.getElementById('benchmarkFund');
@@ -979,7 +989,7 @@ function getInputs() {
     annual_appreciation: parseFloat(document.getElementById('appreciation').value),
     rent_appreciation: parseFloat(document.getElementById('rentAppreciation').value),
     maintenance_pct: parseFloat(document.getElementById('maintenance').value),
-    buying_cost_pct: parseFloat(document.getElementById('buyingCost').value) || 0,
+    buying_cost_pct: clampBuyingCost(document.getElementById('buyingCost').value),
     benchmark_return: getSelectedFund().cagr,
     tenure_years: parseInt(document.getElementById('tenure').value),
     down_payment_pct: parseFloat(document.getElementById('downPct').value),
@@ -2190,7 +2200,7 @@ function getCompareInputs(p) {
     annual_appreciation: parseFloat(document.getElementById(p + '_appreciation').value),
     rent_appreciation:   parseFloat(document.getElementById(p + '_rentAppreciation').value),
     maintenance_pct:     parseFloat(document.getElementById(p + '_maintenance').value),
-    buying_cost_pct:     parseFloat(document.getElementById(p + '_buyingCost').value) || 0,
+    buying_cost_pct:     clampBuyingCost(document.getElementById(p + '_buyingCost').value),
     benchmark_return:    getSelectedFund().cagr,
     tenure_years:        parseInt(document.getElementById(p + '_tenure').value),
     down_payment_pct:    parseFloat(document.getElementById(p + '_downPct').value),
@@ -3235,6 +3245,7 @@ function loadFromUrl() {
   setNum('rentAppreciation','ra');
   setNum('maintenance',     'm');
   setNum('buyingCost',      'bc');
+  { const bcEl = document.getElementById('buyingCost'); if (bcEl && bcEl.value !== '') bcEl.value = clampBuyingCost(bcEl.value); }   // old links may carry > 7%
 
   // Sliders with labels
   if (p.get('t')) {

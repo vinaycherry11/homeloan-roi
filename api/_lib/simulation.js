@@ -24,9 +24,13 @@ function irrAnnualPct(flows) {
 // Both sides start with the same money. The buyer spends the down payment plus buying costs (stamp
 // duty, registration) on the home; the renter puts that same sum into the benchmark fund. Each month, whoever spends less invests the difference in the
 // fund: the renter when EMI + maintenance > rent, the buyer when rent > EMI + maintenance.
+// Stamp duty + registration is capped at 7% (the frontend enforces the same cap)
+const BUYING_COST_MAX = 7;
+const clampBuyingCost = v => Math.min(BUYING_COST_MAX, Math.max(0, Number(v) || 0));
+
 function runSimulation(homePrice, monthlyRent, interestRate, appreciation, rentAppreciation, maintenancePct, benchmarkReturn, tenure, downPct, buyingCostPct = 0) {
   const down = homePrice * downPct / 100;
-  const buyingCosts = homePrice * buyingCostPct / 100;
+  const buyingCosts = homePrice * clampBuyingCost(buyingCostPct) / 100;
   const upfront = down + buyingCosts;
   const loan = homePrice - down;
   const monthlyEmi = calcEmi(loan, interestRate, tenure);
@@ -178,4 +182,4 @@ function breakevenAppreciation(homePrice, monthlyRent, interestRate, rentAppreci
   return Math.round((lo + hi) / 2 * 100) / 100;
 }
 
-module.exports = { calcEmi, runSimulation, breakevenAppreciation };
+module.exports = { calcEmi, runSimulation, breakevenAppreciation, BUYING_COST_MAX };
