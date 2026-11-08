@@ -3034,6 +3034,7 @@ img.fab-char {
   .math-formula, .math-work { font-size: 11.5px; padding: 9px 11px; }
   /* Phones: let each line wrap, continuation indented under its start */
   .math-formula .ml, .math-work .ml { white-space: normal; overflow-wrap: anywhere; padding-left: 1.5em; text-indent: -1.5em; }
+  .math-formula .ml.cont, .math-work .ml.cont { padding-left: 3em; }
   .math-formula .ml + .ml, .math-work .ml + .ml { margin-top: 3px; }
 }
 

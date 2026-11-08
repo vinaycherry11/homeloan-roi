@@ -1441,7 +1441,7 @@ function buildMathPane(data, inputs) {
     {
       t: 'Annual return (IRR)',
       p: `The single yearly rate that turns your exact cash flows, on their exact dates, into your final equity. We solve it numerically by narrowing in on the rate step by step. Because the renter's fund grows at ${fund.cagr}%, the edge above is positive exactly when the IRR beats ${fund.cagr}%, so the headline and the verdict always agree.`,
-      f: 'Cash flow month 0     = −(Down payment + Buying costs)\nCash flow months 1…n  = Rent − EMI − Maintenance\nMonth n also adds    Final equity\nm = monthly rate     Find m so that  Σ CFₜ ÷ (1+m)ᵗ = 0\nIRR = (1+m)¹² − 1',
+      f: 'Cash flow month 0     = −(Down payment + Buying costs)\nCash flow months 1…n  = Rent − EMI − Maintenance\nMonth n also adds    Final equity\nm = monthly rate\nFind m so that  Σ CFₜ ÷ (1+m)ᵗ = 0\nIRR = (1+m)¹² − 1',
       w: `CF₀ = <b>${rs(-upfront)}</b>      CF₁ = <b>${rs(cf1)}</b>   …\nCF${n} also adds <b>${rs(s.final_home_value)}</b> final equity\nIRR = <b>${s.irr_pct == null ? 'no solution in range' : pct(s.irr_pct)}</b>   vs   ${fund.label} ${pct(fund.cagr, 1)}`,
       c: s.irr_pct == null ? '' : check((s.irr_pct > fund.cagr) === s.buying_wins || Math.abs(s.irr_pct - fund.cagr) < 0.01,
         `IRR ${s.irr_pct > fund.cagr ? 'above' : 'below'} the fund ↔ edge ${s.buying_wins ? 'positive' : 'negative'}`),
@@ -1449,7 +1449,7 @@ function buildMathPane(data, inputs) {
     {
       t: 'Money in, money out',
       p: 'A simpler view that ignores timing (₹1 in year 15 counts the same as ₹1 today). That is why it looks larger than the IRR.',
-      f: 'Money in  = Down payment + Buying costs\n            + monthly gaps where EMI + Maintenance > Rent\nMoney out = Final equity\n            + monthly gaps where Rent > EMI + Maintenance\nTotal return = (Money out − Money in) ÷ Money in',
+      f: 'Money in  = Day-1 cash + Monthly top-ups\nMoney out = Final equity + Monthly surplus\nTop-up    = EMI + Maintenance − Rent  (when above 0)\nSurplus   = Rent − EMI − Maintenance  (when above 0)\nTotal return = (Money out − Money in) ÷ Money in',
       w: `Money in  = ${rs(upfront)} + ${rs(renterAdded)} = <b>${rs(s.cash_out_of_pocket)}</b>\nMoney out = ${rs(s.final_home_value)} + ${rs(buyerAdded)} = <b>${rs(s.wealth_return)}</b>\nTotal return = ${rs(s.net_gain)} ÷ ${rs(s.cash_out_of_pocket)} = <b>${pct(s.roi_pct, 1)}</b>`,
     },
     {
@@ -1464,7 +1464,24 @@ function buildMathPane(data, inputs) {
 
   const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const sup = l => l.replace(/\^\(([^)]*)\)/g, '<sup>$1</sup>').replace(/\^([\w.−-]+)/g, '<sup>$1</sup>');
-  const lines = t => t.split('\n').map(l => `<div class="ml">${sup(l)}</div>`).join('');
+  /* Phones wrap these lines. Only let them break just before a maths sign
+     (= + − × ÷ →) or at an alignment gap, never inside brackets, so a line
+     never splits "(1 + i)" or "₹30,000". Desktop keeps them on one line. */
+  const breakable = l => {
+    let out = '', depth = 0;
+    for (let i = 0; i < l.length; i++) {
+      const c = l[i];
+      if (c === '(') depth++;
+      else if (c === ')') depth = Math.max(0, depth - 1);
+      if (c !== ' ') { out += c; continue; }
+      const gap = l[i - 1] === ' ' || l[i + 1] === ' ';
+      const next = l.slice(i).trimStart().replace(/^<[^>]*>/, '')[0];
+      out += depth === 0 && (gap || '=+−×÷→'.includes(next)) ? ' ' : '\u00a0';
+    }
+    return out;
+  };
+  const lines = t => t.split('\n').map(l =>
+    `<div class="ml${/^\s/.test(l) ? ' cont' : ''}">${breakable(sup(l))}</div>`).join('');
   const html = steps.map((st, i) => `
     <div class="math-step">
       <h4><span class="math-n">${i + 1}</span>${st.t}</h4>
