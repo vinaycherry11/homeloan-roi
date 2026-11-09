@@ -5,18 +5,24 @@ Rent  = midpoint of the 2BHK rent quoted in the locality note when there is one,
         otherwise price x the gross yield quoted in the note (midpoint, capped 2.5-4.5%),
         otherwise price x the city's typical gross yield.
 Writes scripts/seo/typicals.json, which is the file to edit by hand afterwards.
+Localities already in typicals.json are kept as they are, so hand edits survive a rerun;
+only localities that are new get an estimate.
 """
-import json, re, sys
+import json, os, re, sys
 data = json.load(open(sys.argv[1]))
 SQFT = {'Hyderabad': 1200, 'Bangalore': 1150, 'Pune': 1000, 'Mumbai': 750, 'Delhi NCR': 1300,
         'Chennai': 1050, 'Kolkata': 1000, 'Ahmedabad': 1150}
 CITY_YIELD = {'Hyderabad': 3.5, 'Bangalore': 3.8, 'Pune': 3.8, 'Mumbai': 3.2, 'Delhi NCR': 3.2,
               'Chennai': 3.8, 'Kolkata': 3.5, 'Ahmedabad': 3.5}
 num = lambda t: float(t.replace(',', ''))
+OUT = 'scripts/seo/typicals.json'
+old = json.load(open(OUT)) if os.path.exists(OUT) else {}
 out = {}
 for city, locs in data['insights'].items():
     out[city] = {}
     for loc, ins in locs.items():
+        if loc in old.get(city, {}):
+            out[city][loc] = old[city][loc]; continue
         m = data['metrics'][city][loc]
         lo, hi = [num(x) for x in re.findall(r'[\d,]+', m['price'])[:2]]
         sqft = SQFT[city]
@@ -37,7 +43,7 @@ for city, locs in data['insights'].items():
         rent = int(rent)
         out[city][loc] = {'sqft': sqft, 'price': price, 'rent': rent,
                           'yield': round(rent * 12 / price * 100, 2), 'rent_source': src}
-json.dump(out, open('scripts/seo/typicals.json', 'w'), indent=1, ensure_ascii=False)
+json.dump(out, open(OUT, 'w'), indent=1, ensure_ascii=False)
 for c, ls in out.items():
     for l, v in ls.items():
         print(f"{c:10} {l:24} ₹{v['price']/1e5:6.0f}L  rent ₹{v['rent']:>7,}  {v['yield']:4.2f}%  {v['rent_source']}")

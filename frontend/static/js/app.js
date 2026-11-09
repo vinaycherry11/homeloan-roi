@@ -3174,18 +3174,18 @@ function renderInsights(city, locality, d) {
     </div>` : '';
 
   const detailPanels = d._minimal ? '' : `
-    <div class="ins-panel">
+    ${d.specialties?.length ? `<div class="ins-panel">
       <div class="ins-panel-title">⭐ Specialties</div>
-      <div class="ins-specs">${(d.specialties || []).map(s => `<span class="ins-spec-chip">${s}</span>`).join('')}</div>
-    </div>
-    <div class="ins-panel">
+      <div class="ins-specs">${d.specialties.map(s => `<span class="ins-spec-chip">${s}</span>`).join('')}</div>
+    </div>` : ''}
+    ${d.major_employers?.length ? `<div class="ins-panel">
       <div class="ins-panel-title">🏢 Major Employers</div>
       ${fmtList(d.major_employers)}
-    </div>
-    <div class="ins-panel">
+    </div>` : ''}
+    ${d.schools?.length ? `<div class="ins-panel">
       <div class="ins-panel-title">🏫 Schools</div>
-      ${(d.schools || []).map(s => `<div class="ins-list-item">• <strong>${s.name}</strong> <span class="ins-school-type">${s.type}</span>${s.note ? ' — ' + s.note : ''}</div>`).join('')}
-    </div>
+      ${d.schools.map(s => `<div class="ins-list-item">• <strong>${s.name}</strong> <span class="ins-school-type">${s.type}</span>${s.note ? ' — ' + s.note : ''}</div>`).join('')}
+    </div>` : ''}
     ${trafficHtml}
     ${amenitiesHtml}`;
 

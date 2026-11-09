@@ -798,6 +798,182 @@ const LOCALITY_INSIGHTS = {
       investment_note: 'Jayanagar is a premium capital-preservation play at 7.5–9% p.a. appreciation with very limited new supply. Rental yields are modest at 3.5–4% given high base prices, but tenant quality is premium. Green Line metro has added a new demand layer from younger professionals. Best for long-term hold investors.',
     },
 
+    'Devanahalli': {
+      overview: 'Devanahalli is the town next to Kempegowda International Airport on Bangalore\'s far north. Over the last decade it has turned from farmland into a belt of plotted layouts, villa projects and large apartment townships, pulled along by the airport, the Aerospace SEZ and the KIADB hardware and IT parks around it. Most residents commute to Hebbal, Manyata or the airport itself.',
+      specialties: ['Airport-adjacent location', 'Aerospace & hardware SEZs', 'Plotted layouts & villas', 'Large townships', 'Devanahalli Fort heritage'],
+      major_employers: ['Kempegowda International Airport (BIAL)', 'Airlines & airport services', 'Aerospace SEZ units', 'Logistics & warehousing firms'],
+      schools: [
+        { name: 'Canadian International School', type: 'IB/IGCSE', note: 'International school on the airport road belt' },
+        { name: 'Delhi Public School, Bangalore North', type: 'CBSE', note: 'Large CBSE campus off the airport road' },
+      ],
+      traffic: {
+        peak_hours: 'Light inside Devanahalli; the run into the city along Bellary Road (NH-44) slows sharply past Yelahanka and at Hebbal in peak hours',
+        metro_access: 'No metro yet; the Airport Line (Phase 2B, Blue Line) via Hebbal is under construction',
+        highway_access: 'NH-44 (Bellary Road) runs through the town; Satellite Town Ring Road and STRR planned nearby',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['Akash Hospital (local)', 'Hospitals at Yelahanka (~15 km)'],
+        malls: ['Retail around the airport road', 'Malls at Yelahanka and Hebbal (~20–30 km)'],
+        parks: ['Devanahalli Fort', 'Nandi Hills (~25 km)'],
+      },
+      investment_note: 'Devanahalli is a long-horizon bet on the airport and the planned business parks around it. Supply is large, so resale and rental demand can be thin in newer projects, and most demand today comes from airport and aviation staff. 2BHK rents run about ₹20,000–24,000/mo in completed townships. Buy here for growth you are willing to wait for, not for rent.',
+    },
+
+    'Thanisandra': {
+      overview: 'Thanisandra sits between Hebbal, Hennur and Manyata Tech Park in north Bangalore. Dense with mid-segment and premium apartment projects, it is one of the closest residential pockets to Manyata, which makes it a steady rental market for tech staff. Thanisandra Main Road links it to Nagawara and the Outer Ring Road.',
+      specialties: ['Manyata Tech Park catchment', 'Mid-segment apartments', 'Close to the airport road', 'Good schools nearby', 'Fast-filling inventory'],
+      major_employers: ['Manyata Tech Park tenants (IBM, Cognizant, Philips and others)', 'Embassy Tech Village (via ORR)', 'Kirloskar Business Park'],
+      schools: [
+        { name: 'Vibgyor High, Thanisandra', type: 'CBSE/ICSE', note: 'Popular K-12 school in the locality' },
+        { name: 'Stonehill International School', type: 'IB', note: 'International school towards the airport road' },
+      ],
+      traffic: {
+        peak_hours: 'Thanisandra Main Road and the Nagawara junction are heavily congested 8:30–10:30 am and 6–9 pm',
+        metro_access: 'Nagawara station on the Pink Line (Phase 2, under construction) ~2–3 km',
+        highway_access: 'Outer Ring Road at Nagawara ~3 km; Bellary Road (NH-44) at Hebbal ~6 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Aster CMI Hospital, Hebbal (~6 km)', 'Columbia Asia (Manipal) Hebbal (~6 km)'],
+        malls: ['Elements Mall (~2 km)', 'Phoenix Mall of Asia, Yelahanka (~8 km)'],
+        parks: ['Rachenahalli Lake (~2 km)', 'Hebbal Lake (~7 km)'],
+      },
+      investment_note: 'Thanisandra benefits from being walkable or a short drive to Manyata, which keeps rental demand steady. Road congestion is the main downside until the Pink Line opens. 2BHK rents run about ₹22,000–28,000/mo. Good for buyers working at Manyata who want to cut a daily commute.',
+    },
+
+    'Kanakapura Road': {
+      overview: 'Kanakapura Road runs south-west from Banashankari and JP Nagar towards Kanakapura. The stretch beyond Konanakunte has filled with large apartment projects at prices well below JP Nagar, and the Green Line metro now runs along much of the road up to Silk Institute. It is mainly a residential corridor; office jobs are in JP Nagar, Bannerghatta Road and the city centre.',
+      specialties: ['Green Line metro along the road', 'Large apartment townships', 'Value pricing vs JP Nagar', 'Art of Living ashram nearby', 'Greener southern fringe'],
+      major_employers: ['Offices at JP Nagar & Jayanagar', 'Bannerghatta Road IT parks', 'Electronic City (via NICE Road)'],
+      schools: [
+        { name: 'Delhi Public School, Bangalore South', type: 'CBSE', note: 'Large CBSE campus off Kanakapura Road' },
+        { name: 'National Public School, JP Nagar area', type: 'CBSE', note: 'Well-regarded school north of the corridor' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; slows near Konanakunte Cross and the Banashankari end in peak hours',
+        metro_access: 'Green Line runs along the road: Yelachenahalli, Konanakunte Cross, Doddakallasandra, Vajarahalli, Thalaghattapura and Silk Institute stations',
+        highway_access: 'NICE Road junction on Kanakapura Road; links to Electronic City and Mysore Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Sagar Hospitals, Banashankari (~5 km)', 'Fortis Hospital, Bannerghatta Road (~8 km)'],
+        malls: ['Forum Mall area, JP Nagar/Bannerghatta (~8 km)', 'Local high streets in JP Nagar'],
+        parks: ['Turahalli Forest (~4 km)', 'Art of Living campus (~10 km)'],
+      },
+      investment_note: 'The metro running along the road is the strongest point of this corridor: a home here gives rail access to the city at prices far below JP Nagar. Rental demand is mostly family tenants. 2BHK rents run about ₹17,000–21,000/mo. A sensible pick for a self-use buyer working in south Bangalore.',
+    },
+
+    'Malleshwaram': {
+      overview: 'Malleshwaram is one of Bangalore\'s oldest planned neighbourhoods, laid out in the late 1890s. Tree-lined cross roads, old bungalows, temples and the famous 8th Cross market give it a character few areas can match. Land is scarce, so new supply comes from redevelopment of old plots into small apartment buildings, and prices are among the highest in the city.',
+      specialties: ['Heritage neighbourhood', 'Central location', '8th Cross & Sampige Road markets', 'Metro access', 'Very limited new supply'],
+      major_employers: ['Indian Institute of Science (IISc)', 'Central government & PSU offices', 'Brigade Gateway / WTC offices (Rajajinagar)', 'CBD offices'],
+      schools: [
+        { name: 'Cluny Convent High School', type: 'ICSE', note: 'Well-known girls\' school in Malleshwaram' },
+        { name: 'Kendriya Vidyalaya, IISc', type: 'CBSE', note: 'Central school on the IISc campus' },
+      ],
+      traffic: {
+        peak_hours: 'Narrow roads clog around Sampige Road, Margosa Road and the 8th Cross market in the evenings',
+        metro_access: 'Green Line: Sampige Road (Mantri Square) and Srirampura stations ~1 km',
+        highway_access: 'Bellary Road (NH-44) via Sankey Road ~2 km; CBD ~4 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['KC General Hospital (local)', 'MS Ramaiah Hospital (~3 km)'],
+        malls: ['Mantri Square Mall (~1 km)', 'Orion Mall, Rajajinagar (~3 km)'],
+        parks: ['Sankey Tank (~1 km)', 'Malleswaram Playground'],
+      },
+      investment_note: 'Malleshwaram is a capital-preservation address rather than a growth play: demand is steady, supply is tiny and prices hold up well. Gross yields are low, as in most premium central areas. 2BHK rents run about ₹42,000–52,000/mo. Best for buyers who value the neighbourhood itself and plan to stay long.',
+    },
+
+    'Rajajinagar': {
+      overview: 'Rajajinagar is a large, established west Bangalore neighbourhood of independent houses and mid-rise apartments. It has the Green Line metro, the Brigade Gateway and World Trade Center complex, Orion Mall and easy access to Yeshwanthpur. Most of the area is built out, so homes come from resale or plot redevelopment.',
+      specialties: ['Metro connectivity', 'Brigade Gateway & WTC', 'Established neighbourhood', 'Mid-segment housing', 'Yeshwanthpur rail access'],
+      major_employers: ['World Trade Center Bangalore tenants', 'ISKCON & institutional employers', 'Yeshwanthpur industrial area', 'Peenya Industrial Area'],
+      schools: [
+        { name: 'National Public School, Rajajinagar', type: 'CBSE', note: 'One of Bangalore\'s best-known schools' },
+        { name: 'Kendriya Vidyalaya, Malleshwaram / Yeshwanthpur', type: 'CBSE', note: 'Central schools nearby' },
+      ],
+      traffic: {
+        peak_hours: 'Heavy on Dr Rajkumar Road and West of Chord Road 8:30–10:30 am and 6–8:30 pm',
+        metro_access: 'Green Line: Rajajinagar, Mahalakshmi and Kuvempu Road stations within the area',
+        highway_access: 'Tumkur Road (NH-48) via Yeshwanthpur ~3 km; Outer Ring Road ~4 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['ESI Hospital, Rajajinagar (local)', 'Sparsh Hospital, Yeshwanthpur (~3 km)'],
+        malls: ['Orion Mall at Brigade Gateway (~1–2 km)', 'Mantri Square (~3 km)'],
+        parks: ['Sankey Tank (~3 km)', 'Local parks and the ISKCON hill'],
+      },
+      investment_note: 'Rajajinagar is a stable, mid-premium area with metro access, good schools and a resale-heavy market. Price growth has been modest, so the case for buying rests on wanting to live here. 2BHK rents run about ₹28,000–34,000/mo. Good for families who want central west Bangalore with metro access.',
+    },
+
+    'Banashankari': {
+      overview: 'Banashankari is a large, settled residential area in south Bangalore, named after the Banashankari temple. It has a mix of independent houses and apartments, good schools and the Green Line metro. It is popular with families who want south Bangalore at prices a little below Jayanagar and JP Nagar.',
+      specialties: ['Family neighbourhood', 'Green Line metro', 'Temple & cultural centre', 'Good schools', 'Close to JP Nagar & Jayanagar'],
+      major_employers: ['Offices in Jayanagar & JP Nagar', 'Bannerghatta Road IT parks', 'CBD via metro'],
+      schools: [
+        { name: 'National Public School, Banashankari', type: 'CBSE', note: 'Well-known south Bangalore school' },
+        { name: 'PES Institutions (nearby)', type: 'Various', note: 'Large education campus on Outer Ring Road' },
+      ],
+      traffic: {
+        peak_hours: 'Busy around the temple junction, Outer Ring Road and the bus terminus in peak hours',
+        metro_access: 'Green Line: Banashankari station; Jaya Prakash Nagar and Yelachenahalli nearby',
+        highway_access: 'Outer Ring Road (South) runs through; Kanakapura Road and NICE Road to the south',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Sagar Hospitals, Banashankari (local)', 'Apollo Hospital, Jayanagar (~4 km)'],
+        malls: ['Central Mall, JP Nagar area', 'Jayanagar 4th Block shopping (~4 km)'],
+        parks: ['Banashankari Temple tank area', 'Turahalli Forest (~6 km)'],
+      },
+      investment_note: 'Banashankari is a steady, end-user market: price growth has been moderate and rental demand comes from families and students. 2BHK rents run about ₹22,000–27,000/mo. Buying makes most sense for self-use buyers planning a long stay.',
+    },
+
+    'Bellary Road': {
+      overview: 'Bellary Road (NH-44) is the main road from Hebbal to the airport. The stretch past Yelahanka, Jakkur and Bagalur Cross has seen many large apartment and villa projects, drawn by the airport, Manyata Tech Park and new office parks along the corridor. It is car-dependent today, with the airport metro under construction.',
+      specialties: ['Airport corridor', 'Large gated projects', 'Signal-free highway', 'Phoenix Mall of Asia', 'Yelahanka Air Force Station nearby'],
+      major_employers: ['Kempegowda International Airport', 'Manyata Tech Park (via Hebbal)', 'Office parks along the airport road', 'Yelahanka industrial units'],
+      schools: [
+        { name: 'Delhi Public School, Bangalore North', type: 'CBSE', note: 'Large CBSE campus on the airport road belt' },
+        { name: 'Vidyashilp Academy', type: 'ICSE/IB', note: 'Well-known school in the Yelahanka area' },
+      ],
+      traffic: {
+        peak_hours: 'Highway flows well, but the Hebbal flyover and junction are badly congested in morning and evening peaks',
+        metro_access: 'Airport Line (Phase 2B, Blue Line) along Bellary Road is under construction; Yelahanka has suburban rail',
+        highway_access: 'NH-44 itself; Outer Ring Road at Hebbal',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Aster CMI Hospital, Hebbal', 'Columbia Asia (Manipal), Hebbal'],
+        malls: ['Phoenix Mall of Asia, Yelahanka', 'Esteem Mall, Hebbal'],
+        parks: ['Jakkur Lake', 'Puttenahalli Lake, Yelahanka'],
+      },
+      investment_note: 'The corridor rides on the airport and the upcoming metro, and has grown faster than central Bangalore. Rental demand is decent near Yelahanka and Jakkur and thinner further north. 2BHK rents run about ₹20,000–26,000/mo. Suits buyers working in north Bangalore or at the airport.',
+    },
+
+    'Cunningham Road': {
+      overview: 'Cunningham Road is a short, premium stretch in central Bangalore between Vasanth Nagar and the Racecourse. It is mostly offices, consulates, cafés and a handful of luxury apartment buildings, steps from the CBD. Homes here are few and expensive; most are large luxury units rather than typical 2BHKs.',
+      specialties: ['Central business district', 'Luxury apartments', 'Consulates & offices', 'Restaurants & cafés', 'Near Cubbon Park'],
+      major_employers: ['CBD offices on MG Road & Vittal Mallya Road', 'Consulates & corporate HQs', 'Hotels & hospitality'],
+      schools: [
+        { name: 'Bishop Cotton Boys\' School', type: 'ICSE', note: 'Historic central Bangalore school' },
+        { name: 'Mount Carmel College (nearby)', type: 'College', note: 'Well-known college in Vasanth Nagar' },
+      ],
+      traffic: {
+        peak_hours: 'Central traffic is heavy through the day, especially at the Chalukya Circle and Racecourse junctions',
+        metro_access: 'Purple Line: Cubbon Park and Vidhana Soudha stations ~1.5 km',
+        highway_access: 'Central location; Bellary Road towards the airport via Mekhri Circle',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Fortis Hospital, Cunningham Road (local)', 'Vikram Hospital (~2 km)'],
+        malls: ['UB City (~2 km)', 'Commercial Street (~2 km)'],
+        parks: ['Cubbon Park (~2 km)', 'Palace Grounds (~2 km)'],
+      },
+      investment_note: 'Cunningham Road is a trophy address. Gross yields are low because prices are very high, and buyers here are paying for location rather than returns. 2BHK-sized rentals run about ₹65,000–80,000/mo. Best for buyers who want a central home and see it as a long-term store of wealth.',
+    },
+
   },
   // Day 2 (2026-06-22): Pune
   'Pune': {
@@ -1029,6 +1205,244 @@ const LOCALITY_INSIGHTS = {
       investment_note: 'NIBM Road offers 8–9% appreciation in a premium low-density environment at prices below Koregaon Park. Rental yields at 3.5–4% from senior tenants. Low supply, greenery, and proximity to the old city\'s elite make it a strong capital-preservation play for conservative HNI investors.',
     },
 
+    'Sus Road': {
+      overview: 'Sus Road runs from Pashan towards Sus village in west Pune, between Baner and Bavdhan. The hillside setting, low density and newer gated projects make it a quieter, upmarket alternative to Baner while staying close to Hinjewadi and the Mumbai–Bangalore highway. Much of the supply is in large premium townships.',
+      specialties: ['Hillside gated projects', 'Close to Baner & Pashan', 'Hinjewadi commute', 'Low-density, green setting', 'Premium townships'],
+      major_employers: ['Rajiv Gandhi Infotech Park, Hinjewadi', 'Offices in Baner & Balewadi', 'NCL & IISER (Pashan)'],
+      schools: [
+        { name: 'The Orchid School, Baner', type: 'CBSE', note: 'Well-known progressive school nearby' },
+        { name: 'Vibgyor High, Balewadi', type: 'CBSE/ICSE', note: 'Popular school a short drive away' },
+      ],
+      traffic: {
+        peak_hours: 'Sus Road itself is narrow and slows in peaks; the Pashan–Sus junction and the highway underpass back up 9–10:30 am and 6–8:30 pm',
+        metro_access: 'Pune Metro Line 3 (Hinjewadi–Shivajinagar) runs along Baner–Balewadi, ~3–4 km away',
+        highway_access: 'Mumbai–Bangalore Highway (NH-48) ~2 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Jupiter Hospital, Baner (~5 km)', 'Surya Mother & Child, Wakad area'],
+        malls: ['Westend Mall, Aundh (~7 km)', 'Balewadi High Street (~4 km)'],
+        parks: ['Pashan Lake (~3 km)', 'Baner Hill (~3 km)'],
+      },
+      investment_note: 'Sus Road suits buyers who want a newer, greener home within reach of Hinjewadi and Baner. Road access is the weak point and resale is slower than in Baner. 2BHK rents run about ₹28,000–34,000/mo in the better gated projects. A lifestyle buy more than a rental play.',
+    },
+
+    'Kalyani Nagar': {
+      overview: 'Kalyani Nagar is a premium east Pune neighbourhood next to Koregaon Park, with wide roads, cafés, restaurants and a mix of older societies and new luxury towers. It is close to the airport, the Nagar Road IT parks and Kharadi, and now has its own metro station.',
+      specialties: ['Premium address', 'Restaurants & nightlife', 'Close to Pune airport', 'Metro access', 'Near Koregaon Park'],
+      major_employers: ['EON IT Park & World Trade Center, Kharadi', 'Offices on Nagar Road', 'Koregaon Park businesses'],
+      schools: [
+        { name: 'Bishop\'s Co-Ed School, Kalyani Nagar', type: 'ICSE', note: 'Well-known school in the area' },
+        { name: 'Symbiosis International School, Viman Nagar', type: 'IB/IGCSE', note: 'International school nearby' },
+      ],
+      traffic: {
+        peak_hours: 'Nagar Road and the Kalyani Nagar–Koregaon Park bridge are congested in the 9–11 am and 6–9 pm peaks',
+        metro_access: 'Aqua Line: Kalyani Nagar station on Nagar Road',
+        highway_access: 'Nagar Road (SH-27) ~1 km; Pune airport ~5 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Columbia Asia (Manipal) Kharadi (~5 km)', 'Sahyadri Hospital, Nagar Road'],
+        malls: ['Phoenix Marketcity, Viman Nagar (~2 km)', 'Koregaon Park restaurants (~3 km)'],
+        parks: ['Salim Ali Bird Sanctuary area', 'Koregaon Park lanes'],
+      },
+      investment_note: 'Kalyani Nagar holds value well thanks to its address, airport proximity and metro. Rental demand from senior IT staff and expatriates is steady. 2BHK rents run about ₹32,000–38,000/mo. Best for buyers who want an established premium east Pune address.',
+    },
+
+    'Pimple Saudagar': {
+      overview: 'Pimple Saudagar is a dense, popular residential area in Pimpri-Chinchwad, close to Wakad, Aundh and the Mumbai–Bangalore highway. It has a large number of mid-segment apartment societies, busy shopping streets and good schools, and is a common choice for families working in Hinjewadi or Aundh.',
+      specialties: ['Mid-segment societies', 'Hinjewadi commute', 'Shopping streets', 'Good schools', 'PCMC amenities'],
+      major_employers: ['Rajiv Gandhi Infotech Park, Hinjewadi', 'Pimpri-Chinchwad industrial belt', 'Offices in Aundh & Baner'],
+      schools: [
+        { name: 'Podar International School, Pimple Saudagar', type: 'CBSE', note: 'Popular local school' },
+        { name: 'Elpro International School, Chinchwad', type: 'CBSE', note: 'Well-known school a short drive away' },
+      ],
+      traffic: {
+        peak_hours: 'Kunal Icon Road and the Nashik Phata and Aundh–Ravet BRTS junctions are congested in peaks',
+        metro_access: 'Purple Line: Kasarwadi and Nashik Phata stations ~3 km',
+        highway_access: 'Mumbai–Bangalore Highway (NH-48) ~2 km; Old Mumbai–Pune Highway ~3 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Aditya Birla Memorial Hospital, Chinchwad (~5 km)', 'Lifepoint Multispecialty, Wakad (~3 km)'],
+        malls: ['Vision One Mall area, Wakad', 'Phoenix Mall of the Millennium, Wakad (~4 km)'],
+        parks: ['Linear Garden, Pimple Saudagar', 'PCMC parks'],
+      },
+      investment_note: 'Pimple Saudagar is a mature, well-served market with steady rental demand from Hinjewadi and PCMC workers. Little new land is left, so resale makes up much of the market. 2BHK rents run about ₹20,000–24,000/mo. Good for self-use buyers who want an established PCMC neighbourhood.',
+    },
+
+    'Ravet': {
+      overview: 'Ravet is on the north-west edge of Pimpri-Chinchwad, where the Mumbai–Pune Expressway meets the Mumbai–Bangalore highway. It has grown quickly with affordable and mid-segment projects aimed at Hinjewadi and PCMC workers, helped by the Aundh–Ravet BRTS road. Much of it is still developing.',
+      specialties: ['Affordable new projects', 'Expressway junction', 'BRTS corridor', 'Hinjewadi commute', 'PCMC fringe'],
+      major_employers: ['Rajiv Gandhi Infotech Park, Hinjewadi', 'Chakan & Talawade industrial units', 'PCMC manufacturing belt'],
+      schools: [
+        { name: 'Podar International School, Ravet', type: 'CBSE', note: 'Local CBSE school' },
+        { name: 'Indira National School, Wakad', type: 'CBSE', note: 'Well-known school nearby' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; the Mukai Chowk and Bhumkar Chowk stretches slow down in peaks',
+        metro_access: 'Purple Line extension from PCMC towards Nigdi is under construction; nearest station today is PCMC (~6 km)',
+        highway_access: 'Mumbai–Pune Expressway and NH-48 junction at Kiwale/Ravet',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Aditya Birla Memorial Hospital, Chinchwad (~7 km)', 'Local nursing homes'],
+        malls: ['Retail in Wakad and Chinchwad (~6 km)'],
+        parks: ['Pawana river front', 'Bhakti Shakti garden, Nigdi (~5 km)'],
+      },
+      investment_note: 'Ravet offers new homes at entry prices with good road links, but social infrastructure is still catching up and supply is large. 2BHK rents run about ₹15,000–18,000/mo. Suits first-time buyers working in Hinjewadi or PCMC who are happy to grow with the area.',
+    },
+
+    'Bavdhan': {
+      overview: 'Bavdhan is a hilly residential suburb on Pune\'s western edge, between Kothrud and the Mumbai–Bangalore highway. It is known for greener surroundings, gated communities and easy access to Hinjewadi, Kothrud and the expressway. Many projects are mid-to-premium.',
+      specialties: ['Hillside setting', 'Gated communities', 'Close to Kothrud', 'Highway access', 'Chandni Chowk junction'],
+      major_employers: ['Rajiv Gandhi Infotech Park, Hinjewadi', 'Offices in Kothrud & Baner', 'Chandni Chowk commercial hub'],
+      schools: [
+        { name: 'Schools in Kothrud', type: 'Various', note: 'Several established CBSE, ICSE and state schools ~3–5 km away' },
+      ],
+      traffic: {
+        peak_hours: 'The Chandni Chowk junction was rebuilt as a multi-level interchange; traffic still slows at peak hours',
+        metro_access: 'Aqua Line: Vanaz station ~3–4 km',
+        highway_access: 'Mumbai–Bangalore Highway (NH-48) at Chandni Chowk ~1–2 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Sahyadri Hospital, Kothrud (~5 km)', 'Deenanath Mangeshkar Hospital (~7 km)'],
+        malls: ['City Pride Kothrud area', 'Kothrud shopping streets (~4 km)'],
+        parks: ['Ram Nadi river front', 'NDA hills nearby'],
+      },
+      investment_note: 'Bavdhan offers a calmer setting next to Kothrud with fast highway access. Rental demand comes from families and Hinjewadi staff. 2BHK rents run about ₹20,000–24,000/mo. A good self-use pick for buyers who want space and greenery in west Pune.',
+    },
+
+    'Wagholi': {
+      overview: 'Wagholi is on the Pune–Ahmednagar highway, just beyond Kharadi on Pune\'s east side. Lower prices than Kharadi and Viman Nagar have made it one of the city\'s busiest affordable housing markets, with many large projects. The main highway is often congested, and local infrastructure is still catching up.',
+      specialties: ['Affordable housing', 'Large township supply', 'Close to Kharadi IT', 'Pune–Ahmednagar highway', 'Educational institutes'],
+      major_employers: ['EON IT Park & WTC, Kharadi', 'Offices on Nagar Road', 'Ranjangaon MIDC (further out)'],
+      schools: [
+        { name: 'Lexicon International School, Wagholi', type: 'CBSE', note: 'Large local school' },
+        { name: 'Other CBSE schools along the highway', type: 'CBSE', note: 'Several options in Wagholi and Kharadi' },
+      ],
+      traffic: {
+        peak_hours: 'The Pune–Ahmednagar highway through Wagholi is badly congested in morning and evening peaks',
+        metro_access: 'Aqua Line ends at Ramwadi (~8–10 km); an extension towards Wagholi has been proposed',
+        highway_access: 'Pune–Ahmednagar Highway (SH-27/NH-753F) runs through; Ring Road planned',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Kharadi (~6 km)', 'Local multispecialty hospitals'],
+        malls: ['Phoenix Marketcity, Viman Nagar (~10 km)', 'Local retail along the highway'],
+        parks: ['Wagholi lake area'],
+      },
+      investment_note: 'Wagholi is a value market: homes cost far less than Kharadi, but heavy supply and traffic have kept growth moderate. 2BHK rents run about ₹14,000–17,000/mo. Fits first-time buyers working in east Pune who are comfortable with a highway commute.',
+    },
+
+    'Undri': {
+      overview: 'Undri is a south-east Pune suburb past Kondhwa and NIBM Road. It has many newer mid-segment projects, international schools and a quieter setting than NIBM, at lower prices. Roads and public transport are still improving.',
+      specialties: ['Mid-segment projects', 'Good schools', 'Near NIBM Road', 'Quieter setting', 'Value pricing'],
+      major_employers: ['Magarpatta City & SP Infocity (~8 km)', 'Offices in Camp & Hadapsar', 'Kondhwa businesses'],
+      schools: [
+        { name: 'Bishop\'s School, Undri', type: 'ICSE', note: 'Branch of the well-known Pune school' },
+        { name: 'Delhi Public School, Pune (NIBM area)', type: 'CBSE', note: 'Popular CBSE school nearby' },
+      ],
+      traffic: {
+        peak_hours: 'The Undri–NIBM road and Kondhwa junctions slow down in peaks; narrow stretches remain',
+        metro_access: 'No metro nearby; the Swargate–Katraj extension is ~6–7 km away',
+        highway_access: 'Pune–Saswad road ~3 km; Katraj–Kondhwa Road ~3 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Inamdar Multispeciality Hospital (~4 km)', 'Hospitals in Wanowrie & Camp (~8 km)'],
+        malls: ['Dorabjee\'s Mall area (~4 km)', 'Amanora Mall, Hadapsar (~10 km)'],
+        parks: ['Hills around Undri', 'NIBM area greenery'],
+      },
+      investment_note: 'Undri gives school-going families newer homes at lower prices than NIBM, but the area is not on a major job corridor. 2BHK rents run about ₹16,000–19,000/mo. A sensible self-use buy for south-east Pune families.',
+    },
+
+    'Kondhwa': {
+      overview: 'Kondhwa is a large, established south Pune area along the Kondhwa–NIBM corridor, close to Camp and Wanowrie. It mixes older housing with newer societies and has busy markets, schools and hospitals. Prices are moderate for an area this close to the city.',
+      specialties: ['Established neighbourhood', 'NIBM Road corridor', 'Close to Camp', 'Busy local markets', 'Mid-segment housing'],
+      major_employers: ['Offices in Camp & Hadapsar', 'Magarpatta City (~8 km)', 'Local businesses & trade'],
+      schools: [
+        { name: 'Delhi Public School, Pune (NIBM area)', type: 'CBSE', note: 'Popular CBSE school' },
+        { name: 'Vibgyor High, NIBM', type: 'CBSE/ICSE', note: 'K-12 school nearby' },
+      ],
+      traffic: {
+        peak_hours: 'Kondhwa Road and the Khadi Machine Chowk stretch are congested at peak hours',
+        metro_access: 'No direct metro; nearest is the Swargate area or the Katraj extension (under construction), ~6 km',
+        highway_access: 'Katraj–Kondhwa Road; Pune–Satara road via Katraj',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Inamdar Multispeciality Hospital (local)', 'Ruby Hall Clinic, Wanowrie (~5 km)'],
+        malls: ['Dorabjee\'s Mall, NIBM (~3 km)', 'Camp shopping (~6 km)'],
+        parks: ['NIBM hill areas'],
+      },
+      investment_note: 'Kondhwa is a well-served but crowded neighbourhood; price growth has been steady rather than fast. 2BHK rents run about ₹16,000–19,000/mo. Works for buyers who want city access and amenities at moderate prices.',
+    },
+
+    'Shivane': {
+      overview: 'Shivane sits on the western fringe of Pune beyond Warje, along the Mutha river and the NDA road. It offers affordable new projects next to Kothrud and Warje, though much of the area is still developing and roads are narrow.',
+      specialties: ['Affordable projects', 'Next to Warje & Kothrud', 'Riverside setting', 'NDA road', 'Developing infrastructure'],
+      major_employers: ['Offices in Kothrud & Warje', 'Hinjewadi (via NH-48)', 'Local industry'],
+      schools: [
+        { name: 'Schools in Warje & Kothrud', type: 'Various', note: 'Most families use schools in Warje or Kothrud (~4 km)' },
+      ],
+      traffic: {
+        peak_hours: 'NDA Road and the Warje bridge slow down during peaks',
+        metro_access: 'Aqua Line: Vanaz station ~5–6 km',
+        highway_access: 'Mumbai–Bangalore Highway (NH-48) at Warje ~3 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Warje & Kothrud (~4–6 km)'],
+        malls: ['Kothrud shopping (~5 km)'],
+        parks: ['Mutha river front', 'NDA hills nearby'],
+      },
+      investment_note: 'Shivane is an entry point into west Pune at lower prices than Warje and Kothrud. Infrastructure is the main gap and rental demand is modest. 2BHK rents run about ₹13,000–16,000/mo. Best for budget buyers working in west Pune.',
+    },
+
+    'Ambegaon': {
+      overview: 'Ambegaon (Budruk and Khurd) lies south of Pune near Katraj and the Pune–Bangalore highway. It is a budget residential area with many mid-rise societies, popular with families and students because of nearby colleges.',
+      specialties: ['Budget housing', 'Near Katraj', 'Colleges nearby', 'Highway access', 'Family neighbourhood'],
+      major_employers: ['Offices in Swargate & Katraj', 'Colleges & institutes', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Katraj & Dhankawadi', type: 'Various', note: 'Several local schools nearby' },
+      ],
+      traffic: {
+        peak_hours: 'Katraj chowk and the Dhankawadi stretch are congested at peak hours',
+        metro_access: 'Swargate–Katraj metro extension (under construction) ~3–4 km',
+        highway_access: 'Pune–Bangalore Highway (NH-48) ~2 km; Katraj tunnel route',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Bharati Hospital, Dhankawadi (~3 km)'],
+        malls: ['Local markets in Katraj'],
+        parks: ['Katraj lake area', 'Rajiv Gandhi Zoological Park, Katraj (~3 km)'],
+      },
+      investment_note: 'Ambegaon offers affordable homes with access to Katraj and the highway, but growth has been slower than the city average. 2BHK rents run about ₹12,000–15,000/mo. Suited to budget buyers who will live in the home.',
+    },
+
+    'Talegaon': {
+      overview: 'Talegaon Dabhade is a town about 35 km north-west of Pune on the Mumbai–Pune Expressway and the Pune–Lonavala rail line. Its industrial MIDC, cooler climate and low prices draw both factory workers and second-home buyers. It works better as a local market than as a Pune commute.',
+      specialties: ['Industrial MIDC', 'Expressway & rail access', 'Second homes', 'Low prices', 'Hill-station climate'],
+      major_employers: ['Talegaon MIDC (auto & manufacturing units)', 'Chakan industrial belt', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Talegaon Dabhade', type: 'Various', note: 'Several local CBSE and state schools' },
+      ],
+      traffic: {
+        peak_hours: 'Light locally; the expressway and old highway can be busy on weekends',
+        metro_access: 'No metro; Pune–Lonavala suburban rail (Talegaon station)',
+        highway_access: 'Mumbai–Pune Expressway & Old Mumbai–Pune Highway (NH-48)',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals in Talegaon'],
+        malls: ['Local markets'],
+        parks: ['Talegaon lake', 'Hills towards Lonavala'],
+      },
+      investment_note: 'Talegaon is cheap, but price growth has been slow and rents are low, so the case for buying as an investment is weak. 2BHK rents run about ₹10,000–12,000/mo. Best for people working at the MIDC or wanting a weekend home.',
+    },
+
   },
   // Day 2 (2026-06-22): Mumbai
   'Mumbai': {
@@ -1238,6 +1652,306 @@ const LOCALITY_INSIGHTS = {
       investment_note: 'Malad West offers 9–11% appreciation with dual metro line access (Line 2A) and strong rental demand from Mindspace IT workers and film industry professionals. Rental yields at 3.5–4.5% are solid. Entry prices are 20–30% below Goregaon or Andheri for similar connectivity, making it a good value play.',
     },
 
+    'Ulwe': {
+      overview: 'Ulwe is a planned CIDCO node in Navi Mumbai, right next to the new Navi Mumbai International Airport and the landing point of Atal Setu (the Mumbai Trans Harbour Link). Once a quiet node with patchy infrastructure, it has drawn heavy buyer interest as the airport and sea link made it one of the best-connected places in Navi Mumbai.',
+      specialties: ['Next to Navi Mumbai airport', 'Atal Setu (MTHL) access', 'CIDCO planned node', 'Newer buildings', 'Value vs Kharghar & Vashi'],
+      major_employers: ['Navi Mumbai International Airport', 'JNPA port & logistics', 'CBD Belapur offices', 'South Mumbai (via Atal Setu)'],
+      schools: [
+        { name: 'Schools in Ulwe nodes', type: 'Various', note: 'Several CBSE and state board schools within the node' },
+        { name: 'Schools in Kharghar & Belapur', type: 'Various', note: 'Wider choice ~8–10 km away' },
+      ],
+      traffic: {
+        peak_hours: 'Light inside the node; Amra Marg and the Atal Setu approach can be busy at peaks',
+        metro_access: 'No metro in Ulwe yet; Navi Mumbai Metro Line 1 (Belapur–Pendhar) runs through Kharghar ~8 km; Bamandongri station on the Seawoods–Uran rail line',
+        highway_access: 'Atal Setu (MTHL) to Sewri ~5 km from Ulwe; Amra Marg to Belapur and Panvel; Uran rail line',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Belapur & Kharghar (~8–10 km)'],
+        malls: ['Seawoods Grand Central Mall (~10 km)', 'Local retail in Ulwe sectors'],
+        parks: ['Ulwe coastal stretch', 'Central Park, Kharghar (~12 km)'],
+      },
+      investment_note: 'Ulwe is the most direct play on the new airport and Atal Setu. Prices have risen fast from a low base, but large supply from CIDCO and private builders keeps rents modest. 2BHK rents run about ₹16,000–20,000/mo. Suits buyers who believe the airport will create jobs nearby and can hold for the long term.',
+    },
+
+    'Mira Road': {
+      overview: 'Mira Road is a large, dense suburb just north of Dahisar, inside the Mira-Bhayandar municipal area. It is one of the most affordable places to live with a Western Railway connection to Mumbai, which has made it hugely popular with families and first-time buyers. Metro Line 9 is being built to link it to Dahisar.',
+      specialties: ['Affordable Western line suburb', 'Dense apartment market', 'Metro Line 9 (upcoming)', 'Shopping & markets', 'Close to Borivali'],
+      major_employers: ['Offices in Andheri, Goregaon & Malad (by train)', 'Local businesses & trade', 'Thane (via Ghodbunder Road)'],
+      schools: [
+        { name: 'Schools in Mira Road (several CBSE/ICSE/SSC)', type: 'Various', note: 'Large choice of local schools' },
+        { name: 'Schools in Borivali & Dahisar', type: 'Various', note: 'More options ~6–8 km south' },
+      ],
+      traffic: {
+        peak_hours: 'The Dahisar check naka and Western Express Highway entry are heavily congested in peaks',
+        metro_access: 'Metro Line 9 (Dahisar East–Mira Bhayandar) under construction; Mira Road station on the Western Railway',
+        highway_access: 'Western Express Highway (NH-48) ~2 km; Ghodbunder Road to Thane',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Wockhardt Hospital, Mira Road', 'Bhaktivedanta Hospital'],
+        malls: ['Thakur Mall, Mira Road', 'Retail along Mira-Bhayandar Road'],
+        parks: ['Sanjay Gandhi National Park (~6 km)', 'Local gardens'],
+      },
+      investment_note: 'Mira Road is a high-demand, budget-friendly market where rent is always easy to find. Metro Line 9 should improve the commute. 2BHK rents run about ₹20,000–24,000/mo. Good for families who need the Western line at a lower price.',
+    },
+
+    'Panvel': {
+      overview: 'Panvel is a historic town and major railway junction at the eastern edge of Navi Mumbai, close to the new international airport. It has a mix of old town housing, new CIDCO nodes (New Panvel) and large private townships around it. The airport, Atal Setu and expressway links have raised interest in recent years.',
+      specialties: ['Railway junction', 'Near Navi Mumbai airport', 'Mumbai–Pune Expressway', 'Large townships', 'Affordable entry'],
+      major_employers: ['Navi Mumbai International Airport', 'Taloja MIDC', 'JNPA port & logistics', 'Offices in Belapur & Kharghar'],
+      schools: [
+        { name: 'Schools in New Panvel', type: 'Various', note: 'Several CBSE and state board schools' },
+        { name: 'Schools in Kharghar', type: 'Various', note: 'Larger choice ~8 km away' },
+      ],
+      traffic: {
+        peak_hours: 'Old Panvel streets and the Sion–Panvel highway junctions slow down at peak hours',
+        metro_access: 'Navi Mumbai Metro Line 1 ends at Pendhar near Taloja (~6 km); Panvel station on the Harbour line and long-distance routes',
+        highway_access: 'Mumbai–Pune Expressway starts here; Sion–Panvel Highway; NH-66 (Mumbai–Goa)',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['MGM Hospital, Kamothe (~5 km)', 'Local hospitals in Panvel'],
+        malls: ['Orion Mall, Panvel', 'Seawoods Grand Central (~15 km)'],
+        parks: ['Karnala Bird Sanctuary (~12 km)', 'Hills around Panvel'],
+      },
+      investment_note: 'Panvel has good long-term connectivity, but price growth has been modest because large new supply keeps coming. 2BHK rents run about ₹13,000–16,000/mo. Best for buyers whose work is in Navi Mumbai or near the airport.',
+    },
+
+    'Ghatkopar': {
+      overview: 'Ghatkopar is a major eastern suburb on the Central line, and the eastern end of Metro Line 1 (Versova–Andheri–Ghatkopar). Its east side is older and dense; the west side has newer towers and redevelopment projects. Good transport, markets and schools keep demand high.',
+      specialties: ['Metro Line 1 terminus', 'Central line station', 'Redevelopment projects', 'Busy shopping areas', 'Close to BKC & Powai'],
+      major_employers: ['BKC offices (~8 km)', 'Powai offices (~6 km)', 'Andheri offices (by metro)', 'Local trade'],
+      schools: [
+        { name: 'Schools in Ghatkopar East & West', type: 'Various', note: 'Many established CBSE, ICSE and SSC schools' },
+        { name: 'Somaiya Vidyavihar campus (~3 km)', type: 'Various', note: 'Large education campus' },
+      ],
+      traffic: {
+        peak_hours: 'LBS Marg, the Ghatkopar–Andheri Link Road and the station area are congested for most of the day',
+        metro_access: 'Metro Line 1: Ghatkopar station; Central line: Ghatkopar station',
+        highway_access: 'Eastern Express Highway ~1 km; Santacruz–Chembur Link Road; JVLR to the west',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Zynova Shalby Hospital, Ghatkopar', 'Rajawadi Hospital (municipal)'],
+        malls: ['R City Mall, Ghatkopar West'],
+        parks: ['Local gardens', 'Powai Lake (~6 km)'],
+      },
+      investment_note: 'Ghatkopar has deep rental demand thanks to its metro and rail links, and redevelopment keeps adding new stock. Prices are high, so yields are moderate. 2BHK rents run about ₹40,000–46,000/mo. Good for buyers who need easy access to both the Western and Central suburbs.',
+    },
+
+    'Mulund': {
+      overview: 'Mulund is the last suburb on the Central line before Thane, with a reputation for clean, planned streets and a strong community feel. Large new towers along LBS Marg and Mulund West sit next to older housing societies. Metro Line 4 (Wadala–Kasarvadavali) is being built through the area.',
+      specialties: ['Central line suburb', 'Metro Line 4 (upcoming)', 'Close to Thane', 'Planned neighbourhoods', 'Gated towers'],
+      major_employers: ['Offices in Thane & Airoli', 'Powai (~10 km)', 'Mulund industrial estates'],
+      schools: [
+        { name: 'Schools in Mulund East & West', type: 'Various', note: 'Many established CBSE, ICSE and SSC schools' },
+      ],
+      traffic: {
+        peak_hours: 'LBS Marg and the Mulund check naka are congested at peak hours',
+        metro_access: 'Metro Line 4 along LBS Marg (under construction); Mulund station on the Central line',
+        highway_access: 'Eastern Express Highway ~2 km; Mulund–Airoli Bridge to Navi Mumbai',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Fortis Hospital, Mulund', 'Apex Hospital, Mulund'],
+        malls: ['R Mall, Mulund', 'Viviana Mall, Thane (~6 km)'],
+        parks: ['Sanjay Gandhi National Park (Mulund side)', 'Local gardens'],
+      },
+      investment_note: 'Mulund is a steady, family-oriented market. Price growth has been moderate, but demand is consistent and Metro Line 4 should help. 2BHK rents run about ₹35,000–42,000/mo. A sound self-use choice for families working in the eastern suburbs or Thane.',
+    },
+
+    'Chembur': {
+      overview: 'Chembur is a well-established central-eastern suburb, close to BKC and South Mumbai through the Eastern Freeway and the Santacruz–Chembur Link Road. It has the Mumbai Monorail, Harbour line rail and a growing number of redevelopment towers, plus older bungalows and societies.',
+      specialties: ['Close to BKC', 'Eastern Freeway access', 'Monorail & Harbour line', 'Redevelopment towers', 'Established neighbourhood'],
+      major_employers: ['BKC offices (~7 km)', 'BARC (Trombay)', 'RCF & refineries', 'South Mumbai (via Eastern Freeway)'],
+      schools: [
+        { name: 'Schools in Chembur (several ICSE/CBSE/SSC)', type: 'Various', note: 'Well-known schools including convent and CBSE options' },
+      ],
+      traffic: {
+        peak_hours: 'Chembur Naka, Diamond Garden and the SCLR junctions are congested at peaks',
+        metro_access: 'Mumbai Monorail (Chembur–Wadala–Jacob Circle); Harbour line: Chembur station',
+        highway_access: 'Eastern Freeway to South Mumbai; Santacruz–Chembur Link Road; Sion–Panvel Highway',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Zen Hospital, Chembur', 'Sushrut Hospital, Chembur'],
+        malls: ['K Star Mall', 'Phoenix Marketcity, Kurla (~5 km)'],
+        parks: ['Diamond Garden', 'RK Studio area & local gardens'],
+      },
+      investment_note: 'Chembur\'s strong road links to BKC and South Mumbai keep demand firm. Prices are high and redevelopment adds supply, so growth has been steady rather than fast. 2BHK rents run about ₹40,000–48,000/mo. Good for buyers who work in BKC or South Mumbai.',
+    },
+
+    'Navi Mumbai': {
+      overview: 'Navi Mumbai is the planned twin city across the harbour, built by CIDCO in nodes such as Vashi, Nerul, Seawoods, Kharghar and Belapur. Broad roads, planned sectors and lower prices than Mumbai make it a strong family market. The new international airport and Atal Setu have added to its long-term appeal.',
+      specialties: ['Planned city', 'Harbour & Trans-Harbour rail', 'Navi Mumbai airport', 'Atal Setu (MTHL)', 'Lower prices than Mumbai'],
+      major_employers: ['IT parks in Airoli & Ghansoli (TTC MIDC)', 'CBD Belapur offices', 'JNPA port', 'Reliance Corporate Park, Ghansoli'],
+      schools: [
+        { name: 'DPS Navi Mumbai (Nerul)', type: 'CBSE', note: 'Popular CBSE school' },
+        { name: 'Ryan International (several branches)', type: 'CBSE/ICSE', note: 'Branches across nodes' },
+      ],
+      traffic: {
+        peak_hours: 'Thane–Belapur Road and Palm Beach Road slow down at peaks; inner roads are wide',
+        metro_access: 'Navi Mumbai Metro Line 1 (Belapur–Pendhar); Harbour and Trans-Harbour suburban rail',
+        highway_access: 'Sion–Panvel Highway, Thane–Belapur Road, Palm Beach Road, Atal Setu',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Apollo Hospitals, Belapur', 'Fortis Hiranandani Hospital, Vashi', 'DY Patil Hospital, Nerul'],
+        malls: ['Inorbit Mall, Vashi', 'Seawoods Grand Central'],
+        parks: ['Central Park, Kharghar', 'Nerul wetlands & Palm Beach Road'],
+      },
+      investment_note: 'Navi Mumbai offers planned living at lower prices than Mumbai, but heavy supply has kept average price growth modest. Rental demand is steady in Vashi, Nerul and Kharghar. 2BHK rents run about ₹20,000–24,000/mo. Good for families working in Navi Mumbai or Thane.',
+    },
+
+    'Borivali': {
+      overview: 'Borivali is a large Western suburb at the edge of Sanjay Gandhi National Park, known for its green surroundings, good schools and strong community life. It is a major Western Railway stop and is served by Metro Line 2A along Link Road and Metro Line 7 along the highway.',
+      specialties: ['Next to National Park', 'Western line hub', 'Metro 2A & 7', 'Good schools', 'Family neighbourhood'],
+      major_employers: ['Offices in Goregaon & Malad', 'Andheri & BKC (by train)', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Borivali (many CBSE/ICSE/SSC)', type: 'Various', note: 'Wide choice of established schools' },
+      ],
+      traffic: {
+        peak_hours: 'SV Road, Link Road and the station area are congested at peak hours',
+        metro_access: 'Metro Line 2A (Dahisar–DN Nagar) and Metro Line 7 (Dahisar East–Andheri East); Borivali station on the Western line',
+        highway_access: 'Western Express Highway ~1 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Apex Hospital, Borivali', 'Karuna Hospital, Borivali'],
+        malls: ['Retail along SV Road', 'Infiniti Mall Malad (~5 km)'],
+        parks: ['Sanjay Gandhi National Park', 'Gorai beach area'],
+      },
+      investment_note: 'Borivali is a steady, high-demand family market where homes rarely sit empty. Prices are high, so growth has been moderate. 2BHK rents run about ₹38,000–45,000/mo. A dependable self-use buy for families on the Western line.',
+    },
+
+    'Kandivali': {
+      overview: 'Kandivali sits between Malad and Borivali on the Western line. Thakur Village and Lokhandwala Township in Kandivali East and the Mahavir Nagar area in the west are large residential hubs. Metro lines along Link Road and the highway have improved connectivity.',
+      specialties: ['Thakur Village', 'Western line suburb', 'Metro 2A & 7', 'Mid-segment towers', 'Close to Malad offices'],
+      major_employers: ['Mindspace Malad', 'Offices in Goregaon', 'Andheri (by metro or train)'],
+      schools: [
+        { name: 'Thakur Public School', type: 'CBSE/ICSE', note: 'Large school in Thakur Village' },
+        { name: 'Schools in Kandivali West', type: 'Various', note: 'Several established options' },
+      ],
+      traffic: {
+        peak_hours: 'Akurli Road, the WEH junction and station roads are congested at peaks',
+        metro_access: 'Metro Line 2A (Link Road) and Metro Line 7 (WEH); Kandivali station on the Western line',
+        highway_access: 'Western Express Highway runs through Kandivali East',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Shatabdi Hospital, Kandivali', 'Sanjeevani Hospital, Malad'],
+        malls: ['Growel\'s 101 Mall', 'Infiniti Mall, Malad (~3 km)'],
+        parks: ['Sanjay Gandhi National Park (~3 km)', 'Local gardens'],
+      },
+      investment_note: 'Kandivali has steady rental demand from Malad and Goregaon office workers. Growth has been moderate in line with the wider western suburbs. 2BHK rents run about ₹38,000–45,000/mo. A practical self-use choice close to the Malad office belt.',
+    },
+
+    'Dombivli': {
+      overview: 'Dombivli is a large town on the Central line in the Kalyan-Dombivli municipal area, about 50 km from CST. Its affordability and rail link to Mumbai make it a huge market for first-time buyers. Large townships such as Palava are nearby, and Metro Line 12 towards Taloja is being built.',
+      specialties: ['Affordable Central line town', 'Large townships nearby', 'Strong community life', 'Metro Line 12 (upcoming)', 'Big first-time-buyer market'],
+      major_employers: ['Offices in Thane & Navi Mumbai', 'MIDC Dombivli', 'Mumbai offices (by train)'],
+      schools: [
+        { name: 'Schools in Dombivli (many CBSE/ICSE/SSC)', type: 'Various', note: 'Large choice of local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Station area and the Shil Phata road are badly congested at peak hours',
+        metro_access: 'Dombivli station on the Central line; Metro Line 12 (Kalyan–Taloja) under construction',
+        highway_access: 'Kalyan–Shil Road; Mumbai–Nashik Highway via Kalyan',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['AIMS Hospital, Dombivli', 'Local hospitals'],
+        malls: ['Local markets', 'Xperia Mall, Palava'],
+        parks: ['Local gardens'],
+      },
+      investment_note: 'Dombivli is affordable and always in demand, but large supply has kept price growth slow. 2BHK rents run about ₹15,000–18,000/mo. Best for buyers who need a low entry price and a rail commute.',
+    },
+
+    'Kalyan': {
+      overview: 'Kalyan is a historic town and one of the busiest junctions on the Central line, where the main lines to Kasara and Karjat split. It offers some of the lowest prices in the Mumbai region with a direct rail link, and has attracted large township projects on its outskirts.',
+      specialties: ['Major rail junction', 'Low prices', 'Large township projects', 'Old town character', 'Metro Lines 5 & 12 (upcoming)'],
+      major_employers: ['Thane & Bhiwandi warehousing', 'Local trade', 'Mumbai offices (by train)'],
+      schools: [
+        { name: 'Schools in Kalyan', type: 'Various', note: 'Many local schools across boards' },
+      ],
+      traffic: {
+        peak_hours: 'Kalyan station area and Shivaji Chowk are heavily congested much of the day',
+        metro_access: 'Kalyan station on the Central line; Metro Line 5 (Thane–Bhiwandi–Kalyan) and Metro Line 12 under construction',
+        highway_access: 'Mumbai–Nashik Highway (NH-160) ~5 km; Kalyan–Shil Road',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals in Kalyan'],
+        malls: ['Metro Junction Mall'],
+        parks: ['Kalyan creek side', 'Local gardens'],
+      },
+      investment_note: 'Kalyan is the cheapest way into the Mumbai rail network, but slow price growth means buying here is mainly for living, not for returns. 2BHK rents run about ₹12,000–15,000/mo. Suits budget buyers who will commute by train.',
+    },
+
+    'Andheri West': {
+      overview: 'Andheri West is one of Mumbai\'s busiest and most connected suburbs, home to Lokhandwala, Versova, Four Bungalows and the film and TV industry. It is served by Metro Line 1 and Metro Line 2A, the Western line and the airport is close. Demand comes from professionals, media workers and families.',
+      specialties: ['Metro Lines 1 & 2A', 'Lokhandwala & Versova', 'Media & entertainment hub', 'Close to airport', 'Restaurants & nightlife'],
+      major_employers: ['Film & TV studios', 'Offices in Andheri East (SEEPZ, MIDC)', 'BKC (~12 km)'],
+      schools: [
+        { name: 'Schools in Andheri West (many CBSE/ICSE/IB)', type: 'Various', note: 'Including well-known international schools' },
+      ],
+      traffic: {
+        peak_hours: 'JP Road, SV Road and Link Road are congested much of the day',
+        metro_access: 'Metro Line 1: DN Nagar, Azad Nagar, Andheri; Metro Line 2A: Andheri West, DN Nagar',
+        highway_access: 'Western Express Highway ~3 km; JVLR & SV Road',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Kokilaben Dhirubhai Ambani Hospital', 'Criticare & local hospitals'],
+        malls: ['Infiniti Mall, Andheri', 'Lokhandwala market'],
+        parks: ['Versova beach', 'Local gardens'],
+      },
+      investment_note: 'Andheri West rents easily and holds value, but prices are already high so yields are modest. 2BHK rents run about ₹55,000–65,000/mo. A strong choice for buyers who want a central, well-connected Western suburb.',
+    },
+
+    'Bandra': {
+      overview: 'Bandra is Mumbai\'s best-known suburb: sea-facing promenades, old bungalows, cafés, film stars and some of the city\'s most expensive homes. It is next to BKC and connected by the Bandra–Worli Sea Link. Supply comes mostly from redevelopment of older buildings.',
+      specialties: ['Premium suburb', 'Next to BKC', 'Sea Link access', 'Cafés & nightlife', 'Heritage & sea front'],
+      major_employers: ['BKC offices', 'Film & media industry', 'Consulates & corporate HQs'],
+      schools: [
+        { name: 'Schools in Bandra (well-known convent, ICSE and IB schools)', type: 'Various', note: 'Several of the city\'s best-known schools' },
+      ],
+      traffic: {
+        peak_hours: 'Linking Road, Hill Road and SV Road are congested much of the day',
+        metro_access: 'Bandra station (Western line); Metro Line 2B (DN Nagar–Mandale) under construction; Aqua Line (Metro 3) at BKC',
+        highway_access: 'Bandra–Worli Sea Link; Western Express Highway; coastal road links',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Lilavati Hospital', 'Holy Family Hospital', 'Bhabha Hospital'],
+        malls: ['Linking Road shopping', 'Palladium & Jio World Drive (BKC)'],
+        parks: ['Bandstand promenade', 'Carter Road promenade'],
+      },
+      investment_note: 'Bandra is a trophy market: prices are very high and yields low, so buyers are paying for the address and long-term scarcity. 2BHK rents run about ₹90,000–1,10,000/mo. Best for buyers for whom living here is the point.',
+    },
+
+    'Worli': {
+      overview: 'Worli is a central Mumbai sea-front district that has changed from mill land into one of India\'s most expensive luxury housing markets, with high-rise towers, corporate offices and the Bandra–Worli Sea Link. The Aqua Line (Metro 3) and the Coastal Road have improved access further.',
+      specialties: ['Luxury high-rises', 'Sea Link & Coastal Road', 'Aqua Line (Metro 3)', 'Corporate offices', 'Sea-facing homes'],
+      major_employers: ['Corporate offices in Worli & Lower Parel', 'BKC (~6 km)', 'Nariman Point (via Coastal Road)'],
+      schools: [
+        { name: 'Schools in Worli & Prabhadevi', type: 'Various', note: 'Several premium schools nearby' },
+      ],
+      traffic: {
+        peak_hours: 'Annie Besant Road and the Sea Link approach are congested at peaks',
+        metro_access: 'Aqua Line (Metro 3): Worli and Siddhivinayak stations; Lower Parel station (Western line)',
+        highway_access: 'Bandra–Worli Sea Link; Mumbai Coastal Road; Eastern Freeway nearby',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Worli & Prabhadevi', 'Major hospitals in Mahalaxmi & Parel (~3 km)'],
+        malls: ['Phoenix Palladium, Lower Parel (~2 km)'],
+        parks: ['Worli Sea Face promenade', 'Worli Fort'],
+      },
+      investment_note: 'Worli is the top end of the Mumbai market. Rents are high in absolute terms but low relative to price, so the case for buying rests on wealth preservation and lifestyle. 2BHK rents run about ₹1,00,000–1,25,000/mo. Suits buyers who want a premium central address and do not need rental returns.',
+    },
+
   },
   // Day 3 (2026-06-22): Delhi NCR
   'Delhi NCR': {
@@ -1425,6 +2139,261 @@ const LOCALITY_INSIGHTS = {
       investment_note: 'South Delhi is premium capital preservation — 7–9% appreciation with near-zero new supply. Rental yields at 3–3.5% are modest but tenant quality is exceptional (diplomats, doctors, senior government officials). Best for HNI long-term holders. Properties here almost never depreciate; scarcity is structural.',
     },
 
+    'Dwarka Expressway': {
+      overview: 'Dwarka Expressway (Northern Peripheral Road) links Dwarka in Delhi to Kherki Daula on NH-48 in Gurgaon. The Gurgaon side is lined with large high-rise projects in sectors 99–115, many from top developers. With the expressway now open, it gives a signal-free run to Dwarka, the airport and IGI-side offices.',
+      specialties: ['Signal-free expressway', 'Close to IGI Airport', 'Large high-rise projects', 'Branded developers', 'Diplomatic Enclave II planned'],
+      major_employers: ['Offices on NH-48 & Cyber City', 'IGI Airport & aviation', 'Udyog Vihar', 'IMT Manesar (via NH-48)'],
+      schools: [
+        { name: 'Schools along the expressway sectors', type: 'Various', note: 'Several new CBSE schools; more options in Dwarka' },
+        { name: 'Delhi Public School, Dwarka', type: 'CBSE', note: 'Established school across the Delhi border' },
+      ],
+      traffic: {
+        peak_hours: 'The expressway itself flows well; the Kherki Daula end and service roads slow at peaks',
+        metro_access: 'No metro along the expressway yet; Dwarka Sector 21 (Blue & Airport Express lines) ~5–10 km depending on sector',
+        highway_access: 'Dwarka Expressway; NH-48 at Kherki Daula; Urban Extension Road-II nearby',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Dwarka (Manipal, Aakash)', 'Medanta, Gurgaon (~15 km)'],
+        malls: ['Malls in Dwarka sectors', 'Ambience Mall (~15 km)'],
+        parks: ['Sector parks', 'Dwarka city forests'],
+      },
+      investment_note: 'Dwarka Expressway has seen strong price growth as the road opened and branded projects delivered. Many towers are still filling up, so rental demand is uneven across sectors. 2BHK-sized rents run about ₹35,000–42,000/mo in completed projects. Good for buyers who want a new home with fast access to the airport and Delhi.',
+    },
+
+    'New Gurgaon (Sec 82+)': {
+      overview: 'New Gurgaon refers to the sectors from about 76 to 95 along NH-48 and the Southern and Central Peripheral Roads. It has filled with mid-segment and premium high-rises over the last decade, close to Manesar and the NH-48 office belt. Social infrastructure has improved, though it remains car-dependent.',
+      specialties: ['Planned new sectors', 'NH-48 & SPR access', 'Mid-segment high-rises', 'Close to Manesar', 'Newer schools & retail'],
+      major_employers: ['IMT Manesar (Maruti Suzuki, Honda and others)', 'Offices on NH-48', 'Cyber City (~20 km)'],
+      schools: [
+        { name: 'Schools in Sectors 82–89', type: 'Various', note: 'Several new CBSE schools within the sectors' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; the NH-48 crossing at Kherki Daula/Panchgaon and SPR junctions slow at peaks',
+        metro_access: 'No metro; nearest is HUDA City Centre (Yellow Line) ~15 km',
+        highway_access: 'NH-48 ~2–4 km; Southern Peripheral Road; KMP Expressway',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Sector 56 & Golf Course Road area (~12 km)', 'Local hospitals'],
+        malls: ['Retail strips in Sectors 82–84', 'Malls on Sohna Road (~10 km)'],
+        parks: ['Aravalli foothills', 'Sector parks'],
+      },
+      investment_note: 'New Gurgaon offers newer homes at lower prices than central Gurgaon, with jobs nearby at Manesar. It depends on cars and on the KMP and NH-48 roads. 2BHK-sized rents run about ₹28,000–34,000/mo. Suits buyers working on the NH-48 belt or at Manesar.',
+    },
+
+    'Yamuna Expressway': {
+      overview: 'The Yamuna Expressway runs from Greater Noida to Agra. The sectors along it, managed by YEIDA, have plotted land, apartments and industrial zones, with the Noida International Airport at Jewar and the Buddh International Circuit as anchors. Much of it is still developing and occupancy is low.',
+      specialties: ['Noida International Airport (Jewar)', 'Buddh International Circuit', 'YEIDA plots & sectors', 'Film City project', 'Long-term growth area'],
+      major_employers: ['Noida International Airport', 'YEIDA industrial sectors', 'Greater Noida industries'],
+      schools: [
+        { name: 'Schools in Greater Noida', type: 'Various', note: 'Most families use schools in Greater Noida (~10–20 km)' },
+      ],
+      traffic: {
+        peak_hours: 'Light; the expressway is wide and free-flowing',
+        metro_access: 'No metro; Aqua Line ends at Depot station, Greater Noida',
+        highway_access: 'Yamuna Expressway; Eastern Peripheral Expressway',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['Sharda Hospital, Greater Noida', 'Yatharth Hospital, Greater Noida'],
+        malls: ['Retail in Greater Noida'],
+        parks: ['Open land and green belts'],
+      },
+      investment_note: 'The Yamuna Expressway is a long-term bet on the airport and planned industry. Today few people live there, so rental demand is thin. 2BHK-sized rents run about ₹14,000–18,000/mo in occupied projects. Buy only with a long horizon and no need for rent.',
+    },
+
+    'Manesar': {
+      overview: 'Manesar is an industrial town south-west of Gurgaon on NH-48, home to IMT Manesar and many automobile and component plants. Housing is a mix of township projects and independent floors that serve factory staff and managers.',
+      specialties: ['IMT Manesar industry', 'Automobile hub', 'NH-48 & KMP Expressway', 'Affordable township projects', 'NSG campus'],
+      major_employers: ['Maruti Suzuki', 'Honda Motorcycle & Scooter India', 'Auto component makers', 'Logistics parks'],
+      schools: [
+        { name: 'Schools in Manesar & Sector 80s', type: 'Various', note: 'Local CBSE schools; more in New Gurgaon' },
+      ],
+      traffic: {
+        peak_hours: 'NH-48 near Manesar and the toll plazas slow at shift changes and peaks',
+        metro_access: 'No metro',
+        highway_access: 'NH-48 runs through; KMP Expressway junction',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals in Manesar', 'Hospitals in Gurgaon (~20 km)'],
+        malls: ['Local markets'],
+        parks: ['Aravalli hills nearby'],
+      },
+      investment_note: 'Manesar is driven by industrial jobs; homes rent easily to staff of nearby plants. Prices are moderate and growth has been steady. 2BHK-sized rents run about ₹18,000–22,000/mo. Good for buyers who work in the IMT area.',
+    },
+
+    'Greater Noida (Main)': {
+      overview: 'Greater Noida is a planned city south-east of Noida with wide roads, large sectors, universities and industrial areas. Pari Chowk is its main commercial hub. It offers spacious homes at moderate prices, connected to Noida by the Aqua Line metro and the Noida–Greater Noida Expressway.',
+      specialties: ['Planned city', 'Wide roads & green belts', 'Universities', 'Aqua Line metro', 'Moderate prices'],
+      major_employers: ['Industrial sectors (Ecotech, Udyog Vihar)', 'Universities & colleges', 'Offices in Noida (~20 km)'],
+      schools: [
+        { name: 'Schools in Greater Noida', type: 'Various', note: 'Many CBSE schools including DPS and Ryan branches' },
+        { name: 'Sharda & Galgotias universities', type: 'University', note: 'Large campuses in the city' },
+      ],
+      traffic: {
+        peak_hours: 'Light inside Greater Noida; the Noida–Greater Noida Expressway is busy at peaks',
+        metro_access: 'Aqua Line: Pari Chowk, Knowledge Park II, Alpha 1, Delta 1 and other stations',
+        highway_access: 'Noida–Greater Noida Expressway; Yamuna Expressway; Eastern Peripheral Expressway',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['Sharda Hospital', 'Yatharth Hospital', 'GIMS'],
+        malls: ['Grand Venice Mall', 'Retail around Pari Chowk'],
+        parks: ['City Park, Greater Noida', 'Surajpur wetland'],
+      },
+      investment_note: 'Greater Noida offers space and planning at low prices, but job density is lower than Noida, so rents are modest. 2BHK-sized rents run about ₹15,000–19,000/mo. Suits families who work in Noida or Greater Noida and want a larger home.',
+    },
+
+    'Noida Extension (Sec 1)': {
+      overview: 'Noida Extension (Greater Noida West) is a large cluster of high-rise societies between Noida and Greater Noida. Prices well below Noida made it NCR\'s biggest affordable housing market, though it went through years of project delays. Most towers are now delivered and occupied, and a metro link has been approved.',
+      specialties: ['Affordable high-rises', 'Large occupied societies', 'Close to Noida sectors', 'Metro link approved', 'Gaur City & other townships'],
+      major_employers: ['Offices in Noida Sector 62 & 63', 'Noida Expressway IT parks', 'Greater Noida industries'],
+      schools: [
+        { name: 'Schools in Greater Noida West', type: 'Various', note: 'Several CBSE schools inside and near the societies' },
+      ],
+      traffic: {
+        peak_hours: 'Gaur Chowk and Char Murti roundabout are heavily congested at peaks',
+        metro_access: 'No metro yet; Aqua Line extension to Greater Noida West approved; nearest station Noida Sector 51/52 (~8 km)',
+        highway_access: 'Noida–Greater Noida link roads; NH-24 (Delhi–Meerut Expressway) ~6 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Yatharth Hospital, Greater Noida West', 'Local hospitals'],
+        malls: ['Gaur City Mall', 'Retail along Gaur Chowk'],
+        parks: ['Society parks', 'Hindon river side'],
+      },
+      investment_note: 'Noida Extension has lots of supply, which keeps price growth and rents moderate, but it offers some of the cheapest new homes near Noida. 2BHK-sized rents run about ₹16,000–20,000/mo. A practical first home for buyers working in Noida.',
+    },
+
+    'Indirapuram': {
+      overview: 'Indirapuram is a large planned residential area in Ghaziabad, just across the Delhi border from east Delhi. It has mature apartment societies, schools, malls and access to the Blue Line metro at Vaishali. It is popular with families working in Noida and east Delhi.',
+      specialties: ['Mature societies', 'Close to Delhi & Noida', 'Blue Line metro nearby', 'Malls & schools', 'NH-24 access'],
+      major_employers: ['Offices in Noida Sector 62', 'East Delhi businesses', 'Ghaziabad industry'],
+      schools: [
+        { name: 'Schools in Indirapuram', type: 'Various', note: 'Many CBSE schools including DPS Indirapuram' },
+      ],
+      traffic: {
+        peak_hours: 'NH-24 and the Shipra/Vaibhav Khand junctions are congested at peaks',
+        metro_access: 'Blue Line: Vaishali station ~3 km; Red Line: Shaheed Nagar ~4 km',
+        highway_access: 'Delhi–Meerut Expressway (NH-24) ~1 km; Hindon Elevated Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Max Hospital, Vaishali', 'Yashoda Hospital, Kaushambi'],
+        malls: ['Shipra Mall', 'Mahagun Metro Mall, Vaishali'],
+        parks: ['Swarn Jayanti Park', 'Society parks'],
+      },
+      investment_note: 'Indirapuram is an established, well-served market with steady rental demand. Prices have grown moderately. 2BHK-sized rents run about ₹22,000–27,000/mo. A dependable self-use choice for families working in Noida or east Delhi.',
+    },
+
+    'Raj Nagar Extension': {
+      overview: 'Raj Nagar Extension is a large budget housing area in Ghaziabad on the NH-58 (Meerut Road). It has many high-rise societies offering some of NCR\'s lowest prices. Connectivity has improved with the Delhi–Meerut Expressway and the RRTS, though it remains away from the main job centres.',
+      specialties: ['Budget high-rises', 'Large township supply', 'Delhi–Meerut Expressway', 'RRTS (Namo Bharat) nearby', 'Ghaziabad suburbs'],
+      major_employers: ['Ghaziabad industry', 'Offices in Noida & east Delhi (commute)'],
+      schools: [
+        { name: 'Schools in Raj Nagar Extension & Ghaziabad', type: 'Various', note: 'Several CBSE schools nearby' },
+      ],
+      traffic: {
+        peak_hours: 'Meerut Road junctions slow at peaks',
+        metro_access: 'Red Line: Shaheed Sthal (New Bus Adda) ~5 km; Namo Bharat (RRTS) Ghaziabad stations nearby',
+        highway_access: 'Delhi–Meerut Expressway ~3 km; NH-58',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Ghaziabad (~5 km)'],
+        malls: ['Local retail', 'Malls in Ghaziabad'],
+        parks: ['Hindon river side', 'Society parks'],
+      },
+      investment_note: 'Raj Nagar Extension is cheap but has a lot of supply and slow price growth. Rents are low. 2BHK-sized rents run about ₹12,000–15,000/mo. Best for budget buyers who will live in the home.',
+    },
+
+    'Vasant Kunj': {
+      overview: 'Vasant Kunj is a premium residential area in south-west Delhi, between the airport and Mehrauli. It is known for DDA housing pockets, large flats, green surroundings and luxury malls. Supply is limited and most homes change hands through resale.',
+      specialties: ['South Delhi premium', 'Near IGI Airport', 'Green surroundings', 'Luxury malls', 'DDA housing pockets'],
+      major_employers: ['Offices in Aerocity & Gurgaon', 'JNU & institutions', 'Central Delhi (via NH-48)'],
+      schools: [
+        { name: 'Delhi Public School, Vasant Kunj', type: 'CBSE', note: 'Well-known school' },
+        { name: 'Ryan International, Vasant Kunj', type: 'CBSE', note: 'Popular school' },
+      ],
+      traffic: {
+        peak_hours: 'Nelson Mandela Marg and the Mahipalpur junction are busy at peaks',
+        metro_access: 'Magenta Line: Vasant Vihar ~3–4 km; Yellow Line: Chhatarpur ~4 km',
+        highway_access: 'NH-48 ~3 km; Mehrauli–Mahipalpur Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Fortis Flt Lt Rajan Dhall Hospital', 'Indian Spinal Injuries Centre'],
+        malls: ['DLF Promenade', 'Ambience Mall Vasant Kunj', 'DLF Emporio'],
+        parks: ['Sanjay Van', 'Aravalli Biodiversity Park'],
+      },
+      investment_note: 'Vasant Kunj is a stable, high-value address with limited supply. Yields are low as in most of south Delhi. 2BHK-sized rents run about ₹60,000–75,000/mo for larger flats. Best for buyers who want a long-term south Delhi home.',
+    },
+
+    'Rohini': {
+      overview: 'Rohini is one of Asia\'s largest planned residential areas, in north-west Delhi. Developed by the DDA, it has many group housing societies, independent plots and good metro coverage on the Red Line. It is a mature, middle-class area with schools, markets and hospitals.',
+      specialties: ['Large planned township', 'Red Line metro', 'DDA housing', 'Mature neighbourhood', 'Schools & markets'],
+      major_employers: ['Offices in Netaji Subhash Place & Pitampura', 'North Delhi businesses', 'Industrial areas (Bawana, Narela)'],
+      schools: [
+        { name: 'Schools in Rohini (many CBSE)', type: 'CBSE', note: 'Large choice including well-known private schools' },
+      ],
+      traffic: {
+        peak_hours: 'Outer Ring Road and sector roads slow at peaks',
+        metro_access: 'Red Line: Rohini East, Rohini West, Rithala; Magenta Line extension towards Majlis Park nearby',
+        highway_access: 'Outer Ring Road; NH-44 via Mukarba Chowk',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Dr Baba Saheb Ambedkar Hospital', 'Saroj & Jaipur Golden hospitals'],
+        malls: ['Unity One Mall', 'Adventure Island & Metro Walk'],
+        parks: ['Japanese Park', 'Sector parks'],
+      },
+      investment_note: 'Rohini is a stable, lived-in market where price growth has been slow. It suits families who want space and metro access in north Delhi. 2BHK-sized rents run about ₹24,000–30,000/mo. A self-use buy rather than an investment.',
+    },
+
+    'Faridabad (Sec 85+)': {
+      overview: 'The newer sectors of Faridabad, roughly 75 to 89 along the Faridabad–Sohna road and Bypass Road, have many high-rise projects at lower prices than Gurgaon. Faridabad itself is an old industrial city, connected to Delhi by the Violet Line and NH-44.',
+      specialties: ['Affordable high-rises', 'Violet Line metro', 'Industrial city', 'Faridabad–Gurgaon Road', 'Greater Faridabad sectors'],
+      major_employers: ['Faridabad industrial areas', 'Offices in Delhi (via Violet Line)', 'Gurgaon (via F-G Road)'],
+      schools: [
+        { name: 'Schools in Faridabad', type: 'Various', note: 'Many CBSE schools including DPS and Modern School branches' },
+      ],
+      traffic: {
+        peak_hours: 'Bypass Road and NH-44 slow at peaks',
+        metro_access: 'Violet Line: Raja Nahar Singh (Ballabhgarh) ~3–5 km',
+        highway_access: 'NH-44; Faridabad–Gurgaon Road; Delhi–Mumbai Expressway spur',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Asian Institute of Medical Sciences', 'Amrita Hospital, Faridabad'],
+        malls: ['Crown Interiorz Mall', 'Local retail'],
+        parks: ['Aravalli hills', 'Badkhal Lake area'],
+      },
+      investment_note: 'Greater Faridabad offers cheap new homes, but job density is low and price growth has been slow. 2BHK-sized rents run about ₹14,000–18,000/mo. Best for self-use buyers who work in Faridabad.',
+    },
+
+    'Sohna': {
+      overview: 'Sohna is a town south of Gurgaon, now linked by the Sohna Elevated Road. Many mid-segment and affordable projects have come up along Sohna Road and in the newer sectors around Sohna town. It is quieter and cheaper than Gurgaon, but still developing.',
+      specialties: ['Sohna Elevated Road', 'Affordable new projects', 'Aravalli setting', 'Delhi–Mumbai Expressway nearby', 'Hot springs & heritage'],
+      major_employers: ['Offices on Sohna Road & Golf Course Extension', 'Gurgaon offices (~20 km)', 'Logistics hubs'],
+      schools: [
+        { name: 'Schools on Sohna Road', type: 'Various', note: 'Several CBSE schools in Gurgaon\'s southern sectors' },
+      ],
+      traffic: {
+        peak_hours: 'Light in Sohna; Sohna Road near Gurgaon is busy at peaks',
+        metro_access: 'No metro',
+        highway_access: 'Sohna Elevated Road; Delhi–Mumbai Expressway; KMP Expressway',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals', 'Hospitals in Gurgaon (~15–20 km)'],
+        malls: ['Malls on Sohna Road (~10–15 km)'],
+        parks: ['Aravalli hills', 'Damdama Lake (~10 km)'],
+      },
+      investment_note: 'Sohna is a budget gateway to Gurgaon with improving roads, but many projects are still filling up and rental demand is thin. 2BHK-sized rents run about ₹16,000–20,000/mo. Suits patient buyers who will live there.',
+    },
+
   },
   // Day 3 (2026-06-22): Chennai
   'Chennai': {
@@ -1566,6 +2535,300 @@ const LOCALITY_INSIGHTS = {
       investment_note: 'Ambattur offers 7–9% appreciation at Chennai\'s most affordable entry prices. Rental yields at 4.5–5% are strong driven by industrial and IT-ITeS workforce demand. Best for budget investors and first-time buyers — low entry price compensates for the modest growth trajectory. Ongoing connectivity improvements are the key upside driver.',
     },
 
+    'Thoraipakkam': {
+      overview: 'Thoraipakkam sits in the middle of Old Mahabalipuram Road (OMR), Chennai\'s IT Expressway, between Perungudi and Sholinganallur. It is surrounded by IT parks and has a dense mix of apartments, PG housing and gated communities. The Phase 2 metro along OMR is under construction.',
+      specialties: ['OMR IT corridor', 'Walk-to-work housing', 'Gated communities', 'Phase 2 metro (upcoming)', 'Strong rental demand'],
+      major_employers: ['Tech parks along OMR (Cognizant, TCS, Accenture and others)', 'RMZ & Prestige tech parks', 'Startups & BPOs'],
+      schools: [
+        { name: 'Schools along OMR', type: 'Various', note: 'Several CBSE, ICSE and international schools within a few km' },
+      ],
+      traffic: {
+        peak_hours: 'OMR is congested 8:30–10:30 am and 6–9 pm, especially near junctions with Pallavaram–Thoraipakkam Radial Road',
+        metro_access: 'Phase 2 Corridor 3 (Madhavaram–SIPCOT) along OMR under construction; Perungudi MRTS ~3 km',
+        highway_access: 'OMR; Pallavaram–Thoraipakkam Radial Road links to GST Road',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals along OMR (Apollo, Gleneagles nearby)', 'Hospitals in Perungudi & Sholinganallur'],
+        malls: ['Retail along OMR', 'Phoenix Marketcity, Velachery (~6 km)'],
+        parks: ['Pallikaranai Marsh (~3 km)', 'ECR beaches (~4 km)'],
+      },
+      investment_note: 'Thoraipakkam has some of Chennai\'s deepest rental demand thanks to its location in the middle of the OMR job belt. The upcoming metro should ease the commute. 2BHK rents run about ₹22,000–26,000/mo. A good pick for IT workers and for buyers who want easy-to-let homes.',
+    },
+
+    'Perungudi': {
+      overview: 'Perungudi is at the start of OMR, just south of Velachery and Taramani, next to TIDEL Park and the early IT parks of Chennai. It has the MRTS line, a mix of older housing and new apartments, and quick access to both the IT corridor and central Chennai.',
+      specialties: ['OMR gateway', 'Near TIDEL Park', 'MRTS access', 'Close to Velachery', 'Mixed housing'],
+      major_employers: ['TIDEL Park', 'Tech parks at Taramani & Perungudi', 'Offices along OMR'],
+      schools: [
+        { name: 'Schools in Perungudi & Velachery', type: 'Various', note: 'Wide choice of CBSE and state board schools' },
+      ],
+      traffic: {
+        peak_hours: 'OMR near Perungudi toll and the Velachery link are busy in peaks',
+        metro_access: 'MRTS: Perungudi station; Phase 2 Corridor 3 along OMR under construction',
+        highway_access: 'OMR; Velachery Main Road; ECR via Thiruvanmiyur',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Velachery & Perungudi', 'Apollo Cancer Centre area, Teynampet (~10 km)'],
+        malls: ['Phoenix Marketcity, Velachery (~3 km)', 'Grand Square Mall, Velachery'],
+        parks: ['Pallikaranai Marsh (~3 km)', 'Guindy National Park (~8 km)'],
+      },
+      investment_note: 'Perungudi offers good access to both the city and the IT corridor, which keeps it in demand with tenants. 2BHK rents run about ₹20,000–24,000/mo. A balanced choice for buyers who work at the northern end of OMR.',
+    },
+
+    'Kovilambakkam': {
+      overview: 'Kovilambakkam is a residential area south of Velachery, between Medavakkam and Pallikaranai. It grew as a more affordable alternative to Velachery and has many mid-segment apartments and independent houses. Roads are improving, though some streets still face monsoon flooding.',
+      specialties: ['Velachery overspill', 'Mid-segment apartments', 'Affordable for the south', 'Close to Medavakkam', 'Family neighbourhood'],
+      major_employers: ['Offices along OMR (~6 km)', 'Velachery businesses', 'GST Road industries'],
+      schools: [
+        { name: 'Schools in Kovilambakkam & Medavakkam', type: 'Various', note: 'Several CBSE and state board options' },
+      ],
+      traffic: {
+        peak_hours: 'Medavakkam junction and Velachery Main Road slow at peaks',
+        metro_access: 'No metro; Velachery MRTS ~4 km',
+        highway_access: 'Velachery–Tambaram Road; Pallavaram–Thoraipakkam Radial Road ~2 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Medavakkam & Velachery'],
+        malls: ['Phoenix Marketcity, Velachery (~5 km)'],
+        parks: ['Pallikaranai Marsh (~2 km)'],
+      },
+      investment_note: 'Kovilambakkam gives families homes near Velachery at lower prices. Check flood history street by street before buying. 2BHK rents run about ₹15,000–18,000/mo. A sensible self-use buy for families working in south Chennai.',
+    },
+
+    'Pallikaranai': {
+      overview: 'Pallikaranai lies between Velachery and OMR, next to the Pallikaranai Marsh, one of Chennai\'s last large wetlands. Housing has grown fast thanks to the Radial Road linking OMR and GST Road. Parts of the area are low-lying and have flooded in heavy monsoons.',
+      specialties: ['Radial Road access', 'Near OMR', 'Next to protected marsh', 'Growing apartment supply', 'Mid-segment pricing'],
+      major_employers: ['Tech parks along OMR', 'Offices in Velachery & Perungudi', 'Hospitals & healthcare'],
+      schools: [
+        { name: 'Schools in Pallikaranai', type: 'Various', note: 'Several CBSE and state board schools' },
+      ],
+      traffic: {
+        peak_hours: 'Radial Road and Velachery–Tambaram Road are busy at peaks',
+        metro_access: 'No metro; Velachery and Perungudi MRTS ~4 km',
+        highway_access: 'Pallavaram–Thoraipakkam Radial Road; OMR ~3 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Pallikaranai & Velachery'],
+        malls: ['Phoenix Marketcity, Velachery (~5 km)'],
+        parks: ['Pallikaranai Marsh'],
+      },
+      investment_note: 'Pallikaranai is well placed for OMR jobs at moderate prices, but buyers should check flood risk carefully. 2BHK rents run about ₹16,000–19,000/mo. Suits buyers working on OMR who want to avoid OMR\'s higher prices.',
+    },
+
+    'Neelankarai': {
+      overview: 'Neelankarai is a beach-side neighbourhood on East Coast Road (ECR), south of Thiruvanmiyur. It is known for independent houses, villas and upmarket apartments close to the sea, and for quick access to OMR through link roads.',
+      specialties: ['Beach-side living', 'ECR address', 'Villas & independent houses', 'Close to OMR', 'Quieter setting'],
+      major_employers: ['Tech parks on OMR (~4 km)', 'Offices in Adyar & Thiruvanmiyur', 'Hospitality on ECR'],
+      schools: [
+        { name: 'Schools on ECR & in Thiruvanmiyur', type: 'Various', note: 'Several international and CBSE schools nearby' },
+      ],
+      traffic: {
+        peak_hours: 'ECR is busy at peaks and on weekends',
+        metro_access: 'No metro; Thiruvanmiyur MRTS ~5 km',
+        highway_access: 'ECR; link roads to OMR at Thoraipakkam',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Thiruvanmiyur & Adyar'],
+        malls: ['Retail along ECR', 'VR Chennai (~15 km)'],
+        parks: ['Neelankarai beach', 'Besant Nagar beach (~6 km)'],
+      },
+      investment_note: 'Neelankarai is a lifestyle market: homes near the sea hold value, but yields are modest. 2BHK rents run about ₹28,000–34,000/mo. Best for buyers who want a beach-side home near the IT corridor.',
+    },
+
+    'Guindy': {
+      overview: 'Guindy is a central south Chennai hub with industrial estates, offices, IIT Madras and Guindy National Park nearby. It is one of the best-connected places in the city, with a metro station, suburban rail and quick access to the airport.',
+      specialties: ['Central location', 'Metro & suburban rail', 'Near IIT Madras', 'Industrial estate & offices', 'Close to airport'],
+      major_employers: ['Guindy Industrial Estate', 'Olympia Tech Park & offices', 'IIT Madras research park'],
+      schools: [
+        { name: 'Schools in Guindy & Adyar', type: 'Various', note: 'Many well-known schools nearby' },
+      ],
+      traffic: {
+        peak_hours: 'Kathipara junction and Anna Salai are busy at peaks',
+        metro_access: 'Blue Line: Guindy & Alandur stations; Guindy suburban rail',
+        highway_access: 'GST Road; Anna Salai; Kathipara flyover; Inner Ring Road',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Government Hospital (King Institute area)', 'Hospitals in Adyar'],
+        malls: ['Phoenix Marketcity, Velachery (~4 km)'],
+        parks: ['Guindy National Park', 'Children\'s Park, Guindy'],
+      },
+      investment_note: 'Guindy offers rare central access with metro and rail, which keeps demand firm. Supply is limited. 2BHK rents run about ₹24,000–28,000/mo. Good for buyers who need easy access across the city.',
+    },
+
+    'Poonamallee': {
+      overview: 'Poonamallee is a western suburb on the Chennai–Bangalore highway (NH-48), near Porur and the Sriperumbudur industrial belt. It offers affordable homes and is getting a metro line under Phase 2.',
+      specialties: ['Affordable housing', 'NH-48 corridor', 'Phase 2 metro (upcoming)', 'Close to Sriperumbudur industry', 'Western suburbs'],
+      major_employers: ['Sriperumbudur & Irungattukottai industries', 'DLF IT Park, Porur (~8 km)', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Poonamallee & Porur', type: 'Various', note: 'Several CBSE and state board options' },
+      ],
+      traffic: {
+        peak_hours: 'NH-48 near Poonamallee and Porur is congested at peaks',
+        metro_access: 'Phase 2 Corridor 4 (Poonamallee–Lighthouse) under construction / opening in phases',
+        highway_access: 'Chennai–Bangalore Highway (NH-48); Outer Ring Road nearby',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Porur (Sri Ramachandra)', 'Local hospitals'],
+        malls: ['Retail in Porur'],
+        parks: ['Local lakes'],
+      },
+      investment_note: 'Poonamallee is a value market that should gain from the new metro line and industrial jobs to the west. Rents are low. 2BHK rents run about ₹11,000–13,000/mo. Suits budget buyers working in west Chennai or the Sriperumbudur belt.',
+    },
+
+    'Iyyappanthangal': {
+      overview: 'Iyyappanthangal is a residential area next to Porur on Mount–Poonamallee Road, close to DLF IT Park and the Ramapuram offices. It has many apartment projects at moderate prices and is on the route of the Phase 2 metro.',
+      specialties: ['Near DLF IT Park', 'Phase 2 metro corridor', 'Moderate prices', 'Porur access', 'Apartment projects'],
+      major_employers: ['DLF IT Park, Porur', 'L&T & offices in Manapakkam/Ramapuram', 'Sriperumbudur industries'],
+      schools: [
+        { name: 'Schools in Porur & Iyyappanthangal', type: 'Various', note: 'Several CBSE schools nearby' },
+      ],
+      traffic: {
+        peak_hours: 'Mount–Poonamallee Road and Porur junction are congested at peaks',
+        metro_access: 'Phase 2 Corridor 4 (Poonamallee–Lighthouse) under construction / opening in phases',
+        highway_access: 'Mount–Poonamallee Road; NH-48; Porur Outer Ring Road',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Sri Ramachandra Hospital, Porur (~3 km)'],
+        malls: ['Retail in Porur'],
+        parks: ['Porur lake'],
+      },
+      investment_note: 'Iyyappanthangal offers access to the western IT parks at moderate prices, and the metro should improve its pull. 2BHK rents run about ₹14,000–17,000/mo. Good for buyers working in Porur or Manapakkam.',
+    },
+
+    'T Nagar': {
+      overview: 'T Nagar (Thyagaraya Nagar) is Chennai\'s busiest shopping district, famous for Ranganathan Street and the silk and jewellery stores on Usman Road. Behind the commercial streets are quieter residential roads with older houses and newer apartments.',
+      specialties: ['Commercial heart', 'Shopping district', 'Central location', 'Premium residential pockets', 'Close to Mambalam rail'],
+      major_employers: ['Retail & trade', 'Offices on Anna Salai', 'Central Chennai businesses'],
+      schools: [
+        { name: 'Schools in T Nagar', type: 'Various', note: 'Several long-established schools' },
+      ],
+      traffic: {
+        peak_hours: 'Usman Road and Pondy Bazaar are crowded through the day',
+        metro_access: 'Mambalam suburban rail; Blue Line: Teynampet/AG-DMS ~2 km; Phase 2 Corridor 4 through Panagal Park',
+        highway_access: 'Anna Salai ~2 km; Inner Ring Road',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in T Nagar', 'Apollo Hospitals, Greams Road (~4 km)'],
+        malls: ['Pondy Bazaar & Ranganathan Street', 'Express Avenue (~4 km)'],
+        parks: ['Natesan Park', 'Panagal Park'],
+      },
+      investment_note: 'T Nagar is a central, high-value market where land is scarce. Yields are modest. 2BHK rents run about ₹32,000–38,000/mo. Suits buyers who want a central address.',
+    },
+
+    'Mylapore': {
+      overview: 'Mylapore is one of Chennai\'s oldest neighbourhoods, home to the Kapaleeshwarar Temple, San Thome Basilica and a strong cultural life. It has old houses, apartment buildings and quiet streets close to the beach and the city centre.',
+      specialties: ['Heritage neighbourhood', 'Temple & cultural centre', 'Close to Marina', 'Central location', 'Limited supply'],
+      major_employers: ['Offices on Anna Salai & RK Salai', 'Central Chennai businesses'],
+      schools: [
+        { name: 'Schools in Mylapore', type: 'Various', note: 'Several long-established schools' },
+      ],
+      traffic: {
+        peak_hours: 'Narrow streets around the temple are congested at peaks and during festivals',
+        metro_access: 'MRTS: Thirumayilai station; Phase 2 interchange planned there',
+        highway_access: 'RK Salai; Santhome High Road; Anna Salai ~2 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Mylapore & Alwarpet'],
+        malls: ['Retail on Luz Church Road'],
+        parks: ['Marina Beach (~2 km)', 'Nageswara Rao Park'],
+      },
+      investment_note: 'Mylapore is a heritage market that holds its value through scarcity rather than fast growth. Yields are modest. 2BHK rents run about ₹32,000–38,000/mo. Best for buyers who want to live in central, traditional Chennai.',
+    },
+
+    'Chromepet': {
+      overview: 'Chromepet is a suburb on GST Road near the airport, between Pallavaram and Tambaram. It has the suburban rail line, many apartments and independent houses and a strong local market. It is popular with families who work in the south and near the airport.',
+      specialties: ['Airport nearby', 'GST Road', 'Suburban rail', 'Mid-segment housing', 'Established markets'],
+      major_employers: ['Chennai Airport', 'MEPZ (Tambaram)', 'Offices on GST Road'],
+      schools: [
+        { name: 'Schools in Chromepet', type: 'Various', note: 'Several CBSE and state board options' },
+      ],
+      traffic: {
+        peak_hours: 'GST Road is heavily congested at peaks',
+        metro_access: 'Chromepet suburban rail; Blue Line: Airport station ~5 km',
+        highway_access: 'GST Road (NH-32); Pallavaram–Thoraipakkam Radial Road ~3 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Chromepet & Pallavaram'],
+        malls: ['Local markets'],
+        parks: ['Local parks'],
+      },
+      investment_note: 'Chromepet is a dependable mid-segment market with good transport. Growth has been steady. 2BHK rents run about ₹14,000–17,000/mo. Good for families working near the airport or GST Road.',
+    },
+
+    'Tambaram': {
+      overview: 'Tambaram is a major southern suburb and rail hub, at the end of the main suburban line. It has many colleges, the Air Force station and MEPZ, and offers affordable homes with direct rail access to the city.',
+      specialties: ['Railway hub', 'Affordable homes', 'Colleges', 'MEPZ special economic zone', 'GST Road'],
+      major_employers: ['MEPZ', 'Tambaram Air Force Station', 'Colleges & institutes'],
+      schools: [
+        { name: 'Schools in Tambaram', type: 'Various', note: 'Many schools across boards' },
+      ],
+      traffic: {
+        peak_hours: 'GST Road and the station area are congested at peaks',
+        metro_access: 'Tambaram suburban rail',
+        highway_access: 'GST Road (NH-32); Outer Ring Road ~5 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Tambaram'],
+        malls: ['Local markets'],
+        parks: ['Local lakes'],
+      },
+      investment_note: 'Tambaram is a budget market with good rail access but slow price growth. 2BHK rents run about ₹11,000–13,000/mo. Suits self-use buyers who commute by train.',
+    },
+
+    'Padi': {
+      overview: 'Padi is a north-west Chennai neighbourhood near Anna Nagar and the Ambattur industrial estate. It has older industrial land being redeveloped into housing and retail, and is close to Anna Nagar\'s schools and shops.',
+      specialties: ['Near Anna Nagar', 'Ambattur industry', 'Industrial-to-residential shift', 'Affordable', 'Inner Ring Road access'],
+      major_employers: ['Ambattur Industrial Estate', 'Offices in Anna Nagar', 'Local manufacturing'],
+      schools: [
+        { name: 'Schools in Anna Nagar', type: 'Various', note: 'Well-known schools ~3 km away' },
+      ],
+      traffic: {
+        peak_hours: 'Inner Ring Road and Padi junction are busy at peaks',
+        metro_access: 'Blue Line: Thirumangalam ~3 km',
+        highway_access: 'Inner Ring Road; Chennai–Tiruvallur High Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Anna Nagar'],
+        malls: ['VR Chennai, Anna Nagar (~3 km)'],
+        parks: ['Anna Nagar Tower Park (~3 km)'],
+      },
+      investment_note: 'Padi offers proximity to Anna Nagar at much lower prices. Growth has been modest. 2BHK rents run about ₹12,000–14,000/mo. Suits buyers working in Ambattur or Anna Nagar.',
+    },
+
+    'Perambur': {
+      overview: 'Perambur is an old north Chennai neighbourhood around the Integral Coach Factory and railway workshops. It has older housing, a busy market and suburban rail, and is slowly being redeveloped with new apartments.',
+      specialties: ['Railway town', 'Integral Coach Factory', 'Affordable housing', 'Suburban rail', 'North Chennai'],
+      major_employers: ['Integral Coach Factory', 'Railway workshops', 'North Chennai industries'],
+      schools: [
+        { name: 'Schools in Perambur', type: 'Various', note: 'Several long-established schools' },
+      ],
+      traffic: {
+        peak_hours: 'Perambur High Road and the market area are crowded at peaks',
+        metro_access: 'Perambur suburban rail; Phase 2 Corridor 3 via Perambur under construction',
+        highway_access: 'Inner Ring Road; NH-16 nearby',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Railway hospital & local hospitals'],
+        malls: ['Local markets'],
+        parks: ['Local parks'],
+      },
+      investment_note: 'Perambur is a budget, mature market with slow price growth. 2BHK rents run about ₹11,000–13,000/mo. Best for self-use buyers who work in north Chennai.',
+    },
+
   },
   // Day 3 (2026-06-22): Kolkata
   'Kolkata': {
@@ -1682,6 +2945,311 @@ const LOCALITY_INSIGHTS = {
         parks: ['Rabindra Sarobar (1 km)', 'Tollygunge Club golf course & grounds (1 km)'],
       },
       investment_note: 'Tollygunge delivers steady 7–9% appreciation backed by Blue Line metro, Rabindra Sarobar lifestyle, and school proximity. Rental yields at 4–5% are among south Kolkata\'s better numbers. Lower entry price than Ballygunge for comparable connectivity and green environment. Good balanced investment for conservative Kolkata buyers.',
+    },
+
+    'New Town AA-Block': {
+      overview: 'Action Area I is the most developed part of New Town (Rajarhat), Kolkata\'s planned smart city east of Salt Lake. It has wide roads, planned housing blocks, Eco Park nearby and quick access to Sector V\'s IT offices and the airport. Many large apartment complexes are fully occupied.',
+      specialties: ['Planned smart city', 'Close to Sector V IT hub', 'Eco Park', 'Wide roads', 'Near airport'],
+      major_employers: ['Salt Lake Sector V IT offices', 'DLF IT Park & offices in New Town', 'TCS, Wipro & Cognizant campuses'],
+      schools: [
+        { name: 'Delhi Public School, New Town', type: 'CBSE', note: 'Large CBSE school' },
+        { name: 'Schools in New Town & Salt Lake', type: 'Various', note: 'Many CBSE and ICSE options' },
+      ],
+      traffic: {
+        peak_hours: 'Major Arterial Road and Biswa Bangla Sarani are generally free-flowing, slower at peaks',
+        metro_access: 'Orange Line (New Garia–Airport) through New Town under construction; Green Line: Sector V ~4 km',
+        highway_access: 'Major Arterial Road; Biswa Bangla Sarani; VIP Road to the airport',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['Tata Medical Center', 'Hospitals in New Town & Salt Lake'],
+        malls: ['Axis Mall', 'City Centre 2'],
+        parks: ['Eco Park', 'Mother\'s Wax Museum area'],
+      },
+      investment_note: 'Action Area I is the most settled part of New Town, with steady demand from IT staff. Price growth has been better than older Kolkata. 2BHK rents run about ₹18,000–22,000/mo. Good for buyers working in Sector V or New Town.',
+    },
+
+    'New Town Action Area II': {
+      overview: 'Action Area II is the middle phase of New Town, with a mix of residential complexes, commercial plots and institutional campuses. It is less dense than Action Area I and still filling in, with good roads and access to Eco Park and the IT hubs.',
+      specialties: ['Mixed-use township', 'HIDCO planned', 'Newer complexes', 'Close to IT hubs', 'Green spaces'],
+      major_employers: ['IT offices in New Town & Sector V', 'Institutional campuses'],
+      schools: [
+        { name: 'Schools in New Town', type: 'Various', note: 'Several CBSE and ICSE options' },
+      ],
+      traffic: {
+        peak_hours: 'Light; roads are wide and well planned',
+        metro_access: 'Orange Line through New Town under construction',
+        highway_access: 'Major Arterial Road; Biswa Bangla Sarani',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['Tata Medical Center', 'Hospitals in New Town'],
+        malls: ['Axis Mall', 'City Centre 2'],
+        parks: ['Eco Park', 'New Town parks'],
+      },
+      investment_note: 'Action Area II offers newer homes in a planned setting at slightly lower prices than Action Area I. Occupancy is still rising. 2BHK rents run about ₹16,000–20,000/mo. Suits buyers who want a planned township near IT jobs.',
+    },
+
+    'Salt Lake Sec I–IV': {
+      overview: 'Salt Lake (Bidhannagar) Sectors I to III are the original planned residential blocks of Salt Lake, with independent houses, cooperative housing and quiet tree-lined lanes. The Green Line metro now links Salt Lake to Sealdah and Howrah, and Sector V\'s IT offices are close by.',
+      specialties: ['Planned residential blocks', 'Green Line metro', 'Close to Sector V', 'Quiet lanes', 'Established neighbourhood'],
+      major_employers: ['Salt Lake Sector V IT offices', 'State government offices', 'Bidhannagar businesses'],
+      schools: [
+        { name: 'Schools in Salt Lake', type: 'Various', note: 'Many well-known CBSE, ICSE and state schools' },
+      ],
+      traffic: {
+        peak_hours: 'EM Bypass and the Ultadanga connector are busy at peaks; inner lanes are calm',
+        metro_access: 'Green Line: Salt Lake stations (City Centre, Bengal Chemical, Karunamoyee, Central Park)',
+        highway_access: 'EM Bypass; VIP Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['AMRI Salt Lake', 'Columbia Asia (Manipal) Salt Lake'],
+        malls: ['City Centre Salt Lake'],
+        parks: ['Central Park', 'Nicco Park'],
+      },
+      investment_note: 'Salt Lake is a stable, sought-after address, but price growth has been slow because most homes are resale and supply is limited. 2BHK rents run about ₹20,000–25,000/mo. Best for families who want a calm, central-east location.',
+    },
+
+    'Kaikhali': {
+      overview: 'Kaikhali is on VIP Road next to Kolkata airport, between Baguiati and Airport Gate No 1. It has many mid-segment apartment buildings and is popular with airport staff and people working in New Town and Salt Lake.',
+      specialties: ['Airport adjacency', 'VIP Road access', 'Mid-segment apartments', 'Close to New Town', 'Affordable'],
+      major_employers: ['Kolkata Airport', 'IT offices in New Town & Sector V', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Kaikhali & Baguiati', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'VIP Road is busy at peaks',
+        metro_access: 'Yellow Line: Jai Hind Bimanbandar (Airport) ~2–3 km; Orange Line extension towards the airport under construction',
+        highway_access: 'VIP Road; Jessore Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals on VIP Road'],
+        malls: ['City Centre 2 (~4 km)'],
+        parks: ['Local parks'],
+      },
+      investment_note: 'Kaikhali offers affordable homes near the airport and New Town, with demand from airport and IT staff. 2BHK rents run about ₹12,000–15,000/mo. A practical buy for people working nearby.',
+    },
+
+    'Dum Dum': {
+      overview: 'Dum Dum is a large north Kolkata suburb at a key rail and metro junction, with the Blue Line, the Yellow Line and suburban rail meeting at Dum Dum and nearby stations. It has older housing and newer apartments at moderate prices.',
+      specialties: ['Metro junction', 'Suburban rail hub', 'Near airport', 'Moderate prices', 'Established suburb'],
+      major_employers: ['Offices in central Kolkata (by metro)', 'Airport', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Dum Dum', type: 'Various', note: 'Many established schools' },
+      ],
+      traffic: {
+        peak_hours: 'Jessore Road and station areas are congested at peaks',
+        metro_access: 'Blue Line: Dum Dum station; Yellow Line: Dum Dum Cantonment',
+        highway_access: 'Jessore Road; VIP Road ~3 km',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Dum Dum'],
+        malls: ['Diamond Plaza (~3 km)'],
+        parks: ['Local parks'],
+      },
+      investment_note: 'Dum Dum gives excellent transport links at moderate prices, but growth has been slow. 2BHK rents run about ₹11,000–14,000/mo. Good for buyers who need to commute across the city.',
+    },
+
+    'Madhyamgram': {
+      overview: 'Madhyamgram is a suburb north of the airport on Jessore Road, between Birati and Barasat. It has grown with affordable apartments and independent houses, served by the Sealdah–Bangaon suburban line.',
+      specialties: ['Affordable suburb', 'Suburban rail', 'Jessore Road', 'Near airport', 'Growing housing'],
+      major_employers: ['Airport', 'Offices in Kolkata (by rail)', 'Local trade'],
+      schools: [
+        { name: 'Schools in Madhyamgram', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Jessore Road is congested at peaks',
+        metro_access: 'Madhyamgram suburban rail; Yellow Line extension towards Barasat under construction',
+        highway_access: 'Jessore Road (NH-12)',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals'],
+        malls: ['Local markets'],
+        parks: ['Local parks'],
+      },
+      investment_note: 'Madhyamgram is a budget market with rail access and slow price growth. 2BHK rents run about ₹9,000–11,000/mo. Suits budget buyers who will live in the home.',
+    },
+
+    'Barasat': {
+      overview: 'Barasat is the headquarters town of North 24 Parganas district, north of Kolkata. It has government offices, colleges and a large housing market at low prices, with suburban rail to Sealdah.',
+      specialties: ['District headquarters', 'Low prices', 'Suburban rail', 'Colleges', 'Satellite town'],
+      major_employers: ['District government offices', 'Colleges', 'Local trade'],
+      schools: [
+        { name: 'Schools in Barasat', type: 'Various', note: 'Many local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Barasat town centre and Jessore Road are congested at peaks',
+        metro_access: 'Barasat suburban rail; Yellow Line extension planned',
+        highway_access: 'Jessore Road (NH-12); NH-112',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Barasat District Hospital', 'Local hospitals'],
+        malls: ['Local markets'],
+        parks: ['Local parks'],
+      },
+      investment_note: 'Barasat is among the cheapest places to buy in greater Kolkata, but growth and rents are low. 2BHK rents run about ₹7,000–9,000/mo. Best for people who live and work locally.',
+    },
+
+    'Haiderpool / New Kolkata': {
+      overview: 'This is a newer township belt on the southern fringe of greater Kolkata, where large integrated projects have been built on open land. It offers newer homes at lower prices than the city, but depends on road connections and is still developing.',
+      specialties: ['Integrated townships', 'Newer homes', 'Lower prices', 'Developing area'],
+      traffic: {
+        peak_hours: 'Light locally; roads into the city can be slow at peaks',
+        congestion_level: 'Low',
+      },
+      investment_note: 'Township projects here offer modern homes at lower prices, but resale and rental markets are still thin. 2BHK rents run about ₹14,000–17,000/mo in occupied projects. Visit and check occupancy and access roads before buying.',
+    },
+
+    'Kasba': {
+      overview: 'Kasba is a south-east Kolkata neighbourhood along the EM Bypass, close to Ruby and Acropolis Mall. It has mid-segment apartments and is well placed for both south Kolkata and Salt Lake. The Orange Line metro now runs along the Bypass.',
+      specialties: ['EM Bypass', 'Orange Line metro', 'Mid-segment apartments', 'Close to south Kolkata', 'Hospitals nearby'],
+      major_employers: ['Offices on EM Bypass', 'Salt Lake Sector V (~10 km)', 'Hospitals & healthcare'],
+      schools: [
+        { name: 'Schools in Kasba & Ballygunge', type: 'Various', note: 'Many well-known schools nearby' },
+      ],
+      traffic: {
+        peak_hours: 'EM Bypass at Ruby crossing is congested at peaks',
+        metro_access: 'Orange Line: Hemanta Mukhopadhyay (Ruby) and nearby stations',
+        highway_access: 'EM Bypass',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['RN Tagore Hospital', 'Peerless Hospital', 'Ruby General Hospital'],
+        malls: ['Acropolis Mall'],
+        parks: ['Local parks'],
+      },
+      investment_note: 'Kasba is a well-placed mid-segment market with new metro access. Growth has been slow but steady. 2BHK rents run about ₹15,000–18,000/mo. Good for families who want south Kolkata access on the Bypass.',
+    },
+
+    'Garia': {
+      overview: 'Garia is a south Kolkata suburb at the end of the Blue Line metro, near the Orange Line\'s New Garia (Kavi Subhash) terminus. It has many affordable and mid-segment apartments.',
+      specialties: ['Metro terminus', 'Affordable homes', 'South suburb', 'EM Bypass access'],
+      major_employers: ['Offices in south Kolkata', 'Jadavpur University area', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Garia & Jadavpur', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Garia main road and station area are congested at peaks',
+        metro_access: 'Blue Line: Kavi Nazrul, Shahid Khudiram, Kavi Subhash (New Garia); Orange Line from New Garia',
+        highway_access: 'EM Bypass ~2 km; Garia Main Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Garia & on EM Bypass'],
+        malls: ['Local markets'],
+        parks: ['Local water bodies'],
+      },
+      investment_note: 'Garia offers metro-linked homes at low prices, but growth has been slow. 2BHK rents run about ₹12,000–15,000/mo. Suits budget buyers who commute by metro.',
+    },
+
+    'Joka': {
+      overview: 'Joka is a south-west Kolkata suburb on Diamond Harbour Road, home to IIM Calcutta. It is the terminus of the Purple Line metro and has a mix of plotted homes and new apartment projects.',
+      specialties: ['IIM Calcutta', 'Purple Line terminus', 'Diamond Harbour Road', 'Affordable new projects'],
+      major_employers: ['IIM Calcutta', 'Local businesses', 'Offices in central Kolkata'],
+      schools: [
+        { name: 'Schools in Joka & Thakurpukur', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Diamond Harbour Road is busy at peaks',
+        metro_access: 'Purple Line: Joka station',
+        highway_access: 'Diamond Harbour Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['ESI Hospital Joka', 'Local hospitals'],
+        malls: ['Local markets'],
+        parks: ['IIM Calcutta campus area'],
+      },
+      investment_note: 'Joka offers affordable homes with a metro link, though price growth has been modest. 2BHK rents run about ₹11,000–13,000/mo. Good for buyers who work in south-west Kolkata.',
+    },
+
+    'Narendrapur': {
+      overview: 'Narendrapur is a southern suburb known for the Ramakrishna Mission campus. It has plotted development, villas and some apartment projects at low prices, connected by the Sealdah South suburban line.',
+      specialties: ['Ramakrishna Mission', 'Plotted development', 'Suburban rail', 'Low prices', 'Greener setting'],
+      major_employers: ['Local institutions', 'Offices in south Kolkata'],
+      schools: [
+        { name: 'Ramakrishna Mission Vidyalaya, Narendrapur', type: 'State', note: 'Well-known school' },
+      ],
+      traffic: {
+        peak_hours: 'Light locally',
+        metro_access: 'Narendrapur suburban rail',
+        highway_access: 'Garia–Baruipur Road',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals'],
+        malls: ['Local markets'],
+        parks: ['Mission campus greenery'],
+      },
+      investment_note: 'Narendrapur is a quiet, low-cost suburb with slow growth. 2BHK rents run about ₹9,000–11,000/mo. Suits self-use buyers who want space.',
+    },
+
+    'Andul Road': {
+      overview: 'Andul Road runs west from Howrah through older industrial and residential areas. It has affordable housing projects close to Howrah station.',
+      specialties: ['Howrah access', 'Affordable housing', 'Industrial belt'],
+      major_employers: ['Howrah industries', 'Offices in central Kolkata (via Howrah)'],
+      schools: [
+        { name: 'Schools in Howrah', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Andul Road is congested at peaks',
+        metro_access: 'Green Line: Howrah Maidan ~6 km; suburban rail nearby',
+        highway_access: 'Andul Road; Kona Expressway ~3 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Howrah'],
+        malls: ['Avani Riverside Mall (~6 km)'],
+        parks: ['Local parks'],
+      },
+      investment_note: 'Andul Road is a low-cost market with slow growth. 2BHK rents run about ₹7,000–9,000/mo. Best for buyers who work in Howrah.',
+    },
+
+    'Sonarpur': {
+      overview: 'Sonarpur is a southern suburb on the Sealdah South line, south of Garia. It has low-cost plotted and apartment development.',
+      specialties: ['Suburban rail', 'Low prices', 'Plotted development'],
+      major_employers: ['Offices in south Kolkata (by rail)'],
+      schools: [
+        { name: 'Schools in Sonarpur', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Light locally',
+        metro_access: 'Sonarpur suburban rail; Blue Line at Kavi Subhash ~5 km',
+        highway_access: 'Garia–Baruipur Road',
+        congestion_level: 'Low',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals'],
+        malls: ['Local markets'],
+        parks: ['Local water bodies'],
+      },
+      investment_note: 'Sonarpur is a budget market with slow growth and low rents. 2BHK rents run about ₹7,000–9,000/mo. Suits self-use buyers on a budget.',
+    },
+
+    'Behala': {
+      overview: 'Behala is one of Kolkata\'s oldest and largest southern neighbourhoods, along Diamond Harbour Road. It has dense older housing, newer apartments and the Purple Line metro.',
+      specialties: ['Purple Line metro', 'Established neighbourhood', 'Diamond Harbour Road', 'Local markets'],
+      major_employers: ['Offices in central Kolkata', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Behala', type: 'Various', note: 'Many local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Diamond Harbour Road is congested at peaks',
+        metro_access: 'Purple Line: Behala Chowrasta, Behala Bazar, Sakherbazar',
+        highway_access: 'Diamond Harbour Road; James Long Sarani',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Vidyasagar Hospital', 'Local hospitals'],
+        malls: ['Local markets'],
+        parks: ['Local parks'],
+      },
+      investment_note: 'Behala is a large, mature market with slow price growth. 2BHK rents run about ₹10,000–12,000/mo. Suits self-use buyers who want south Kolkata at lower prices.',
     },
 
   },
@@ -1826,6 +3394,320 @@ const LOCALITY_INSIGHTS = {
         parks: ['Vastrapur Lake (3 km)', 'Bodakdev Garden (local)', 'Science City (8 km)'],
       },
       investment_note: 'Bodakdev is Ahmedabad\'s prestige capital preservation play — 10–12% steady appreciation, very limited new supply, and a tenant base of senior executives and business families. Prices at ₹12,000–18,000/sqft for premium units are Ahmedabad\'s highest outside GIFT City. Rental yields at 3–3.5% are modest but tenant quality is exceptional. Best for HNI buyers seeking a prestigious low-density Ahmedabad address.',
+    },
+
+    'Thaltej': {
+      overview: 'Thaltej is a premium west Ahmedabad area on SG Highway, next to Bodakdev. It has upscale apartment towers, bungalows, corporate offices and the western end of the Blue Line metro. It is one of the most sought-after addresses in the city.',
+      specialties: ['Premium west Ahmedabad', 'SG Highway offices', 'Blue Line metro', 'Gated towers & bungalows', 'Top schools nearby'],
+      major_employers: ['Corporate offices on SG Highway', 'Zydus & pharma companies', 'Banks & financial services'],
+      schools: [
+        { name: 'Udgam School for Children', type: 'CBSE/IB', note: 'One of the city\'s best-known schools, nearby' },
+        { name: 'Zydus School for Excellence', type: 'CBSE', note: 'Well-regarded school in Bodakdev' },
+      ],
+      traffic: {
+        peak_hours: 'SG Highway junctions are busy at peaks; inner roads are calm',
+        metro_access: 'Blue Line: Thaltej and Thaltej Gam stations',
+        highway_access: 'SG Highway; 132 Ft Ring Road; Sardar Patel Ring Road ~6 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Zydus Hospitals', 'HCG and Sterling hospitals nearby'],
+        malls: ['Iscon Mega Mall', 'Westgate & SG Highway retail'],
+        parks: ['Vastrapur Lake (~3 km)', 'Thaltej Tekra'],
+      },
+      investment_note: 'Thaltej has been one of Ahmedabad\'s strongest-growing premium areas, backed by offices on SG Highway and the metro. Yields are modest at these prices. 2BHK rents run about ₹30,000–36,000/mo. Good for buyers who want a premium west Ahmedabad home.',
+    },
+
+    'Gota': {
+      overview: 'Gota is a north-west Ahmedabad suburb along SG Highway towards Gandhinagar. It has many newer mid-segment apartments at lower prices than Thaltej and Bodakdev, with BRTS links and quick access to Gandhinagar.',
+      specialties: ['SG Highway corridor', 'Mid-segment new projects', 'BRTS served', 'Close to Gandhinagar', 'Value pricing'],
+      major_employers: ['Offices on SG Highway', 'Gandhinagar government offices', 'GIFT City (~15 km)'],
+      schools: [
+        { name: 'Schools in Gota & Chandlodia', type: 'Various', note: 'Several CBSE and GSEB schools' },
+      ],
+      traffic: {
+        peak_hours: 'SG Highway at Gota crossroads is busy at peaks',
+        metro_access: 'No metro; BRTS along SG Highway; Blue Line at Thaltej ~6 km',
+        highway_access: 'SG Highway; Sardar Patel Ring Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals on SG Highway'],
+        malls: ['Retail along SG Highway'],
+        parks: ['Local gardens'],
+      },
+      investment_note: 'Gota offers newer homes on the SG Highway corridor at moderate prices, with steady demand. 2BHK rents run about ₹15,000–18,000/mo. Suits buyers working on SG Highway or in Gandhinagar.',
+    },
+
+    'Motera': {
+      overview: 'Motera is a north Ahmedabad area best known for the Narendra Modi Stadium, the world\'s largest cricket stadium. It sits on the Sabarmati riverfront side with the Red Line metro terminus and has growing residential projects. The planned sports enclave nearby adds to interest.',
+      specialties: ['Narendra Modi Stadium', 'Red Line metro', 'Riverfront access', 'Sports enclave planned', 'Growing residential projects'],
+      major_employers: ['Offices in Sabarmati & Chandkheda', 'Gandhinagar (~15 km)', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Motera & Chandkheda', type: 'Various', note: 'Several CBSE and GSEB schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; event days at the stadium cause heavy congestion',
+        metro_access: 'Red Line: Motera Stadium station; Gandhinagar metro extension',
+        highway_access: 'Sardar Patel Ring Road ~3 km; Gandhinagar Highway',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Sabarmati & Chandkheda'],
+        malls: ['Local retail'],
+        parks: ['Sabarmati Riverfront', 'Local gardens'],
+      },
+      investment_note: 'Motera has been lifted by the stadium, the metro and planned sports infrastructure. 2BHK rents run about ₹16,000–19,000/mo. A reasonable buy for those working in north Ahmedabad or Gandhinagar.',
+    },
+
+    'Vastrapur': {
+      overview: 'Vastrapur is a central-west Ahmedabad neighbourhood around Vastrapur Lake, close to IIM Ahmedabad. It has established societies, newer towers, malls and good access to SG Highway.',
+      specialties: ['Vastrapur Lake', 'Near IIM Ahmedabad', 'Central west location', 'Malls & restaurants', 'Established societies'],
+      major_employers: ['Offices on SG Highway', 'IIM Ahmedabad', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Vastrapur & Bodakdev', type: 'Various', note: 'Several well-known CBSE schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; roads around the lake and Drive-In Road slow at peaks',
+        metro_access: 'Blue Line: Doordarshan Kendra / Gurukul Road stations ~1–2 km',
+        highway_access: 'SG Highway ~2 km; 132 Ft Ring Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Vastrapur & Bodakdev'],
+        malls: ['AlphaOne (Ahmedabad One) Mall'],
+        parks: ['Vastrapur Lake'],
+      },
+      investment_note: 'Vastrapur is a well-liked central-west address with steady demand. 2BHK rents run about ₹27,000–32,000/mo. Good for families who want an established, central location.',
+    },
+
+    'Chandkheda': {
+      overview: 'Chandkheda is a north Ahmedabad suburb near Motera and the Gandhinagar highway. It has many affordable apartments and is popular with people working in Gandhinagar and north Ahmedabad.',
+      specialties: ['Affordable apartments', 'Near Gandhinagar', 'Close to Red Line metro', 'North Ahmedabad'],
+      major_employers: ['Gandhinagar offices', 'ONGC (Chandkheda)', 'Local industry'],
+      schools: [
+        { name: 'Schools in Chandkheda', type: 'Various', note: 'Several CBSE and GSEB schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate at peaks',
+        metro_access: 'Red Line: Motera Stadium / AEC area stations ~2–3 km',
+        highway_access: 'Sardar Patel Ring Road; Gandhinagar Highway',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals'],
+        malls: ['Local retail'],
+        parks: ['Local gardens'],
+      },
+      investment_note: 'Chandkheda is a budget market with steady demand from Gandhinagar commuters. 2BHK rents run about ₹12,000–14,000/mo. Suits budget buyers working in north Ahmedabad.',
+    },
+
+    'Ambawadi': {
+      overview: 'Ambawadi is a central Ahmedabad area west of the river, between Paldi and Satellite. It has educational institutions, hospitals, shops and established housing, with good access to the city centre.',
+      specialties: ['Central location', 'Educational institutions', 'Hospitals', 'Established housing'],
+      major_employers: ['Offices in Navrangpura & CG Road', 'Hospitals & institutions'],
+      schools: [
+        { name: 'Schools in Ambawadi & Navrangpura', type: 'Various', note: 'Many well-known schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; busy junctions at peaks',
+        metro_access: 'Red Line: Shreyas and Rajivnagar stations ~1–2 km',
+        highway_access: '132 Ft Ring Road; CG Road ~2 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Ambawadi & Navrangpura'],
+        malls: ['Local retail'],
+        parks: ['Parimal Garden'],
+      },
+      investment_note: 'Ambawadi is a central, established market with steady demand. 2BHK rents run about ₹24,000–28,000/mo. Good for families who want central west Ahmedabad.',
+    },
+
+    'Satellite': {
+      overview: 'Satellite is a large, established residential area in west Ahmedabad, between Ambawadi and SG Highway. It has societies, shopping streets and good schools, and is one of the city\'s most popular family neighbourhoods.',
+      specialties: ['Established neighbourhood', 'Shopping streets', 'Good schools', 'Close to SG Highway'],
+      major_employers: ['Offices on SG Highway', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Satellite', type: 'Various', note: 'Several well-known CBSE and GSEB schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; Satellite Road and Shivranjani are busy at peaks',
+        metro_access: 'Red Line: Shreyas station ~2 km; Blue Line: Doordarshan Kendra ~3 km',
+        highway_access: '132 Ft Ring Road; SG Highway ~3 km',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Satellite'],
+        malls: ['Retail along Satellite Road'],
+        parks: ['Local gardens'],
+      },
+      investment_note: 'Satellite is a steady, mature market with resale-heavy supply. 2BHK rents run about ₹22,000–26,000/mo. A dependable self-use choice.',
+    },
+
+    'Paldi': {
+      overview: 'Paldi is an established south-central Ahmedabad area west of the Sabarmati, near the riverfront. It has older societies, newer towers and access to the Red Line metro and BRTS.',
+      specialties: ['Riverfront access', 'Red Line metro', 'Established area', 'Central location'],
+      major_employers: ['Offices in central Ahmedabad', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Paldi', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate at peaks',
+        metro_access: 'Red Line: Paldi station',
+        highway_access: 'Ashram Road; Sabarmati Riverfront Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Paldi'],
+        malls: ['Local retail'],
+        parks: ['Sabarmati Riverfront'],
+      },
+      investment_note: 'Paldi offers central access at moderate prices. 2BHK rents run about ₹17,000–20,000/mo. Good for buyers who want a central location.',
+    },
+
+    'Naranpura': {
+      overview: 'Naranpura is a central-north Ahmedabad neighbourhood near Navrangpura, with established societies, schools and markets. It is a steady mid-segment family area.',
+      specialties: ['Mid-segment', 'Established societies', 'Central-north location'],
+      major_employers: ['Offices in Navrangpura', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Naranpura', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate at peaks',
+        metro_access: 'Red Line: Vijaynagar / Usmanpura stations ~2 km',
+        highway_access: 'Ashram Road; 132 Ft Ring Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Naranpura'],
+        malls: ['Local retail'],
+        parks: ['Local gardens'],
+      },
+      investment_note: 'Naranpura is a stable, family-oriented market. 2BHK rents run about ₹18,000–22,000/mo. A self-use choice in central Ahmedabad.',
+    },
+
+    'Maninagar': {
+      overview: 'Maninagar is an old, established area in south-east Ahmedabad, with a busy railway station, Kankaria Lake nearby and dense housing. It is a traditional middle-class neighbourhood.',
+      specialties: ['Kankaria Lake nearby', 'Railway station', 'Established area', 'Traditional neighbourhood'],
+      major_employers: ['Local businesses', 'Offices in central Ahmedabad'],
+      schools: [
+        { name: 'Schools in Maninagar', type: 'Various', note: 'Many local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Busy at peaks around the station',
+        metro_access: 'Maninagar railway station; Blue Line: Kankaria East ~3 km',
+        highway_access: 'NH-48 nearby; Ring Road access',
+        congestion_level: 'High',
+      },
+      nearby_amenities: {
+        hospitals: ['Hospitals in Maninagar'],
+        malls: ['Local markets'],
+        parks: ['Kankaria Lake'],
+      },
+      investment_note: 'Maninagar is a mature, budget-to-mid market with slow growth. 2BHK rents run about ₹13,000–16,000/mo. Suits self-use buyers.',
+    },
+
+    'Vastral': {
+      overview: 'Vastral is an eastern Ahmedabad suburb at the eastern end of the Blue Line metro. It has many affordable new apartment projects.',
+      specialties: ['Blue Line terminus', 'Affordable projects', 'Eastern suburbs', 'Ring Road access'],
+      major_employers: ['Eastern industrial areas', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Vastral', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate at peaks',
+        metro_access: 'Blue Line: Vastral Gam station',
+        highway_access: 'Sardar Patel Ring Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals'],
+        malls: ['Local markets'],
+        parks: ['Local gardens'],
+      },
+      investment_note: 'Vastral offers metro-linked homes at low prices, with modest growth. 2BHK rents run about ₹11,000–13,000/mo. Suits budget buyers.',
+    },
+
+    'Naroda': {
+      overview: 'Naroda is a north-east Ahmedabad area near the Naroda GIDC industrial estate. Housing is mostly affordable, serving industrial workers.',
+      specialties: ['Industrial estate', 'Affordable housing', 'North-east Ahmedabad'],
+      major_employers: ['Naroda GIDC units', 'Local industry'],
+      schools: [
+        { name: 'Schools in Naroda', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate at peaks',
+        metro_access: 'No metro nearby',
+        highway_access: 'Ahmedabad–Himmatnagar Highway; Ring Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals'],
+        malls: ['Local markets'],
+        parks: ['Local gardens'],
+      },
+      investment_note: 'Naroda is a budget market tied to local industry, with slow growth. 2BHK rents run about ₹10,000–12,000/mo. Suits people who work locally.',
+    },
+
+    'Nikol': {
+      overview: 'Nikol is an eastern Ahmedabad suburb with affordable apartments and growing commercial areas. It is popular with first-time buyers.',
+      specialties: ['Affordable housing', 'Eastern suburbs', 'First-time buyers'],
+      major_employers: ['Eastern industrial areas', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Nikol', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate at peaks',
+        metro_access: 'Blue Line stations along the eastern corridor ~3–4 km',
+        highway_access: 'Sardar Patel Ring Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals'],
+        malls: ['Local markets'],
+        parks: ['Local gardens'],
+      },
+      investment_note: 'Nikol offers low prices but slow growth. 2BHK rents run about ₹10,000–12,000/mo. Suits budget self-use buyers.',
+    },
+
+    'Vatva': {
+      overview: 'Vatva is a south-east Ahmedabad area next to the Vatva GIDC industrial estate. Housing is affordable and mostly serves industrial workers.',
+      specialties: ['GIDC industrial estate', 'Affordable housing'],
+      major_employers: ['Vatva GIDC units', 'Chemical & engineering industry'],
+      schools: [
+        { name: 'Schools in Vatva', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate; heavy vehicles around the GIDC',
+        metro_access: 'No metro nearby',
+        highway_access: 'NH-48; Ring Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals'],
+        malls: ['Local markets'],
+      },
+      investment_note: 'Vatva is a low-cost market tied to industry, with slow growth. 2BHK rents run about ₹8,000–10,000/mo. Suits people working in the GIDC.',
+    },
+
+    'Isanpur': {
+      overview: 'Isanpur is a south-east Ahmedabad suburb with affordable apartments and a busy local market. It is a common choice for first-time buyers.',
+      specialties: ['Affordable housing', 'Starter homes', 'South-east Ahmedabad'],
+      major_employers: ['Vatva & Naroda industry', 'Local businesses'],
+      schools: [
+        { name: 'Schools in Isanpur', type: 'Various', note: 'Several local schools' },
+      ],
+      traffic: {
+        peak_hours: 'Moderate at peaks',
+        metro_access: 'No metro nearby',
+        highway_access: 'NH-48; Ring Road',
+        congestion_level: 'Moderate',
+      },
+      nearby_amenities: {
+        hospitals: ['Local hospitals'],
+        malls: ['Local markets'],
+      },
+      investment_note: 'Isanpur offers low prices with slow growth. 2BHK rents run about ₹8,000–10,000/mo. Suits budget self-use buyers.',
     },
 
   },

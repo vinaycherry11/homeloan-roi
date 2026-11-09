@@ -308,7 +308,10 @@ class PriceToRent:
         rows = ctx['all_rows']
         for x in rows:
             x['ptr'] = x['price'] / (x['rent'] * 12)
-        bands = [(0, 23.5, 'Below 23.5'), (23.5, 26, '23.5 to 26'), (26, 29, '26 to 29'), (29, 99, '29 and above')]
+        # Four bands with roughly equal numbers of localities, cut at the quartiles rounded to 0.5.
+        q1, q2, q3 = (round(v * 2) / 2 for v in statistics.quantiles([x['ptr'] for x in rows], n=4))
+        f = lambda v: f'{v:g}'
+        bands = [(0, q1, f'Below {f(q1)}'), (q1, q2, f'{f(q1)} to {f(q2)}'), (q2, q3, f'{f(q2)} to {f(q3)}'), (q3, 99, f'{f(q3)} and above')]
         brows = []
         for lo, hi, label in bands:
             xs = [x for x in rows if lo <= x['ptr'] < hi]
@@ -328,7 +331,7 @@ class PriceToRent:
             ('What is the price-to-rent ratio?',
              'The price of a home divided by one year’s rent for it. A ₹1 crore flat renting for ₹30,000 a month (₹3.6 lakh a year) has a ratio of about 28: it costs 28 years of rent.'),
             ('What is a good price-to-rent ratio for buying?',
-             'Lower is better for buyers. In our data, localities below about 23.5 need noticeably less price growth for buying to win than those above 29. '
+             f'Lower is better for buyers. In our data, localities below about {f(q1)} need noticeably less price growth for buying to win than those above {f(q3)}. '
              'But no ratio alone settles it: price growth and your loan rate matter just as much.'),
             ('What is the rental yield?',
              'Rental yield is the flip side: one year’s rent divided by the price. A ratio of 28 is a yield of about 3.6%. Indian city homes typically yield 3–4.5% gross, well below home-loan rates.'),
@@ -439,7 +442,7 @@ def build_hub(ctx):
         BuyVsSip.path: 'A ₹1 crore flat, worked through for 20 years. When renting and investing beats buying, and by how much.',
         PrepayOrInvest.path: 'Spare ₹10,000 a month? Compare prepaying the loan with a SIP, at different returns and loan rates.',
         TwentyVsThirty.path: 'What a longer tenure really costs, and when taking it and investing the difference comes out ahead.',
-        PriceToRent.path: 'The quickest way to judge a city or flat, with data from 79 localities.',
+        PriceToRent.path: f'The quickest way to judge a city or flat, with data from {len(ctx["all_rows"])} localities.',
         FiftyLakh.path: 'EMI, total interest, and the year-by-year interest split on a ₹50 lakh loan.',
     }
     cards = ''.join(f'<a class="card" href="{g.path}"><strong>{esc(g.headline)}</strong><span>{esc(blurbs[g.path])}</span></a>' for g in GUIDES)
@@ -452,7 +455,7 @@ def build_hub(ctx):
 <h2>Tools</h2>
 <div class="card-grid">
 <a class="card" href="/"><strong>Buy vs rent calculator</strong><span>Your flat, your rent, your loan: see which leaves you richer, year by year.</span></a>
-<a class="card" href="/buy-vs-rent"><strong>Rent or Buy Index</strong><span>Verdicts for 79 localities in 8 cities, with prices, rents and yields.</span></a>
+<a class="card" href="/buy-vs-rent"><strong>Rent or Buy Index</strong><span>Verdicts for {len(ctx['all_rows'])} localities in {len(ctx['cities'])} cities, with prices, rents and yields.</span></a>
 <a class="card" href="/emi-calculator"><strong>EMI calculator</strong><span>EMI, total interest and repayment for any home loan.</span></a>
 </div>
 '''
